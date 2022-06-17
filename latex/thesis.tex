@@ -8,9 +8,8 @@
 \usepackage{lmodern}
 \usepackage{lipsum}
 \usepackage[onehalfspacing]{setspace}
-\usepackage[top=35mm, left=30mm, right=30mm]{geometry}
+\usepackage[top=30mm, left=25mm, right=25mm, bottom=20mm]{geometry}
 \usepackage{graphicx}
-\usepackage{svg}
 \usepackage{nameref}
 \usepackage{graphicx}
 \usepackage{xcolor}
@@ -48,7 +47,7 @@
 \newenvironment{myAbstract}{\section*{Abstract}}{}
 
 \begin{document}
-\pagenumbering{roman}
+\pagenumbering{gobble}
 \newgeometry{top=35mm, left=20mm, right=20mm, bottom=10mm}
 \begin{titlepage}
 	\begin{center}
@@ -111,20 +110,53 @@ Institute of Computer Science\\
 \phantom{H}\includegraphics[height=3em]{../assets/formal/sign.png}\\[0.5em]
 Göttingen, \today \hspace{2em}
 
+\iffalse
 \pagebreak
 \mbox{}
+\fi
 
 \pagebreak
+\restoregeometry
+\newgeometry{left=30mm, right=30mm, top=10mm, bottom=20mm}
+\tableofcontents
+\pagenumbering{roman}
+\setcounter{page}{2}
+\pagebreak
+
 \restoregeometry
 \pagenumbering{arabic}
-\setcounter{page}{0}
-\newgeometry{left=45mm, right=45mm}
-\tableofcontents
-
-\pagebreak
-
-\restoregeometry
-
+\setcounter{page}{1}
 \pagestyle{headings}
+
+\chapter{Introduction}
+\section{Motivation}
+
+\section{Bézier Curves and Surfaces}
+\subsection{Definition}
+\subsection{De Casteljau's Algorithm}
+\subsection{Properties (Motivation of Bézier)}
+
+\chapter{Non-Uniform Rational B-Splines}
+\section{Definition}
+\subsection{NURBS Curve}
+\subsection{NURBS Surface}
+\section{De Boor's Algorithm}
+\section{Properties (Motivation of NURBS)}
+\section{Common Methods on NURBS Objects}
+
+\chapter{Cooling Geometries}
+\section{Chambers}
+\section{Turnarounds}
+\section{Slots}
+\section{Film Cooling}
+\section{Impingement Cooling}
+
+\chapter{Practical Considerations}
+\section{CENTAUR File Export}
+\section{STEP File Export}
+
+\chapter{Discussion}
+\section{Grid-Searching With CoolingGen}
+\section{Things Desired}
 
 \end{document}
