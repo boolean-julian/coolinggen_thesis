@@ -1,0 +1,130 @@
+\documentclass[a4paper, 11pt]{report}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{lipsum}
+\usepackage[onehalfspacing]{setspace}
+\usepackage[top=35mm, left=30mm, right=30mm]{geometry}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{nameref}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{subcaption}
+\usepackage{cleveref}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{extarrows}
+\usepackage[main=english]{babel}
+\usepackage{marvosym}
+\usepackage[nottoc]{tocbibind}
+\hypersetup{hypertexnames=false}
+
+\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt}
+\lstset{language=Python}
+
+\usetikzlibrary{matrix}
+
+\DeclareMathOperator{\rel}{\sim_R}
+\renewcommand{\emph}[1]{\textit{#1}}
+\newcommand{\mytitle}[1]{\LARGE{#1}\normalsize\\[0.3em]}
+\newcommand{\titlespace}{\vspace{2em}}
+\newcommand{\smallspace}{\vspace{1em}}
+\newcommand{\hugespace}{\vspace{17em}}
+\newcommand{\logoheight}{4em}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem*{remark}{Remark}
+\newenvironment{myAbstract}{\section*{Abstract}}{}
+
+\begin{document}
+\pagenumbering{roman}
+\newgeometry{top=35mm, left=20mm, right=20mm, bottom=10mm}
+\begin{titlepage}
+	\begin{center}
+		\begin{minipage}{.49\textwidth}
+			\flushleft
+			\includegraphics[height=\logoheight]{../assets/formal/logo_gau.png}
+		\end{minipage}
+		\begin{minipage}{.49\textwidth}
+			\flushright
+			\includegraphics[height=\logoheight]{../assets/formal/logo_dlr.png}	
+		\end{minipage}
+		\begin{minipage}{.49\textwidth}
+			\begin{center}
+				\vspace{2cm}
+				Master's thesis in\\
+				Applied Computer Science\\
+				\titlespace
+				\mytitle{CoolingGen}
+				A parametric 3D-modeling software for turbine blade cooling geometries using NURBS\\
+				\titlespace
+				\today\\
+				\hugespace
+				Institute for Numerical and Applied Mathematics at the Georg-August-University Göttingen\\
+				\titlespace
+				Institute for Propulsion Technology at the German Aerospace Center in Göttingen\\
+				\titlespace
+				Bachelor's and master's theses at the Center for Computational Sciences at the Georg-August-University Göttingen\\
+				\titlespace
+				Julian Lüken\\
+				\texttt{julian.lueken@dlr.de}\\
+			\end{center}
+		\end{minipage}
+	\end{center}
+\end{titlepage}
+
+\restoregeometry
+\newgeometry{left=45mm, right=45mm}
+\pagestyle{empty}
+\setcounter{page}{2}
+
+\pagebreak
+\newgeometry{top=210mm}
+\noindent
+\begin{tabular}{l}
+Georg-August-University Göttingen\\
+Institute of Computer Science\\
+\end{tabular}\\[1em]
+\begin{tabular}{ll}
+	\Telefon 	&+49 (551) 39-172000\\
+	\FAX 		&+49 (551) 39-14403\\
+	\Letter 	&\texttt{office@cs.uni-goettingen.de}\\
+\end{tabular}\\[1em]
+\begin{tabular}{l}
+\texttt{www.informatik.uni-goettingen.de}\\
+\end{tabular}\\[1em]
+
+\pagebreak
+
+\noindent I hereby declare that this thesis has been written by myself and no other resources than those mentioned have been used.\\[0.7em]
+\phantom{H}\includegraphics[height=3em]{../assets/formal/sign.png}\\[0.5em]
+Göttingen, \today \hspace{2em}
+
+\pagebreak
+\mbox{}
+
+\pagebreak
+\restoregeometry
+\pagenumbering{arabic}
+\setcounter{page}{0}
+\newgeometry{left=45mm, right=45mm}
+\tableofcontents
+
+\pagebreak
+
+\restoregeometry
+
+\pagestyle{headings}
+
+\end{document}
