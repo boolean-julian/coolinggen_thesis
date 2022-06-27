@@ -1,0 +1,23 @@
+0. Abstract und kurze Zusammenfassung
+	Was habe ich gemacht + core usage, was haben wir gelernt
+
+Motivation:
+	* weltliche Einordnung
+	* Einordnung in die Kühlung
+	* wo die Mathe reinspielt
+	* Problembeschreibung
+	* Literaturteil/State of the Art -> Anwendungsmöglichkeiten für parametrische NURBS Modellierung
+
+Bezier unter Pkt 2
+
+NURBS Pkt 3 etc.
+
+Cooling Geometries -> Results unter Pkt 4
+
+Grid-search with CoolGen -> eigener punkt namens further usage
+
+5. discussion/conclusion
+
+5.2 umbenennen zu future work
+
+6. literaturverzeichnis
