@@ -111,10 +111,18 @@ Göttingen, \today \hspace{2em}
 \pagebreak
 
 \restoregeometry
+\begin{abstract}
+	\thispagestyle{plain}
+	\pagenumbering{roman}
+	\setcounter{page}{3}
+	\lipsum[1]
+\end{abstract}
+\pagebreak
+
+\setcounter{page}{4}
+\restoregeometry
 \newgeometry{left=30mm, right=30mm, top=10mm, bottom=20mm}
 \tableofcontents
-\pagenumbering{roman}
-\setcounter{page}{3}
 \pagebreak
 
 \restoregeometry
@@ -124,32 +132,90 @@ Göttingen, \today \hspace{2em}
 
 \chapter{Introduction}
 \section{Motivation}
-$$a^2 + b^2 = c^2$$
+\section{State of the Art}
+\section{Problem Statement}
 
-\section{Bézier Curves and Surfaces}
+\chapter{Methods}
+\section{Bézier Curves}
+Bézier curves are named after the french engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
+
 \subsection{Definition}
-\subsection{De Casteljau's Algorithm}
+\begin{definition}
+	The \emph{Bernstein basis polynomials} of degree $n$ on the interval $[t_0,t_1]$ are defined as
+	\begin{equation}\label{bernsteinbasisdef}
+		b_{n,k,[t_0, t_1]}(t) := \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n,}
+	\end{equation}
+	for $k \in \{0\dots n\}$.
+\end{definition}
+
+\begin{theorem}
+	The set of polynomials
+		$$\mathcal{P}_n := \{ p : t \mapsto \sum_{k=0}^n c_k t^k, c_k \in \mathbb{R}\}$$
+	equipped with the usual operations is a vector space.
+\end{theorem}
+
+\begin{theorem}
+	The Bernstein basis polynomials of degree $n$ form a basis of $\mathcal{P}_n$.
+\end{theorem}
+
+\begin{theorem}[Theorem of Stone-Weierstrass]
+	Yet to come.
+\end{theorem}
+
+\begin{definition}
+	A \emph{Bézier curve} of degree $n$ is a parametric curve $C_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow \mathbb{R}^3$ that has a representation
+	\begin{equation}\label{bezierdef}
+		C_{P, [t_0, t_1]}(t) = \frac{\sum_{i=0}^n \binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k P_k}{(t_1-t_0)^n}.
+	\end{equation}
+	We call the elements of the set $P = \{P_1, P_2, \dots, P_n\}$ the \emph{control points} of $C_P$.
+\end{definition}
+
+\begin{remark}
+	Let $t_0 = 0$ and $t_1 = 1$. Then \ref{bezierdef} simplifies to
+	\begin{equation}
+		b_{n,k}(t) := b_{n,k,[0,1]}(t) = \binom{n}{k} (1-t)^{n-k}(t)^k.
+	\end{equation}
+	Also, \ref{bernsteinbasisdef} simplifies to
+	\begin{equation}
+		C_P(t) := C_{P,[0,1]}(t)= \sum_{i=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
+	\end{equation}
+	This case is the only case considered in this thesis.
+\end{remark}
+
+
+
+
 \subsection{Properties}
+\subsection{De Casteljau's Algorithm}
 
-\chapter{Non-Uniform Rational B-Splines}
-\section{Definition}
-\subsection{NURBS Curve}
-\subsection{NURBS Surface}
-\section{De Boor's Algorithm}
-\section{Properties}
-\section{Common Methods on NURBS Objects}
+\section{Non-Uniform Rational B-Splines (NURBS)}
+\subsection{Definition}
+\subsection{Properties}
+\subsection{De Boor's Algorithm}
 
-\chapter{Cooling Geometries}
-\section{Chambers}
-\section{Turnarounds}
-\section{Slots}
-\section{Film Cooling Holes}
-\section{Impingement Inserts}
+\section{Methods on NURBS Objects}
+\subsection{Projection, Translation and Rotation}
+\subsection{The Frenet-Serret Apparatus}
+\subsection{Finding Intersections}
+\subsection{Interpolation}
 
-\chapter{Open CASCADE}
+\section{Jet Engine Design Specifics}
+\subsection{Fundamental Terms}
+\subsection{The S2M Net}
+\subsection{Fillet Creation}
+
+\chapter{Results}
+\section{Cooling Geometries And Their Parametrizations}
+\subsection{Chambers}
+\subsection{Turnarounds}
+\subsection{Slots}
+\subsection{Film Cooling Holes}
+\subsection{Impingement Inserts}
+\section{Export for CENTAUR}
+\section{Export for Open CASCADE}
 
 \chapter{Discussion}
-\section{Grid-Searching With CoolingGen}
-\section{Things Desired}
+\section{Future Work}
+\section{Conclusion}
 
 \end{document}
