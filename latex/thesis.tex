@@ -9,49 +9,58 @@
 
 \documentclass[a4paper, 11pt]{report}
 
-\usepackage[hidelinks]{hyperref}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{amsthm}
+% Packages
+%% Input encoding
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{lipsum}
+
+%% Languages and symbols
+\usepackage[main=english]{babel}
+\usepackage{extarrows}
+\usepackage{marvosym}
+
+%% AMS packages
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+%% Citations and references
+\usepackage[style=alphabetic, backend=biber]{biblatex} 
+\usepackage[hidelinks]{hyperref}
+\usepackage{csquotes}
+\usepackage{nameref}
+\usepackage{cleveref}
+\usepackage{listings}
+
+%% Page geometry
 \usepackage[onehalfspacing]{setspace}
 \usepackage[top=30mm, left=25mm, right=25mm, bottom=20mm]{geometry}
-\usepackage{graphicx}
-\usepackage{nameref}
+\usepackage{titlesec}
+
+%% Figures and graphics
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{colortbl}
 \usepackage{subcaption}
-\usepackage{cleveref}
 \usepackage{tikz}
 \usepackage{float}
-\usepackage{listings}
-\usepackage{extarrows}
-\usepackage[main=english]{babel}
-\usepackage{marvosym}
-\usepackage{csquotes}
 
-\usepackage[style=alphabetic, backend=biber]{biblatex} 
-\addbibresource{../bibtex/bibliography.bib} 
+%% Testing
+\usepackage{lipsum}
 
+%% Package settings
+%%% BibLaTeX resource (JabRef output file)
+\addbibresource{../bibtex/bibliography.bib}
+
+%%% Hyperref options
 \hypersetup{hypertexnames=false}
 
+%%% Listings options (for writing algorithms in LaTeX)
 \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt}
 \lstset{language=Python}
 
-\usetikzlibrary{matrix}
-
-\DeclareMathOperator{\rel}{\sim_R}
-\renewcommand{\emph}[1]{\textit{#1}}
-\newcommand{\mytitle}[1]{\LARGE{#1}\normalsize\\[0.3em]}
-\newcommand{\titlespace}{\vspace{2em}}
-\newcommand{\smallspace}{\vspace{1em}}
-\newcommand{\hugespace}{\vspace{17em}}
-\newcommand{\logoheight}{4em}
-
+%%% AMS environment definitions
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{example}[definition]{Example}
@@ -60,7 +69,21 @@
 \newtheorem*{remark}{Remark}
 \newenvironment{myAbstract}{\section*{Abstract}}{}
 
+%%% Special formatting
+\renewcommand{\emph}[1]{\textit{#1}}
+\newcommand{\mytitle}[1]{\LARGE{#1}\normalsize\\[0.3em]}
+\newcommand{\titlespace}{\vspace{2em}}
+\newcommand{\smallspace}{\vspace{1em}}
+\newcommand{\hugespace}{\vspace{17em}}
+\newcommand{\logoheight}{4em}
+
 \begin{document}
+
+% Chapter format
+\titleformat{\chapter}[hang]{\normalfont\huge\bfseries}{\thechapter}{0.75em}{\huge\bfseries}
+\titlespacing*{\chapter}{0em}{0em}{1em}
+
+% Title page
 \pagenumbering{gobble}
 \newgeometry{top=35mm, left=20mm, right=20mm, bottom=10mm}
 \begin{titlepage}
@@ -96,13 +119,12 @@
 		\end{minipage}
 	\end{center}
 \end{titlepage}
-
-\restoregeometry
-\newgeometry{left=45mm, right=45mm}
-\pagestyle{empty}
 \pagebreak
 
-\newgeometry{top=210mm}
+% Address page
+\pagestyle{empty}
+\restoregeometry
+\newgeometry{top=210mm, left=45mm, right=45mm}
 \noindent
 \begin{tabular}{l}
 Georg-August-University Göttingen\\
@@ -118,11 +140,13 @@ Institute of Computer Science\\
 \end{tabular}\\[1em]
 \pagebreak
 
+% Done-it-myself page
 \noindent I hereby declare that this thesis has been written by myself and no other resources than those mentioned have been used.\\[0.7em]
 \phantom{H}\includegraphics[height=3em]{../assets/formal/sign.png}\\[0.5em]
 Göttingen, \today \hspace{2em}
 \pagebreak
 
+% Abstract and Zusammenfassung
 \restoregeometry
 \begin{abstract}
 	\thispagestyle{plain}
@@ -139,16 +163,17 @@ Göttingen, \today \hspace{2em}
 \end{abstract}
 \pagebreak
 
-\setcounter{page}{4}
+% Table of contents
+\setcounter{page}{5}
 \restoregeometry
-\newgeometry{left=30mm, right=30mm, top=0mm, bottom=20mm}
 \tableofcontents
 \pagebreak
 
+% Actual document starts here
 \restoregeometry
 \pagenumbering{arabic}
 \setcounter{page}{1}
-\pagestyle{headings}
+\pagestyle{plain}
 
 \chapter{Introduction}
 \section{Motivation}
@@ -222,6 +247,7 @@ Bézier curves are named after the french engineer Pierre Bézier, who famously 
 \section{Conclusion}
 \cite{Piegl1997}
 
+% Bibliography, numbered and formatted like a chapter (for the TOC as well)
 \printbibliography[heading=bibnumbered]
 
 \end{document}
