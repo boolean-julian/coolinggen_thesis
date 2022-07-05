@@ -1,3 +1,12 @@
+% Thesis template by Julian Lueken
+
+% Optimized for literature management with JabRef + BibLaTeX
+
+% Change user settings:
+%	"keep_focus": true, --> false, to remove the annoying pop ups
+%	"use_biblatex": false,
+%	"builder": "traditional" --> "basic", to use biber on every compilation
+
 \documentclass[a4paper, 11pt]{report}
 
 \usepackage[hidelinks]{hyperref}
@@ -23,7 +32,11 @@
 \usepackage{extarrows}
 \usepackage[main=english]{babel}
 \usepackage{marvosym}
-\usepackage[nottoc]{tocbibind}
+\usepackage{csquotes}
+
+\usepackage[style=alphabetic, backend=biber]{biblatex} 
+\addbibresource{../bibtex/bibliography.bib} 
+
 \hypersetup{hypertexnames=false}
 
 \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt}
@@ -115,13 +128,20 @@ Göttingen, \today \hspace{2em}
 	\thispagestyle{plain}
 	\pagenumbering{roman}
 	\setcounter{page}{3}
-	\lipsum[1]
+	\lipsum[1-3]
+\end{abstract}
+\renewcommand{\abstractname}{Zusammenfassung}
+\begin{abstract}
+	\thispagestyle{plain}
+	\pagenumbering{roman}
+	\setcounter{page}{4}
+	\lipsum[4-6]
 \end{abstract}
 \pagebreak
 
 \setcounter{page}{4}
 \restoregeometry
-\newgeometry{left=30mm, right=30mm, top=10mm, bottom=20mm}
+\newgeometry{left=30mm, right=30mm, top=0mm, bottom=20mm}
 \tableofcontents
 \pagebreak
 
@@ -137,7 +157,7 @@ Göttingen, \today \hspace{2em}
 
 \chapter{Methods}
 \section{Bézier Curves}
-Bézier curves are named after the french engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
+Bézier curves are named after the french engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
 
 \subsection{Definition}
 \begin{definition}
@@ -147,20 +167,6 @@ Bézier curves are named after the french engineer Pierre Bézier, who famously 
 	\end{equation}
 	for $k \in \{0\dots n\}$.
 \end{definition}
-
-\begin{theorem}
-	The set of polynomials
-		$$\mathcal{P}_n := \{ p : t \mapsto \sum_{k=0}^n c_k t^k, c_k \in \mathbb{R}\}$$
-	equipped with the usual operations is a vector space.
-\end{theorem}
-
-\begin{theorem}
-	The Bernstein basis polynomials of degree $n$ form a basis of $\mathcal{P}_n$.
-\end{theorem}
-
-\begin{theorem}[Theorem of Stone-Weierstrass]
-	Yet to come.
-\end{theorem}
 
 \begin{definition}
 	A \emph{Bézier curve} of degree $n$ is a parametric curve $C_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow \mathbb{R}^3$ that has a representation
@@ -181,9 +187,6 @@ Bézier curves are named after the french engineer Pierre Bézier, who famously 
 	\end{equation}
 	This case is the only case considered in this thesis.
 \end{remark}
-
-
-
 
 \subsection{Properties}
 \subsection{De Casteljau's Algorithm}
@@ -217,5 +220,8 @@ Bézier curves are named after the french engineer Pierre Bézier, who famously 
 \chapter{Discussion}
 \section{Future Work}
 \section{Conclusion}
+\cite{Piegl1997}
+
+\printbibliography[heading=bibnumbered]
 
 \end{document}
