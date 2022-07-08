@@ -45,6 +45,7 @@
 \usepackage{subcaption}
 \usepackage{tikz}
 \usepackage{float}
+\usepackage{svg}
 
 %% Testing
 \usepackage{lipsum}
@@ -196,7 +197,7 @@ Bézier curves are named after the french engineer Pierre Bézier, who famously 
 \begin{definition}
 	A \emph{Bézier curve} of degree $n$ is a parametric curve $C_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow \mathbb{R}^3$ that has a representation
 	\begin{equation}\label{bezierdef}
-		C_{P, [t_0, t_1]}(t) = \frac{\sum_{i=0}^n \binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k P_k}{(t_1-t_0)^n}.
+		C_{P, [t_0, t_1]}(t) = \sum_{k=0}^n b_{n,k,[t_0, t_1]}(t) P_k = \sum_{k=0}^n \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k P_k}{(t_1-t_0)^n}.
 	\end{equation}
 	We call the elements of the set $P = \{P_1, P_2, \dots, P_n\}$ the \emph{control points} of $C_P$.
 \end{definition}
@@ -204,16 +205,24 @@ Bézier curves are named after the french engineer Pierre Bézier, who famously 
 \begin{remark}
 	Let $t_0 = 0$ and $t_1 = 1$. Then \ref{bezierdef} simplifies to
 	\begin{equation}
-		b_{n,k}(t) := b_{n,k,[0,1]}(t) = \binom{n}{k} (1-t)^{n-k}(t)^k.
+		b_{n,k}(t) := b_{n,k,[0,1]}(t) = \binom{n}{k} (1-t)^{n-k}t^k.
 	\end{equation}
 	Also, \ref{bernsteinbasisdef} simplifies to
 	\begin{equation}
-		C_P(t) := C_{P,[0,1]}(t)= \sum_{i=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
+		C_P(t) := C_{P,[0,1]}(t)= \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
 	\end{equation}
 	This case is the only case considered in this thesis.
 \end{remark}
 
+\begin{figure}
+	\centering
+	\includesvg[width=0.7\textwidth]{../python/bezierDifferentDegrees}
+	\caption{Beziér curves of different degrees and their control points}
+\end{figure}
+
 \subsection{Properties}
+
+
 \subsection{De Casteljau's Algorithm}
 
 \section{Non-Uniform Rational B-Splines (NURBS)}
