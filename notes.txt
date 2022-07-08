@@ -23,3 +23,6 @@ subdivision
 projection, translation, rotation -> affine transformations
 richtwert seitenzahl 60
 Mi 20.07. 16:00 Plonka-Hoch Termin 
+
+
+nope
