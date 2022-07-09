@@ -29,32 +29,33 @@ def plot_points(points, color, control = False):
 	else:
 		plt.plot(xs, ys, color=color, linewidth=5)
 		
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(10,3))
 
-control_points = [[0.1,0], [0,0.9], [1,1]] # [[x1,y1],[x2,y2],...]
+# First set
+control_points = [[0,0], [1, 1]] # [[x1,y1],[x2,y2],...]
 bezier_points = bezier_curve(control_points)
 
 plot_points(bezier_points, "tab:orange")
 plot_points(control_points, "tab:blue", control = True)
 
-control_points = [[0.4,0.1], [0.8, 0.1], [1, 0.5], [0.7, 0.8]] # [[x1,y1],[x2,y2],...]
+# Second set
+control_points = [[2,0], [1, 0.5], [2,1]] # [[x1,y1],[x2,y2],...]
 bezier_points = bezier_curve(control_points)
 
 plot_points(bezier_points, "tab:orange")
 plot_points(control_points, "tab:blue", control = True)
 
-control_points = [[0.2,0.25], [0.6, 0.75]] # [[x1,y1],[x2,y2],...]
+# Third set
+control_points = [[2.5,0], [3.5, 0.2], [3.3, 1.1], [2.4, 0.9]] # [[x1,y1],[x2,y2],...]
 bezier_points = bezier_curve(control_points)
 
 plot_points(bezier_points, "tab:orange")
 plot_points(control_points, "tab:blue", control = True)
 
-plt.text(0.08, 0.7, "n = 3", fontsize="large", ma="center")
-plt.text(0.28, 0.5, "n = 2", fontsize="large", ma="center")
-plt.text(0.7, 0.4, "n = 1", fontsize="large", ma="center")
+plt.text(0.1, 0.4, "n = 1", fontsize="large", ma="center")
+plt.text(1.3, 0.8, "n = 2", fontsize="large", ma="center")
+plt.text(2.5, 0.15, "n = 3", fontsize="large", ma="center")
 
 plt.axis("off")
-ax.margins(0.02)
-
-#plt.show()
 plt.savefig("bezierDifferentDegrees.svg")
+plt.show()
