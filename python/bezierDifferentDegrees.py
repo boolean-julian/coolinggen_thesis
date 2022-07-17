@@ -2,6 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.special import comb
 
+from matplotlib import rc
+rc('text', usetex=True)
+
 def bernstein_poly(k, n, t):
 	return comb(n,k) * t**(n-k) * (1-t)**k
 
@@ -52,9 +55,9 @@ bezier_points = bezier_curve(control_points)
 plot_points(bezier_points, "tab:orange")
 plot_points(control_points, "tab:blue", control = True)
 
-plt.text(0.1, 0.4, "n = 1", fontsize="large", ma="center")
-plt.text(1.3, 0.8, "n = 2", fontsize="large", ma="center")
-plt.text(2.5, 0.15, "n = 3", fontsize="large", ma="center")
+plt.text(0.1, 0.4, r"$n = 1$", fontsize="large", ma="center")
+plt.text(1.3, 0.8, r"$n = 2$", fontsize="large", ma="center")
+plt.text(2.5, 0.15, r"$n = 3$", fontsize="large", ma="center")
 
 plt.axis("off")
 plt.savefig("bezierDifferentDegrees.svg")

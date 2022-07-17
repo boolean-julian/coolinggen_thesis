@@ -12,7 +12,7 @@
 
 % Packages
 %% Input encoding
-\usepackage[utf8]{inputenc}
+%%\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 
@@ -48,6 +48,10 @@
 \usepackage{float}
 \usepackage{svg}
 
+%% Pseudo-code
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
 %% Testing
 \usepackage{lipsum}
 
@@ -58,7 +62,7 @@
 %%% Hyperref options
 \hypersetup{hypertexnames=false}
 
-%%% Listings options (for writing algorithms in LaTeX)
+%%% Listings options (for writing code in LaTeX)
 \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt}
 \lstset{language=Python}
 
@@ -78,6 +82,14 @@
 \newcommand{\smallspace}{\vspace{1em}}
 \newcommand{\hugespace}{\vspace{17em}}
 \newcommand{\logoheight}{4em}
+
+%% Special formatting for pesudocode
+\algblock{Input}{EndInput}
+\algnotext{EndInput}
+\algblock{Output}{EndOutput}
+\algnotext{EndOutput}
+\newcommand{\Desc}[2]{\State \makebox[12em][l]{#1}#2}
+
 
 \begin{document}
 
@@ -215,16 +227,102 @@ Bézier curves are named after the french engineer Pierre Bézier, who famously 
 	This case is the only case considered in this thesis.
 \end{remark}
 
+\subsection{De Casteljau's Algorithm}
+The algorithm proposed by Paul de Faget de Casteljau calculates points on the Beziér curve in a recursive manner.
+\begin{algorithm}
+	\begin{algorithmic}
+		\Input
+			\Desc{$P = \{P_0, P_1, ..., P_n\}$}{set of control points}
+			\Desc{$t$}{real number}
+		\EndInput
+		\Output
+			\Desc{$P^{(n)}_0 = C_P(t)$}{the point on the Beziér curve}
+		\EndOutput
+
+		\caption{De Casteljau's algorithm}\label{casteljaualgo}
+		\Procedure{deCasteljau}{P, t}
+			\State $P^{(0)} \gets P$
+			\For {$i = 1, 2, ..., n$}
+				\For {$j = 0, 1, ..., n-j$}
+					\State $P^{(i)}_j = (1-t) \cdot P^{(i-1)}_j + t \cdot P^{(i-1)}_{j+1}$
+				\EndFor
+			\EndFor
+			\Return $P^{(n)}_0$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+
+\begin{figure}[!ht]
+	\centering
+	\begin{tikzpicture}
+		\def\dx{60pt}
+		\def\dy{25pt}
+
+		\pgfmathsetmacro{\numcontrolpoints}{3}
+
+		\newcounter{i}
+		\newcounter{j}
+		
+
+		\node (\arabic{i}) at (0,0) {$P^{(\numcontrolpoints)}_0$};
+		\stepcounter{i}
+
+		\foreach \x in {1, ..., \numcontrolpoints} {
+			\pgfmathsetmacro{\xstep}{\x-2}
+
+			\setcounter{j}{0}
+			\foreach \y in {\x, \xstep, ..., -\x} {
+				\pgfmathsetmacro{\psuperscript}{\numcontrolpoints-\x}
+				
+				\node (\arabic{i}) at (\x*\dx, \y*\dy) {$P^{(\pgfmathint{\psuperscript}\pgfmathresult)}_{\arabic{j}}$};
+				\stepcounter{i}
+				\stepcounter{j}
+			}
+		}
+
+
+		\newcounter{z}
+		\newcounter{a}
+		\newcounter{b}
+		\pgfmathsetmacro{\maxx}{\numcontrolpoints}
+		\foreach \x in {1,...,\numcontrolpoints}{
+			\foreach \y in {1,...,\x}{
+				
+				\setcounter{a}{\arabic{z}}
+				\addtocounter{a}{\x}
+
+				\setcounter{b}{\arabic{z}}
+				\addtocounter{b}{\x}
+				\stepcounter{b}
+				
+				\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $1-t$};
+				\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $t$};
+				
+				\stepcounter{z}
+			}
+		}
+	\end{tikzpicture}
+	\caption{Beziér curves of different degrees and their control points}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includesvg[width=\textwidth]{../python/deCasteljauVisual}
+	\caption{Beziér curves of different degrees and their control points}
+\end{figure}
+
+
+
+\subsection{Properties}
+
 \begin{figure}[!ht]
 	\centering
 	\includesvg[width=\textwidth]{../python/bezierDifferentDegrees}
 	\caption{Beziér curves of different degrees and their control points}
 \end{figure}
 
-\subsection{Properties}
 
-
-\subsection{De Casteljau's Algorithm}
 
 \section{Non-Uniform Rational B-Splines (NURBS)}
 \subsection{Definition}

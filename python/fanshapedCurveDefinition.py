@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+from matplotlib import rc
+rc('text', usetex=True)
+
 r = 1
 d = 1.25
 b = 1.5
@@ -127,17 +130,17 @@ def make_arrow_one_sided(x, y, dx, dy, label, offset, color = "gray"):
 
 offset = 0.06
 # Circle radius
-make_arrow_one_sided(0, 0, r, 0, "r", offset, "tab:orange")
+make_arrow_one_sided(0, 0, r, 0, r"$r$", offset, "tab:orange")
 
 # Circle radius in corners of fanshaped curve
 #make_arrow(0, b-r, r/np.sqrt(2), r/np.sqrt(2), "r", offset, "tab:blue")
-make_arrow_one_sided(2*r-2*d, b-r, -r/np.sqrt(2), r/np.sqrt(2), "r", offset, "tab:blue")
+make_arrow_one_sided(2*r-2*d, b-r, -r/np.sqrt(2), r/np.sqrt(2), r"$r$", offset, "tab:blue")
 #make_arrow(0, r-b, r/np.sqrt(2), -r/np.sqrt(2), "r", offset, "tab:blue")
 #make_arrow(2*r-2*d, r-b, -r/np.sqrt(2), -r/np.sqrt(2), "r", offset, "tab:blue")
 
 # Size of fanshaped curve
-make_arrow_two_sided(r-2*d-offset, -b, 0, 2*b, "2b", offset, "tab:green")
-make_arrow_two_sided(r, -b-offset, -2*d, 0, "2d", -1.3*offset, "tab:green")
+make_arrow_two_sided(r-2*d-offset, -b, 0, 2*b, r"$2b$", offset, "tab:green")
+make_arrow_two_sided(r, -b-offset, -2*d, 0, r"$2d$", -1.3*offset, "tab:green")
 
 # Fanshaped curve corner circle
 xcc = [x + 2*r-2*d for x in xc]

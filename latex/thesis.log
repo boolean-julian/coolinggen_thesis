@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  11 JUL 2022 16:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  17 JUL 2022 19:59
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -21,11 +21,6 @@ File: size11.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
-)
-(C:\Program Files\MiKTeX\tex/latex/base\inputenc.sty
-Package: inputenc 2020/08/01 v1.3d Input encoding file
-\inpenc@prehook=\toks15
-\inpenc@posthook=\toks16
 )
 (C:\Program Files\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
@@ -108,7 +103,7 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks17
+\@emptytoks=\toks15
 \ex@=\dimen140
 ))
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amsbsy.sty
@@ -138,21 +133,21 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \dotsspace@=\muskip16
 \c@parentequation=\count197
 \dspbrk@lvl=\count198
-\tag@help=\toks18
+\tag@help=\toks16
 \row@=\count199
 \column@=\count266
 \maxfields@=\count267
-\andhelp@=\toks19
+\andhelp@=\toks17
 \eqnshift@=\dimen143
 \alignsep@=\dimen144
 \tagshift@=\dimen145
 \tagwidth@=\dimen146
 \totwidth@=\dimen147
 \lineht@=\dimen148
-\@envbody=\toks20
+\@envbody=\toks18
 \multlinegap=\skip50
 \multlinetaggap=\skip51
-\mathdisplay@stack=\toks21
+\mathdisplay@stack=\toks19
 LaTeX Info: Redefining \[ on input line 2923.
 LaTeX Info: Redefining \] on input line 2924.
 ))
@@ -172,15 +167,15 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 ))
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/amscls\amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
-\thm@style=\toks22
-\thm@bodyfont=\toks23
-\thm@headfont=\toks24
-\thm@notefont=\toks25
-\thm@headpunct=\toks26
+\thm@style=\toks20
+\thm@bodyfont=\toks21
+\thm@headfont=\toks22
+\thm@notefont=\toks23
+\thm@headpunct=\toks24
 \thm@preskip=\skip52
 \thm@postskip=\skip53
 \thm@headsep=\skip54
-\dth@everypar=\toks27
+\dth@everypar=\toks25
 )
 (C:\Program Files\MiKTeX\tex/latex/biblatex\biblatex.sty
 Package: biblatex 2020/12/31 v3.16 programmable bibliographies (PK/MW)
@@ -208,7 +203,7 @@ Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 )
 (C:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks28
+\KV@toks@=\toks26
 )
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
@@ -553,7 +548,7 @@ Package: csquotes 2021-02-22 v5.2l context-sensitive quotations (JAW)
 \csq@qlevel=\count407
 \csq@maxlvl=\count408
 \csq@tshold=\count409
-\csq@ltx@everypar=\toks29
+\csq@ltx@everypar=\toks27
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/csquotes\csquotes.def
 File: csquotes.def 2021-02-22 v5.2l csquotes generic definitions (JAW)
 )
@@ -593,7 +588,7 @@ Package cleveref Info: `amsthm' support loaded on input line 3026.
 (C:\Program Files\MiKTeX\tex/latex/listings\listings.sty
 \lst@mode=\count411
 \lst@gtempboxa=\box49
-\lst@token=\toks30
+\lst@token=\toks28
 \lst@length=\count412
 \lst@currlwidth=\dimen153
 \lst@column=\count413
@@ -635,7 +630,7 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layoutheight=\dimen162
 \Gm@layouthoffset=\dimen163
 \Gm@layoutvoffset=\dimen164
-\Gm@dimlist=\toks31
+\Gm@dimlist=\toks29
 
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/geometry\geometry.cfg))
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/titlesec\titlesec.sty
@@ -645,7 +640,7 @@ Package: titlesec 2019/10/16 v2.13 Sectioning titles
 \aftertitleunit=\skip79
 \ttl@plus=\dimen165
 \ttl@minus=\dimen166
-\ttl@toksa=\toks32
+\ttl@toksa=\toks30
 \titlewidth=\dimen167
 \titlewidthlast=\dimen168
 \titlewidthfirst=\dimen169
@@ -695,12 +690,12 @@ Package: array 2020/10/01 v2.5c Tabular extension package (FMi)
 \col@sep=\dimen172
 \ar@mcellbox=\box52
 \extrarowheight=\dimen173
-\NC@list=\toks33
+\NC@list=\toks31
 \extratabsurround=\skip80
 \backup@length=\skip81
 \ar@cellbox=\box53
 )
-\everycr=\toks34
+\everycr=\toks32
 \minrowclearance=\skip82
 )
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/caption\subcaption.sty
@@ -733,7 +728,7 @@ Package caption Info: listings package is loaded.
 (C:\Program Files\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
 (C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty
 (C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex
-\pgfutil@everybye=\toks35
+\pgfutil@everybye=\toks33
 \pgfutil@tempdima=\dimen182
 \pgfutil@tempdimb=\dimen183
 
@@ -753,11 +748,11 @@ Package: pgf 2020/12/27 v3.1.8b (3.1.8b)
 Package: pgfsys 2020/12/27 v3.1.8b (3.1.8b)
 
 (C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks36
-\pgfkeys@temptoks=\toks37
+\pgfkeys@pathtoks=\toks34
+\pgfkeys@temptoks=\toks35
 
 (C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeysfiltered.code.tex
-\pgfkeys@tmptoks=\toks38
+\pgfkeys@tmptoks=\toks36
 ))
 \pgf@x=\dimen184
 \pgf@y=\dimen185
@@ -775,9 +770,9 @@ Package: pgfsys 2020/12/27 v3.1.8b (3.1.8b)
 \c@pgf@countb=\count427
 \c@pgf@countc=\count428
 \c@pgf@countd=\count429
-\t@pgf@toka=\toks39
-\t@pgf@tokb=\toks40
-\t@pgf@tokc=\toks41
+\t@pgf@toka=\toks37
+\t@pgf@tokb=\toks38
+\t@pgf@tokc=\toks39
 \pgf@sys@id@count=\count430
 
 (C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg
@@ -809,9 +804,9 @@ Package: pgfcore 2020/12/27 v3.1.8b (3.1.8b)
 \pgfmath@dimen=\dimen194
 \pgfmath@count=\count433
 \pgfmath@box=\box55
-\pgfmath@toks=\toks42
-\pgfmath@stack@operand=\toks43
-\pgfmath@stack@operation=\toks44
+\pgfmath@toks=\toks40
+\pgfmath@stack@operand=\toks41
+\pgfmath@stack@operation=\toks42
 )
 (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.code.tex
 (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex)
@@ -936,8 +931,8 @@ Package: pgffor 2020/12/27 v3.1.8b (3.1.8b)
 (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex)
 \pgffor@iter=\dimen277
 \pgffor@skip=\dimen278
-\pgffor@stack=\toks45
-\pgffor@toks=\toks46
+\pgffor@stack=\toks43
+\pgffor@toks=\toks44
 ))
 (C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex
 Package: tikz 2020/12/27 v3.1.8b (3.1.8b)
@@ -979,9 +974,9 @@ File: tikzlibrarytopaths.code.tex 2020/12/27 v3.1.8b (3.1.8b)
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count447
-\float@exts=\toks47
+\float@exts=\toks45
 \float@box=\box65
-\@float@everytoks=\toks48
+\@float@everytoks=\toks46
 \@floatcapt=\box66
 )
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/svg\svg.sty
@@ -1106,13 +1101,38 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 Package: transparent 2019/11/29 v1.4 Transparency via pdfTeX's color stack (HO)
 
 )
-(C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/lipsum\lipsum.sty
+(C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/algorithms\algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+\@float@every@algorithm=\toks47
+\c@algorithm=\count450
+)
+(C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/algorithmicx\algpseudocode.st
+y
+Package: algpseudocode 
+
+(C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/algorithmicx\algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count451
+\c@ALG@rem=\count452
+\c@ALG@nested=\count453
+\ALG@tlm=\skip83
+\ALG@thistlm=\skip84
+\c@ALG@Lnr=\count454
+\c@ALG@blocknr=\count455
+\c@ALG@storecount=\count456
+\c@ALG@tmpcounter=\count457
+\ALG@tmplength=\skip85
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/lipsum\lipsum.sty
 (C:\Program Files\MiKTeX\tex/latex/l3kernel\expl3.sty
 Package: expl3 2021-05-07 L3 programming layer (loader) 
 
 (C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-05-07 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count450
+\l__color_backend_stack_int=\count458
 \l__pdf_internal_box=\box68
 ))
 (C:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse.sty
@@ -1123,17 +1143,17 @@ Package: lipsum 2021-03-03 v2.3 150 paragraphs of Lorem Ipsum dummy text
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/lipsum\lipsum.ltd.tex
 File: lipsum.ltd.tex 2021-03-03 v2.3 The Lorem ipsum dummy text
 ))
-Package hyperref Info: Option `hypertexnames' set `false' on input line 59.
+Package hyperref Info: Option `hypertexnames' set `false' on input line 63.
 
 (C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
-\c@definition=\count451
+\c@definition=\count459
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 82
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 94
 .
 
 (C:\Program Files\MiKTeX\tex/latex/lm\t1lmr.fd
@@ -1141,24 +1161,24 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) (thesis.aux)
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
 
@@ -1182,18 +1202,18 @@ Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'thesis.bbl' found.
  (thesis.bbl)
-Package biblatex Info: Reference section=0 on input line 82.
-Package biblatex Info: Reference segment=0 on input line 82.
-Package hyperref Info: Link coloring OFF on input line 82.
-LaTeX Info: Redefining \ref on input line 82.
-LaTeX Info: Redefining \pageref on input line 82.
-LaTeX Info: Redefining \nameref on input line 82.
+Package biblatex Info: Reference section=0 on input line 94.
+Package biblatex Info: Reference segment=0 on input line 94.
+Package hyperref Info: Link coloring OFF on input line 94.
+LaTeX Info: Redefining \ref on input line 94.
+LaTeX Info: Redefining \pageref on input line 94.
+LaTeX Info: Redefining \nameref on input line 94.
 
 (thesis.out) (thesis.out)
 \@outlinefile=\write5
 \openout5 = `thesis.out'.
 
-\c@lstlisting=\count452
+\c@lstlisting=\count460
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1231,17 +1251,17 @@ LaTeX Info: Redefining \nameref on input line 82.
 
 (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count453
+\scratchcounter=\count461
 \scratchdimen=\dimen288
 \scratchbox=\box69
-\nofMPsegments=\count454
-\nofMParguments=\count455
-\everyMPshowfont=\toks49
-\MPscratchCnt=\count456
+\nofMPsegments=\count462
+\nofMParguments=\count463
+\everyMPshowfont=\toks48
+\MPscratchCnt=\count464
 \MPscratchDim=\dimen289
-\MPnumerator=\count457
-\makeMPintoPDFobject=\count458
-\everyMPtoPDFconversion=\toks50
+\MPnumerator=\count465
+\makeMPintoPDFobject=\count466
+\everyMPtoPDFconversion=\toks49
 ) (C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -1253,7 +1273,6 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
- ()
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: a4paper
@@ -1289,50 +1308,51 @@ Package caption Info: End \AtBeginDocument code.
 <../assets/formal/logo_gau.png, id=146, 722.7pt x 128.8815pt>
 File: ../assets/formal/logo_gau.png Graphic file (type png)
 <use ../assets/formal/logo_gau.png>
-Package pdftex.def Info: ../assets/formal/logo_gau.png  used on input line 95.
+Package pdftex.def Info: ../assets/formal/logo_gau.png  used on input line 107.
+
 (pdftex.def)             Requested size: 245.60446pt x 43.79999pt.
 
-Overfull \hbox (8.59035pt too wide) in paragraph at lines 95--96
+Overfull \hbox (8.59035pt too wide) in paragraph at lines 107--108
 []  
  []
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 9
-6.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
+08.
 (C:\Program Files\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 9
-6.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
+08.
 
 (C:\Program Files\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-96.
+108.
 
 (C:\Program Files\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-96.
+108.
 
 (C:\Program Files\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 96.
+(Font)              <10.95> on input line 108.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 96.
+(Font)              <8> on input line 108.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 96.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 96.
-
+(Font)              <6> on input line 108.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 108
+.
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 96.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 108
+.
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1340,10 +1360,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <../assets/formal/logo_dlr.png, id=148, 2007.5pt x 1678.27pt>
 File: ../assets/formal/logo_dlr.png Graphic file (type png)
 <use ../assets/formal/logo_dlr.png>
-Package pdftex.def Info: ../assets/formal/logo_dlr.png  used on input line 99.
+Package pdftex.def Info: ../assets/formal/logo_dlr.png  used on input line 111.
+
 (pdftex.def)             Requested size: 52.38062pt x 43.79999pt.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-19.
+31.
 
 (C:\Program Files\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1384,7 +1405,7 @@ al/logo_gau.png> <../assets/formal/logo_dlr.png>]
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+mvs on input line 136
+LaTeX Font Info:    Trying to load font information for U+mvs on input line 148
 .
 
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/marvosym\umvs.fd) [1
@@ -1394,7 +1415,7 @@ LaTeX Font Info:    Trying to load font information for U+mvs on input line 136
 <../assets/formal/sign.png, id=164, 603.0028pt x 221.32687pt>
 File: ../assets/formal/sign.png Graphic file (type png)
 <use ../assets/formal/sign.png>
-Package pdftex.def Info: ../assets/formal/sign.png  used on input line 147.
+Package pdftex.def Info: ../assets/formal/sign.png  used on input line 159.
 (pdftex.def)             Requested size: 89.4988pt x 32.84999pt.
 
 [2 <../assets/formal/sign.png>] [3
@@ -1413,10 +1434,31 @@ Chapter 1.
 
 ]
 Chapter 2.
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 242.
+\c@i=\count467
+\c@j=\count468
+\c@z=\count469
+\c@a=\count470
+\c@b=\count471
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 304.
+Package svg Info: Last page of `./svg-inkscape/deCasteljauVisual_svg-tex.pdf' i
+s 1 on input line 311.
+(svg-inkscape/deCasteljauVisual_svg-tex.pdf_tex
+<./svg-inkscape/deCasteljauVisual_svg-tex.pdf, id=229, page=1, 578.16pt x 289.0
+8pt>
+File: ./svg-inkscape/deCasteljauVisual_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/deCasteljauVisual_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/deCasteljauVisual_svg-tex.pdf , page1 u
+sed on input line 56.
+(pdftex.def)             Requested size: 455.24411pt x 227.62082pt.
+)
 Package svg Info: Last page of `./svg-inkscape/bezierDifferentDegrees_svg-tex.p
-df' is 1 on input line 220.
+df' is 1 on input line 321.
+
 (svg-inkscape/bezierDifferentDegrees_svg-tex.pdf_tex
-<./svg-inkscape/bezierDifferentDegrees_svg-tex.pdf, id=229, page=1, 722.7pt x 2
+<./svg-inkscape/bezierDifferentDegrees_svg-tex.pdf, id=231, page=1, 722.7pt x 2
 16.81pt>
 File: ./svg-inkscape/bezierDifferentDegrees_svg-tex.pdf Graphic file (type pdf)
 
@@ -1426,12 +1468,17 @@ ge1 used on input line 56.
 (pdftex.def)             Requested size: 455.24411pt x 136.57448pt.
 ) [2
 
-] [3 <./svg-inkscape/bezierDifferentDegrees_svg-tex.pdf>]
+]
+Overfull \vbox (296.09685pt too high) has occurred while \output is active []
+
+
+[3 <./svg-inkscape/deCasteljauVisual_svg-tex.pdf>] [4 <./svg-inkscape/bezierDif
+ferentDegrees_svg-tex.pdf>]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
-.pdf' is 1 on input line 253.
+.pdf' is 1 on input line 351.
 (svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=286, page=1, 361.35pt 
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=463, page=1, 361.35pt 
 x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1440,57 +1487,45 @@ Package pdftex.def Info: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf ,
 page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
 )
-Package svg Info: Calling Inkscape on input line 258.
-runsystem(inkscape "../assets/tecplot/selfIntersection.svg" -D --export-latex -
--export-filename="selfIntersection_svg-tex.pdf")...executed.
-
-runsystem(if not exist "./svg-inkscape/" mkdir "./svg-inkscape/")...executed.
-
-runsystem(move "selfIntersection_svg-tex.pdf" "./svg-inkscape/selfIntersection_
-svg-tex.pdf")...executed.
-
-runsystem(move "selfIntersection_svg-tex.pdf_tex" "./svg-inkscape/selfIntersect
-ion_svg-tex.pdf_tex")...executed.
-
 Package svg Info: Last page of `./svg-inkscape/selfIntersection_svg-tex.pdf' is
- 1 on input line 258.
+ 1 on input line 356.
 
 (svg-inkscape/selfIntersection_svg-tex.pdf_tex
-<./svg-inkscape/selfIntersection_svg-tex.pdf, id=288, page=1, 596.23853pt x 265
+<./svg-inkscape/selfIntersection_svg-tex.pdf, id=465, page=1, 596.23853pt x 265
 .00102pt>
 File: ./svg-inkscape/selfIntersection_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/selfIntersection_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/selfIntersection_svg-tex.pdf , page1 us
 ed on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 101.16644pt.
-) [4
+) [5
 
  <./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf> <./svg-inkscape/selfInte
 rsection_svg-tex.pdf
 
 pdfTeX warning: pdflatex.EXE (file ./svg-inkscape/selfIntersection_svg-tex.pdf)
 : PDF inclusion: multiple pdfs with page group included in a single page
->] [5]
+>] [6]
 Chapter 4.
-[6
+[7
 
 ]
 Chapter 5.
-[7
+[8
 
 ] (thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: C8EB46865CF89B2C21B73D948192D64C;4869.
+(rerunfilecheck)             Checksum: 7B5D8793C5BD2B839BC5147D7F788F6C;4869.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 34995 strings out of 479173
- 644651 string characters out of 2864039
- 1474270 words of memory out of 3000000
- 51951 multiletter control sequences out of 15000+600000
- 451560 words of font info for 58 fonts, out of 8000000 for 9000
+ 35777 strings out of 479173
+ 656957 string characters out of 2864039
+ 1489995 words of memory out of 3000000
+ 52714 multiletter control sequences out of 15000+600000
+ 458551 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,9n,96p,741b,1661s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiKTe
@@ -1509,9 +1544,9 @@ ype1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy8.
 pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/julian/
 AppData/Roaming/MiKTeX/fonts/type1/public/marvosym/marvosym.pfb><C:/Program Fil
 es/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (13 pages, 536066 bytes).
+Output written on thesis.pdf (14 pages, 579059 bytes).
 PDF statistics:
- 424 PDF objects out of 1000 (max. 8388607)
- 61 named destinations out of 1000 (max. 500000)
- 338 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 600 PDF objects out of 1000 (max. 8388607)
+ 65 named destinations out of 1000 (max. 500000)
+ 348 words of extra memory for PDF output out of 10000 (max. 10000000)
 
