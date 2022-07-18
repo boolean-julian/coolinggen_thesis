@@ -7,7 +7,6 @@
 %	"keep_focus": true, --> false, to remove the annoying pop ups
 %	"use_biblatex": false,
 %	"builder": "traditional" --> "basic", to use biber on every compilation
-
 \documentclass[a4paper, 11pt]{report}
 
 % Packages
@@ -201,49 +200,51 @@ Bézier curves are named after the french engineer Pierre Bézier, who famously 
 \subsection{Definition}
 \begin{definition}
 	The \emph{Bernstein basis polynomials} of degree $n$ on the interval $[t_0,t_1]$ are defined as
-	\begin{equation}\label{bernsteinbasisdef}
-		b_{n,k,[t_0, t_1]}(t) := \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n,}
+	\begin{equation}\label{eq:bernsteinbasisdef}
+		b_{n,k,[t_0, t_1]}(t) := \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n},
 	\end{equation}
-	for $k \in \{0\dots n\}$.
+	for $k \in \{0,\dots, n\}$.
 \end{definition}
 
 \begin{definition}
 	A \emph{Bézier curve} of degree $n$ is a parametric curve $C_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow \mathbb{R}^3$ that has a representation
-	\begin{equation}\label{bezierdef}
+	\begin{equation}\label{eq:bezierdef}
 		C_{P, [t_0, t_1]}(t) = \sum_{k=0}^n b_{n,k,[t_0, t_1]}(t) P_k = \sum_{k=0}^n \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k P_k}{(t_1-t_0)^n}.
 	\end{equation}
-	We call the elements of the set $P = \{P_1, P_2, \dots, P_n\}$ the \emph{control points} of $C_P$.
+	We call the elements of the set $P = \{P_0, P_1, \dots, P_n\}$ the \emph{control points} of $C_P$.
 \end{definition}
 
 \begin{remark}
-	Let $t_0 = 0$ and $t_1 = 1$. Then \ref{bezierdef} simplifies to
+	Let $t_0 = 0$ and $t_1 = 1$. Then \ref{eq:bezierdef} simplifies to
 	\begin{equation}
 		b_{n,k}(t) := b_{n,k,[0,1]}(t) = \binom{n}{k} (1-t)^{n-k}t^k.
 	\end{equation}
-	Also, \ref{bernsteinbasisdef} simplifies to
-	\begin{equation}
+	Also, \ref{eq:bernsteinbasisdef} simplifies to
+	\begin{equation}\label{eq:bezierdefshort}
 		C_P(t) := C_{P,[0,1]}(t)= \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
 	\end{equation}
 	This case is the only case considered in this thesis.
 \end{remark}
 
-\subsection{De Casteljau's Algorithm}
-The algorithm proposed by Paul de Faget de Casteljau calculates points on the Beziér curve in a recursive manner.
+\subsection{de Casteljau's Algorithm}
+
+The computation of equation \ref{eq:bezierdefshort} is usually performed using de Casteljau's algorithm. This is because the algorithm yields a simple implementation and lower complexity than straightforwardly computing equation \ref{eq:bezierdefshort}. The algorithm was proposed by Paul de Faget de Casteljau for the automobile manufacturer Citroën in the 1960s.
+
 \begin{algorithm}
-	\begin{algorithmic}
+	\begin{algorithmic}[1]
 		\Input
 			\Desc{$P = \{P_0, P_1, ..., P_n\}$}{set of control points}
 			\Desc{$t$}{real number}
 		\EndInput
 		\Output
-			\Desc{$P^{(n)}_0 = C_P(t)$}{the point on the Beziér curve}
+			\Desc{$P^{(n)}_0 = C_P(t)$}{the point on the Beziér curve w.r.t. to $t$}
 		\EndOutput
 
-		\caption{De Casteljau's algorithm}\label{casteljaualgo}
+		\caption{de Casteljau's algorithm}\label{alg:decasteljaualgo}
 		\Procedure{deCasteljau}{P, t}
 			\State $P^{(0)} \gets P$
 			\For {$i = 1, 2, ..., n$}
-				\For {$j = 0, 1, ..., n-j$}
+				\For {$j = 0, 1, ..., n-i$}
 					\State $P^{(i)}_j = (1-t) \cdot P^{(i-1)}_j + t \cdot P^{(i-1)}_{j+1}$
 				\EndFor
 			\EndFor
@@ -252,74 +253,86 @@ The algorithm proposed by Paul de Faget de Casteljau calculates points on the Be
 	\end{algorithmic}
 \end{algorithm}
 
+A visual representation of algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $C_P$ with degree $n$, one has to perform $n^2-n$ additions and just as many scalar multiplications.
 
 \begin{figure}[!ht]
 	\centering
-	\begin{tikzpicture}
-		\def\dx{60pt}
-		\def\dy{25pt}
+	\begin{subfigure}{0.49\textwidth}
+		\begin{tikzpicture}
+			\def\dx{60pt}
+			\def\dy{30pt}
 
-		\pgfmathsetmacro{\numcontrolpoints}{3}
+			\pgfmathsetmacro{\degree}{3}
 
-		\newcounter{i}
-		\newcounter{j}
-		
+			% Make nodes
+			\newcounter{i}
+			\newcounter{j}
 
-		\node (\arabic{i}) at (0,0) {$P^{(\numcontrolpoints)}_0$};
-		\stepcounter{i}
+			\node (\arabic{i}) at (0,0) {$P^{(\degree)}_0$};
+			\stepcounter{i}
 
-		\foreach \x in {1, ..., \numcontrolpoints} {
-			\pgfmathsetmacro{\xstep}{\x-2}
+			\foreach \x in {1, ..., \degree} {
+				\pgfmathsetmacro{\xstep}{\x-2}
 
-			\setcounter{j}{0}
-			\foreach \y in {\x, \xstep, ..., -\x} {
-				\pgfmathsetmacro{\psuperscript}{\numcontrolpoints-\x}
-				
-				\node (\arabic{i}) at (\x*\dx, \y*\dy) {$P^{(\pgfmathint{\psuperscript}\pgfmathresult)}_{\arabic{j}}$};
-				\stepcounter{i}
-				\stepcounter{j}
+				\setcounter{j}{0}
+				\foreach \y in {\x, \xstep, ..., -\x} {
+					\node (\arabic{i}) at (\x*\dx, \y*\dy) {$P^{(\pgfmathint{\degree-\x}\pgfmathresult)}_{\arabic{j}}$};
+					\stepcounter{i}
+					\stepcounter{j}
+				}
 			}
-		}
+			
+			% Make arrows
+			\newcounter{z}
+			\newcounter{a}
+			\newcounter{b}
+			\pgfmathsetmacro{\maxx}{\degree}
+			\foreach \x in {1,...,\degree}{
+				\foreach \y in {1,...,\x}{
+					
+					\setcounter{a}{\arabic{z}}
+					\addtocounter{a}{\x}
 
-
-		\newcounter{z}
-		\newcounter{a}
-		\newcounter{b}
-		\pgfmathsetmacro{\maxx}{\numcontrolpoints}
-		\foreach \x in {1,...,\numcontrolpoints}{
-			\foreach \y in {1,...,\x}{
-				
-				\setcounter{a}{\arabic{z}}
-				\addtocounter{a}{\x}
-
-				\setcounter{b}{\arabic{z}}
-				\addtocounter{b}{\x}
-				\stepcounter{b}
-				
-				\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $1-t$};
-				\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $t$};
-				
-				\stepcounter{z}
+					\setcounter{b}{\arabic{z}}
+					\addtocounter{b}{\x}
+					\stepcounter{b}
+					
+					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $1-t$};
+					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $t$};
+					
+					\stepcounter{z}
+				}
 			}
-		}
-	\end{tikzpicture}
-	\caption{Beziér curves of different degrees and their control points}
+		\end{tikzpicture}
+		\caption{Algorithmic visualization.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\textwidth}
+		\includesvg[width=\textwidth]{../python/deCasteljauVisual}
+		\caption{Geometric visualization of $C_P(\frac{3}{5})$.}
+	\end{subfigure}
+	\caption{Visual representations of de Casteljau's algorithm.}
+	\label{fig:decasteljautriangle}
 \end{figure}
 
-\begin{figure}[!ht]
-	\centering
-	\includesvg[width=\textwidth]{../python/deCasteljauVisual}
-	\caption{Beziér curves of different degrees and their control points}
-\end{figure}
-
-
+Interestingly, the representation of the algorithm in Figure \ref{fig:decasteljautriangle} also gives rise to an intuitive visualization of the geometric shape of the Beziér curve $C_P$. For all $i \in \{0, ..., n\}$ and all $j \in \{0, ..., n-i\}$, the point $P^{(i+1)}_j$ is the convex combination (always w.r.t. $t$) of $P^{(i)}_j$ and $P^{(i)}_{j+1}$. Thus $P^{(i+1)}_j$ always lies on the line segment between $P^{(i)}_j$ and $P^{(i)}_{j+1}$, as can also be observed in \ref{fig:decasteljautriangle}.
 
 \subsection{Properties}
 
 \begin{figure}[!ht]
-	\centering
-	\includesvg[width=\textwidth]{../python/bezierDifferentDegrees}
-	\caption{Beziér curves of different degrees and their control points}
+	\begin{subfigure}{0.33\textwidth}
+		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees1}
+		\caption{Degree $1$.}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees2}
+		\caption{Degree $2$.}
+	\end{subfigure}
+	\begin{subfigure}{0.33\textwidth}
+		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees3}
+		\caption{Degree $3$.}
+	\end{subfigure}
+	\caption{Beziér curves of different degrees (orange) and their control points (blue).}
 \end{figure}
 
 
@@ -327,7 +340,7 @@ The algorithm proposed by Paul de Faget de Casteljau calculates points on the Be
 \section{Non-Uniform Rational B-Splines (NURBS)}
 \subsection{Definition}
 \subsection{Properties}
-\subsection{De Boor's Algorithm}
+\subsection{de Boor's Algorithm}
 
 \section{Methods on NURBS Objects}
 \subsection{Affine Transformations}

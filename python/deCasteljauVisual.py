@@ -17,10 +17,8 @@ def casteljau_complete(control_points, t):
 	return pointlist
 
 
-
+colors = ["tab:blue", "tab:orange", "tab:green"]
 def plot_all_points(pointlist, t):
-	colors = ["tab:blue", "tab:orange", "tab:green"]
-
 	for i in range(len(pointlist)):
 		xs = [point[0] for point in pointlist[i]]
 		ys = [point[1] for point in pointlist[i]]
@@ -37,20 +35,19 @@ def plot_all_points(pointlist, t):
 		"""
 
 def plot_curve_point(pointlist):
-	colors = ["tab:blue", "tab:orange", "tab:green"]
-
 	for i in range(len(pointlist)):
 		xs = [point[0] for point in pointlist[i]]
 		ys = [point[1] for point in pointlist[i]]
-			
+		
 		if len(xs) == 1:
 			plt.plot(xs, ys, '.', color="tab:red")
 
-fig, ax = plt.subplots(figsize=(8,4))
+fig, ax = plt.subplots(figsize=(4,4))
 ax.set_aspect("equal", "box")
 
-ts = np.linspace(0.1, 0.9, 20)
+ts = np.linspace(0.05, 0.95, 20)
 
+"""
 t1 = 0.5
 control_points1 = np.array([[0,0], [0,1]])
 points1 = casteljau_complete(control_points1, t1)
@@ -62,19 +59,39 @@ points2 = casteljau_complete(control_points2, t2)
 plot_all_points(points2, t2)
 for t in ts:
 	plot_curve_point(casteljau_complete(control_points2, t))
+"""
 
 t3 = 0.6
-control_points3 = np.array([[0.75,1], [1, 0], [1.25, 0], [1.5, 1]])
+control_points3 = np.array([[0.6,1], [1, 0.1], [1.35, 0.3], [1.65, 1]])
 points3 = casteljau_complete(control_points3, t3)
 plot_all_points(points3, t3)
 for t in ts:
 	plot_curve_point(casteljau_complete(control_points3, t))
 
-plt.text(0.05, 0.5, r"$t_1 = 0.5$")
-plt.text(0.41, 0.3, r"$t_2 = 0.4$")
-plt.text(1.05, 0.4, r"$t_3 = 0.6$")
+#plt.text(0.05, 0.5, r"$t_1 = 0.5$")
+#plt.text(0.41, 0.3, r"$t_2 = 0.4$")
+#plt.text(1.2, 0.4, r"$t = 0.6$")
+
+xoff = 0.045
+yoff = 0.045
+fontsize = 12
+plt.text(*(points3[0][0] + [-xoff, -yoff]), r"$P^{(0)}_0$", color = colors[0], ha="center", va="center", fontsize=fontsize)
+plt.text(*(points3[0][1] + [-xoff, -yoff]), r"$P^{(0)}_1$", color = colors[0], ha="center", va="center", fontsize=fontsize)
+plt.text(*(points3[0][2] + [+xoff, -yoff]), r"$P^{(0)}_2$", color = colors[0], ha="center", va="center", fontsize=fontsize)
+plt.text(*(points3[0][3] + [+xoff, -yoff]), r"$P^{(0)}_3$", color = colors[0], ha="center", va="center", fontsize=fontsize)
+
+plt.text(*(points3[1][0] + [-xoff, -yoff]), r"$P^{(1)}_0$", color = colors[1], ha="center", va="center", fontsize=fontsize)
+plt.text(*(points3[1][1] + [+xoff, -yoff]), r"$P^{(1)}_1$", color = colors[1], ha="center", va="center", fontsize=fontsize)
+plt.text(*(points3[1][2] + [+xoff, -yoff]), r"$P^{(1)}_2$", color = colors[1], ha="center", va="center", fontsize=fontsize)
+
+plt.text(*(points3[2][0] + [-xoff, -yoff]), r"$P^{(2)}_0$", color = colors[2], ha="center", va="center", fontsize=fontsize)
+plt.text(*(points3[2][1] + [+2*xoff, -yoff]), r"$P^{(2)}_1$", color = colors[2], ha="center", va="center", fontsize=fontsize)
+
+plt.text(*(points3[3][0] + [-0*xoff, +1.5*yoff]), r"$P^{(3)}_0$", color = "tab:red", ha="center", va="center", fontsize=fontsize)
+
 
 plt.axis('off')
+plt.tight_layout()
 
 plt.savefig("deCasteljauVisual.svg")
 

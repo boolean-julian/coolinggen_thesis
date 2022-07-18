@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  17 JUL 2022 19:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  18 JUL 2022 17:16
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -1143,7 +1143,7 @@ Package: lipsum 2021-03-03 v2.3 150 paragraphs of Lorem Ipsum dummy text
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/lipsum\lipsum.ltd.tex
 File: lipsum.ltd.tex 2021-03-03 v2.3 The Lorem ipsum dummy text
 ))
-Package hyperref Info: Option `hypertexnames' set `false' on input line 63.
+Package hyperref Info: Option `hypertexnames' set `false' on input line 62.
 
 (C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
@@ -1153,7 +1153,7 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 94
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 93
 .
 
 (C:\Program Files\MiKTeX\tex/latex/lm\t1lmr.fd
@@ -1161,24 +1161,24 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) (thesis.aux)
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 93.
+LaTeX Font Info:    ... okay on input line 93.
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
 
@@ -1202,12 +1202,12 @@ Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'thesis.bbl' found.
  (thesis.bbl)
-Package biblatex Info: Reference section=0 on input line 94.
-Package biblatex Info: Reference segment=0 on input line 94.
-Package hyperref Info: Link coloring OFF on input line 94.
-LaTeX Info: Redefining \ref on input line 94.
-LaTeX Info: Redefining \pageref on input line 94.
-LaTeX Info: Redefining \nameref on input line 94.
+Package biblatex Info: Reference section=0 on input line 93.
+Package biblatex Info: Reference segment=0 on input line 93.
+Package hyperref Info: Link coloring OFF on input line 93.
+LaTeX Info: Redefining \ref on input line 93.
+LaTeX Info: Redefining \pageref on input line 93.
+LaTeX Info: Redefining \nameref on input line 93.
 
 (thesis.out) (thesis.out)
 \@outlinefile=\write5
@@ -1308,50 +1308,50 @@ Package caption Info: End \AtBeginDocument code.
 <../assets/formal/logo_gau.png, id=146, 722.7pt x 128.8815pt>
 File: ../assets/formal/logo_gau.png Graphic file (type png)
 <use ../assets/formal/logo_gau.png>
-Package pdftex.def Info: ../assets/formal/logo_gau.png  used on input line 107.
+Package pdftex.def Info: ../assets/formal/logo_gau.png  used on input line 106.
 
 (pdftex.def)             Requested size: 245.60446pt x 43.79999pt.
 
-Overfull \hbox (8.59035pt too wide) in paragraph at lines 107--108
+Overfull \hbox (8.59035pt too wide) in paragraph at lines 106--107
 []  
  []
 
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-08.
+07.
 (C:\Program Files\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-08.
+07.
 
 (C:\Program Files\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-108.
+107.
 
 (C:\Program Files\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-108.
+107.
 
 (C:\Program Files\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 108.
+(Font)              <10.95> on input line 107.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 108.
+(Font)              <8> on input line 107.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 108.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 108
+(Font)              <6> on input line 107.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 107
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 108
+LaTeX Font Info:    Trying to load font information for U+msb on input line 107
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -1360,11 +1360,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <../assets/formal/logo_dlr.png, id=148, 2007.5pt x 1678.27pt>
 File: ../assets/formal/logo_dlr.png Graphic file (type png)
 <use ../assets/formal/logo_dlr.png>
-Package pdftex.def Info: ../assets/formal/logo_dlr.png  used on input line 111.
+Package pdftex.def Info: ../assets/formal/logo_dlr.png  used on input line 110.
 
 (pdftex.def)             Requested size: 52.38062pt x 43.79999pt.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-31.
+30.
 
 (C:\Program Files\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1405,7 +1405,7 @@ al/logo_gau.png> <../assets/formal/logo_dlr.png>]
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+mvs on input line 148
+LaTeX Font Info:    Trying to load font information for U+mvs on input line 147
 .
 
 (C:\Users\julian\AppData\Roaming\MiKTeX\tex/latex/marvosym\umvs.fd) [1
@@ -1415,7 +1415,7 @@ LaTeX Font Info:    Trying to load font information for U+mvs on input line 148
 <../assets/formal/sign.png, id=164, 603.0028pt x 221.32687pt>
 File: ../assets/formal/sign.png Graphic file (type png)
 <use ../assets/formal/sign.png>
-Package pdftex.def Info: ../assets/formal/sign.png  used on input line 159.
+Package pdftex.def Info: ../assets/formal/sign.png  used on input line 158.
 (pdftex.def)             Requested size: 89.4988pt x 32.84999pt.
 
 [2 <../assets/formal/sign.png>] [3
@@ -1435,50 +1435,88 @@ Chapter 1.
 ]
 Chapter 2.
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 242.
+put line 243.
+[2
+
+]
 \c@i=\count467
 \c@j=\count468
 \c@z=\count469
 \c@a=\count470
 \c@b=\count471
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 304.
+(Font)              <5> on input line 305.
 Package svg Info: Last page of `./svg-inkscape/deCasteljauVisual_svg-tex.pdf' i
 s 1 on input line 311.
-(svg-inkscape/deCasteljauVisual_svg-tex.pdf_tex
-<./svg-inkscape/deCasteljauVisual_svg-tex.pdf, id=229, page=1, 578.16pt x 289.0
+ (svg-inkscape/deCasteljauVisual_svg-tex.pdf_tex
+<./svg-inkscape/deCasteljauVisual_svg-tex.pdf, id=253, page=1, 289.08pt x 289.0
 8pt>
 File: ./svg-inkscape/deCasteljauVisual_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/deCasteljauVisual_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/deCasteljauVisual_svg-tex.pdf , page1 u
 sed on input line 56.
-(pdftex.def)             Requested size: 455.24411pt x 227.62082pt.
+(pdftex.def)             Requested size: 223.07211pt x 223.06866pt.
 )
-Package svg Info: Last page of `./svg-inkscape/bezierDifferentDegrees_svg-tex.p
-df' is 1 on input line 321.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 312.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 312.
+Package svg Info: Last page of `./svg-inkscape/bezierDifferentDegrees1_svg-tex.
+pdf' is 1 on input line 324.
 
-(svg-inkscape/bezierDifferentDegrees_svg-tex.pdf_tex
-<./svg-inkscape/bezierDifferentDegrees_svg-tex.pdf, id=231, page=1, 722.7pt x 2
-16.81pt>
-File: ./svg-inkscape/bezierDifferentDegrees_svg-tex.pdf Graphic file (type pdf)
+(svg-inkscape/bezierDifferentDegrees1_svg-tex.pdf_tex
+<./svg-inkscape/bezierDifferentDegrees1_svg-tex.pdf, id=257, page=1, 144.54pt x
+ 144.54pt>
+File: ./svg-inkscape/bezierDifferentDegrees1_svg-tex.pdf Graphic file (type pdf
+)
+<use ./svg-inkscape/bezierDifferentDegrees1_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/bezierDifferentDegrees1_svg-tex.pdf , p
+age1 used on input line 56.
+(pdftex.def)             Requested size: 150.23138pt x 150.23863pt.
+)
+Package svg Info: Last page of `./svg-inkscape/bezierDifferentDegrees2_svg-tex.
+pdf' is 1 on input line 328.
 
-<use ./svg-inkscape/bezierDifferentDegrees_svg-tex.pdf, page 1>
-Package pdftex.def Info: ./svg-inkscape/bezierDifferentDegrees_svg-tex.pdf , pa
-ge1 used on input line 56.
-(pdftex.def)             Requested size: 455.24411pt x 136.57448pt.
-) [2
+(svg-inkscape/bezierDifferentDegrees2_svg-tex.pdf_tex
+<./svg-inkscape/bezierDifferentDegrees2_svg-tex.pdf, id=259, page=1, 144.54pt x
+ 144.54pt>
+File: ./svg-inkscape/bezierDifferentDegrees2_svg-tex.pdf Graphic file (type pdf
+)
+<use ./svg-inkscape/bezierDifferentDegrees2_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/bezierDifferentDegrees2_svg-tex.pdf , p
+age1 used on input line 56.
+(pdftex.def)             Requested size: 150.23138pt x 150.23863pt.
+)
+Package svg Info: Last page of `./svg-inkscape/bezierDifferentDegrees3_svg-tex.
+pdf' is 1 on input line 332.
 
-]
-Overfull \vbox (296.09685pt too high) has occurred while \output is active []
+(svg-inkscape/bezierDifferentDegrees3_svg-tex.pdf_tex
+<./svg-inkscape/bezierDifferentDegrees3_svg-tex.pdf, id=261, page=1, 144.54pt x
+ 144.54pt>
+File: ./svg-inkscape/bezierDifferentDegrees3_svg-tex.pdf Graphic file (type pdf
+)
+<use ./svg-inkscape/bezierDifferentDegrees3_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/bezierDifferentDegrees3_svg-tex.pdf , p
+age1 used on input line 56.
+(pdftex.def)             Requested size: 150.23138pt x 150.23863pt.
+) [3 <./svg-inkscape/deCasteljauVisual_svg-tex.pdf>] [4 <./svg-inkscape/bezierD
+ifferentDegrees1_svg-tex.pdf> <./svg-inkscape/bezierDifferentDegrees2_svg-tex.p
+df
 
+pdfTeX warning: pdflatex.EXE (file ./svg-inkscape/bezierDifferentDegrees2_svg-t
+ex.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 
-[3 <./svg-inkscape/deCasteljauVisual_svg-tex.pdf>] [4 <./svg-inkscape/bezierDif
-ferentDegrees_svg-tex.pdf>]
+> <./svg-inkscape/bezierDifferentDegrees3_svg-tex.pdf
+
+pdfTeX warning: pdflatex.EXE (file ./svg-inkscape/bezierDifferentDegrees3_svg-t
+ex.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+
+>]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
-.pdf' is 1 on input line 351.
+.pdf' is 1 on input line 364.
 (svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=463, page=1, 361.35pt 
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=392, page=1, 361.35pt 
 x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1488,10 +1526,10 @@ page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
 )
 Package svg Info: Last page of `./svg-inkscape/selfIntersection_svg-tex.pdf' is
- 1 on input line 356.
+ 1 on input line 369.
 
 (svg-inkscape/selfIntersection_svg-tex.pdf_tex
-<./svg-inkscape/selfIntersection_svg-tex.pdf, id=465, page=1, 596.23853pt x 265
+<./svg-inkscape/selfIntersection_svg-tex.pdf, id=394, page=1, 596.23853pt x 265
 .00102pt>
 File: ./svg-inkscape/selfIntersection_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/selfIntersection_svg-tex.pdf, page 1>
@@ -1515,38 +1553,40 @@ Chapter 5.
 
 ] (thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 7B5D8793C5BD2B839BC5147D7F788F6C;4869.
+(rerunfilecheck)             Checksum: AE458B8E2D0BA36B5783948030BD653D;4869.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35777 strings out of 479173
- 656957 string characters out of 2864039
- 1489995 words of memory out of 3000000
- 52714 multiletter control sequences out of 15000+600000
- 458551 words of font info for 64 fonts, out of 8000000 for 9000
+ 35832 strings out of 479173
+ 658922 string characters out of 2864039
+ 1492173 words of memory out of 3000000
+ 52758 multiletter control sequences out of 15000+600000
+ 472570 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,9n,96p,741b,1661s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiKTe
-X/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/
-lm-mathex.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program
- Files/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}<C:/Program Files/MiKTeX/fonts/t
+ 94i,11n,96p,741b,1661s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTe
+X/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/
+lm-ec.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program
+ Files/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}<C:/Program Files/MiKTeX/fonts/t
 ype1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx12
 .pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Fil
 es/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Program Files/MiKTeX/fonts/type1
-/public/lm/lmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi8.pfb>
-<C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKT
-eX/fonts/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/
-lm/lmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Program
- Files/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Program Files/MiKTeX/fonts/t
-ype1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy8.
-pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/julian/
-AppData/Roaming/MiKTeX/fonts/type1/public/marvosym/marvosym.pfb><C:/Program Fil
-es/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (14 pages, 579059 bytes).
+/public/lm/lmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi7.pfb>
+<C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Program Files/MiKT
+eX/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/
+lm/lmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Program Files/MiKTeX/fonts/ty
+pe1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr9.pfb>
+<C:/Program Files/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Program Files/MiK
+TeX/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/publi
+c/lm/lmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Us
+ers/julian/AppData/Roaming/MiKTeX/fonts/type1/public/marvosym/marvosym.pfb><C:/
+Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on thesis.pdf (14 pages, 618458 bytes).
 PDF statistics:
- 600 PDF objects out of 1000 (max. 8388607)
- 65 named destinations out of 1000 (max. 500000)
- 348 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 538 PDF objects out of 1000 (max. 8388607)
+ 64 named destinations out of 1000 (max. 500000)
+ 368 words of extra memory for PDF output out of 10000 (max. 10000000)
 

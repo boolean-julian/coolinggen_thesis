@@ -28,37 +28,56 @@ def plot_points(points, color, control = False):
 	ys = [point[1] for point in points]
 	
 	if control:
-		plt.plot(xs, ys, 'o--', color=color, linewidth=2)
+		plt.plot(xs, ys, '.--', color=color, linewidth=1, alpha = 0.5)
 	else:
-		plt.plot(xs, ys, color=color, linewidth=5)
+		plt.plot(xs, ys, color=color, linewidth=1)
 		
-fig, ax = plt.subplots(figsize=(10,3))
+
 
 # First set
+fig, ax = plt.subplots(figsize=(2,2))
+ax.set_aspect("equal", "box")
+
 control_points = [[0,0], [1, 1]] # [[x1,y1],[x2,y2],...]
 bezier_points = bezier_curve(control_points)
 
 plot_points(bezier_points, "tab:orange")
 plot_points(control_points, "tab:blue", control = True)
 
+plt.axis("off")
+plt.tight_layout()
+
+plt.savefig("bezierDifferentDegrees1.svg")
+plt.show()
+
 # Second set
+fig, ax = plt.subplots(figsize=(2,2))
+ax.set_aspect("equal", "box")
+
 control_points = [[2,0], [1, 0.5], [2,1]] # [[x1,y1],[x2,y2],...]
 bezier_points = bezier_curve(control_points)
 
 plot_points(bezier_points, "tab:orange")
 plot_points(control_points, "tab:blue", control = True)
 
+plt.axis("off")
+plt.tight_layout()
+
+plt.savefig("bezierDifferentDegrees2.svg")
+plt.show()
+
 # Third set
-control_points = [[2.5,0], [3.5, 0.2], [3.3, 1.1], [2.4, 0.9]] # [[x1,y1],[x2,y2],...]
+fig, ax = plt.subplots(figsize=(2,2))
+ax.set_aspect("equal", "box")
+
+control_points = [[2.5,0], [3.5, 0.2], [2.4, 0.9], [3.3, 1.1]] # [[x1,y1],[x2,y2],...]
 bezier_points = bezier_curve(control_points)
 
 plot_points(bezier_points, "tab:orange")
 plot_points(control_points, "tab:blue", control = True)
 
-plt.text(0.1, 0.4, r"$n = 1$", fontsize="large", ma="center")
-plt.text(1.3, 0.8, r"$n = 2$", fontsize="large", ma="center")
-plt.text(2.5, 0.15, r"$n = 3$", fontsize="large", ma="center")
-
 plt.axis("off")
-plt.savefig("bezierDifferentDegrees.svg")
+plt.tight_layout()
+
+plt.savefig("bezierDifferentDegrees3.svg")
 plt.show()
