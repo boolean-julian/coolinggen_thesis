@@ -24,3 +24,34 @@ projection, translation, rotation -> affine transformations
 richtwert seitenzahl 60
 Mi 20.07. 16:00 Plonka-Hoch Termin 
 
+
+
+FRAGEN TREFFEN 20.07
+====================
+1. Verschneidung von NURBS-Kurven, derzeitigen Stand erklären:
+	1.1 Sample curve
+	1.2 Intersect line segments
+	1.3 Refine or discard
+
+2. Verschneidung von NURBS-Fläche mit einer Ebene, ebenfalls derzeitigen Stand erklären
+	1.1 make a ray as follows:
+		support = some start point of intersection (has to be calculated somehow else)
+		direction = normal of tangential plane (cross prod) normal of plane
+		
+	1.2 go a step into that direction and look whether still close to surface.
+		
+	1.3 if yes, append closest surface point into intersection set
+		if no, change step size
+		
+	1.4 if no step size if good, probably no more intersection points
+		else goto 1.1 with our new intersection point
+
+3. Offset-Kurven: Sind die eigentlich immer NURBS?
+	--> Nein!
+	Problem? Offset-Kurven sind großer Bestandteil von CoolingGen
+	(Kammern, Fillets, Inserts,...)
+
+4. Globale Curve Interpolation: Wann macht sie Unsinn?
+
+Derzeitige Challenges Softwareseitig:
+	Unterteilung in Kammern gestaltet sich schwierig

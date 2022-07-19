@@ -197,6 +197,23 @@ Göttingen, \today \hspace{2em}
 \section{Bézier Curves}
 Bézier curves are named after the french engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
 
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}{0.25\textwidth}
+		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees1}
+		\caption{Degree $1$.}
+	\end{subfigure}
+	\begin{subfigure}{0.25\textwidth}
+		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees2}
+		\caption{Degree $2$.}
+	\end{subfigure}
+	\begin{subfigure}{0.25\textwidth}
+		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees3}
+		\caption{Degree $3$.}
+	\end{subfigure}
+	\caption{Beziér curves of different degrees (orange) and their control points (blue).}
+\end{figure}
+
 \subsection{Definition}
 \begin{definition}
 	The \emph{Bernstein basis polynomials} of degree $n$ on the interval $[t_0,t_1]$ are defined as
@@ -217,9 +234,9 @@ Bézier curves are named after the french engineer Pierre Bézier, who famously 
 \begin{remark}
 	Let $t_0 = 0$ and $t_1 = 1$. Then \ref{eq:bezierdef} simplifies to
 	\begin{equation}
-		b_{n,k}(t) := b_{n,k,[0,1]}(t) = \binom{n}{k} (1-t)^{n-k}t^k.
+		b_{n,k}(t) := b_{n,k,[0,1]}(t) = \binom{n}{k} (1-t)^{n-k}t^k
 	\end{equation}
-	Also, \ref{eq:bernsteinbasisdef} simplifies to
+	and \ref{eq:bernsteinbasisdef} simplifies to
 	\begin{equation}\label{eq:bezierdefshort}
 		C_P(t) := C_{P,[0,1]}(t)= \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
 	\end{equation}
@@ -253,9 +270,26 @@ The computation of equation \ref{eq:bezierdefshort} is usually performed using d
 	\end{algorithmic}
 \end{algorithm}
 
+\begin{theorem}
+	Algorithm \ref{alg:decasteljaualgo} computes $C_P(t)$.
+\end{theorem}
+\begin{proof}
+	By induction. Let $n = 1$. Then
+		$$ P_0^{(1)} = (1-t) \cdot P_0 + t \cdot P_1.$$
+	By employing the induction hypothesis
+		$$ P_j^{(n)} = \sum_{k=j}^{n+j} \binom{n}{k} (1-t)^{n-k}t^k P_{j+k}$$
+	for some $n \in \mathbb{N}$, we can infer that
+	\begin{align*}
+		P_0^{(n+1)}	&= (1-t) \cdot P_0^{(n)} + t \cdot P_1^{(n)} \\
+					&= (1-t) \cdot \sum_{k=0}^{n} \binom{n}{k} (1-t)^{n-k}t^k P_{k} + t \cdot \sum_{k=1}^{n+1} \binom{n}{k} (1-t)^{n-k}t^k P_{k+1} \\
+					&= \sum_{k=0}^{n+1} \binom{n+1}{k} (1-t)^{n+1-k}t^k P_{k},
+	\end{align*}
+	which is equal to $C_P(t)$ for degree $n+1$ and some arbitrary value of $t \in [0, 1]$.
+\end{proof}
+
 A visual representation of algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $C_P$ with degree $n$, one has to perform $n^2-n$ additions and just as many scalar multiplications.
 
-\begin{figure}[!ht]
+\begin{figure}[!h]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
 		\begin{tikzpicture}
@@ -318,24 +352,34 @@ A visual representation of algorithm \ref{alg:decasteljaualgo} yields a triangul
 Interestingly, the representation of the algorithm in Figure \ref{fig:decasteljautriangle} also gives rise to an intuitive visualization of the geometric shape of the Beziér curve $C_P$. For all $i \in \{0, ..., n\}$ and all $j \in \{0, ..., n-i\}$, the point $P^{(i+1)}_j$ is the convex combination (always w.r.t. $t$) of $P^{(i)}_j$ and $P^{(i)}_{j+1}$. Thus $P^{(i+1)}_j$ always lies on the line segment between $P^{(i)}_j$ and $P^{(i)}_{j+1}$, as can also be observed in \ref{fig:decasteljautriangle}.
 
 \subsection{Properties}
+Other than being remarkably intuitive, Beziér curves have a lot of properties which make them convenient. In computer-aided design software, most graphical user interfaces rely on the principle of letting the user interactively drag and drop the control points with a mouse, granting them control over the shape of Beziér curve. The following theorems further illustrate why this is a good idea.
 
-\begin{figure}[!ht]
-	\begin{subfigure}{0.33\textwidth}
-		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees1}
-		\caption{Degree $1$.}
-	\end{subfigure}
-	\begin{subfigure}{0.33\textwidth}
-		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees2}
-		\caption{Degree $2$.}
-	\end{subfigure}
-	\begin{subfigure}{0.33\textwidth}
-		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees3}
-		\caption{Degree $3$.}
-	\end{subfigure}
-	\caption{Beziér curves of different degrees (orange) and their control points (blue).}
-\end{figure}
+\begin{theorem}
+	$C_P(0) = P_0$ and $C_P(1) = P_n$.
+\end{theorem}
+\begin{proof}
+	Explicit computation yields
+		$$C_P(0) = \sum_{k=0}^n \binom{n}{k} t^k P_k = \binom{n}{0} P_0 = P_0$$
+	and
+		$$C_P(1) = \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k} P_k = \binom{n}{n} P_n = P_n.$$
+\end{proof}
 
+\begin{theorem}
+	Let $T \in \mathbb{R}^{3 \times 3}$. Then $C_{TP}(t) = TC_P(t)$ where $TP := \{TP_0, TP_1, ..., TP_n\}$.
+\end{theorem}
+\begin{proof}
+	For all $t \in [0, 1]$ we can directly compute
+		$$TC_P(t) = \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k TP_k = C_{TP}(t).$$
+\end{proof}
 
+\begin{theorem}
+	$C_P(t)$ lies in the convex hull of $P$ for all $t \in [0,1]$.
+\end{theorem}
+\begin{proof}
+	By the algorithm of de Casteljau (\ref{alg:decasteljaualgo}), we know that $P^{(i)}_j = (1-t) \cdot P^{(i-1)}_j + t \cdot P^{(i-1)}_{j+1}$ for all $t \in [0, 1]$. Therefore, $P^{(i)}$ lie in the convex hull of $P^{(i-1)}$. But then $C_P(t) = P^{(n)}_0$ always lies in the convex hull of $P^{(0)} = P$ by induction.
+\end{proof}
+
+Simple as their appearance may be, Beziér curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $C_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with just a handful of control points, is their greatest shortcoming at the same time. This is most likely the reason why Beziér curves are not the state of the art in technical engineering applications. However, Beziér curves certainly do provide an intuition for Non-Uniform Rational B-Splines or NURBS, which is their prevailing counterpart.
 
 \section{Non-Uniform Rational B-Splines (NURBS)}
 \subsection{Definition}
@@ -352,6 +396,11 @@ Interestingly, the representation of the algorithm in Figure \ref{fig:decastelja
 \subsection{Fundamental Terms}
 \subsection{The S2M Net}
 \subsection{Fillet Creation}
+\begin{figure}[!ht]
+	\centering
+	\includesvg[width=0.5\textwidth]{../python/filletVisuals}
+	\caption{yeah}
+\end{figure}
 
 \chapter{Results}
 \section{Cooling Geometries And Their Parametrizations}

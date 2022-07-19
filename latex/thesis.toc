@@ -13,60 +13,60 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.1}Bézier Curves}{2}{section.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.1}Definition}{2}{subsection.8}%
+\contentsline {subsection}{\numberline {2.1.1}Definition}{2}{subsection.9}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.2}de Casteljau's Algorithm}{2}{subsection.15}%
+\contentsline {subsection}{\numberline {2.1.2}de Casteljau's Algorithm}{3}{subsection.16}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.3}Properties}{3}{subsection.18}%
+\contentsline {subsection}{\numberline {2.1.3}Properties}{4}{subsection.20}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Non-Uniform Rational B-Splines (NURBS)}{4}{section.20}%
+\contentsline {section}{\numberline {2.2}Non-Uniform Rational B-Splines (NURBS)}{5}{section.24}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.1}Definition}{4}{subsection.21}%
+\contentsline {subsection}{\numberline {2.2.1}Definition}{5}{subsection.25}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.2}Properties}{4}{subsection.22}%
+\contentsline {subsection}{\numberline {2.2.2}Properties}{5}{subsection.26}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.3}de Boor's Algorithm}{4}{subsection.23}%
+\contentsline {subsection}{\numberline {2.2.3}de Boor's Algorithm}{5}{subsection.27}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.3}Methods on NURBS Objects}{4}{section.24}%
+\contentsline {section}{\numberline {2.3}Methods on NURBS Objects}{5}{section.28}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.1}Affine Transformations}{4}{subsection.25}%
+\contentsline {subsection}{\numberline {2.3.1}Affine Transformations}{5}{subsection.29}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.2}The Frenet-Serret Apparatus}{4}{subsection.26}%
+\contentsline {subsection}{\numberline {2.3.2}The Frenet-Serret Apparatus}{5}{subsection.30}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.3}Finding Intersections}{4}{subsection.27}%
+\contentsline {subsection}{\numberline {2.3.3}Finding Intersections}{5}{subsection.31}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.4}Interpolation}{4}{subsection.28}%
+\contentsline {subsection}{\numberline {2.3.4}Interpolation}{5}{subsection.32}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.4}Jet Engine Design Specifics}{4}{section.29}%
+\contentsline {section}{\numberline {2.4}Jet Engine Design Specifics}{5}{section.33}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.1}Fundamental Terms}{4}{subsection.30}%
+\contentsline {subsection}{\numberline {2.4.1}Fundamental Terms}{5}{subsection.34}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.2}The S2M Net}{4}{subsection.31}%
+\contentsline {subsection}{\numberline {2.4.2}The S2M Net}{5}{subsection.35}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.3}Fillet Creation}{4}{subsection.32}%
+\contentsline {subsection}{\numberline {2.4.3}Fillet Creation}{5}{subsection.36}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Results}{5}{chapter.33}%
+\contentsline {chapter}{\numberline {3}Results}{7}{chapter.38}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Cooling Geometries And Their Parametrizations}{5}{section.34}%
+\contentsline {section}{\numberline {3.1}Cooling Geometries And Their Parametrizations}{7}{section.39}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.1}Chambers}{5}{subsection.35}%
+\contentsline {subsection}{\numberline {3.1.1}Chambers}{7}{subsection.40}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.2}Turnarounds}{5}{subsection.36}%
+\contentsline {subsection}{\numberline {3.1.2}Turnarounds}{7}{subsection.41}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.3}Slots}{5}{subsection.37}%
+\contentsline {subsection}{\numberline {3.1.3}Slots}{7}{subsection.42}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.4}Film Cooling Holes}{5}{subsection.38}%
+\contentsline {subsection}{\numberline {3.1.4}Film Cooling Holes}{7}{subsection.43}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.5}Impingement Inserts}{6}{subsection.41}%
+\contentsline {subsection}{\numberline {3.1.5}Impingement Inserts}{8}{subsection.46}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Export for CENTAUR}{6}{section.42}%
+\contentsline {section}{\numberline {3.2}Export for CENTAUR}{8}{section.47}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Export for Open CASCADE}{6}{section.43}%
+\contentsline {section}{\numberline {3.3}Export for Open CASCADE}{8}{section.48}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Discussion}{7}{chapter.44}%
+\contentsline {chapter}{\numberline {4}Discussion}{9}{chapter.49}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Future Work}{7}{section.45}%
+\contentsline {section}{\numberline {4.1}Future Work}{9}{section.50}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Conclusion}{7}{section.46}%
+\contentsline {section}{\numberline {4.2}Conclusion}{9}{section.51}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}References}{8}{chapter.47}%
+\contentsline {chapter}{\numberline {5}References}{10}{chapter.52}%
