@@ -195,7 +195,7 @@ Göttingen, \today \hspace{2em}
 
 \chapter{Methods}
 \section{Bézier Curves}
-Bézier curves are named after the french engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
+Bézier curves are named after the French engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
 
 \begin{figure}[!ht]
 	\centering
@@ -284,10 +284,10 @@ The computation of equation \ref{eq:bezierdefshort} is usually performed using d
 					&= (1-t) \cdot \sum_{k=0}^{n} \binom{n}{k} (1-t)^{n-k}t^k P_{k} + t \cdot \sum_{k=1}^{n+1} \binom{n}{k} (1-t)^{n-k}t^k P_{k+1} \\
 					&= \sum_{k=0}^{n+1} \binom{n+1}{k} (1-t)^{n+1-k}t^k P_{k},
 	\end{align*}
-	which is equal to $C_P(t)$ for degree $n+1$ and some arbitrary value of $t \in [0, 1]$.
+	which is equal to $C_P(t)$ for degree $n+1$.
 \end{proof}
 
-A visual representation of algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $C_P$ with degree $n$, one has to perform $n^2-n$ additions and just as many scalar multiplications.
+A visual representation of algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $C_P$ with degree $n$, one has to perform $\frac{n^2-n}{2}$ additions and $n^2-n$ scalar multiplications.
 
 \begin{figure}[!h]
 	\centering
