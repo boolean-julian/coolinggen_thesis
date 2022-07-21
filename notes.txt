@@ -24,8 +24,6 @@ projection, translation, rotation -> affine transformations
 richtwert seitenzahl 60
 Mi 20.07. 16:00 Plonka-Hoch Termin 
 
-
-
 FRAGEN TREFFEN 20.07
 ====================
 1. Verschneidung von NURBS-Kurven, derzeitigen Stand erklären:

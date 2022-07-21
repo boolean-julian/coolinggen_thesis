@@ -383,6 +383,40 @@ Simple as their appearance may be, Beziér curves fall short of representing som
 
 \section{Non-Uniform Rational B-Splines (NURBS)}
 \subsection{Definition}
+Similarly to how Beziér curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines (or B-splines), which are recursively defined on a knot sequence $(t_m) \subset \mathbb{R}$ with $t_{k+1} \geq t_k$ for all $k \in \mathbb{N}$.
+
+\begin{definition}
+	The B-splines of degree $1$ on a knot sequence $(t_m)$ are defined as
+	\begin{equation}
+		N^{(t_m)}_{1,k}(t) :=
+		\begin{cases}
+			1 & \text{if } t \in [t_k, t_{k+1}],\\
+			0 & \text{else.}
+		\end{cases}
+		= \chi_{[t_k, t_{k+1}]}(t)
+	\end{equation}
+	The B-splines of higher degrees are recursively given by
+	\begin{equation}
+		N_{n+1,k}^{(t_m)}(t) := \omega^{(t_m)}_{n, k}(t) \, N^{(t_m)}_{n, k}(t) + (1-\omega^{(t_m)}_{n, k+1}(t)) \, N^{(t_m)}_{n, k+1}(t),
+	\end{equation}
+	where
+	\begin{equation}
+		\omega^{(t_m)}_{n,k}(t) := 
+		\begin{cases}
+			\frac{t-t_k}{t_{k+n} - t_k} &\text{if } t_{k+n} \neq t,\\
+			0 							&\text{else.}
+		\end{cases}
+	\end{equation}
+\end{definition}
+
+\begin{remark}
+	Instead of $N_{n,k}^{(t_m)}$ we write $N_{n,k}$ and explicitly refer to $(t_m)$ when necessary. We restrict the domain of definition of $N_{n,k}$ to $[0, 1]$ by setting $\inf t_m = 0$ and $\sup t_m = 1$.
+\end{remark}
+
+In practice, the notion of the knot sequence is commonly simplified to that of a knot vector, which only contains a finite number of elements. We also require a set $P$ of control points to draw curves.
+
+The main difference of B-splines compared to the Bernstein polynomials is the local support. While for all Bernstein polynomials of degree $n$ we have $\text{supp}\;b_{n,k} = [0, 1]$, it is often the case that $\text{supp}\;N_{n,k} \subsetneq [0, 1]$. However, we do have the property that $\bigcup_k \text{supp} \; N_{n,k} = [0,1]$. This idea geometrically translates to the fact that a B-spline curve is defined for all values of $t \in [0,1]$ but shifting single control points only results in local changes, whereas in Beziér curves, a shift of a single control point is going to affect the curve globally.
+
 \subsection{Properties}
 \subsection{de Boor's Algorithm}
 
