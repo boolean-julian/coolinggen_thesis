@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.20)  21 JUL 2022 15:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.20)  25 JUL 2022 13:52
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1481,22 +1481,32 @@ Package pdftex.def Info: ./svg-inkscape/deCasteljauVisual_svg-tex.pdf , page1 u
 sed on input line 56.
 (pdftex.def)             Requested size: 223.07211pt x 223.06866pt.
 ) [4 <./svg-inkscape/deCasteljauVisual_svg-tex.pdf>] [5]
+Overfull \hbox (3.21587pt too wide) in paragraph at lines 448--449
+[]\T1/lmr/bx/n/10.95 Definition 2.2.3. []\T1/lmr/m/n/10.95 A NURBS curve $\OML/
+lmm/m/it/10.95 C[]\OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 t\OT1/lmr/m/n/10.95 )
+$ \T1/lmr/m/n/10.95 of de-gree $\OML/lmm/m/it/10.95 n$ \T1/lmr/m/n/10.95 with t
+he con-trol points $\OML/lmm/m/it/10.95 P \OT1/lmr/m/n/10.95 = \OMS/lmsy/m/n/10
+.95 f\OML/lmm/m/it/10.95 P[]; P[]; :::; P[]\OMS/lmsy/m/n/10.95 g$\T1/lmr/m/n/10
+.95 ,
+ []
+
+[6]
 Package svg Info: Last page of `./svg-inkscape/filletVisuals_svg-tex.pdf' is 1 
-on input line 435.
+on input line 476.
  (./svg-inkscape/filletVisuals_svg-tex.pdf_tex
-<./svg-inkscape/filletVisuals_svg-tex.pdf, id=410, page=1, 361.35pt x 361.35pt>
+<./svg-inkscape/filletVisuals_svg-tex.pdf, id=419, page=1, 361.35pt x 361.35pt>
 
 File: ./svg-inkscape/filletVisuals_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletVisuals_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/filletVisuals_svg-tex.pdf , page1 used 
 on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
-) [6] [7 <./svg-inkscape/filletVisuals_svg-tex.pdf>]
+) [7] [8 <./svg-inkscape/filletVisuals_svg-tex.pdf>]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
-.pdf' is 1 on input line 447.
+.pdf' is 1 on input line 488.
 (./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=442, page=1, 361.35pt 
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=453, page=1, 361.35pt 
 x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1506,41 +1516,41 @@ page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
 )
 Package svg Info: Last page of `./svg-inkscape/selfIntersection_svg-tex.pdf' is
- 1 on input line 452.
+ 1 on input line 493.
 
 (./svg-inkscape/selfIntersection_svg-tex.pdf_tex
-<./svg-inkscape/selfIntersection_svg-tex.pdf, id=444, page=1, 596.23853pt x 265
+<./svg-inkscape/selfIntersection_svg-tex.pdf, id=455, page=1, 596.23853pt x 265
 .00102pt>
 File: ./svg-inkscape/selfIntersection_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/selfIntersection_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/selfIntersection_svg-tex.pdf , page1 us
 ed on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 101.16644pt.
-) [8
+) [9
 
  <./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf> <./svg-inkscape/selfInte
 rsection_svg-tex.pdf
 
 pdfTeX warning: pdflatex (file ./svg-inkscape/selfIntersection_svg-tex.pdf): PD
 F inclusion: multiple pdfs with page group included in a single page
->] [9]
+>] [10]
 Chapter 4.
-[10
+[11
 
 ]
 Chapter 5.
-[11
+[12
 
 ] (./thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: AAC05358D90F12BB2E5276460A6F4B0A;4869.
+(rerunfilecheck)             Checksum: 987AEDA1C56A47877A85F7BF82D79110;4869.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37456 strings out of 478038
- 712108 string characters out of 5839077
+ 37464 strings out of 478038
+ 712196 string characters out of 5839077
  1501942 words of memory out of 5000000
  55193 multiletter control sequences out of 15000+600000
  541387 words of font info for 78 fonts, out of 8000000 for 9000
@@ -1568,10 +1578,10 @@ sy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></
 usr/local/texlive/2022/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/
 texlive/2022/texmf-dist/fonts/type1/public/marvosym/marvosym.pfb></usr/local/te
 xlive/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (17 pages, 610894 bytes).
+Output written on thesis.pdf (18 pages, 616774 bytes).
 PDF statistics:
- 617 PDF objects out of 1000 (max. 8388607)
- 478 compressed objects within 5 object streams
- 76 named destinations out of 1000 (max. 500000)
+ 629 PDF objects out of 1000 (max. 8388607)
+ 489 compressed objects within 5 object streams
+ 84 named destinations out of 1000 (max. 500000)
  378 words of extra memory for PDF output out of 10000 (max. 10000000)
 

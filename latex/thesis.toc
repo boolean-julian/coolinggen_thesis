@@ -10,27 +10,27 @@
 \contentsline {subsection}{\numberline {2.1.3}Properties}{4}{subsection.20}%
 \contentsline {section}{\numberline {2.2}Non-Uniform Rational B-Splines (NURBS)}{5}{section.24}%
 \contentsline {subsection}{\numberline {2.2.1}Definition}{5}{subsection.25}%
-\contentsline {subsection}{\numberline {2.2.2}Properties}{6}{subsection.30}%
-\contentsline {subsection}{\numberline {2.2.3}de Boor's Algorithm}{6}{subsection.31}%
-\contentsline {section}{\numberline {2.3}Methods on NURBS Objects}{6}{section.32}%
-\contentsline {subsection}{\numberline {2.3.1}Affine Transformations}{6}{subsection.33}%
-\contentsline {subsection}{\numberline {2.3.2}The Frenet-Serret Apparatus}{6}{subsection.34}%
-\contentsline {subsection}{\numberline {2.3.3}Finding Intersections}{6}{subsection.35}%
-\contentsline {subsection}{\numberline {2.3.4}Interpolation}{6}{subsection.36}%
-\contentsline {section}{\numberline {2.4}Jet Engine Design Specifics}{6}{section.37}%
-\contentsline {subsection}{\numberline {2.4.1}Fundamental Terms}{6}{subsection.38}%
-\contentsline {subsection}{\numberline {2.4.2}The S2M Net}{6}{subsection.39}%
-\contentsline {subsection}{\numberline {2.4.3}Fillet Creation}{6}{subsection.40}%
-\contentsline {chapter}{\numberline {3}Results}{8}{chapter.42}%
-\contentsline {section}{\numberline {3.1}Cooling Geometries And Their Parametrizations}{8}{section.43}%
-\contentsline {subsection}{\numberline {3.1.1}Chambers}{8}{subsection.44}%
-\contentsline {subsection}{\numberline {3.1.2}Turnarounds}{8}{subsection.45}%
-\contentsline {subsection}{\numberline {3.1.3}Slots}{8}{subsection.46}%
-\contentsline {subsection}{\numberline {3.1.4}Film Cooling Holes}{8}{subsection.47}%
-\contentsline {subsection}{\numberline {3.1.5}Impingement Inserts}{9}{subsection.50}%
-\contentsline {section}{\numberline {3.2}Export for CENTAUR}{9}{section.51}%
-\contentsline {section}{\numberline {3.3}Export for Open CASCADE}{9}{section.52}%
-\contentsline {chapter}{\numberline {4}Discussion}{10}{chapter.53}%
-\contentsline {section}{\numberline {4.1}Future Work}{10}{section.54}%
-\contentsline {section}{\numberline {4.2}Conclusion}{10}{section.55}%
-\contentsline {chapter}{\numberline {5}References}{11}{chapter.56}%
+\contentsline {subsection}{\numberline {2.2.2}Properties}{7}{subsection.37}%
+\contentsline {subsection}{\numberline {2.2.3}de Boor's Algorithm}{7}{subsection.38}%
+\contentsline {section}{\numberline {2.3}Methods on NURBS Objects}{7}{section.39}%
+\contentsline {subsection}{\numberline {2.3.1}Affine Transformations}{7}{subsection.40}%
+\contentsline {subsection}{\numberline {2.3.2}The Frenet-Serret Apparatus}{7}{subsection.41}%
+\contentsline {subsection}{\numberline {2.3.3}Finding Intersections}{7}{subsection.42}%
+\contentsline {subsection}{\numberline {2.3.4}Interpolation}{7}{subsection.43}%
+\contentsline {section}{\numberline {2.4}Jet Engine Design Specifics}{7}{section.44}%
+\contentsline {subsection}{\numberline {2.4.1}Fundamental Terms}{7}{subsection.45}%
+\contentsline {subsection}{\numberline {2.4.2}The S2M Net}{7}{subsection.46}%
+\contentsline {subsection}{\numberline {2.4.3}Fillet Creation}{7}{subsection.47}%
+\contentsline {chapter}{\numberline {3}Results}{9}{chapter.49}%
+\contentsline {section}{\numberline {3.1}Cooling Geometries And Their Parametrizations}{9}{section.50}%
+\contentsline {subsection}{\numberline {3.1.1}Chambers}{9}{subsection.51}%
+\contentsline {subsection}{\numberline {3.1.2}Turnarounds}{9}{subsection.52}%
+\contentsline {subsection}{\numberline {3.1.3}Slots}{9}{subsection.53}%
+\contentsline {subsection}{\numberline {3.1.4}Film Cooling Holes}{9}{subsection.54}%
+\contentsline {subsection}{\numberline {3.1.5}Impingement Inserts}{10}{subsection.57}%
+\contentsline {section}{\numberline {3.2}Export for CENTAUR}{10}{section.58}%
+\contentsline {section}{\numberline {3.3}Export for Open CASCADE}{10}{section.59}%
+\contentsline {chapter}{\numberline {4}Discussion}{11}{chapter.60}%
+\contentsline {section}{\numberline {4.1}Future Work}{11}{section.61}%
+\contentsline {section}{\numberline {4.2}Conclusion}{11}{section.62}%
+\contentsline {chapter}{\numberline {5}References}{12}{chapter.63}%

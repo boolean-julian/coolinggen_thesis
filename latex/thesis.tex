@@ -386,14 +386,14 @@ Simple as their appearance may be, Beziér curves fall short of representing som
 Similarly to how Beziér curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines (or B-splines), which are recursively defined on a knot sequence $(t_m) \subset \mathbb{R}$ with $t_{k+1} \geq t_k$ for all $k \in \mathbb{N}$.
 
 \begin{definition}
-	The B-splines of degree $1$ on a knot sequence $(t_m)$ are defined as
+	The B-splines of degree $0$ on a knot sequence $(t_m)$ are defined as
 	\begin{equation}
-		N^{(t_m)}_{1,k}(t) :=
+		N^{(t_m)}_{0,k}(t) :=
 		\begin{cases}
 			1 & \text{if } t \in [t_k, t_{k+1}],\\
-			0 & \text{else.}
+			0 & \text{else}
 		\end{cases}
-		= \chi_{[t_k, t_{k+1}]}(t)
+		\; = \chi_{[t_k, t_{k+1}]}(t),
 	\end{equation}
 	The B-splines of higher degrees are recursively given by
 	\begin{equation}
@@ -413,9 +413,50 @@ Similarly to how Beziér curves are defined on the Bernstein polynomial basis, N
 	Instead of $N_{n,k}^{(t_m)}$ we write $N_{n,k}$ and explicitly refer to $(t_m)$ when necessary. We restrict the domain of definition of $N_{n,k}$ to $[0, 1]$ by setting $\inf t_m = 0$ and $\sup t_m = 1$.
 \end{remark}
 
-In practice, the notion of the knot sequence is commonly simplified to that of a knot vector, which only contains a finite number of elements. We also require a set $P$ of control points to draw curves.
+\begin{theorem}
+	The B-splines of degree $n$ form a partition of unity, that is
+	\begin{equation}
+		\sum_{k=j-n}^j N_{n,k}(t) = 1,
+	\end{equation}
+	for $t \in [t_j, t_{j+1}]$.
+\end{theorem}
+\begin{proof}
+	Applying the recurrence relation for B-splines, we find that $N_{n,j}$ is a linear combination of $N_{n-1, j}$ and $N_{n-1, j+1}$, which reveals that if $N_{n, j}(t) \neq 0$ then $t \in [t_j, t_{j+n+1}]$. The induction hypothesis is
+	\begin{equation}
+		\sum_{k=j-(n-1)}^{n-1} N_{n-1,k}(t) = 1.
+	\end{equation}
+	which, in the case of $n=0$, is true by the definition of the B-spline. Applying the definition of $\omega_{k,l}$, we get
+	\begin{align*}
+		\sum_{k=j-n}^j N_{n,k}(t)	&= \sum_{k=j-n}^j \omega_{n-1, k}(t) N_{n-1, k}(t) + (1-\omega_{n-1, k+1}) N_{n-1, k+1}(t) \\
+									&= \omega_{n-1, j-n}(t) N_{n-1, j-n}(t)\\
+									&+ \sum_{k=j}^{n+j} \left(\frac{t_{n+k-1} - t}{t_{n+k-1} - t_{k}} + \frac{t - t_k}{t_{n+k-1} - t_k}\right) N_{n-1,k}(t)\\
+									&+ \omega_{n-1, j+1}(t) N_{n-1, j+1}(t).
+	\end{align*}
+	The factor $\omega_{n-1, j-n}(t)$ is equal to zero, because $t \in [t_j, t_{j+1}]$ and $\omega_{n-1, j-n} \equiv 0$ except on the interval $(t_{j-n}, t_j)$.
+	By the same logic, the factor $\omega_{n-1, j+1}(t)$ is equal to zero, because $\omega_{n-1, j+1} \equiv 0$ except on the interval $(t_{j+1}, t_{n+j+1})$. Therefore, the above equation is equal to
+	\begin{equation}
+		\sum_{k=j-n+1}^{n-1} N_{n-1,k}(t),
+	\end{equation}
+	which is equal to $1$ by the induction hypothesis.
+\end{proof}
 
-The main difference of B-splines compared to the Bernstein polynomials is the local support. While for all Bernstein polynomials of degree $n$ we have $\text{supp}\;b_{n,k} = [0, 1]$, it is often the case that $\text{supp}\;N_{n,k} \subsetneq [0, 1]$. However, we do have the property that $\bigcup_k \text{supp} \; N_{n,k} = [0,1]$. This idea geometrically translates to the fact that a B-spline curve is defined for all values of $t \in [0,1]$ but shifting single control points only results in local changes, whereas in Beziér curves, a shift of a single control point is going to affect the curve globally.
+One of the differences of B-splines compared to the Bernstein polynomials is the local support. While for all Bernstein polynomials of degree $n$ we have $\text{supp}\;b_{n,k} = [0, 1]$, it is often the case that $\text{supp}\;N_{n,k} \subsetneq [0, 1]$. However, we do have the property that $\bigcup_k \text{supp} \; N_{n,k} = [0,1]$. This idea geometrically translates to the fact that a B-spline curve is defined for all values of $t \in [0,1]$ but shifting single control points only results in local changes, whereas in Beziér curves, a shift of a single control point is going to affect the curve globally.
+
+In practice, the notion of the knot sequence is commonly simplified to that of a knot vector $T$, which only contains a finite number of elements. We also require a set $P$ of control points to draw curves. A NURBS curve is then defined as follows.
+
+\begin{definition}
+	A NURBS curve $C_P(t)$ of degree $n$ with the control points $P = \{P_0, P_1, ..., P_k\}$, the control weights $W = (w_0, w_1, ... w_k)$ and a knot vector $T = (t_0, t_1, ..., t_{k+n+1})$ with the property $t_{i+1} \geq t_{i}$ for all $i \in [0, k+n]$ is defined as
+	\begin{equation}
+		C_P(t) = \sum_{i=0}^k R_{n,i}(t)P_i,
+	\end{equation}
+	where
+	\begin{equation}
+		R_{n,i}(t) = \frac{N_{n,i}(t)w_i}{\sum_{j=1}^k N_{n,j}(t) w_j}
+	\end{equation}
+	are called rational basis functions.
+\end{definition}
+
+The degree of a Beziér curve is $|P|-1$, whereas in the definition of NURBS curves, the number of points and the degree are only related by the knot vector.
 
 \subsection{Properties}
 \subsection{de Boor's Algorithm}
