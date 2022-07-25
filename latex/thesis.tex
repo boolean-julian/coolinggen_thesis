@@ -423,9 +423,9 @@ Similarly to how Beziér curves are defined on the Bernstein polynomial basis, N
 \begin{proof}
 	Applying the recurrence relation for B-splines, we find that $N_{n,j}$ is a linear combination of $N_{n-1, j}$ and $N_{n-1, j+1}$, which reveals that if $N_{n, j}(t) \neq 0$ then $t \in [t_j, t_{j+n+1}]$. The induction hypothesis is
 	\begin{equation}
-		\sum_{k=j-(n-1)}^{n-1} N_{n-1,k}(t) = 1.
+		\sum_{k=j-(n-1)}^{n-1} N_{n-1,k}(t) = 1,
 	\end{equation}
-	which, in the case of $n=0$, is true by the definition of the B-spline. Applying the definition of $\omega_{k,l}$, we get
+	which in the case of $n=1$ is true by the definition of the B-spline. Applying the definition of $\omega_{k,l}$ we get
 	\begin{align*}
 		\sum_{k=j-n}^j N_{n,k}(t)	&= \sum_{k=j-n}^j \omega_{n-1, k}(t) N_{n-1, k}(t) + (1-\omega_{n-1, k+1}) N_{n-1, k+1}(t) \\
 									&= \omega_{n-1, j-n}(t) N_{n-1, j-n}(t)\\
