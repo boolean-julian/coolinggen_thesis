@@ -453,7 +453,7 @@ In practice, the notion of the knot sequence is commonly simplified to that of a
 	\end{equation}
 	where
 	\begin{equation}
-		R_{n,i}(t) = \frac{N_{n,i}(t)w_i}{\sum_{j=1}^k N_{n,j}(t) w_j}
+		R_{n,i}(t) = \frac{N_{n,i}(t)w_i}{\sum_{j=0}^k N_{n,j}(t) w_j}
 	\end{equation}
 	are called rational basis functions.
 \end{definition}
@@ -461,12 +461,19 @@ In practice, the notion of the knot sequence is commonly simplified to that of a
 The degree of a Beziér curve $B_P(t)$ is equal to $|P|-1$, whereas in a NURBS curve $C_P(t)$, the number of points and the degree are only related by the knot vector.
 
 \subsection{de Boor's Algorithm}
-To efficiently calculate points on a NURBS curve, Carl-Wilhelm Reinhold de Boor devised an algorithm.
+To efficiently calculate points on a NURBS curve, Carl-Wilhelm Reinhold de Boor devised an efficient algorithm for B-splines. The common strategy that utilizes this algorithm for NURBS curves employs the following steps. Using the map 
+	$$\Phi: \{P, W\} \mapsto P^W$$
+we can construct the set of weighted control points $P^W$, where $P^W_i = (w_i P_{i_x}, w_i P_{i_y}, w_i P_{i_z}, w_i)$. We can then use de Boor's algorithm to calculate the weighted B-spline curve $C^W$ on the set of weighted control points. Afterwards, we use the perspective map 
+	$$\Phi^\dagger: C^W \mapsto C$$ 
+to retrieve the NURBS curve $C$.
+
+
 
 \begin{algorithm}
 	\begin{algorithmic}[1]
 		\Input
 			\Desc{$P = \{P_0, P_1, ..., P_k\}$}{set of control points of the NURBS curve}
+			\Desc{$W = \{w_0, w_1, ..., w_k\}$}{weights of the control points}
 			\Desc{$T = (t_0, t_1, ..., t_{k+n+1})$}{knot vector of the NURBS curve}
 			\Desc{$n$}{degree of the NURBS curve}
 			\Desc{$t \in [t_0, t_{k+n+1})$}{real number}
@@ -477,22 +484,23 @@ To efficiently calculate points on a NURBS curve, Carl-Wilhelm Reinhold de Boor 
 
 		\caption{de Boor's algorithm}\label{alg:debooralgo}
 		\Procedure{deBoor}{P, p, T, t}
+			\State $P^{(0)} \gets \Phi(P, W)$
 			\State Find $l$ such that $t \in [t_l, t_{l+1})$
 			\State Let $m$ be the multiplicity of $t$ in the knot vector $T$
 
-			\State $P^{(0)} \gets P$
 			\For {$i = 1, 2, ..., n-m$}
 				\For {$j = l-n+i, ..., l-m$}
-					\State $\alpha^{(i)}_j \gets \frac{t-t_i}{t_{j+n-i+1} - t_i}$
+					\State $\alpha^{(i)}_j \gets \frac{t-t_j}{t_{j+n-i+1} - t_j}$
 					\State $P^{(i)}_j \gets (1-\alpha^{(i)}_j) \cdot P^{(i-1)}_ {j-1} + \alpha^{(i)}_j \cdot P^{(i-1)}_j$
 				\EndFor
 			\EndFor
-			\Return $P^{(n-m)}_{l-m} = C_P(t)$
+
+			\Return $\Phi^\dagger(P^{(n-m)}_{l-m}) = C_P(t)$
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
 
-De Boor's algorithm is a generalization of de Castlejau's algorithm
+De Boor's algorithm is a generalization of de Castlejau's algorithm. 
 
 \begin{figure}[h!]
 	\centering
@@ -506,7 +514,7 @@ De Boor's algorithm is a generalization of de Castlejau's algorithm
 		\setcounter{i}{0}
 		\setcounter{j}{0}
 
-		\node (\arabic{i}) at (0,0) {$P^{(\degree)}_0$};
+		\node (\arabic{i}) at (0,0) {$P^{(\degree)}_l$};
 		\stepcounter{i}
 
 		\foreach \x in {1, ..., \degree} {
@@ -542,12 +550,12 @@ De Boor's algorithm is a generalization of de Castlejau's algorithm
 				\stepcounter{b}
 				
 				\ifthenelse{\y > 1} {
-					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $1-\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_{l-\pgfmathint{\y-1}\pgfmathresult}$};
-					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_{l-\pgfmathint{\y-1}\pgfmathresult}$};
+					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $1-\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_{l-\pgfmathint{\y-1}\pgfmathresult}$};
+					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_{l-\pgfmathint{\y-1}\pgfmathresult}$};
 				}
 				{
-					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $1-\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_l$};
-					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_l$};
+					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $1-\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_l$};
+					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_l$};
 				}
 
 				\stepcounter{z}
@@ -556,6 +564,27 @@ De Boor's algorithm is a generalization of de Castlejau's algorithm
 	\end{tikzpicture}
 	\caption{Algorithmic visualization.}
 \end{figure}
+
+\begin{theorem}
+	Algo works
+\end{theorem}
+\begin{proof}
+	By induction. Let $n = 1$ and $t \in (t_l, t_{l+1})$. Then
+	\begin{align*}
+		P_l^{1} &= (1-\alpha_l^{(1)}) \cdot P_{l-1}^{(0)} + \alpha_l^{(1)} \cdot P_l^{(0)} \\
+				&= \left(1-\frac{t-t_l}{t_{l+1}-t_l}\right) \cdot P_{l-1}^{(0)} + \frac{t-t_l}{t_{l+1}-t_l} \cdot P_l^{(0)} \\
+				&= (1-\omega_{1,l}) \cdot (w_{l-1} P_{l-1}, w_{l-1}) + \omega_{1,l} \cdot (w_l P_l, w_l) \\
+				&= N_2
+	\end{align*}
+	Applying the perspective map $\Phi^\dagger$, we find that this is equal to $C_P(t)$.
+
+	\begin{align*}
+		P^{(n)}_l 	&= (1-\alpha_l^{(n)}) \cdot P_{l-1}^{(n-1)} + \alpha_l^{(n)} \cdot P_l^{(n-1)} \\
+					&= 
+	\end{align*}
+
+\end{proof}
+
 
 \subsection{Properties}
 

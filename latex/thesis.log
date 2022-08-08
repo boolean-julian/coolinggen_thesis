@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  2 AUG 2022 18:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  8 AUG 2022 08:48
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -1519,26 +1519,23 @@ he con-trol points $\OML/lmm/m/it/10.95 P \OT1/lmr/m/n/10.95 = \OMS/lmsy/m/n/10
 .95 ,
  []
 
-[6]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+[6] [7]
 Package svg Info: Last page of `./svg-inkscape/filletVisuals_svg-tex.pdf' is 1 
-on input line 575.
-(svg-inkscape/filletVisuals_svg-tex.pdf_tex
-<./svg-inkscape/filletVisuals_svg-tex.pdf, id=416, page=1, 361.35pt x 361.35pt>
+on input line 604.
+ (svg-inkscape/filletVisuals_svg-tex.pdf_tex
+<./svg-inkscape/filletVisuals_svg-tex.pdf, id=425, page=1, 361.35pt x 361.35pt>
 
 File: ./svg-inkscape/filletVisuals_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletVisuals_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/filletVisuals_svg-tex.pdf , page1 used 
 on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
-) [7] [8] [9 <./svg-inkscape/filletVisuals_svg-tex.pdf>]
+) [8] [9 <./svg-inkscape/filletVisuals_svg-tex.pdf>]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
-.pdf' is 1 on input line 587.
+.pdf' is 1 on input line 616.
 (svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=457, page=1, 361.35pt 
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=458, page=1, 361.35pt 
 x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1548,10 +1545,10 @@ page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
 )
 Package svg Info: Last page of `./svg-inkscape/selfIntersection_svg-tex.pdf' is
- 1 on input line 592.
+ 1 on input line 621.
 
 (svg-inkscape/selfIntersection_svg-tex.pdf_tex
-<./svg-inkscape/selfIntersection_svg-tex.pdf, id=459, page=1, 596.23853pt x 265
+<./svg-inkscape/selfIntersection_svg-tex.pdf, id=460, page=1, 596.23853pt x 265
 .00102pt>
 File: ./svg-inkscape/selfIntersection_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/selfIntersection_svg-tex.pdf, page 1>
@@ -1575,19 +1572,19 @@ Chapter 5.
 
 ] (thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 59881EBFCCDD4F8CB1954FB497A78CAC;4869.
+(rerunfilecheck)             Checksum: 84AB04F7912C45A6EC3A4CE3EDF8A749;4869.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35894 strings out of 479173
- 660306 string characters out of 2864039
- 1489251 words of memory out of 3000000
+ 35895 strings out of 479173
+ 660319 string characters out of 2864039
+ 1491251 words of memory out of 3000000
  52792 multiletter control sequences out of 15000+600000
  475558 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,11n,96p,741b,1661s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 94i,12n,96p,741b,1661s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files/M
 iKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips
 /lm/lm-rm.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program
@@ -1608,9 +1605,9 @@ gram Files/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Program Files/MiKTeX/font
 s/type1/public/lm/lmtt10.pfb><C:/Users/julian/AppData/Roaming/MiKTeX/fonts/type
 1/public/marvosym/marvosym.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsf
 onts/symbols/msbm10.pfb>
-Output written on thesis.pdf (19 pages, 663515 bytes).
+Output written on thesis.pdf (19 pages, 668823 bytes).
 PDF statistics:
- 614 PDF objects out of 1000 (max. 8388607)
- 87 named destinations out of 1000 (max. 500000)
+ 615 PDF objects out of 1000 (max. 8388607)
+ 88 named destinations out of 1000 (max. 500000)
  378 words of extra memory for PDF output out of 10000 (max. 10000000)
 

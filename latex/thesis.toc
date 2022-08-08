@@ -25,48 +25,48 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2.2}de Boor's Algorithm}{7}{subsection.37}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.3}Properties}{8}{subsection.40}%
+\contentsline {subsection}{\numberline {2.2.3}Properties}{9}{subsection.41}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.3}Methods on NURBS Objects}{8}{section.41}%
+\contentsline {section}{\numberline {2.3}Methods on NURBS Objects}{9}{section.42}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.1}Affine Transformations}{8}{subsection.42}%
+\contentsline {subsection}{\numberline {2.3.1}Affine Transformations}{9}{subsection.43}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.2}The Frenet-Serret Apparatus}{8}{subsection.43}%
+\contentsline {subsection}{\numberline {2.3.2}The Frenet-Serret Apparatus}{9}{subsection.44}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.3}Finding Intersections}{8}{subsection.44}%
+\contentsline {subsection}{\numberline {2.3.3}Finding Intersections}{9}{subsection.45}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.4}Interpolation}{8}{subsection.45}%
+\contentsline {subsection}{\numberline {2.3.4}Interpolation}{9}{subsection.46}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.4}Jet Engine Design Specifics}{8}{section.46}%
+\contentsline {section}{\numberline {2.4}Jet Engine Design Specifics}{9}{section.47}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.1}Fundamental Terms}{8}{subsection.47}%
+\contentsline {subsection}{\numberline {2.4.1}Fundamental Terms}{9}{subsection.48}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.2}The S2M Net}{8}{subsection.48}%
+\contentsline {subsection}{\numberline {2.4.2}The S2M Net}{9}{subsection.49}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.3}Fillet Creation}{8}{subsection.49}%
+\contentsline {subsection}{\numberline {2.4.3}Fillet Creation}{9}{subsection.50}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Results}{10}{chapter.51}%
+\contentsline {chapter}{\numberline {3}Results}{10}{chapter.52}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Cooling Geometries And Their Parametrizations}{10}{section.52}%
+\contentsline {section}{\numberline {3.1}Cooling Geometries And Their Parametrizations}{10}{section.53}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.1}Chambers}{10}{subsection.53}%
+\contentsline {subsection}{\numberline {3.1.1}Chambers}{10}{subsection.54}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.2}Turnarounds}{10}{subsection.54}%
+\contentsline {subsection}{\numberline {3.1.2}Turnarounds}{10}{subsection.55}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.3}Slots}{10}{subsection.55}%
+\contentsline {subsection}{\numberline {3.1.3}Slots}{10}{subsection.56}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.4}Film Cooling Holes}{10}{subsection.56}%
+\contentsline {subsection}{\numberline {3.1.4}Film Cooling Holes}{10}{subsection.57}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.5}Impingement Inserts}{11}{subsection.59}%
+\contentsline {subsection}{\numberline {3.1.5}Impingement Inserts}{11}{subsection.60}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Export for CENTAUR}{11}{section.60}%
+\contentsline {section}{\numberline {3.2}Export for CENTAUR}{11}{section.61}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Export for Open CASCADE}{11}{section.61}%
+\contentsline {section}{\numberline {3.3}Export for Open CASCADE}{11}{section.62}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Discussion}{12}{chapter.62}%
+\contentsline {chapter}{\numberline {4}Discussion}{12}{chapter.63}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Future Work}{12}{section.63}%
+\contentsline {section}{\numberline {4.1}Future Work}{12}{section.64}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Conclusion}{12}{section.64}%
+\contentsline {section}{\numberline {4.2}Conclusion}{12}{section.65}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}References}{13}{chapter.65}%
+\contentsline {chapter}{\numberline {5}References}{13}{chapter.66}%
