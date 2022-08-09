@@ -1,0 +1,27 @@
+
+\begin{theorem}
+	The B-splines of degree $n$ form a partition of unity, that is
+	\begin{equation}
+		\sum_{k=j-n}^j N_{n,k}(t) = 1,
+	\end{equation}
+	for $t \in [t_j, t_{j+1})$.
+\end{theorem}
+\begin{proof}
+	Applying the recurrence relation for B-splines, we find that $N_{n,j}$ is a linear combination of $N_{n-1, j}$ and $N_{n-1, j+1}$, which reveals that if $N_{n, j}(t) \neq 0$ then $t \in [t_j, t_{j+n+1})$. The induction hypothesis is
+	\begin{equation}
+		\sum_{k=j-(n-1)}^{n-1} N_{n-1,k}(t) = 1,
+	\end{equation}
+	which in the case of $n=1$ is true by the definition of the B-spline. Applying the definition of $\omega_{k,l}$ we get
+	\begin{align*}
+		\sum_{k=j-n}^j N_{n,k}(t)	&= \sum_{k=j-n}^j \omega_{n-1, k}(t) N_{n-1, k}(t) + (1-\omega_{n-1, k+1}) N_{n-1, k+1}(t) \\
+									&= \omega_{n-1, j-n}(t) N_{n-1, j-n}(t)\\
+									&+ \sum_{k=j}^{n+j} \left(\frac{t_{n+k-1} - t}{t_{n+k-1} - t_{k}} + \frac{t - t_k}{t_{n+k-1} - t_k}\right) N_{n-1,k}(t)\\
+									&+ \omega_{n-1, j+1}(t) N_{n-1, j+1}(t).
+	\end{align*}
+	For the given $t$, the B-spline $N_{n-1, j-n}(t)$ is equal to zero, because $t \in [t_j, t_{j+1})$ and $N_{n-1, j-n} \equiv 0$ except on the interval $[t_{j-n}, t_j)$.
+	Similarly, $N_{n-1, j+1}(t)$ is equal to zero, because $N_{n-1, j+1} \equiv 0$ except on the interval $[t_{j+1}, t_{n+j+1})$. Therefore, the above equation is equal to
+	\begin{equation}
+		\sum_{k=j-n+1}^{n-1} N_{n-1,k}(t),
+	\end{equation}
+	which is equal to $1$ by the induction hypothesis.
+\end{proof}

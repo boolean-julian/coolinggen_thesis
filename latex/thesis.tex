@@ -200,7 +200,7 @@ Göttingen, \today \hspace{2em}
 \section{Bézier Curves}
 Bézier curves are named after the French engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.25\textwidth}
 		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees1}
@@ -227,11 +227,11 @@ Bézier curves are named after the French engineer Pierre Bézier, who famously 
 \end{definition}
 
 \begin{definition}
-	A \emph{Bézier curve} of degree $n$ is a parametric curve $B_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow \mathbb{R}^3$ that has a representation
+	Let $V$ a vector space. A \emph{Bézier curve} of degree $n$ is a parametric curve $B_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow V$ that has a representation
 	\begin{equation}\label{eq:bezierdef}
 		B_{P, [t_0, t_1]}(t) = \sum_{k=0}^n b_{n,k,[t_0, t_1]}(t) P_k = \sum_{k=0}^n \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n} P_k.
 	\end{equation}
-	We call the elements of the set $P = \{P_0, P_1, \dots, P_n\}$ the \emph{control points} of $B_P$.
+	We call the elements of the set $P = \{P_0, P_1, \dots, P_n\} \subset V$ the \emph{control points} of $B_P$.
 \end{definition}
 
 \begin{remark}
@@ -243,14 +243,14 @@ Bézier curves are named after the French engineer Pierre Bézier, who famously 
 	\begin{equation}\label{eq:bezierdefshort}
 		B_P(t) := B_{P,[0,1]}(t)= \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
 	\end{equation}
-	This case is the only case considered in this thesis.
+	This case is the only case considered in this thesis. We also set the vector space $V$ to be $\mathbb{R}^3$ unless specified otherwise.
 \end{remark}
 
-\subsection{de Casteljau's Algorithm}
+\subsection{De Casteljau's Algorithm}
 
 The computation of equation \ref{eq:bezierdefshort} is usually performed using de Casteljau's algorithm. This is because the algorithm yields a simple implementation and lower complexity than straightforwardly computing equation \ref{eq:bezierdefshort}. The algorithm was proposed by Paul de Faget de Casteljau for the automobile manufacturer Citroën in the 1960s.
 
-\begin{algorithm}
+\begin{algorithm}[H]
 	\begin{algorithmic}[1]
 		\Input
 			\Desc{$P = \{P_0, P_1, ..., P_n\}$}{set of control points}
@@ -290,9 +290,9 @@ The computation of equation \ref{eq:bezierdefshort} is usually performed using d
 	which is equal to $B_P(t)$ for degree $n+1$.
 \end{proof}
 
-A visual representation of algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $B_P$ with degree $n$, one has to perform $\frac{n^2-n}{2}$ additions and $n^2-n$ scalar multiplications.
+A visual representation of Algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $B_P$ with degree $n$, one has to perform $\frac{n^2-n}{2}$ additions and $n^2-n$ scalar multiplications.
 
-\begin{figure}[!h]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
 		\begin{tikzpicture}
@@ -352,7 +352,7 @@ A visual representation of algorithm \ref{alg:decasteljaualgo} yields a triangul
 	\label{fig:decasteljautriangle}
 \end{figure}
 
-Interestingly, the representation of the algorithm in Figure \ref{fig:decasteljautriangle} also gives rise to an intuitive visualization of the geometric shape of the Beziér curve $B_P$. For all $i \in \{0, ..., n\}$ and all $j \in \{0, ..., n-i\}$, the point $P^{(i+1)}_j$ is the convex combination (always w.r.t. $t$) of $P^{(i)}_j$ and $P^{(i)}_{j+1}$. Thus $P^{(i+1)}_j$ always lies on the line segment between $P^{(i)}_j$ and $P^{(i)}_{j+1}$, as can also be observed in \ref{fig:decasteljautriangle}.
+Interestingly, the representation of the algorithm in Figure \ref{fig:decasteljautriangle} also gives rise to an intuitive visualization of the geometric shape of the Beziér curve $B_P$. For all $i \in \{0, ..., n\}$ and all $j \in \{0, ..., n-i\}$, the point $P^{(i+1)}_j$ is the convex combination (always w.r.t. $t$) of $P^{(i)}_j$ and $P^{(i)}_{j+1}$. Thus $P^{(i+1)}_j$ always lies on the line segment between $P^{(i)}_j$ and $P^{(i)}_{j+1}$, as can be observed in the example in Figure \ref{fig:decasteljautriangle}.
 
 \subsection{Properties}
 Other than being remarkably intuitive, Beziér curves have a lot of properties which make them convenient. In computer-aided design software, most graphical user interfaces rely on the principle of letting the user interactively drag and drop the control points with a mouse, granting them control over the shape of Beziér curve. The following theorems further illustrate why this is a good idea.
@@ -384,12 +384,12 @@ Other than being remarkably intuitive, Beziér curves have a lot of properties w
 
 Simple as their appearance may be, Beziér curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with just a handful of control points, is their greatest shortcoming at the same time. This is most likely the reason why Beziér curves are not the state of the art in technical engineering applications. However, Beziér curves certainly do provide an intuition for Non-Uniform Rational B-Splines or NURBS, which is their prevailing counterpart.
 
-\section{Non-Uniform Rational B-Splines (NURBS)}
+\section{Non-Uniform Rational B-splines (NURBS)}
 \subsection{Definition}
-Similarly to how Beziér curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines (or more commonly B-splines), which are recursively defined on a knot sequence $(t_m) \subset \mathbb{R}$ with $t_{k+1} \geq t_k$ for all $k \in \mathbb{N}$.
+Similarly to how Beziér curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines (or more commonly B-splines), which are recursively defined on a \emph{knot sequence} $(t_m)_{m=-\infty}^{\infty} \subset \mathbb{R}$ with $t_{m} \leq t_{m+1}$ for all $m \in \mathbb{Z}$.
 
 \begin{definition}
-	The B-splines of degree $0$ on a knot sequence $(t_m)$ are defined as
+	The \emph{B-splines of degree $0$} on a knot sequence $(t_m)$ are defined as
 	\begin{equation}
 		N^{(t_m)}_{0,k}(t) :=
 		\begin{cases}
@@ -397,86 +397,83 @@ Similarly to how Beziér curves are defined on the Bernstein polynomial basis, N
 			0 & \text{else.}
 		\end{cases}
 	\end{equation}
-	The B-splines of higher degrees are recursively given by
-	\begin{equation}
-		N_{n+1,k}^{(t_m)}(t) := \omega^{(t_m)}_{n, k}(t) \, N^{(t_m)}_{n, k}(t) + (1-\omega^{(t_m)}_{n, k+1}(t)) \, N^{(t_m)}_{n, k+1}(t),
+	The \emph{B-splines of degree $p+1$} for $p \in \mathbb{N}$ are given by the \emph{Cox-de-Boor recursion formula}
+	\begin{equation}\label{eq:coxdeboorrec}
+		N_{p+1,k}^{(t_m)}(t) := \omega^{(t_m)}_{p, k}(t) \, N^{(t_m)}_{p, k}(t) + (1-\omega^{(t_m)}_{p, k+1}(t)) \, N^{(t_m)}_{p, k+1}(t),
 	\end{equation}
 	where
 	\begin{equation}
-		\omega^{(t_m)}_{n,k}(t) := 
+		\omega^{(t_m)}_{p,k}(t) := 
 		\begin{cases}
-			\frac{t-t_k}{t_{k+n} - t_k} &\text{if } t_{k+n} \neq t,\\
+			\frac{t-t_k}{t_{k+p} - t_k} &\text{if } t_{k+p} \neq t,\\
 			0 							&\text{else.}
 		\end{cases}
 	\end{equation}
 \end{definition}
 
 \begin{remark}
-	Instead of $N_{n,k}^{(t_m)}$ we write $N_{n,k}$ and explicitly refer to $(t_m)$ when necessary. We restrict the domain of definition of $N_{n,k}$ to $[0, 1)$ by setting $\inf t_m = 0$ and $\sup t_m = 1$.
+	Instead of $N_{p,k}^{(t_m)}$ we write $N_{p,k}$ and explicitly refer to $(t_m)$ when necessary. We restrict the domain of definition of $N_{p,k}$ to $[0, 1)$ by setting $\lim_{m \to -\infty} t_m = 0$ and $\lim_{m \to \infty} t_m = 1$.
 \end{remark}
 
-\begin{theorem}
-	The B-splines of degree $n$ form a partition of unity, that is
-	\begin{equation}
-		\sum_{k=j-n}^j N_{n,k}(t) = 1,
-	\end{equation}
-	for $t \in [t_j, t_{j+1})$.
-\end{theorem}
-\begin{proof}
-	Applying the recurrence relation for B-splines, we find that $N_{n,j}$ is a linear combination of $N_{n-1, j}$ and $N_{n-1, j+1}$, which reveals that if $N_{n, j}(t) \neq 0$ then $t \in [t_j, t_{j+n+1})$. The induction hypothesis is
-	\begin{equation}
-		\sum_{k=j-(n-1)}^{n-1} N_{n-1,k}(t) = 1,
-	\end{equation}
-	which in the case of $n=1$ is true by the definition of the B-spline. Applying the definition of $\omega_{k,l}$ we get
-	\begin{align*}
-		\sum_{k=j-n}^j N_{n,k}(t)	&= \sum_{k=j-n}^j \omega_{n-1, k}(t) N_{n-1, k}(t) + (1-\omega_{n-1, k+1}) N_{n-1, k+1}(t) \\
-									&= \omega_{n-1, j-n}(t) N_{n-1, j-n}(t)\\
-									&+ \sum_{k=j}^{n+j} \left(\frac{t_{n+k-1} - t}{t_{n+k-1} - t_{k}} + \frac{t - t_k}{t_{n+k-1} - t_k}\right) N_{n-1,k}(t)\\
-									&+ \omega_{n-1, j+1}(t) N_{n-1, j+1}(t).
-	\end{align*}
-	For the given $t$, the B-spline $N_{n-1, j-n}(t)$ is equal to zero, because $t \in [t_j, t_{j+1})$ and $N_{n-1, j-n} \equiv 0$ except on the interval $[t_{j-n}, t_j)$.
-	Similarly, $N_{n-1, j+1}(t)$ is equal to zero, because $N_{n-1, j+1} \equiv 0$ except on the interval $[t_{j+1}, t_{n+j+1})$. Therefore, the above equation is equal to
-	\begin{equation}
-		\sum_{k=j-n+1}^{n-1} N_{n-1,k}(t),
-	\end{equation}
-	which is equal to $1$ by the induction hypothesis.
-\end{proof}
-
-One of the differences of B-splines compared to the Bernstein polynomials is the local support. While for all Bernstein polynomials of degree $n$ we have $\text{supp}\;b_{n,k} = [0, 1]$, it is often the case that $\text{supp}\;N_{n,k} \subsetneq [0, 1]$. However, we do have the property that $\bigcup_k \text{supp} \; N_{n,k} = [0,1]$. This idea geometrically translates to the fact that a B-spline curve is defined for all values of $t \in [0,1]$ but shifting single control points only results in local changes, whereas in Beziér curves, a shift of a single control point is going to affect the curve globally.
-
-In practice, the notion of the knot sequence is commonly simplified to that of a knot vector $T$, which only contains a finite number of elements. We also require a set $P$ of control points to draw curves.
-
 \begin{definition}
-	A NURBS curve $C_P(t)$ of degree $n$ with the control points $P = \{P_0, P_1, ..., P_k\}$, the control weights $W = (w_0, w_1, ... w_k)$ and a knot vector $T = (t_0, t_1, ..., t_{k+n+1})$ with the property $t_{i+1} \geq t_{i}$ for all $i \in [0, k+n]$ is defined as
-	\begin{equation}
-		C_P(t) = \sum_{i=0}^k R_{n,i}(t)P_i,
-	\end{equation}
-	where
-	\begin{equation}
-		R_{n,i}(t) = \frac{N_{n,i}(t)w_i}{\sum_{j=0}^k N_{n,j}(t) w_j}
-	\end{equation}
-	are called rational basis functions.
+	Let $V$ a vector space. A \emph{B-spline curve} over a set of control points $P = \{P_0, P_1, ... P_n\} \subset V$ is defined as $$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k. $$
 \end{definition}
 
-The degree of a Beziér curve $B_P(t)$ is equal to $|P|-1$, whereas in a NURBS curve $C_P(t)$, the number of points and the degree are only related by the knot vector.
+\begin{definition}\label{def:nurbs}
+	A \emph{NURBS curve} $C_P(t)$ of degree $p$ with the control points $P = \{P_0, P_1, ..., P_n\} \subset V$, the control weights $w = (w_0, w_1, ... w_n) \subset \mathbb{R}$ and a knot sequence $(t_m)$ is defined as
+	\begin{equation}
+		C_P(t) = \frac{\sum_{k=0}^n N_{p,k}(t) w_k P_k}{\sum_{k=0}^n N_{p,k}(t) w_k}.
+	\end{equation}
+\end{definition}
 
-\subsection{de Boor's Algorithm}
-To efficiently calculate points on a NURBS curve, Carl-Wilhelm Reinhold de Boor devised an efficient algorithm for B-splines. The common strategy that utilizes this algorithm for NURBS curves employs the following steps. Using the map 
-	$$\Phi: \{P, W\} \mapsto P^W$$
-we can construct the set of weighted control points $P^W$, where $P^W_i = (w_i P_{i_x}, w_i P_{i_y}, w_i P_{i_z}, w_i)$. We can then use de Boor's algorithm to calculate the weighted B-spline curve $C^W$ on the set of weighted control points. Afterwards, we use the perspective map 
-	$$\Phi^\dagger: C^W \mapsto C$$ 
-to retrieve the NURBS curve $C$.
+\begin{remark}
+	Let $\dim V = d$. A NURBS curve can alternatively be understood as a projection of a B-spline curve on a transformed set of control points. For this purpose we define the embedding into the weighted vector space
+		$$\Phi_w: V \rightarrow V \times \mathbb{R}$$
+	that maps each control point $P_k = (p_1, ..., p_d) \in V$ onto $(w_k p_1, ..., w_k p_d, w_k) \in V \times \mathbb{R}$.
+	We also have to define the projection map
+		$$\Phi^\dagger: V \times \mathbb{R} \rightarrow V$$ 
+	that maps each point on the B-spline curve $S_{\Phi(P)}(t) = (s_1, ..., s_d, s_{d+1})$ onto $(\frac{s_1}{s_{d+1}}, ..., \frac{s_d}{s_{d+1}})$.
+	We can then define the NURBS curve as
+			$$ C_P(t) = \Phi^\dagger(S_{\Phi_w(P)}(t))$$ 
+	which we will make use of later on.
+\end{remark}
 
+The notion of the knot sequence $(t_m)$ is commonly computationally simplified to that of a knot vector $\tau$, since $\tau$ only contains a finite number of elements. For our purposes, we let
+	$$\tau = (\underbrace {t_0, ..., t_{p-1}}_{\text{p elements, all } = 0}, t_p, ..., t_n, \underbrace{t_{n+1}, t_{n+p}}_{\text{p elements, all } = 1}),$$
+where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n+p\}$. We still require the monotony property $t_k \leq t_{k+1}$ for all $k \in \{0, ..., n+p\}$.
 
+\subsection{De Boor's Algorithm}
+To efficiently calculate points on a B-spline curve, Carl-Wilhelm Reinhold de Boor devised an efficient algorithm, the construction of which rigorously demonstrates its correctness. Together with the embedding $\Phi_w$ and the projection $\Phi^\dagger$ from the Remark for Definition \ref{def:nurbs}, this algorithm can also be used to calculate points on a NURBS curve.
 
-\begin{algorithm}
+Let $P = \{P_0, P_1, ..., P_n\}$ a set of control points, $(t_m)$ a knot sequence and $p$ the degree of the B-spline curve $S(t)$. Then by the Cox-de-Boor recursion formula, we find
+\begin{align*}
+	S(t) 	&= \sum_{k=0}^n N_{p,k}(t) \, P_k \\
+			&= \sum_{k=1}^n \omega_{p-1,k}(t) \, N_{p-1, k}(t) \, P_k  \; + \; \sum_{k=0}^n \left( 1-\omega_{p-1,k+1}(t) \right) \, N_{p-1, k+1}(t) \, P_k.
+\end{align*}
+Changing the limits of the second term, we can summarize the two terms as
+\begin{align*} 
+	S(t) 	&= \sum_{k=1}^n N_{p-1, k}(t) \, \underbrace{\Big[ \omega_{p-1,k}(t) \, P_k  \, + \, \left( 1-\omega_{p-1,k}(t) \right) \, P_{k-1} \Big]}_{=: P_k^{(1)}(t)} \\
+			&= \sum_{k=1}^n N_{p-1, k}(t) \, P_k^{(1)}(t).
+\end{align*}
+Recursively defining
+\begin{equation}\label{eq:debooriteration}
+	P^{(j)}_k(t) := \begin{cases}
+		\omega_{p-j, k} \, P^{(j-1)}_k(t) \, + \, (1-\omega_{p-j, k}) \, P^{(j-1)}_{k-1}(t) 	&\text{if } j > 0,\\
+		P_k 																					&\text{else},
+	\end{cases}
+\end{equation}
+we can repeat this process up to $p-2$ more times, finding
+$$ S(t) = \sum_{k=p-1}^n P^{(p-1)}_k(t) \, N_{1, k}(t).$$
+
+The iteration process in Equation \ref{eq:debooriteration} is the key step in de Boor's algorithm. It is already clear from this place that the points calculated on a B-spline curve are in fact also a cumultated convex combination of control points, just as it is the case with Beziér curves. As zero-values for $\omega_{i,j}$ (or $1-\omega_{i,j}$) can be completely omitted by checking multiplicity, we arrive at the following algorithm:
+
+\begin{algorithm}[H]
 	\begin{algorithmic}[1]
 		\Input
-			\Desc{$P = \{P_0, P_1, ..., P_k\}$}{set of control points of the NURBS curve}
-			\Desc{$W = \{w_0, w_1, ..., w_k\}$}{weights of the control points}
-			\Desc{$T = (t_0, t_1, ..., t_{k+n+1})$}{knot vector of the NURBS curve}
-			\Desc{$n$}{degree of the NURBS curve}
-			\Desc{$t \in [t_0, t_{k+n+1})$}{real number}
+			\Desc{$P = \{P_0, P_1, ..., P_n\}$}{set of control points of the B-spline curve}
+			\Desc{$T = (t_0, t_1, ..., t_{n+p+1})$}{knot vector of the B-spline curve}
+			\Desc{$p$}{degree of the B-spline curve}
+			\Desc{$t \in [t_0, t_{n+p+1})$}{real number}
 		\EndInput
 		\Output
 			\Desc{$C_P(t)$}{the point on the NURBS curve w.r.t. to $t$}
@@ -484,25 +481,32 @@ to retrieve the NURBS curve $C$.
 
 		\caption{de Boor's algorithm}\label{alg:debooralgo}
 		\Procedure{deBoor}{P, p, T, t}
-			\State $P^{(0)} \gets \Phi(P, W)$
-			\State Find $l$ such that $t \in [t_l, t_{l+1})$
+			\State Find $k$ such that $t \in [t_k, t_{k+1})$
 			\State Let $m$ be the multiplicity of $t$ in the knot vector $T$
+			\State $P^{(0)} \gets P$
 
-			\For {$i = 1, 2, ..., n-m$}
-				\For {$j = l-n+i, ..., l-m$}
-					\State $\alpha^{(i)}_j \gets \frac{t-t_j}{t_{j+n-i+1} - t_j}$
-					\State $P^{(i)}_j \gets (1-\alpha^{(i)}_j) \cdot P^{(i-1)}_ {j-1} + \alpha^{(i)}_j \cdot P^{(i-1)}_j$
+			\For {$i = 1, 2, ..., p-m$}
+				\For {$j = k-p+i, ..., k-m$}
+					\State $\omega^{(i)}_j \gets \frac{t-t_j}{t_{j+p-i+1} - t_j}$
+					\State $P^{(i)}_j \gets (1-\omega^{(i)}_j) \cdot P^{(i-1)}_ {j-1} + \omega^{(i)}_j \cdot P^{(i-1)}_j$
 				\EndFor
 			\EndFor
 
-			\Return $\Phi^\dagger(P^{(n-m)}_{l-m}) = C_P(t)$
+			\Return $P^{(p-m)}_{k-m}) = C_P(t)$
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
 
-De Boor's algorithm is a generalization of de Castlejau's algorithm. 
+\begin{theorem}
+	Algorithm \ref{alg:debooralgo} computes $S(t)$.
+\end{theorem}
+\begin{proof}
+	By construction.	
+\end{proof}
 
-\begin{figure}[h!]
+A visual representation of Algorithm \ref{alg:debooralgo} reveals that this algorithm is in fact a generalization of \ref{alg:decasteljaualgo}. Notice that in the algorithm $\omega_{p-i,j}$ was renamed to $\omega^{(i)}_j$.
+
+\begin{figure}[H]
 	\centering
 	\begin{tikzpicture}
 		\def\dx{90pt}
@@ -550,12 +554,12 @@ De Boor's algorithm is a generalization of de Castlejau's algorithm.
 				\stepcounter{b}
 				
 				\ifthenelse{\y > 1} {
-					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $1-\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_{l-\pgfmathint{\y-1}\pgfmathresult}$};
-					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_{l-\pgfmathint{\y-1}\pgfmathresult}$};
+					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $1-\omega^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_{l-\pgfmathint{\y-1}\pgfmathresult}$};
+					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $\omega^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_{l-\pgfmathint{\y-1}\pgfmathresult}$};
 				}
 				{
-					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $1-\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_l$};
-					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $\alpha^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_l$};
+					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $1-\omega^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_l$};
+					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $\omega^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_l$};
 				}
 
 				\stepcounter{z}
@@ -565,24 +569,12 @@ De Boor's algorithm is a generalization of de Castlejau's algorithm.
 	\caption{Algorithmic visualization.}
 \end{figure}
 
-\begin{theorem}
-	Algo works
-\end{theorem}
-\begin{proof}
-	By induction. Let $n = 1$ and $t \in (t_l, t_{l+1})$. Then
-	\begin{align*}
-		P_l^{1} &= (1-\alpha_l^{(1)}) \cdot P_{l-1}^{(0)} + \alpha_l^{(1)} \cdot P_l^{(0)} \\
-				&= \left(1-\frac{t-t_l}{t_{l+1}-t_l}\right) \cdot P_{l-1}^{(0)} + \frac{t-t_l}{t_{l+1}-t_l} \cdot P_l^{(0)} \\
-				&= (1-\omega_{1,l}) \cdot (w_{l-1} P_{l-1}, w_{l-1}) + \omega_{1,l} \cdot (w_l P_l, w_l) \\
-				&= N_2
-	\end{align*}
-	
-	\begin{align*}
-		P^{(n)}_l 	&= (1-\alpha_l^{(n)}) \cdot P_{l-1}^{(n-1)} + \alpha_l^{(n)} \cdot P_l^{(n-1)} \\
-					&= 
-	\end{align*}
-
-\end{proof}
+Using the embedding map $\Phi_w$ and the projection map $\Phi^\dagger$, we can employ the strategy to calculate points on a NURBS curve $C_P(t)$:
+\begin{enumerate}
+	\item Calculate $P_w = \Phi_w(P)$.
+	\item Use de Boor's algorithm to calculate points on $S_{P_w}$.
+	\item Project points onto $V$ by applying $\Phi^\dagger$ to $S_{P_w}$ to find $C_P(t)$.
+\end{enumerate}
 
 
 \subsection{Properties}
@@ -598,7 +590,7 @@ De Boor's algorithm is a generalization of de Castlejau's algorithm.
 \subsection{Fundamental Terms}
 \subsection{The S2M Net}
 \subsection{Fillet Creation}
-\begin{figure}[!ht]
+\begin{figure}[H]
 	\centering
 	\includesvg[width=0.5\textwidth]{../python/filletVisuals}
 	\caption{yeah}
@@ -610,12 +602,12 @@ De Boor's algorithm is a generalization of de Castlejau's algorithm.
 \subsection{Turnarounds}
 \subsection{Slots}
 \subsection{Film Cooling Holes}
-\begin{figure}[!ht]
+\begin{figure}[H]
 	\centering
 	\includesvg[width=0.5\textwidth]{../python/fanshapedCurveDefinition}
 	\caption{yeah}
 \end{figure}
-\begin{figure}[!ht]
+\begin{figure}[H]
 	\centering
 	\includesvg[width=0.5\textwidth]{../assets/tecplot/selfIntersection}
 	\caption{yeah}
