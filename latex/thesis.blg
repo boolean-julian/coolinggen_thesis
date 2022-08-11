@@ -1,17 +1,17 @@
 [0] Config.pm:311> INFO - This is Biber 2.16
 [0] Config.pm:314> INFO - Logfile is 'thesis.blg'
-[122] biber-MSWIN64:340> INFO - === 
-[152] Biber.pm:415> INFO - Reading 'thesis.bcf'
-[260] Biber.pm:952> INFO - Found 2 citekeys in bib section 0
-[279] Biber.pm:4340> INFO - Processing section 0
-[294] Biber.pm:4531> INFO - Looking for bibtex format file '../bibtex/bibliography.bib' for section 0
-[340] bibtex.pm:1689> INFO - LaTeX decoding ...
-[355] bibtex.pm:1494> INFO - Found BibTeX data source '../bibtex/bibliography.bib'
-[383] Utils.pm:395> WARN - legacy month field 'feb' in entry 'Bezier1968' is not an integer - this will probably not sort properly.
-[419] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[419] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[419] Biber.pm:4168> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'en-US'
-[419] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
-[422] bbl.pm:654> INFO - Writing 'thesis.bbl' with encoding 'UTF-8'
-[423] bbl.pm:757> INFO - Output to thesis.bbl
-[423] Biber.pm:128> INFO - WARNINGS: 1
+[97] biber-MSWIN64:340> INFO - === 
+[125] Biber.pm:415> INFO - Reading 'thesis.bcf'
+[229] Biber.pm:952> INFO - Found 2 citekeys in bib section 0
+[243] Biber.pm:4340> INFO - Processing section 0
+[254] Biber.pm:4531> INFO - Looking for bibtex format file '../bibtex/bibliography.bib' for section 0
+[289] bibtex.pm:1689> INFO - LaTeX decoding ...
+[302] bibtex.pm:1494> INFO - Found BibTeX data source '../bibtex/bibliography.bib'
+[327] Utils.pm:395> WARN - legacy month field 'feb' in entry 'Bezier1968' is not an integer - this will probably not sort properly.
+[356] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[356] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[356] Biber.pm:4168> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[356] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
+[358] bbl.pm:654> INFO - Writing 'thesis.bbl' with encoding 'UTF-8'
+[359] bbl.pm:757> INFO - Output to thesis.bbl
+[359] Biber.pm:128> INFO - WARNINGS: 1

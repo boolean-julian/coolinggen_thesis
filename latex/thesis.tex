@@ -261,11 +261,11 @@ The computation of equation \ref{eq:bezierdefshort} is usually performed using d
 		\EndOutput
 
 		\caption{de Casteljau's algorithm}\label{alg:decasteljaualgo}
-		\Procedure{deCasteljau}{P, t}
+		\Procedure{deCasteljau}{$P, t$}
 			\State $P^{(0)} \gets P$
-			\For {$i = 1, 2, ..., n$}
-				\For {$j = 0, 1, ..., n-i$}
-					\State $P^{(i)}_j \gets (1-t) \cdot P^{(i-1)}_j + t \cdot P^{(i-1)}_{j+1}$
+			\For {$j = 1, 2, ..., n$}
+				\For {$k = 0, 1, ..., n-j$}
+					\State $P^{(j)}_k \gets (1-t) \cdot P^{(j-1)}_k + t \cdot P^{(j-1)}_{k+1}$
 				\EndFor
 			\EndFor
 			\Return $P^{(n)}_0$
@@ -385,21 +385,23 @@ Other than being remarkably intuitive, Beziér curves have a lot of properties w
 Simple as their appearance may be, Beziér curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with just a handful of control points, is their greatest shortcoming at the same time. This is most likely the reason why Beziér curves are not the state of the art in technical engineering applications. However, Beziér curves certainly do provide an intuition for Non-Uniform Rational B-Splines or NURBS, which is their prevailing counterpart.
 
 \section{Non-Uniform Rational B-splines (NURBS)}
+NURBS are a state of the art tool for curve and surface modelling. There is a somewhat common joke that describes the acronym NURBS as \emph{"Nobody Understands Rational B-Splines"} (source?). In this section, we invalidate this punch line. First of all, we discuss B-splines, then we construct B-spline curves and then we apply simple transformations to the B-spline curve to acquire NURBS.
+
 \subsection{Definition}
 Similarly to how Beziér curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines (or more commonly B-splines), which are recursively defined on a \emph{knot sequence} $(t_m)_{m=-\infty}^{\infty} \subset \mathbb{R}$ with $t_{m} \leq t_{m+1}$ for all $m \in \mathbb{Z}$.
 
 \begin{definition}
 	The \emph{B-splines of degree $0$} on a knot sequence $(t_m)$ are defined as
 	\begin{equation}
-		N^{(t_m)}_{0,k}(t) :=
+		N^{(t_m)}_{1,k}(t) :=
 		\begin{cases}
 			1 & \text{if } t \in [t_k, t_{k+1}),\\
 			0 & \text{else.}
 		\end{cases}
 	\end{equation}
-	The \emph{B-splines of degree $p+1$} for $p \in \mathbb{N}$ are given by the \emph{Cox-de-Boor recursion formula}
+	The \emph{B-splines of degree $p-1$} with $p > 1$ are given by the \emph{Cox-de-Boor recursion formula}
 	\begin{equation}\label{eq:coxdeboorrec}
-		N_{p+1,k}^{(t_m)}(t) := \omega^{(t_m)}_{p, k}(t) \, N^{(t_m)}_{p, k}(t) + (1-\omega^{(t_m)}_{p, k+1}(t)) \, N^{(t_m)}_{p, k+1}(t),
+		N_{p,k}^{(t_m)}(t) := \omega^{(t_m)}_{p-1, k}(t) \, N^{(t_m)}_{p-1, k}(t) + (1-\omega^{(t_m)}_{p-1, k+1}(t)) \, N^{(t_m)}_{p-1, k+1}(t),
 	\end{equation}
 	where
 	\begin{equation}
@@ -416,11 +418,11 @@ Similarly to how Beziér curves are defined on the Bernstein polynomial basis, N
 \end{remark}
 
 \begin{definition}
-	Let $V$ a vector space. A \emph{B-spline curve} over a set of control points $P = \{P_0, P_1, ... P_n\} \subset V$ is defined as $$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k. $$
+	Let $V$ a vector space. A \emph{B-spline curve} of degree $p-1$ over a set of control points $P = \{P_0, P_1, ... P_n\} \subset V$ is defined as $$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k. $$
 \end{definition}
 
 \begin{definition}\label{def:nurbs}
-	A \emph{NURBS curve} $C_P(t)$ of degree $p$ with the control points $P = \{P_0, P_1, ..., P_n\} \subset V$, the control weights $w = (w_0, w_1, ... w_n) \subset \mathbb{R}$ and a knot sequence $(t_m)$ is defined as
+	A \emph{NURBS curve} $C_P(t)$ of degree $p-1$ with the control points $P = \{P_0, P_1, ..., P_n\} \subset V$, the control weights $w = (w_0, w_1, ... w_n) \subset \mathbb{R}$ and a knot sequence $(t_m)$ is defined as
 	\begin{equation}
 		C_P(t) = \frac{\sum_{k=0}^n N_{p,k}(t) w_k P_k}{\sum_{k=0}^n N_{p,k}(t) w_k}.
 	\end{equation}
@@ -438,14 +440,21 @@ Similarly to how Beziér curves are defined on the Bernstein polynomial basis, N
 	which we will make use of later on.
 \end{remark}
 
+\begin{theorem}
+	Let $w \equiv 1$. Then $S_P \equiv \Phi^\dagger(S_{\Phi_w(P)})$. In other words, NURBS curves are a generalization of B-spline curves.
+\end{theorem}
+\begin{proof}
+	Since in this case $\Phi_w((p_1, ..., p_d)) = (p_1, ..., p_d, 1)$, we have that $\Phi^\dagger(S_{\Phi_w(P)}(t)) = \Phi^\dagger(\Phi_w(S_P(t))) = S_P(t)$.
+\end{proof}
+
 The notion of the knot sequence $(t_m)$ is commonly computationally simplified to that of a knot vector $\tau$, since $\tau$ only contains a finite number of elements. For our purposes, we let
-	$$\tau = (\underbrace {t_0, ..., t_{p-1}}_{\text{p elements, all } = 0}, t_p, ..., t_n, \underbrace{t_{n+1}, t_{n+p}}_{\text{p elements, all } = 1}),$$
+	$$\tau = (\underbrace {t_0, ..., t_{p-1}}_{= 0}, t_p, ..., t_n, \underbrace{t_{n+1}, ..., t_{n+p}}_{= 1}),$$
 where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n+p\}$. We still require the monotony property $t_k \leq t_{k+1}$ for all $k \in \{0, ..., n+p\}$.
 
 \subsection{De Boor's Algorithm}
-To efficiently calculate points on a B-spline curve, Carl-Wilhelm Reinhold de Boor devised an efficient algorithm, the construction of which rigorously demonstrates its correctness. Together with the embedding $\Phi_w$ and the projection $\Phi^\dagger$ from the Remark for Definition \ref{def:nurbs}, this algorithm can also be used to calculate points on a NURBS curve.
+To efficiently calculate points on a B-spline curve, Carl-Wilhelm Reinhold de Boor devised an efficient algorithm, the construction of which demonstrates its correctness. Together with the embedding $\Phi_w$ and the projection $\Phi^\dagger$ from the Remark for Definition \ref{def:nurbs}, this algorithm can also be used to calculate points on a NURBS curve.
 
-Let $P = \{P_0, P_1, ..., P_n\}$ a set of control points, $(t_m)$ a knot sequence and $p$ the degree of the B-spline curve $S(t)$. Then by the Cox-de-Boor recursion formula, we find
+Let $P = \{P_0, P_1, ..., P_n\}$ a set of control points, $(t_m)$ a knot sequence and $p-1$ the degree of the B-spline curve $S(t)$. Then by the Cox-de-Boor recursion formula, we find
 \begin{align*}
 	S(t) 	&= \sum_{k=0}^n N_{p,k}(t) \, P_k \\
 			&= \sum_{k=1}^n \omega_{p-1,k}(t) \, N_{p-1, k}(t) \, P_k  \; + \; \sum_{k=0}^n \left( 1-\omega_{p-1,k+1}(t) \right) \, N_{p-1, k+1}(t) \, P_k.
@@ -463,36 +472,35 @@ Recursively defining
 	\end{cases}
 \end{equation}
 we can repeat this process up to $p-2$ more times, finding
-$$ S(t) = \sum_{k=p-1}^n P^{(p-1)}_k(t) \, N_{1, k}(t).$$
-
-The iteration process in Equation \ref{eq:debooriteration} is the key step in de Boor's algorithm. It is already clear from this place that the points calculated on a B-spline curve are in fact also a cumultated convex combination of control points, just as it is the case with Beziér curves. As zero-values for $\omega_{i,j}$ (or $1-\omega_{i,j}$) can be completely omitted by checking multiplicity, we arrive at the following algorithm:
+$$ S(t) = \sum_{k=p-1}^n N_{1, k}(t) \, P^{(p-1)}_k(t) = P^{(p-1)}_l(t)$$
+for $t \in [t_l, t_{l+1})$. We can thus use the recursive definition in Equation \ref{eq:debooriteration} as the key step of our algorithm to compute $S(t)$. It is already clear from this place that the points calculated on a B-spline curve are in fact also a cumultated convex combination of control points, just as it is the case with Beziér curves. As zero-values for $\omega_{i,j}$ (or $1-\omega_{i,j}$) can be completely omitted by checking multiplicity, we arrive at the following algorithm:
 
 \begin{algorithm}[H]
 	\begin{algorithmic}[1]
 		\Input
 			\Desc{$P = \{P_0, P_1, ..., P_n\}$}{set of control points of the B-spline curve}
-			\Desc{$T = (t_0, t_1, ..., t_{n+p+1})$}{knot vector of the B-spline curve}
-			\Desc{$p$}{degree of the B-spline curve}
-			\Desc{$t \in [t_0, t_{n+p+1})$}{real number}
+			\Desc{$\tau = (t_0, t_1, ..., t_{n+p})$}{knot vector of the B-spline curve}
+			\Desc{$p-1$}{degree of the B-spline curve}
+			\Desc{$t \in [t_0, t_{n+p})$}{real number}
 		\EndInput
 		\Output
 			\Desc{$C_P(t)$}{the point on the NURBS curve w.r.t. to $t$}
 		\EndOutput
 
 		\caption{de Boor's algorithm}\label{alg:debooralgo}
-		\Procedure{deBoor}{P, p, T, t}
-			\State Find $k$ such that $t \in [t_k, t_{k+1})$
-			\State Let $m$ be the multiplicity of $t$ in the knot vector $T$
+		\Procedure{deBoor}{$P, p, \tau, t$}
+			\State Find $l$ such that $t \in [t_l, t_{l+1})$
+			\State Let $m$ be the multiplicity of $t$ in the knot vector $\tau$
 			\State $P^{(0)} \gets P$
 
-			\For {$i = 1, 2, ..., p-m$}
-				\For {$j = k-p+i, ..., k-m$}
-					\State $\omega^{(i)}_j \gets \frac{t-t_j}{t_{j+p-i+1} - t_j}$
-					\State $P^{(i)}_j \gets (1-\omega^{(i)}_j) \cdot P^{(i-1)}_ {j-1} + \omega^{(i)}_j \cdot P^{(i-1)}_j$
+			\For {$j = 1, 2, ..., p-m-1$}
+				\For {$k = l-p+j+1, ..., l-m$}
+					\State $\omega_{p-j,k} \gets \frac{t-t_k}{t_{k+p-j} - t_k}$
+					\State $P^{(j)}_k \gets (1-\omega_{p-j,k}) \cdot P^{(j-1)}_{k-1} + \omega_{p-j,k} \cdot P^{(j-1)}_k$
 				\EndFor
 			\EndFor
 
-			\Return $P^{(p-m)}_{k-m}) = C_P(t)$
+			\Return $P^{(p-m-1)}_{l-m} = C_P(t)$
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
@@ -504,81 +512,122 @@ The iteration process in Equation \ref{eq:debooriteration} is the key step in de
 	By construction.	
 \end{proof}
 
-A visual representation of Algorithm \ref{alg:debooralgo} reveals that this algorithm is in fact a generalization of \ref{alg:decasteljaualgo}. Notice that in the algorithm $\omega_{p-i,j}$ was renamed to $\omega^{(i)}_j$.
-
 \begin{figure}[H]
 	\centering
-	\begin{tikzpicture}
-		\def\dx{90pt}
-		\def\dy{30pt}
+	\begin{subfigure}{0.49\textwidth}
+		\begin{tikzpicture}
+			\def\dx{65pt}
+			\def\dy{30pt}
 
-		\pgfmathsetmacro{\degree}{3}
+			\pgfmathsetmacro{\degree}{3}
 
-		% Make nodes
-		\setcounter{i}{0}
-		\setcounter{j}{0}
-
-		\node (\arabic{i}) at (0,0) {$P^{(\degree)}_l$};
-		\stepcounter{i}
-
-		\foreach \x in {1, ..., \degree} {
-			\pgfmathsetmacro{\xstep}{\x-2}
-
+			% Make nodes
+			\setcounter{i}{0}
 			\setcounter{j}{0}
-			\foreach \y in {\x, \xstep, ..., -\x} {
 
-				\ifthenelse{\value{j}>0} {
-					\node (\arabic{i}) at (\x*\dx, \y*\dy) {$P^{(\pgfmathint{\degree-\x}\pgfmathresult)}_{l-\arabic{j}}$};
+			\node (\arabic{i}) at (0,0) {$P^{(\degree)}_l$};
+			\stepcounter{i}
+
+			\foreach \x in {1, ..., \degree} {
+				\pgfmathsetmacro{\xstep}{\x-2}
+
+				\setcounter{j}{0}
+				\foreach \y in {\x, \xstep, ..., -\x} {
+
+					\ifthenelse{\value{j}>0} {
+						\node (\arabic{i}) at (\x*\dx, \y*\dy) {$P^{(\pgfmathint{\degree-\x}\pgfmathresult)}_{l-\arabic{j}}$};
+					}
+					{
+						\node (\arabic{i}) at (\x*\dx, \y*\dy) {$P^{(\pgfmathint{\degree-\x}\pgfmathresult)}_l$};
+					}
+					\stepcounter{i}
+					\stepcounter{j}
 				}
-				{
-					\node (\arabic{i}) at (\x*\dx, \y*\dy) {$P^{(\pgfmathint{\degree-\x}\pgfmathresult)}_l$};
-				}
-				\stepcounter{i}
-				\stepcounter{j}
 			}
-		}
-		
-		% Make arrows
-		\setcounter{z}{0}
-		\setcounter{a}{0}
-		\setcounter{b}{0}
-		\pgfmathsetmacro{\maxx}{\degree}
-		\foreach \x in {1,...,\degree}{
-			\foreach \y in {1,...,\x}{
-				
-				\setcounter{a}{\arabic{z}}
-				\addtocounter{a}{\x}
+			
+			% Make arrows
+			\setcounter{z}{0}
+			\setcounter{a}{0}
+			\setcounter{b}{0}
+			\pgfmathsetmacro{\maxx}{\degree}
+			\foreach \x in {1,...,\degree}{
+				\foreach \y in {1,...,\x}{
+					
+					\setcounter{a}{\arabic{z}}
+					\addtocounter{a}{\x}
 
-				\setcounter{b}{\arabic{z}}
-				\addtocounter{b}{\x}
-				\stepcounter{b}
-				
-				\ifthenelse{\y > 1} {
-					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $1-\omega^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_{l-\pgfmathint{\y-1}\pgfmathresult}$};
-					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $\omega^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_{l-\pgfmathint{\y-1}\pgfmathresult}$};
-				}
-				{
-					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $1-\omega^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_l$};
-					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $\omega^{(\pgfmathint{\degree-\x+1}\pgfmathresult)}_l$};
-				}
+					\setcounter{b}{\arabic{z}}
+					\addtocounter{b}{\x}
+					\stepcounter{b}
+					
+					\ifthenelse{\y > 1} {
+						\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $1-\omega_{\pgfmathint{\x}\pgfmathresult, l-\pgfmathint{\y-1}\pgfmathresult}$};
+						\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $\omega_{\pgfmathint{\x}\pgfmathresult, l-\pgfmathint{\y-1}\pgfmathresult}$};
+					}
+					{
+						\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $1-\omega_{\pgfmathint{\x}\pgfmathresult, l}$};
+						\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $\omega_{\pgfmathint{\x}\pgfmathresult, l}$};
+					}
 
-				\stepcounter{z}
+					\stepcounter{z}
+				}
 			}
-		}
-	\end{tikzpicture}
-	\caption{Algorithmic visualization.}
+		\end{tikzpicture}
+		\caption{Visualization of de Boor's algorithm on a curve $S_P(t)$ with degree $3$, where $t$ does not appear in the knot vector $\tau$ (in other words, $m=0$.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includesvg[width=0.99\textwidth]{../python/nurbsCurveExample}
+		\caption{Degree $3$ NURBS curve $\Phi^\dagger(S_{\Phi_w(P)}(t))$  for different values of a single entry of the control weight vector $w$.}
+	\end{subfigure}
+	\caption{Calculating points on a NURBS curve.}
+	\label{fig:debooralgo}
 \end{figure}
 
-Using the embedding map $\Phi_w$ and the projection map $\Phi^\dagger$, we can employ the strategy to calculate points on a NURBS curve $C_P(t)$:
+Algorithm \ref{alg:debooralgo}, which calculates points on B-spline curves, is in fact a generalization of Algorithm \ref{alg:decasteljaualgo}, which calculates points on Beziér curves. In both algorithms, a nested convex combination of the control points is calculated. In the former, the scalars by which we multiply in each step additionally vary depending on the knot vector. Utilizing the embedding map $\Phi_w$ and the projection map $\Phi^\dagger$, weights can be added to the control points, making the curve a NURBS curve, granting even more control over the shape of the curve. To calculate points on a NURBS curve using Algorithm \ref{alg:debooralgo} we can employ the following steps on a set of control points $P$ and the weights $w$:
 \begin{enumerate}
 	\item Calculate $P_w = \Phi_w(P)$.
 	\item Use de Boor's algorithm to calculate points on $S_{P_w}$.
 	\item Project points onto $V$ by applying $\Phi^\dagger$ to $S_{P_w}$ to find $C_P(t)$.
 \end{enumerate}
 
-
 \subsection{Properties}
+In this section, we will see that B-spline curves and NURBS curves share some (although not all) useful properties with Beziér curves, which makes them easy to work with.
 
+\begin{theorem}
+	$S_P(0) = P_0$ and $S_P(1) = P_n$ and therefore $C_P(0) = P_0$ and $C_P(1) = P_1$.
+\end{theorem}
+\begin{proof}
+	By using Algorithm \ref{alg:debooralgo}, we have $m = p$ and return $P_l$ without calculation, which is $P_0$ in the case of $t = 0$ and $P_n$ in the case of $t = 1$. Then by $C_P(t) = \Phi^\dagger(S_{\Phi_w(P)}(t))$, we have $C_P(0) = \Phi^\dagger\Phi_w(P_0) = P_0$ and $C_P(1) = \Phi^\dagger\Phi_w(P_n) = P_n$.
+\end{proof}
+
+\begin{theorem}
+	Let $V = \mathbb{R}^d$ and $T \in \mathbb{R}^{d \times d}$. Then $S_{TP}(t) = TS_P(t)$ and therefore $C_{TP}(t) = TC_P(t)$.
+\end{theorem}
+\begin{proof}
+	By substituting $P$ with $TP$ in Equation \ref{eq:debooriteration}, we find by linearity of $T$, that
+		\begin{equation*}
+			TP^{(j)}_k(t) := \begin{cases}
+				\omega_{p-j, k} \, TP^{(j-1)}_k(t) \, + \, (1-\omega_{p-j, k}) \, TP^{(j-1)}_{k-1}(t) 	&\text{if } j > 0,\\
+				TP_k 																					&\text{else}.
+			\end{cases}
+		\end{equation*}
+	Thus we find $S_{TP}(t) = TP^{(p-1)}_l(t) = TS_P(t)$. We know $C_{TP}(t) = \Phi^\dagger(S_{\Phi_w(TP)}(t))$. For all $k$, we can write $\Phi_w(TP_k) = \Phi_w(T(p_1, p_2, ..., p_d))$ as $(w_kT_1P_k, w_kT_2P_k, ..., w_kT_dP_k, w_k) = (w_kTP_k, w_k)$, where $T_i$ denote the rows of $T$. Then the first $d$ entries of $S_{(w_kTP_k, w_k)}(t)$ are equal to $TS_{w_kP_k}(t)$ and the remaining entry is equal to $S_{w_k}(t)$. By applying $\Phi^\dagger$, we finally arrive at
+	\begin{equation*}
+		\frac{\sum_{k=0}^n N_{p,k}(t) w_k TP_k}{\sum_{k=0}^n N_{p,k}(t) w_k} = TC_P(t).
+	\end{equation*}
+\end{proof}
+
+\begin{theorem}
+	A B-spline curve $S_P(t)$ lies in the convex hull of its control points $P$.
+\end{theorem}
+\begin{proof}
+	Using Equation \ref{eq:debooriteration}, we can see that every iteration of Algorithm \ref{alg:debooralgo} produces a set of points which all lie in the convex hull of the last iteration. Therefore, $S_P(t) = P^{(p-1)}_l$ lies in the convex hull of $P^{(0)}$ for all $l$.
+\end{proof}
+\begin{remark}
+	This theorem does not hold for NURBS curves $C_P(t)$.
+\end{remark}
 
 \section{Methods on NURBS Objects}
 \subsection{Affine Transformations}

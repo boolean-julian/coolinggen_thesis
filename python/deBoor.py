@@ -1,29 +1,32 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-P = [
-	[0.0, 0.0],
-	[0.2, 0.3],
-	[0.5, 0.5], 
-	[1.0, 0.2],
-	[1.5, 1.4],
-	[2.0, 1.3],
-	[3.0, 3.0]
-]
+from matplotlib import rc
+rc('text', usetex=True)
+
+P = np.array([
+	[-0.1, 0.2],
+	[0.8, 0.0],
+	[1.0, 1.0], 
+	[0.7, 1.5],
+	[0.2, 1.0],
+	[0, 1.5],
+	[-0.2, 0.5]
+])
 
 W = [1, 1, 1, 1, 1, 1, 1]
 U = [0, 0, 0, 0, 0.25, 0.5, 0.75, 1, 1, 1, 1]
 n = 3
 
-def phi(P, W):
-	Pw = []
+ts = np.linspace(0.0, 1.0, 1000)
+
+def phi_w(P, W):
+	Pw = np.zeros((len(P), len(P[0])+1))
 	for i in range(len(P)):
-		Pw.append(P[i])
+		for j in range(len(P[0])):
+			Pw[i][j] = P[i][j] * W[i]
 
-		for j in range(len(Pw[i])):
-			Pw[i][j] *= W[i]
-
-		Pw[i].append(W[i])
+		Pw[i][len(P[0])] = W[i]
 
 	return Pw
 
@@ -32,7 +35,7 @@ def phi_dagger(Cw):
 	for i in range(len(Cw)):
 		C.append([Cw[i][0]/Cw[i][2], Cw[i][1]/Cw[i][2]])
 
-	return C
+	return np.array(C)
 
 
 def getIndexAndMultiplicity(u, U, n):
@@ -68,22 +71,50 @@ def deBoor(Pw, U, n, u):
 
 	return Ps[n-m, k-m+idk]
 
-def plot_points(points):
+def plot_points(points, fmt = '-', color = "tab:orange", alpha = 1):
 	xs = [point[0] for point in points]
 	ys = [point[1] for point in points]
 
-	plt.plot(xs, ys)
+	plt.plot(xs, ys, fmt, color = color, linewidth=1, alpha=alpha)
 
+def get_nurbs(Pw):
+	Cw = []
+	for i in range(len(ts)):
+		Cw.append(deBoor(Pw, U, n, ts[i]))
 
-Pw = phi(P, W)
+	return np.array(Cw)
 
-ts = np.linspace(0.0, 1.0, 1000)
-Cw = []
-for i in range(len(ts)):
-	Cw.append(deBoor(Pw, U, n, ts[i]))
+fig, ax = plt.subplots(figsize=(5,5))
+ax.set_aspect("equal", "box")
 
+# round 1
+Pw = phi_w(P, W)
+Cw = get_nurbs(Pw)
 C = phi_dagger(Cw)
 
-plot_points(P)
-plot_points(C)
+plot_points(P, fmt = "o--", color = "tab:blue", alpha=0.5)
+plot_points(Cw)
+
+# round 2
+W[2] = 0.95
+Pw = phi_w(P, W)
+Cw = get_nurbs(Pw)
+C = phi_dagger(Cw)
+
+plot_points(Cw)
+
+
+# round 3
+W[2] = 1.05
+Pw = phi_w(P, W)
+Cw = get_nurbs(Pw)
+C = phi_dagger(Cw)
+
+plot_points(Cw)
+
+plt.axis('off')
+plt.tight_layout()
+
+plt.savefig("nurbsCurveExample.svg")
+
 plt.show()
