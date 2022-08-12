@@ -25,3 +25,24 @@
 	\end{equation}
 	which is equal to $1$ by the induction hypothesis.
 \end{proof}
+
+
+
+
+
+
+
+
+\begin{proof}
+	By substituting $P$ with $TP$ in Equation \ref{eq:debooriteration}, we find by linearity of $T$, that
+		\begin{equation*}
+			TP^{(j)}_k(t) := \begin{cases}
+				\omega_{p-j, k} \, TP^{(j-1)}_k(t) \, + \, (1-\omega_{p-j, k}) \, TP^{(j-1)}_{k-1}(t) 	&\text{if } j > 0,\\
+				TP_k 																					&\text{else}.
+			\end{cases}
+		\end{equation*}
+	Thus we find $S_{TP}(t) = TP^{(p-1)}_l(t) = TS_P(t)$. We know $C_{TP}(t) = \Phi^\dagger(S_{\Phi_w(TP)}(t))$. For all $k$, we can write $\Phi_w(TP_k) = \Phi_w(T(p_1, p_2, ..., p_d))$ as $(w_kT_1P_k, w_kT_2P_k, ..., w_kT_dP_k, w_k) = (w_kTP_k, w_k)$, where $T_i$ denote the rows of $T$. Then the first $d$ entries of $S_{(w_kTP_k, w_k)}(t)$ are equal to $TS_{w_kP_k}(t)$ and the remaining entry is equal to $S_{w_k}(t)$. By applying $\Phi^\dagger$, we finally arrive at
+	\begin{equation*}
+		\frac{\sum_{k=0}^n N_{p,k}(t) w_k TP_k}{\sum_{k=0}^n N_{p,k}(t) w_k} = TC_P(t).
+	\end{equation*}
+\end{proof}
