@@ -113,6 +113,7 @@
 			\includegraphics[height=\logoheight]{../assets/formal/logo_dlr.png}	
 		\end{minipage}
 		\begin{minipage}{.49\textwidth}
+
 			\begin{center}
 				\vspace{2cm}
 				Master's thesis in\\
@@ -418,7 +419,7 @@ Similarly to how Beziér curves are defined on the Bernstein polynomial basis, N
 \end{remark}
 
 \begin{definition}
-	Let $V$ a vector space. A \emph{B-spline curve} of degree $p-1$ over a set of control points $P = \{P_0, P_1, ... P_n\} \subset V$ is defined as $$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k. $$
+	Let $V$ a vector space. A \emph{B-spline curve} of degree $p-1$ over a set of control points $P = \{P_0, P_1, ... P_n\} \subset V$ and a knot sequence $(t_m)$ is defined as $$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k.$$
 \end{definition}
 
 \begin{definition}\label{def:nurbs}
@@ -447,12 +448,32 @@ Similarly to how Beziér curves are defined on the Bernstein polynomial basis, N
 	Since in this case $\Phi_w((p_1, ..., p_d)) = (p_1, ..., p_d, 1)$, we have that $\Phi^\dagger(S_{\Phi_w(P)}(t)) = \Phi^\dagger(\Phi_w(S_P(t))) = S_P(t)$.
 \end{proof}
 
+Now that we have defined B-spline curves and NURBS curves, we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points. Notice that this grants us control 
+
+\begin{definition}
+	A \emph{B-spline surface} $S_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset V$ on the knot grid $(u_m), (v_m)$ is defined as
+		$$ S_P(u,v) = \sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) P_{k_u,k_v},$$
+	where $N_{p,k_u}(u) := N_{p,k_u}^{(u_m)}(u)$ and $N_{q,k_v}(v) := N_{q,k_v}^{(v_m)}(v)$.
+\end{definition}
+
+\begin{definition}
+	A \emph{NURBS surface} $C_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset V$, the control weights $w = \{w_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}$ and the knot grid $(u_m), (v_m)$ is defined as
+		$$ C_P(u,v) = \frac {\sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) w_{k_u, k_v} P_{k_u,k_v}}{\sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) w_{k_u, k_v}},$$
+	where $N_{p,k_u}(u) := N_{p,k_u}^{(u_m)}(u)$ and $N_{q,k_v}(v) := N_{q,k_v}^{(v_m)}(v)$.
+\end{definition}
+
+\begin{remark}
+	As with NURBS curve, we have the analogous result
+		$$ C_P(u,v) = \Phi^\dagger ({S_{\Phi_w(P)}(u,v)}) $$
+	for NURBS surfaces.
+\end{remark}
+
 The notion of the knot sequence $(t_m)$ is commonly computationally simplified to that of a knot vector $\tau$, since $\tau$ only contains a finite number of elements. For our purposes, we let
 	$$\tau = (\underbrace {t_0, ..., t_{p-1}}_{= 0}, t_p, ..., t_n, \underbrace{t_{n+1}, ..., t_{n+p}}_{= 1}),$$
 where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n+p\}$. We still require the monotony property $t_k \leq t_{k+1}$ for all $k \in \{0, ..., n+p\}$.
 
 \subsection{De Boor's Algorithm}
-To efficiently calculate points on a B-spline curve, Carl-Wilhelm Reinhold de Boor devised an efficient algorithm, the construction of which demonstrates its correctness. Together with the embedding $\Phi_w$ and the projection $\Phi^\dagger$ from the Remark for Definition \ref{def:nurbs}, this algorithm can also be used to calculate points on a NURBS curve.
+To efficiently calculate points on a B-spline object, Carl-Wilhelm Reinhold de Boor devised an efficient algorithm, the construction of which demonstrates its correctness. Together with the embedding $\Phi_w$ and the projection $\Phi^\dagger$ from the Remark for Definition \ref{def:nurbs}, this algorithm can also be used to calculate points on a NURBS object.
 
 Let $P = \{P_0, P_1, ..., P_n\}$ a set of control points, $(t_m)$ a knot sequence and $p-1$ the degree of the B-spline curve $S(t)$. Then by the Cox-de-Boor recursion formula, we find
 \begin{align*}
@@ -484,11 +505,11 @@ for $t \in [t_l, t_{l+1})$. We can thus use the recursive definition in Equation
 			\Desc{$t \in [t_0, t_{n+p})$}{real number}
 		\EndInput
 		\Output
-			\Desc{$C_P(t)$}{the point on the NURBS curve w.r.t. to $t$}
+			\Desc{$S_P(t)$}{the point on the B-spline curve w.r.t. to $t$}
 		\EndOutput
 
-		\caption{de Boor's algorithm}\label{alg:debooralgo}
-		\Procedure{deBoor}{$P, p, \tau, t$}
+		\caption{de Boor's algorithm for curves}\label{alg:debooralgo}
+		\Procedure{deBoorCurve}{$P, p, \tau, t$}
 			\State Find $l$ such that $t \in [t_l, t_{l+1})$
 			\State Let $m$ be the multiplicity of $t$ in the knot vector $\tau$
 			\State $P^{(0)} \gets P$
@@ -504,13 +525,6 @@ for $t \in [t_l, t_{l+1})$. We can thus use the recursive definition in Equation
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
-
-\begin{theorem}
-	Algorithm \ref{alg:debooralgo} computes $S(t)$.
-\end{theorem}
-\begin{proof}
-	By construction.	
-\end{proof}
 
 \begin{figure}[H]
 	\centering
@@ -585,12 +599,46 @@ for $t \in [t_l, t_{l+1})$. We can thus use the recursive definition in Equation
 	\label{fig:debooralgo}
 \end{figure}
 
-Algorithm \ref{alg:debooralgo}, which calculates points on B-spline curves, is in fact a generalization of Algorithm \ref{alg:decasteljaualgo}, which calculates points on Beziér curves. In both algorithms, a nested convex combination of the control points is calculated. In the former, the scalars by which we multiply in each step additionally vary depending on the knot vector. Utilizing the embedding map $\Phi_w$ and the projection map $\Phi^\dagger$, weights can be added to the control points, making the curve a NURBS curve, granting even more control over the shape of the curve. To calculate points on a NURBS curve using Algorithm \ref{alg:debooralgo} we can employ the following steps on a set of control points $P$ and the weights $w$:
+By writing the definition of the B-spline surface as
+	$$ S_P(u,v) = \sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) P_{k_u,k_v} = \sum_{k_u=0}^{n_u} N_{p,k_u}(u) \underbrace{\left( \sum_{k_v=0}^{n_v} N_{q,k_v}(v) P_{k_u,k_v} \right)}_{:= \, q_{k_u}(v)},$$
+we can observe that Algorithm \ref{alg:debooralgo} can be utilized to calculate points on B-splines surfaces. To do this, we run the de Boor's algorithm to calculate $q_{k_u}(v)$.
+
+\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\Input
+			\Desc{$P = \{P_{i,j}\}$}{set of control points with $n_1 \cdot n_2$ elements}
+			\Desc{$\tau_u = (u_0, u_1, ..., u_{n_u+p})$}{first knot vector of the B-spline curve}
+			\Desc{$\tau_v = (v_0, v_1, ..., v_{n_v+q})$}{second knot vector of the B-spline curve}
+			\Desc{$p-1$}{first degree of the B-spline curve}
+			\Desc{$q-1$}{second degree of the B-spline curve}
+			\Desc{$u \in [u_0, u_{n_u+p})$}{first real number}
+			\Desc{$v \in [v_0, v_{n_v+q})$}{second real number}
+		\EndInput
+		\Output
+			\Desc{$S_P(u,v)$}{the point on the B-spline curve w.r.t. to $u, v$}
+		\EndOutput
+
+		\caption{de Boor's algorithm for surfaces}\label{alg:debooralgosurf}
+		\Procedure{deBoorSurface}{$P, p, q, \tau_u, \tau_v, u, v$}
+			\State Find $l$ such that $u \in [u_{l}, u_{l+1})$
+			\State Let $m$ be the multiplicity of $u$ in the knot vector $\tau_u$
+
+			\For {$k = l-p+1, , ..., l-m-1$}
+				\State $Q_k \gets \text{deBoorCurve}(P_{k,\cdot}, q, \tau_v, v)$	
+			\EndFor
+			
+			\Return $\text{deBoorCurve}(Q, p, \tau_u, u)$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+Utilizing the notation with the embedding map $\Phi_w$ and the projection map $\Phi^\dagger$, we can calculate points on NURBS objects with these two algorithms. To do this, we employ the following steps on a set of control points $P$ and the weights $w$:
 \begin{enumerate}
 	\item Calculate $P_w = \Phi_w(P)$.
 	\item Use de Boor's algorithm to calculate points on $S_{P_w}$.
-	\item Project points onto $V$ by applying $\Phi^\dagger$ to $S_{P_w}$ to find $C_P(t)$.
+	\item Project points onto $V$ by applying $\Phi^\dagger$ to $S_{P_w}$ to find $C_P$.
 \end{enumerate}
+
 
 \subsection{Properties}
 In this section, we will see that B-spline curves and NURBS curves share some (although not all) useful properties with Beziér curves, which makes them easy to work with.
@@ -622,6 +670,10 @@ In this section, we will see that B-spline curves and NURBS curves share some (a
 \begin{remark}
 	This theorem does not hold for NURBS curves $C_P(t)$.
 \end{remark}
+
+\begin{theorem}
+	
+\end{theorem}
 
 \section{Methods on NURBS Objects}
 \subsection{Affine Transformations}
