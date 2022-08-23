@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.17)  19 AUG 2022 20:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.17)  23 AUG 2022 12:09
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1258,7 +1258,7 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<../assets/formal/logo_gau.png, id=146, 722.7pt x 128.8815pt>
+<../assets/formal/logo_gau.png, id=142, 722.7pt x 128.8815pt>
 File: ../assets/formal/logo_gau.png Graphic file (type png)
 <use ../assets/formal/logo_gau.png>
 Package pdftex.def Info: ../assets/formal/logo_gau.png  used on input line 109.
@@ -1310,7 +1310,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 110
 (C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<../assets/formal/logo_dlr.png, id=148, 2007.5pt x 1678.27pt>
+<../assets/formal/logo_dlr.png, id=144, 2007.5pt x 1678.27pt>
 File: ../assets/formal/logo_dlr.png Graphic file (type png)
 <use ../assets/formal/logo_dlr.png>
 Package pdftex.def Info: ../assets/formal/logo_dlr.png  used on input line 113.
@@ -1365,7 +1365,7 @@ LaTeX Font Info:    Trying to load font information for U+mvs on input line 151
 
 
 ]
-<../assets/formal/sign.png, id=164, 603.0028pt x 221.32687pt>
+<../assets/formal/sign.png, id=160, 603.0028pt x 221.32687pt>
 File: ../assets/formal/sign.png Graphic file (type png)
 <use ../assets/formal/sign.png>
 Package pdftex.def Info: ../assets/formal/sign.png  used on input line 162.
@@ -1387,9 +1387,9 @@ Chapter 1.
 ]
 Chapter 2.
 Package svg Info: Last page of `./svg-inkscape/bezierDifferentDegrees1_svg-tex.
-pdf' is 1 on input line 207.
+pdf' is 1 on input line 209.
 (svg-inkscape/bezierDifferentDegrees1_svg-tex.pdf_tex
-<./svg-inkscape/bezierDifferentDegrees1_svg-tex.pdf, id=227, page=1, 144.54pt x
+<./svg-inkscape/bezierDifferentDegrees1_svg-tex.pdf, id=222, page=1, 144.54pt x
  144.54pt>
 File: ./svg-inkscape/bezierDifferentDegrees1_svg-tex.pdf Graphic file (type pdf
 )
@@ -1399,16 +1399,16 @@ age1 used on input line 56.
 (pdftex.def)             Requested size: 113.81102pt x 113.8104pt.
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 208.
+(Font)              <10> on input line 210.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 208.
+(Font)              <7> on input line 210.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 208.
+(Font)              <5> on input line 210.
 Package svg Info: Last page of `./svg-inkscape/bezierDifferentDegrees2_svg-tex.
-pdf' is 1 on input line 211.
+pdf' is 1 on input line 213.
 
 (svg-inkscape/bezierDifferentDegrees2_svg-tex.pdf_tex
-<./svg-inkscape/bezierDifferentDegrees2_svg-tex.pdf, id=229, page=1, 144.54pt x
+<./svg-inkscape/bezierDifferentDegrees2_svg-tex.pdf, id=224, page=1, 144.54pt x
  144.54pt>
 File: ./svg-inkscape/bezierDifferentDegrees2_svg-tex.pdf Graphic file (type pdf
 )
@@ -1418,10 +1418,10 @@ age1 used on input line 56.
 (pdftex.def)             Requested size: 113.81102pt x 113.8104pt.
 )
 Package svg Info: Last page of `./svg-inkscape/bezierDifferentDegrees3_svg-tex.
-pdf' is 1 on input line 215.
+pdf' is 1 on input line 217.
 
 (svg-inkscape/bezierDifferentDegrees3_svg-tex.pdf_tex
-<./svg-inkscape/bezierDifferentDegrees3_svg-tex.pdf, id=231, page=1, 144.54pt x
+<./svg-inkscape/bezierDifferentDegrees3_svg-tex.pdf, id=226, page=1, 144.54pt x
  144.54pt>
 File: ./svg-inkscape/bezierDifferentDegrees3_svg-tex.pdf Graphic file (type pdf
 )
@@ -1444,24 +1444,25 @@ ex.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 
 >]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 264.
+put line 266.
+ [3]
 \c@i=\count476
 \c@j=\count477
 \c@z=\count478
 \c@a=\count479
 \c@b=\count480
 Package svg Info: Last page of `./svg-inkscape/deCasteljauVisual_svg-tex.pdf' i
-s 1 on input line 349.
+s 1 on input line 351.
  (svg-inkscape/deCasteljauVisual_svg-tex.pdf_tex
-<./svg-inkscape/deCasteljauVisual_svg-tex.pdf, id=291, page=1, 289.08pt x 289.0
+<./svg-inkscape/deCasteljauVisual_svg-tex.pdf, id=295, page=1, 289.08pt x 289.0
 8pt>
 File: ./svg-inkscape/deCasteljauVisual_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/deCasteljauVisual_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/deCasteljauVisual_svg-tex.pdf , page1 u
 sed on input line 56.
 (pdftex.def)             Requested size: 223.07211pt x 223.06866pt.
-) [3] [4 <./svg-inkscape/deCasteljauVisual_svg-tex.pdf>] [5]
-Overfull \hbox (25.76651pt too wide) in paragraph at lines 426--427
+) [4 <./svg-inkscape/deCasteljauVisual_svg-tex.pdf>] [5]
+Overfull \hbox (25.76651pt too wide) in paragraph at lines 428--429
 []\T1/lmr/bx/n/10.95 Definition 2.2.3. []\T1/lmr/m/n/10.95 A \T1/lmr/m/it/10.95
  NURBS curve $\OML/lmm/m/it/10.95 C[]\OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 t\
 OT1/lmr/m/n/10.95 )$ \T1/lmr/m/n/10.95 of de-gree $\OML/lmm/m/it/10.95 p \OMS/l
@@ -1471,7 +1472,7 @@ nts $\OML/lmm/m/it/10.95 P \OT1/lmr/m/n/10.95 = \OMS/lmsy/m/n/10.95 f\OML/lmm/m
  []
 
 
-Overfull \hbox (33.5575pt too wide) in paragraph at lines 448--449
+Overfull \hbox (33.5575pt too wide) in paragraph at lines 450--451
 []\T1/lmr/m/n/10.95 Since in this case $\OT1/lmr/m/n/10.95 ^^H[]((\OML/lmm/m/it
 /10.95 p[]; :::; p[]\OT1/lmr/m/n/10.95 )) = (\OML/lmm/m/it/10.95 p[]; :::; p[];
  \OT1/lmr/m/n/10.95 1)$\T1/lmr/m/n/10.95 , we have that $\OT1/lmr/m/n/10.95 ^^H
@@ -1480,35 +1481,35 @@ Overfull \hbox (33.5575pt too wide) in paragraph at lines 448--449
 t/10.95 t\OT1/lmr/m/n/10.95 ))) =
  []
 
-[6] [7]
+[6] [7] [8]
 Package svg Info: Last page of `./svg-inkscape/nurbsCurveExample_svg-tex.pdf' i
-s 1 on input line 602.
+s 1 on input line 597.
  (svg-inkscape/nurbsCurveExample_svg-tex.pdf_tex
-<./svg-inkscape/nurbsCurveExample_svg-tex.pdf, id=425, page=1, 361.35pt x 361.3
+<./svg-inkscape/nurbsCurveExample_svg-tex.pdf, id=424, page=1, 361.35pt x 361.3
 5pt>
 File: ./svg-inkscape/nurbsCurveExample_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/nurbsCurveExample_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/nurbsCurveExample_svg-tex.pdf , page1 u
 sed on input line 56.
 (pdftex.def)             Requested size: 220.8426pt x 220.84222pt.
-) [8] [9 <./svg-inkscape/nurbsCurveExample_svg-tex.pdf>] [10]
+) [9 <./svg-inkscape/nurbsCurveExample_svg-tex.pdf>] [10] [11]
 Package svg Info: Last page of `./svg-inkscape/filletVisuals_svg-tex.pdf' is 1 
-on input line 693.
+on input line 705.
 
 (svg-inkscape/filletVisuals_svg-tex.pdf_tex
-<./svg-inkscape/filletVisuals_svg-tex.pdf, id=473, page=1, 361.35pt x 361.35pt>
+<./svg-inkscape/filletVisuals_svg-tex.pdf, id=471, page=1, 361.35pt x 361.35pt>
 
 File: ./svg-inkscape/filletVisuals_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletVisuals_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/filletVisuals_svg-tex.pdf , page1 used 
 on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
-) [11] [12 <./svg-inkscape/filletVisuals_svg-tex.pdf>]
+) [12 <./svg-inkscape/filletVisuals_svg-tex.pdf>] [13]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
-.pdf' is 1 on input line 705.
+.pdf' is 1 on input line 722.
 (svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=505, page=1, 361.35pt 
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=503, page=1, 361.35pt 
 x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1518,17 +1519,17 @@ page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
 )
 Package svg Info: Last page of `./svg-inkscape/selfIntersection_svg-tex.pdf' is
- 1 on input line 710.
+ 1 on input line 727.
 
 (svg-inkscape/selfIntersection_svg-tex.pdf_tex
-<./svg-inkscape/selfIntersection_svg-tex.pdf, id=507, page=1, 596.23853pt x 265
+<./svg-inkscape/selfIntersection_svg-tex.pdf, id=505, page=1, 596.23853pt x 265
 .00102pt>
 File: ./svg-inkscape/selfIntersection_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/selfIntersection_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/selfIntersection_svg-tex.pdf , page1 us
 ed on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 101.16644pt.
-) [13
+) [14
 
  <./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf> <./svg-inkscape/selfInte
 rsection_svg-tex.pdf
@@ -1537,24 +1538,24 @@ pdfTeX warning: pdflatex.EXE (file ./svg-inkscape/selfIntersection_svg-tex.pdf)
 : PDF inclusion: multiple pdfs with page group included in a single page
 >]
 Chapter 4.
-[14
+[15
 
 ]
 Chapter 5.
-[15
+[16
 
 ] (thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 104F0A0988CC21047B7C924FA74EAB8D;4869.
+(rerunfilecheck)             Checksum: 78799516D2103DA041B23B6F9D024139;4698.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37492 strings out of 478343
- 710601 string characters out of 2844693
- 1503880 words of memory out of 3000000
- 55183 multiletter control sequences out of 15000+600000
+ 37490 strings out of 478343
+ 710567 string characters out of 2844693
+ 1506881 words of memory out of 3000000
+ 55182 multiletter control sequences out of 15000+600000
  541387 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,19n,92p,697b,1753s stack positions out of 10000i,1000n,20000p,200000b,80000s
@@ -1580,9 +1581,9 @@ s/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts
 /type1/public/lm/lmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/l
 mtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/marvosym/marvosym.pfb
 ><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (21 pages, 725370 bytes).
+Output written on thesis.pdf (22 pages, 730857 bytes).
 PDF statistics:
- 690 PDF objects out of 1000 (max. 8388607)
- 97 named destinations out of 1000 (max. 500000)
- 388 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 686 PDF objects out of 1000 (max. 8388607)
+ 96 named destinations out of 1000 (max. 500000)
+ 380 words of extra memory for PDF output out of 10000 (max. 10000000)
 

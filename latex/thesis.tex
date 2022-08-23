@@ -198,6 +198,8 @@ Göttingen, \today \hspace{2em}
 \section{Problem Statement}
 
 \chapter{Methods}
+As stated before, Non-Uniform Rational B-splines (NURBS) are used to model curves and surfaces in CoolingGen. In this chapter we will first introduce Beziér curves. We will then generalize Beziér curves to obtain B-spline objects. Using an embedding map and a projection map, we will find a generalization of B-spline objects, namely NURBS objects. Furthermore, CoolingGen uses special geometric algorithms such as point inversion, curve intersection and curve fillet fitting, which we will also present.
+
 \section{Bézier Curves}
 Bézier curves are named after the French engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
 
@@ -249,7 +251,7 @@ Bézier curves are named after the French engineer Pierre Bézier, who famously 
 
 \subsection{De Casteljau's Algorithm}
 
-The computation of equation \ref{eq:bezierdefshort} is usually performed using de Casteljau's algorithm. This is because the algorithm yields a simple implementation and lower complexity than straightforwardly computing equation \ref{eq:bezierdefshort}. The algorithm was proposed by Paul de Faget de Casteljau for the automobile manufacturer Citroën in the 1960s.
+The computation of Equation \ref{eq:bezierdefshort} is usually performed using de Casteljau's algorithm. This is because the algorithm yields a simple implementation and lower complexity than straightforwardly computing Equation \ref{eq:bezierdefshort}. The algorithm was proposed by Paul de Faget de Casteljau for the automobile manufacturer Citroën in the 1960s.
 
 \begin{algorithm}[H]
 	\begin{algorithmic}[1]
@@ -291,7 +293,7 @@ The computation of equation \ref{eq:bezierdefshort} is usually performed using d
 	which is equal to $B_P(t)$ for degree $n+1$.
 \end{proof}
 
-A visual representation of Algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $B_P$ with degree $n$, one has to perform $\frac{n^2-n}{2}$ additions and $n^2-n$ scalar multiplications.
+A visual representation of Algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $B_P$ with degree $n$, one has to perform $\frac{n^2-n}{2}$ vector additions and $n^2-n$ scalar multiplications.
 
 \begin{figure}[H]
 	\centering
@@ -599,6 +601,8 @@ for $t \in [t_l, t_{l+1})$. We can thus use the recursive definition in Equation
 	\label{fig:debooralgo}
 \end{figure}
 
+To calculate one point on the B-spline curve $S_P$ of degree $p$, we require at most $\frac{p^2-p}{2}$ vector additions and $p^2-p$ scalar multiplications, which is quite similar to what we found for Beziér curves. However, we also need to calculate $\omega_{j,k}$ at every step, which in total sums up to $p^2-p$ real additions and $\frac{p^2-p}{2}$ real multiplications.
+
 By writing the definition of the B-spline surface as
 	$$ S_P(u,v) = \sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) P_{k_u,k_v} = \sum_{k_u=0}^{n_u} N_{p,k_u}(u) \underbrace{\left( \sum_{k_v=0}^{n_v} N_{q,k_v}(v) P_{k_u,k_v} \right)}_{:= \, q_{k_u}(v)},$$
 we can observe that Algorithm \ref{alg:debooralgo} can be utilized to calculate points on B-splines surfaces. To do this, we run the de Boor's algorithm to calculate $q_{k_u}(v)$.
@@ -644,52 +648,71 @@ Utilizing the notation with the embedding map $\Phi_w$ and the projection map $\
 In this section, we will see that B-spline curves and NURBS curves share some (although not all) useful properties with Beziér curves, which makes them easy to work with.
 
 \begin{theorem}
-	$S_P(0) = P_0$ and $S_P(1) = P_n$ and therefore $C_P(0) = P_0$ and $C_P(1) = P_1$.
+	$S_P(0) = P_0$ and $S_P(1) = P_n$ and therefore $C_P(0) = P_0$ and $C_P(1) = P_n$. Also, $S_P(0,0) = P_0$ and $C_P(0,0)=P_n$.
 \end{theorem}
 \begin{proof}
 	By using Algorithm \ref{alg:debooralgo}, we have $m = p$ and return $P_l$ without calculation, which is $P_0$ in the case of $t = 0$ and $P_n$ in the case of $t = 1$. Then by $C_P(t) = \Phi^\dagger(S_{\Phi_w(P)}(t))$, we have $C_P(0) = \Phi^\dagger\Phi_w(P_0) = P_0$ and $C_P(1) = \Phi^\dagger\Phi_w(P_n) = P_n$.
 \end{proof}
 
 \begin{theorem}
-	Let $V = \mathbb{R}^d$ and $T \in \mathbb{R}^{d \times d}$. Then $S_{TP}(t) = TS_P(t)$ and therefore $C_{TP}(t) = TC_P(t)$.
+	Let $V = \mathbb{R}^d$ and $T \in \mathbb{R}^{d \times d}$. Then $S_{TP} = TS_P$ and therefore $C_{TP} = TC_P$.
 \end{theorem}
 \begin{proof}
 	By linearity of $T$ we can compute
 		$$S_{TP}(t) = \sum_{k=0}^{n} N_{p,k}(t) TP_k = T \left( \sum_{k=0}^{n} N_{p,k}(t) P_k \right) = TS_P(t)$$
 	for B-spline curves and
 		$$C_{TP}(t) = \frac{\sum_{k=0}^n N_{p,k}(t) w_k TP_k}{\sum_{k=0}^n N_{p,k}(t) w_k} = T \left( \frac{\sum_{k=0}^n N_{p,k}(t) w_k P_k}{\sum_{k=0}^n N_{p,k}(t) w_k} \right) = TC_P(t)$$
-	for NURBS curves.
+	for NURBS curves. The same holds for B-spline surfaces and NURBS surfaces.
 \end{proof}
 
 \begin{theorem}
-	A B-spline curve $S_P(t)$ lies in the convex hull of its control points $P$.
+	A B-spline object $S_P$ lies in the convex hull of its control points $P$.
 \end{theorem}
 \begin{proof}
 	Using Equation \ref{eq:debooriteration}, we can see that every iteration of Algorithm \ref{alg:debooralgo} produces a set of points which all lie in the convex hull of the last iteration. Therefore, $S_P(t) = P^{(p-1)}_l$ lies in the convex hull of $P^{(0)}$ for all $l$.
 \end{proof}
 \begin{remark}
-	This theorem does not hold for NURBS curves $C_P(t)$.
+	This theorem does not hold for NURBS objects $C_P$.
 \end{remark}
 
-\begin{theorem}
-	
-\end{theorem}
-
 \section{Methods on NURBS Objects}
-\subsection{Affine Transformations}
-\subsection{The Frenet-Serret Apparatus}
-\subsection{Finding Intersections}
-\subsection{Interpolation}
+\subsection{Point Inversion}
+	Let $\gamma(t) \subset \mathbb{R}^3$ a continuous curve, $t \in [0,1]$, and let $Q \in \mathbb{R}^3$ a point.
+	We want to find
+		$$t^* = \underset{t\in[0,1]}{\arg\min} \; D(\gamma(t), Q), $$
+	where $D(\cdot, \cdot)$ is the Euclidean distance between two points. Notice that 
+		$$\underset{t\in[0,1]}{\min} \; D(\gamma(t), Q) = D(\gamma(t^*), Q) $$
+	is the distance between the curve $\gamma$ and the point $Q$.
+	
+	Minimizing distance functions is, in general, a problem that is hard to solve. We therefore make some assumptions about the point-curve distance function $\phi(t) := D(\gamma(t), Q)$ that we are going to minimize in order to find the target parameter $t^*$. If $\phi$ is convex and differentiable, then the problem statement has a well-known and easy to implement solution, namely Newton's method, which for an initial guess $t^{(0)}$ is given by the iteration
+		$$ t^{(n+1)} = t^{(n)} - \frac {\phi(t^{(n)})}{\phi'(t^{(n)})}. $$
+	Here, $\phi'(t)$ is the derivative of $\phi(t)$ with respect to $t$, which for a small value of $\epsilon > 0$ can be approximated by the right-sided difference quotient
+		$$ \phi'_r(t) = \frac{\phi(t+\epsilon) - \phi(t)}{\epsilon}. $$
+	However, to ensure differentiability of $\phi$ adjacent to $t$, it is recommended to compare the value of the right-sided difference quotient to
+		$$ \phi'_l(t) = \frac{\phi(t) - \phi(t-\epsilon)}{\epsilon}, $$
+	which is the left-sided difference-quotient. If $\phi'_r(t) = \phi'_l(t)$, then we can assume $\phi'_l(t) \approx \phi(t) \approx \phi'_r(t)$.
 
-\section{Jet Engine Design Specifics}
-\subsection{Fundamental Terms}
-\subsection{The S2M Net}
+	Although in CoolingGen, we often cannot make the assumption of differentiability or convexity of $\phi$. We therefore employ a pragmatic scheme and assume piecewise differentiability and piecewise convexity of $\phi$ and run Newton's method on a small subinterval $[l,u] \subset [0,1]$.
+
+	To find $[l,u]$, we sample the curve $\gamma$ at a set of points $\{t_0, t_1, ..., t_n\}$ with $t_i = i/n$ and seek
+		$$ m = \underset{t\in\{t_0, t_1, ..., t_n\}}{\arg\min} \phi(t). $$
+	We let $l = m - i/h$ and $u = m + i/h$. Next, we can use Newton's method with the start value $m$ to find
+		$$ t^* = \underset{t\in[l,u]}{\arg\min}\phi(t). $$
+	This scheme will only converge to the global minimum of $\phi$ for large enough $n \in \mathbb{N}$.
+
+\subsection{Ray-Curve Intersection}
+\subsection{Curve-Curve Intersection}
 \subsection{Fillet Creation}
 \begin{figure}[H]
 	\centering
 	\includesvg[width=0.5\textwidth]{../python/filletVisuals}
 	\caption{yeah}
 \end{figure}
+
+
+\section{Jet Engine Design Specifics}
+\subsection{Fundamental Terms}
+\subsection{The S2M Net}
 
 \chapter{Results}
 \section{Cooling Geometries And Their Parametrizations}
