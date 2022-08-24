@@ -677,13 +677,18 @@ In this section, we will see that B-spline curves and NURBS curves share some (a
 
 \section{Methods on NURBS Objects}
 \subsection{Point Inversion}
-	Let $\gamma(t) \subset \mathbb{R}^3$ a continuous curve, $t \in [0,1]$, and let $Q \in \mathbb{R}^3$ a point.
+	Let $\gamma(t) \subset \mathbb{R}^3$ a curve, $t \in [0,1]$, and let $Q \in \mathbb{R}^3$ a point.
 	We want to find
 		$$t^* = \underset{t\in[0,1]}{\arg\min} \; D(\gamma(t), Q), $$
 	where $D(\cdot, \cdot)$ is the Euclidean distance between two points. Notice that 
 		$$\underset{t\in[0,1]}{\min} \; D(\gamma(t), Q) = D(\gamma(t^*), Q) $$
 	is the distance between the curve $\gamma$ and the point $Q$.
-	
+
+	\begin{definition}
+		Let $V$ a vector space. The distance between a set $\Omega(\cdot) \subset V$ and a point $Q \in V$ is given by
+			$$D(\gamma, Q) := \underset{t}{\min} \; D(\gamma(t), Q).$$
+	\end{definition}
+
 	Minimizing distance functions is, in general, a problem that is hard to solve. We therefore make some assumptions about the point-curve distance function $\phi(t) := D(\gamma(t), Q)$ that we are going to minimize in order to find the target parameter $t^*$. If $\phi$ is convex and differentiable, then the problem statement has a well-known and easy to implement solution, namely Newton's method, which for an initial guess $t^{(0)}$ is given by the iteration
 		$$ t^{(n+1)} = t^{(n)} - \frac {\phi(t^{(n)})}{\phi'(t^{(n)})}. $$
 	Here, $\phi'(t)$ is the derivative of $\phi(t)$ with respect to $t$, which for a small value of $\epsilon > 0$ can be approximated by the right-sided difference quotient
@@ -692,15 +697,69 @@ In this section, we will see that B-spline curves and NURBS curves share some (a
 		$$ \phi'_l(t) = \frac{\phi(t) - \phi(t-\epsilon)}{\epsilon}, $$
 	which is the left-sided difference-quotient. If $\phi'_r(t) = \phi'_l(t)$, then we can assume $\phi'_l(t) \approx \phi(t) \approx \phi'_r(t)$.
 
-	Although in CoolingGen, we often cannot make the assumption of differentiability or convexity of $\phi$. We therefore employ a pragmatic scheme and assume piecewise differentiability and piecewise convexity of $\phi$ and run Newton's method on a small subinterval $[l,u] \subset [0,1]$.
+	Although in CoolingGen, we often cannot make the assumption of differentiability or convexity of $\phi$. We therefore employ a pragmatic scheme and assume continuity, piecewise differentiability and piecewise convexity of $\phi$ and run Newton's method on a small subinterval $[l,u] \subset [0,1]$.
 
 	To find $[l,u]$, we sample the curve $\gamma$ at a set of points $\{t_0, t_1, ..., t_n\}$ with $t_i = i/n$ and seek
 		$$ m = \underset{t\in\{t_0, t_1, ..., t_n\}}{\arg\min} \phi(t). $$
 	We let $l = m - i/h$ and $u = m + i/h$. Next, we can use Newton's method with the start value $m$ to find
-		$$ t^* = \underset{t\in[l,u]}{\arg\min}\phi(t). $$
+		$$ t^* = \underset{t\in[l,u]}{\arg\min}\;\phi(t). $$
 	This scheme will only converge to the global minimum of $\phi$ for large enough $n \in \mathbb{N}$.
 
+	Notice that if $\phi(t^*) = 0$, we have that the intersection of the curve $\gamma$ with the point $Q$ is equal to $Q$. In other words, the point $Q$ intersects the curve $\gamma$. Given that $\gamma$ is a NURBS curve, we can then observe that the devised algorithm is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return the input parameter of the curve that fits the point $Q$. This justifies the name \emph{point inversion algorithm}.
+
+	Notice also that $t^*$ is not necessarily unique, as multiple points on a curve $\gamma$ can share the same minimum distance to a given point $Q$. However, we are happy to find one such point in our applications, as most of the time, the point of interest is going to fulfill $\phi(t^*) = 0$. Assume there is another value $s^* \neq t^*$ that has minimum distance to $Q$. Then $\phi(s^*) = \phi(t^*) = 0$. But then because both of those values return exactly $0$ and because of the point-separating property of the Euclidean norm, our point of interest $Q$ lies on the curve \emph{twice}, in the sense that the map $\gamma$ is not injective at that point. But that means $\gamma$ has a self intersection at $\gamma(t^*) = \gamma(s^*)$. So if we assume injectivity of $\gamma$ and only seek the parameters of points $Q$ that lie inside of $\gamma$, we do not have to worry about this matter any more.
+
 \subsection{Ray-Curve Intersection}
+	A ray with support vector $A \in V$ and direction vector $B \in V$ is given by the set of points
+		\begin{equation}\label{eq:raysetdef}
+			\{A + tB \;:\; t \in \mathbb{R},\; t \geq 0\}.
+		\end{equation}
+	The dependence of a point on the ray on the real parameter $t$ motivates the description of the set as a map
+		$$R_{A,B}: \mathbb{R} \rightarrow V,\;\; t \mapsto A+tB.$$
+	where Equation \ref{eq:raysetdef} is then equal to $R_{A,B}([0,\infty))$.
+
+	In this section, we want to find an algorithm that intersects a curve $\gamma(t)$ with $t \in [0, 1]$ with a ray $R_{A,B}(s)$ with $s \in [0, \infty)$. Generally, the intersection of these two sets can be written as
+		$$I = \gamma([0,1]) \cap R_{A,B}([0,\infty)).$$
+	The algorithm presented will return only up to one element in that set, specifically the one with the lowest value of $s$, which we will refer to as $s^*$.
+	If however $I = \emptyset$, then no element will be returned. We therefore define the return value of our algorithm as the one element set given by
+		$$ I_{\min} := 
+			\begin{cases}
+				\{R_{A,B}(s^*)\} 	&\text{if } D(R_{A,B}(s^*), \gamma) = 0, \\
+				\emptyset			&\text{otherwise.}	
+			\end{cases}
+		$$
+	We can find $s^*$ by a commonly used computer graphics scheme called \emph{ray marching}, in which we traverse the ray $R_{A,B}$ by a safe distance until \emph{collision} with the curve $\gamma$ occurs.
+
+	\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\Input
+				\Desc{$\gamma$}{curve}
+				\Desc{$R_{A,B}$}{ray}
+			\EndInput
+			\Output
+				\Desc{$I_{\min}$}{intersection set with up to one element}
+			\EndOutput
+
+			\caption{Ray Marching}\label{alg:raymarching}
+			\Procedure{intersectCurveRay}{$\gamma, A, B$}
+				\State $B \gets \frac{B}{||B||}$
+				\State $s \gets 0$
+				\State $P \gets A$
+				\For {$k = 1, 2,..., N$}
+					\State $s \gets s + \text{pointInversionDistance}(\gamma, P)$
+					\State $P \gets A + sB$
+					\If {$s < \epsilon$}
+						\Return $\{P\}$
+					\EndIf
+				\EndFor
+
+				\Return $I_{\min}$
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+
+	In this algorithm, $\text{pointInversionDistance}(\gamma, P)$ calculates the $D(\gamma, P)$ as was discussed in the previous section.
+
 \subsection{Curve-Curve Intersection}
 \subsection{Fillet Creation}
 \begin{figure}[H]
