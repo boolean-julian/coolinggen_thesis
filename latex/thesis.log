@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  25 AUG 2022 13:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  25 AUG 2022 15:41
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -1510,8 +1510,8 @@ Package pdftex.def Info: ./svg-inkscape/deCasteljauVisual_svg-tex.pdf , page1 u
 sed on input line 56.
 (pdftex.def)             Requested size: 223.07211pt x 223.06866pt.
 ) [4 <./svg-inkscape/deCasteljauVisual_svg-tex.pdf>] [5]
-Overfull \hbox (25.76651pt too wide) in paragraph at lines 428--429
-[]\T1/lmr/bx/n/10.95 Definition 2.2.3. []\T1/lmr/m/n/10.95 A \T1/lmr/m/it/10.95
+Overfull \hbox (25.76651pt too wide) in paragraph at lines 432--433
+[]\T1/lmr/bx/n/10.95 Definition 2.2.4. []\T1/lmr/m/n/10.95 A \T1/lmr/m/it/10.95
  NURBS curve $\OML/lmm/m/it/10.95 C[]\OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 t\
 OT1/lmr/m/n/10.95 )$ \T1/lmr/m/n/10.95 of de-gree $\OML/lmm/m/it/10.95 p \OMS/l
 msy/m/n/10.95   \OT1/lmr/m/n/10.95 1$ \T1/lmr/m/n/10.95 with the con-trol point
@@ -1520,7 +1520,7 @@ t/10.95 P[]; P[]; :::; P[]\OMS/lmsy/m/n/10.95 g 
  []
 
 
-Overfull \hbox (33.5575pt too wide) in paragraph at lines 450--451
+Overfull \hbox (33.5575pt too wide) in paragraph at lines 454--455
 []\T1/lmr/m/n/10.95 Since in this case $\OT1/lmr/m/n/10.95 []((\OML/lmm/m/it/1
 0.95 p[]; :::; p[]\OT1/lmr/m/n/10.95 )) = (\OML/lmm/m/it/10.95 p[]; :::; p[]; \
 OT1/lmr/m/n/10.95 1)$\T1/lmr/m/n/10.95 , we have that $\OT1/lmr/m/n/10.95 [](\
@@ -1531,49 +1531,45 @@ t\OT1/lmr/m/n/10.95 ))) =
 
 [6] [7] [8]
 Package svg Info: Last page of `./svg-inkscape/nurbsCurveExample_svg-tex.pdf' i
-s 1 on input line 597.
+s 1 on input line 601.
  (svg-inkscape/nurbsCurveExample_svg-tex.pdf_tex
-<./svg-inkscape/nurbsCurveExample_svg-tex.pdf, id=424, page=1, 361.35pt x 361.3
+<./svg-inkscape/nurbsCurveExample_svg-tex.pdf, id=425, page=1, 361.35pt x 361.3
 5pt>
 File: ./svg-inkscape/nurbsCurveExample_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/nurbsCurveExample_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/nurbsCurveExample_svg-tex.pdf , page1 u
 sed on input line 56.
 (pdftex.def)             Requested size: 220.8426pt x 220.84222pt.
-) [9 <./svg-inkscape/nurbsCurveExample_svg-tex.pdf>] [10] [11] [12] [13]
+) [9 <./svg-inkscape/nurbsCurveExample_svg-tex.pdf>] [10] [11] [12] [13] [14]
 Package svg Info: Last page of `./svg-inkscape/rayMarching_svg-tex.pdf' is 1 on
- input line 808.
+ input line 839.
 
 (svg-inkscape/rayMarching_svg-tex.pdf_tex
-<./svg-inkscape/rayMarching_svg-tex.pdf, id=485, page=1, 867.24pt x 505.89pt>
+<./svg-inkscape/rayMarching_svg-tex.pdf, id=493, page=1, 867.24pt x 505.89pt>
 File: ./svg-inkscape/rayMarching_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/rayMarching_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/rayMarching_svg-tex.pdf , page1 used on
  input line 56.
 (pdftex.def)             Requested size: 446.13727pt x 260.24678pt.
-) [14]
+)
 Package svg Info: Last page of `./svg-inkscape/filletVisuals_svg-tex.pdf' is 1 
-on input line 816.
+on input line 847.
 
 (svg-inkscape/filletVisuals_svg-tex.pdf_tex
-<./svg-inkscape/filletVisuals_svg-tex.pdf, id=492, page=1, 361.35pt x 361.35pt>
+<./svg-inkscape/filletVisuals_svg-tex.pdf, id=495, page=1, 361.35pt x 361.35pt>
 
 File: ./svg-inkscape/filletVisuals_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletVisuals_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/filletVisuals_svg-tex.pdf , page1 used 
 on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
-) [15 <./svg-inkscape/rayMarching_svg-tex.pdf> <./svg-inkscape/filletVisuals_sv
-g-tex.pdf
-
-pdfTeX warning: pdflatex.EXE (file ./svg-inkscape/filletVisuals_svg-tex.pdf): P
-DF inclusion: multiple pdfs with page group included in a single page
->] [16]
+) [15 <./svg-inkscape/rayMarching_svg-tex.pdf>] [16 <./svg-inkscape/filletVisua
+ls_svg-tex.pdf>]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
-.pdf' is 1 on input line 833.
+.pdf' is 1 on input line 864.
 (svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=615, page=1, 361.35pt 
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=620, page=1, 361.35pt 
 x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1583,10 +1579,10 @@ page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
 )
 Package svg Info: Last page of `./svg-inkscape/selfIntersection_svg-tex.pdf' is
- 1 on input line 838.
+ 1 on input line 869.
 
 (svg-inkscape/selfIntersection_svg-tex.pdf_tex
-<./svg-inkscape/selfIntersection_svg-tex.pdf, id=617, page=1, 596.23853pt x 265
+<./svg-inkscape/selfIntersection_svg-tex.pdf, id=622, page=1, 596.23853pt x 265
 .00102pt>
 File: ./svg-inkscape/selfIntersection_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/selfIntersection_svg-tex.pdf, page 1>
@@ -1610,16 +1606,16 @@ Chapter 5.
 
 ] (thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 37367262A3972BEC5E1AEFBB4D60690B;4698.
+(rerunfilecheck)             Checksum: 34E886E791C0C649AA3FFE4C9950D1F1;4698.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35941 strings out of 479173
- 661702 string characters out of 2864039
- 1493910 words of memory out of 3000000
- 52814 multiletter control sequences out of 15000+600000
+ 35947 strings out of 479173
+ 661813 string characters out of 2864039
+ 1493962 words of memory out of 3000000
+ 52816 multiletter control sequences out of 15000+600000
  475558 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,19n,96p,933b,1661s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1644,9 +1640,9 @@ s/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy
 8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/julia
 n/AppData/Roaming/MiKTeX/fonts/type1/public/marvosym/marvosym.pfb><C:/Program F
 iles/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (25 pages, 754820 bytes).
+Output written on thesis.pdf (25 pages, 759068 bytes).
 PDF statistics:
- 777 PDF objects out of 1000 (max. 8388607)
- 104 named destinations out of 1000 (max. 500000)
+ 782 PDF objects out of 1000 (max. 8388607)
+ 108 named destinations out of 1000 (max. 500000)
  390 words of extra memory for PDF output out of 10000 (max. 10000000)
 
