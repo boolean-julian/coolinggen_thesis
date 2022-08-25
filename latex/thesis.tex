@@ -701,13 +701,58 @@ In this section, we will see that B-spline curves and NURBS curves share some (a
 
 	To find $[l,u]$, we sample the curve $\gamma$ at a set of points $\{t_0, t_1, ..., t_n\}$ with $t_i = i/n$ and seek
 		$$ m = \underset{t\in\{t_0, t_1, ..., t_n\}}{\arg\min} \phi(t). $$
-	We let $l = m - i/h$ and $u = m + i/h$. Next, we can use Newton's method with the start value $m$ to find
+	We let $l = m - \frac{i}{n}$ and $u = m + \frac{i}{n}$. Next, we can use Newton's method with the start value $m$ to find
 		$$ t^* = \underset{t\in[l,u]}{\arg\min}\;\phi(t). $$
 	This scheme will only converge to the global minimum of $\phi$ for large enough $n \in \mathbb{N}$.
 
 	Notice that if $\phi(t^*) = 0$, we have that the intersection of the curve $\gamma$ with the point $Q$ is equal to $Q$. In other words, the point $Q$ intersects the curve $\gamma$. Given that $\gamma$ is a NURBS curve, we can then observe that the devised algorithm is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return the input parameter of the curve that fits the point $Q$. This justifies the name \emph{point inversion algorithm}.
 
 	Notice also that $t^*$ is not necessarily unique, as multiple points on a curve $\gamma$ can share the same minimum distance to a given point $Q$. However, we are happy to find one such point in our applications, as most of the time, the point of interest is going to fulfill $\phi(t^*) = 0$. Assume there is another value $s^* \neq t^*$ that has minimum distance to $Q$. Then $\phi(s^*) = \phi(t^*) = 0$. But then because both of those values return exactly $0$ and because of the point-separating property of the Euclidean norm, our point of interest $Q$ lies on the curve \emph{twice}, in the sense that the map $\gamma$ is not injective at that point. But that means $\gamma$ has a self intersection at $\gamma(t^*) = \gamma(s^*)$. So if we assume injectivity of $\gamma$ and only seek the parameters of points $Q$ that lie inside of $\gamma$, we do not have to worry about this matter any more.
+
+	To summarize, the algorithm can be described in pseudo-code
+	\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\Input
+				\Desc{$\gamma, Q$}{curve and point}
+				\Desc{$N$}{number of samples for initial value search}
+				\Desc{$M$}{number of iterations in Newton's method}
+			\EndInput
+			\Output
+				\Desc{$t^*$}{best parameter of $\gamma$}
+			\EndOutput
+			
+			\Procedure{findPointInversionInitValues}{$\gamma, Q$}
+				\State $m \gets 0$
+				\For {$k = 1,...,N$}
+					\State $t \gets \frac{k}{N}$
+					\If {$D(Q, \gamma(m)) > D(Q, \gamma(t))$}
+						$m \gets t$
+					\EndIf
+				\EndFor
+
+				\Return $m-\frac{i}{N}, m+\frac{i}{N}, m$
+			\EndProcedure
+
+			\caption{Point Inversion}\label{alg:pointinversion}
+			\Procedure{pointInversion}{$\gamma, Q$}
+				\State $l, u, m \gets \text{findPointInversionInitValues}(\gamma, Q)$
+				\State $t_0 \gets m$
+
+				\For {$k = 1, 2,..., M$}
+					\State $t_1 \gets t_0 + \epsilon$
+					\State $\phi_0 \gets D(\gamma(t_0), Q) \text{ and } \phi_1 \gets D(\gamma(t_1), Q)$
+					
+					\State $\phi' \gets \frac{\phi_1 - \phi_0}{\epsilon}$
+					\State $t_0 \gets t_0 - \frac{\phi_0}{\phi'}$
+					\If {$t_0 < l$} $t_0 \gets l$ \EndIf
+					\If {$t_0 > u$} $t_0 \gets u$ \EndIf
+
+				\EndFor
+
+				\Return $t_0$
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
 
 \subsection{Ray-Curve Intersection}
 	A ray with support vector $A \in V$ and direction vector $B \in V$ is given by the set of points
@@ -724,10 +769,12 @@ In this section, we will see that B-spline curves and NURBS curves share some (a
 	If however $I = \emptyset$, then no element will be returned. We therefore define the return value of our algorithm as the one element set given by
 		$$ I_{\min} := 
 			\begin{cases}
-				\{R_{A,B}(s^*)\} 	&\text{if } D(R_{A,B}(s^*), \gamma) = 0, \\
-				\emptyset			&\text{otherwise.}	
+				\{R_{A,B}(s^*)\} 	&\text{if } D(R_{A,B}(s^*), \gamma) \leq \epsilon, \\
+				\emptyset			&\text{otherwise,}	
 			\end{cases}
 		$$
+	where the absolute tolerance $\epsilon > 0$ is close to $0$.
+
 	We can find $s^*$ by a commonly used computer graphics scheme called \emph{ray marching}, in which we traverse the ray $R_{A,B}$ by a safe distance until \emph{collision} with the curve $\gamma$ occurs.
 
 	\begin{algorithm}[H]
@@ -742,23 +789,25 @@ In this section, we will see that B-spline curves and NURBS curves share some (a
 
 			\caption{Ray Marching}\label{alg:raymarching}
 			\Procedure{intersectCurveRay}{$\gamma, A, B$}
-				\State $B \gets \frac{B}{||B||}$
-				\State $s \gets 0$
-				\State $P \gets A$
+				\State $B \gets \frac{B}{||B||}, s \gets 0, P \gets A$
 				\For {$k = 1, 2,..., N$}
-					\State $s \gets s + \text{pointInversionDistance}(\gamma, P)$
+					\State $s \gets s + D(\gamma(\text{pointInversion}(\gamma, P)), P)$
 					\State $P \gets A + sB$
 					\If {$s < \epsilon$}
 						\Return $\{P\}$
 					\EndIf
 				\EndFor
 
-				\Return $I_{\min}$
+				\Return $\emptyset$
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
 
-	In this algorithm, $\text{pointInversionDistance}(\gamma, P)$ calculates the $D(\gamma, P)$ as was discussed in the previous section.
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=0.98\textwidth]{../python/rayMarching}
+		\caption{The ray marching algorithm visualized: At each iteration, a new safe distance $s$ along the ray is calculated. The ray is traversed until the safe distance falls below the absolute tolerance $\epsilon$}
+	\end{figure}
 
 \subsection{Curve-Curve Intersection}
 \subsection{Fillet Creation}
