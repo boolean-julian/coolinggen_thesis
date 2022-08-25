@@ -230,11 +230,11 @@ Bézier curves are named after the French engineer Pierre Bézier, who famously 
 \end{definition}
 
 \begin{definition}
-	Let $V$ a vector space. A \emph{Bézier curve} of degree $n$ is a parametric curve $B_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow V$ that has a representation
+	A \emph{Bézier curve} of degree $n$ is a parametric curve $B_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow \mathbb{R}^d$ that has a representation
 	\begin{equation}\label{eq:bezierdef}
 		B_{P, [t_0, t_1]}(t) = \sum_{k=0}^n b_{n,k,[t_0, t_1]}(t) P_k = \sum_{k=0}^n \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n} P_k.
 	\end{equation}
-	We call the elements of the set $P = \{P_0, P_1, \dots, P_n\} \subset V$ the \emph{control points} of $B_P$.
+	We call the elements of the set $P = \{P_0, P_1, \dots, P_n\} \subset \mathbb{R}^d$ the \emph{control points} of $B_P$.
 \end{definition}
 
 \begin{remark}
@@ -246,7 +246,7 @@ Bézier curves are named after the French engineer Pierre Bézier, who famously 
 	\begin{equation}\label{eq:bezierdefshort}
 		B_P(t) := B_{P,[0,1]}(t)= \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
 	\end{equation}
-	This case is the only case considered in this thesis. We also set the vector space $V$ to be $\mathbb{R}^3$ unless specified otherwise.
+	This case is the only case considered in this thesis.
 \end{remark}
 
 \subsection{De Casteljau's Algorithm}
@@ -425,22 +425,22 @@ Similarly to how Beziér curves are defined on the Bernstein polynomial basis, N
 \end{remark}
 
 \begin{definition}
-	Let $V$ a vector space. A \emph{B-spline curve} of degree $p-1$ over a set of control points $P = \{P_0, P_1, ... P_n\} \subset V$ and a knot sequence $(t_m)$ is defined as $$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k.$$
+	A \emph{B-spline curve} of degree $p-1$ over a set of control points $P = \{P_0, P_1, ... P_n\} \subset \mathbb{R}^d$ and a knot sequence $(t_m)$ is defined as $$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k.$$
 \end{definition}
 
 \begin{definition}\label{def:nurbs}
-	A \emph{NURBS curve} $C_P(t)$ of degree $p-1$ with the control points $P = \{P_0, P_1, ..., P_n\} \subset V$, the control weights $w = (w_0, w_1, ... w_n) \subset \mathbb{R}$ and a knot sequence $(t_m)$ is defined as
+	A \emph{NURBS curve} $C_P(t)$ of degree $p-1$ with the control points $P = \{P_0, P_1, ..., P_n\} \subset \mathbb{R}^d$, the control weights $w = (w_0, w_1, ... w_n) \subset \mathbb{R}$ and a knot sequence $(t_m)$ is defined as
 	\begin{equation}
 		C_P(t) = \frac{\sum_{k=0}^n N_{p,k}(t) w_k P_k}{\sum_{k=0}^n N_{p,k}(t) w_k}.
 	\end{equation}
 \end{definition}
 
 \begin{remark}
-	Let $\dim V = d$. A NURBS curve can alternatively be understood as a projection of a B-spline curve on a transformed set of control points. For this purpose we define the embedding into the weighted vector space
-		$$\Phi_w: V \rightarrow V \times \mathbb{R}$$
-	that maps each control point $P_k = (p_1, ..., p_d) \in V$ onto $(w_k p_1, ..., w_k p_d, w_k) \in V \times \mathbb{R}$.
+	Let $P \subset \mathbb{R}^d$. A NURBS curve can alternatively be understood as a projection of a B-spline curve on a transformed set of control points. For this purpose we define the embedding into the weighted vector space
+		$$\Phi_w: \mathbb{R}^d \rightarrow \mathbb{R}^{d+1}$$
+	that maps each control point $P_k = (p_1, ..., p_d) \in \mathbb{R}^d$ onto $(w_k p_1, ..., w_k p_d, w_k) \in \mathbb{R}^{d+1}$.
 	We also have to define the projection map
-		$$\Phi^\dagger: V \times \mathbb{R} \rightarrow V$$ 
+		$$\Phi^\dagger: \mathbb{R}^{d+1} \rightarrow \mathbb{R}^d$$ 
 	that maps each point on the B-spline curve $S_{\Phi(P)}(t) = (s_1, ..., s_d, s_{d+1})$ onto $(\frac{s_1}{s_{d+1}}, ..., \frac{s_d}{s_{d+1}})$.
 	We can then define the NURBS curve as
 			$$ C_P(t) = \Phi^\dagger(S_{\Phi_w(P)}(t))$$ 
@@ -457,13 +457,13 @@ Similarly to how Beziér curves are defined on the Bernstein polynomial basis, N
 Now that we have defined B-spline curves and NURBS curves, we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points. Notice that this grants us control 
 
 \begin{definition}
-	A \emph{B-spline surface} $S_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset V$ on the knot grid $(u_m), (v_m)$ is defined as
+	A \emph{B-spline surface} $S_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$ on the knot grid $(u_m), (v_m)$ is defined as
 		$$ S_P(u,v) = \sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) P_{k_u,k_v},$$
 	where $N_{p,k_u}(u) := N_{p,k_u}^{(u_m)}(u)$ and $N_{q,k_v}(v) := N_{q,k_v}^{(v_m)}(v)$.
 \end{definition}
 
 \begin{definition}
-	A \emph{NURBS surface} $C_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset V$, the control weights $w = \{w_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}$ and the knot grid $(u_m), (v_m)$ is defined as
+	A \emph{NURBS surface} $C_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$, the control weights $w = \{w_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}$ and the knot grid $(u_m), (v_m)$ is defined as
 		$$ C_P(u,v) = \frac {\sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) w_{k_u, k_v} P_{k_u,k_v}}{\sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) w_{k_u, k_v}},$$
 	where $N_{p,k_u}(u) := N_{p,k_u}^{(u_m)}(u)$ and $N_{q,k_v}(v) := N_{q,k_v}^{(v_m)}(v)$.
 \end{definition}
@@ -644,7 +644,7 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 	\begin{enumerate}
 		\item Calculate $P_w = \Phi_w(P)$.
 		\item Use de Boor's algorithm to calculate points on $S_{P_w}$.
-		\item Project points onto $V$ by applying $\Phi^\dagger$ to $S_{P_w}$ to find $C_P$.
+		\item Project points onto $\mathbb{R}^d$ by applying $\Phi^\dagger$ to $S_{P_w}$ to find $C_P$.
 	\end{enumerate}
 
 
@@ -659,7 +659,7 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 	\end{proof}
 
 	\begin{theorem}
-		Let $V = \mathbb{R}^d$ and $T \in \mathbb{R}^{d \times d}$. Let $S_P$ be a B-spline curve or surface and $C_P$ a NURBS curve or surface. Then $S_{TP} = TS_P$ and $C_{TP} = TC_P$.
+		Let $T \in \mathbb{R}^{d \times d}$. Let $S_P$ be a B-spline curve or surface and $C_P$ a NURBS curve or surface. Then $S_{TP} = TS_P$ and $C_{TP} = TC_P$.
 	\end{theorem}
 	\begin{proof}
 		By linearity of $T$ we can compute
@@ -687,18 +687,31 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 \section{Methods on NURBS Objects}
 \subsection{Point Inversion}
 	Let $\gamma(t) \subset \mathbb{R}^d$ a curve, $t \in [0,1]$, and let $Q \in \mathbb{R}^d$ a point.
-	We want to find
-		$$t^* = \underset{t\in[0,1]}{\arg\min} \; D(\gamma(t), Q), $$
+	We want to find an element in the set
+		$$T^* := \underset{t\in[0,1]}{\arg\min} \; D(\gamma(t), Q), $$
 	where $D(\cdot, \cdot)$ is the Euclidean distance between two points. Notice that 
-		$$\underset{t\in[0,1]}{\min} \; D(\gamma(t), Q) = D(\gamma(t^*), Q) $$
-	is the distance between the curve $\gamma$ and the point $Q$.
+		$$\underset{t\in[0,1]}{\min} \; D(\gamma(t), Q) = D(\gamma(t^*), Q), $$
+	is the distance between the curve $\gamma$ and the point $Q$, and is constant for all $t^* \in T^*$.
 
 	\begin{definition}
 		The distance between a curve $\gamma \subset \mathbb{R}^d$ and a point $Q \in \mathbb{R}^d$ is given by
 			$$D(Q, \gamma) := D(\gamma, Q) := \underset{t}{\min} \; D(\gamma(t), Q).$$
 	\end{definition}
 
-	Minimizing distance functions is, in general, a problem that is hard to solve. We therefore make some assumptions about the point-curve distance function $\phi(t) := D(\gamma(t), Q)$ that we are going to minimize in order to find the target parameter $t^*$. If $\phi$ is convex and differentiable, then the problem statement has a well-known and easy to implement solution, namely Newton's method, which for an initial guess $t^{(0)}$ is given by the iteration
+	\begin{remark}
+		If $D(Q, \gamma) = 0$, then by the point-separating property of the Euclidean norm, $Q$ lies on the curve $\gamma$.
+	\end{remark}
+
+	\begin{theorem}
+		Let $\gamma(t) \subset \mathbb{R}^d$ a curve, $t \in [0,1]$ and let $Q \in \mathbb{R}^d$. If $\gamma$ has no self-intersections and
+			$$\underset{t\in[0,1]}{\min} \; D(\gamma(t), Q) = 0$$
+		then $T^*$ is a single element set.
+	\end{theorem}
+	\begin{proof}
+		If $\gamma$ has no self-intersections, then no two parameters of $\gamma$ will map onto the same point. Therefore, $\gamma$ is injective. We know $t^*$ exists such that $D(\gamma(t^*), Q) = 0$, which by the point-separating property of the Euclidean norm is equivalent to $Q = \gamma(t^*)$. By injectivity, this $t^*$ is unique.
+	\end{proof}
+
+	Minimizing distance functions for general curves is, in general, a problem that is hard to solve. We therefore make some assumptions about the point-curve distance function $\phi(t) := D(\gamma(t), Q)$ that we are going to minimize in order to find one target parameter $t^* \in T^*$. If $\phi$ is convex and differentiable, then the problem statement has a well-known and easy to implement solution, namely Newton's method, which for an initial guess $t^{(0)}$ is given by the iteration
 		$$ t^{(n+1)} = t^{(n)} - \frac {\phi(t^{(n)})}{\phi'(t^{(n)})}. $$
 	Here, $\phi'(t)$ is the derivative of $\phi(t)$ with respect to $t$, which for a small value of $\epsilon > 0$ can be approximated by the right-sided difference quotient
 		$$ \phi'_r(t) = \frac{\phi(t+\epsilon) - \phi(t)}{\epsilon}. $$
@@ -714,11 +727,10 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 		$$ t^* = \underset{t\in[l,u]}{\arg\min}\;\phi(t). $$
 	This scheme will only converge to the global minimum of $\phi$ for large enough $n \in \mathbb{N}$.
 
-	Notice that if $\phi(t^*) = 0$, we have that the intersection of the curve $\gamma$ with the point $Q$ is equal to $Q$. In other words, the point $Q$ intersects the curve $\gamma$. Given that $\gamma$ is a NURBS curve, we can then observe that the devised algorithm is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return the input parameter of the curve that fits the point $Q$. This justifies the name \emph{point inversion algorithm}.
+	Given that the target distance is zero and $\gamma$ is a NURBS curve, we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return one input parameter of the curve that fits the point $Q$ (in fact, the only input parameter if we also have injectivity of $\gamma$). This justifies the name \emph{point inversion algorithm}.
 
-	Notice also that $t^*$ is not necessarily unique, as multiple points on a curve $\gamma$ can share the same minimum distance to a given point $Q$. However, we are happy to find one such point in our applications, as most of the time, the point of interest is going to fulfill $\phi(t^*) = 0$. Assume there is another value $s^* \neq t^*$ that has minimum distance to $Q$. Then $\phi(s^*) = \phi(t^*) = 0$. But then because both of those values return exactly $0$ and because of the point-separating property of the Euclidean norm, our point of interest $Q$ lies on the curve \emph{twice}, in the sense that the map $\gamma$ is not injective at that point. But that means $\gamma$ has a self intersection at $\gamma(t^*) = \gamma(s^*)$. So if we assume injectivity of $\gamma$ and only seek the parameters of points $Q$ that lie inside of $\gamma$, we do not have to worry about this matter any more.
+	If the target distance is not equal to zero or the curve is not injective, the algorithm still proves useful to find the distance $D(Q, \gamma)$, since the minimum distance is the same for all $t^* \in T^*$.
 
-	To summarize, the algorithm can be described in pseudo-code
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
 			\Input
@@ -765,12 +777,12 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 
 \subsection{Ray-Curve Intersection}
 	\begin{definition}
-		A \emph{ray} with support vector $A \in V$ and direction vector $B \in V$ is given by the set of points
+		A \emph{ray} with support vector $A \in \mathbb{R}^d$ and direction vector $B \in \mathbb{R}^d$ is given by the set of points
 			\begin{equation}\label{eq:raysetdef}
 				\{A + tB \;:\; t \in \mathbb{R},\; t \geq 0\}.
 			\end{equation}
 		The dependence of a point on the ray on the real parameter $t$ motivates the description of this set as a map
-			$$R_{A,B}: \mathbb{R} \rightarrow V,\;\; t \mapsto A+tB.$$
+			$$R_{A,B}: \mathbb{R} \rightarrow \mathbb{R}^d,\;\; t \mapsto A+tB.$$
 		where Equation \ref{eq:raysetdef} is then equal to $R_{A,B}([0,\infty))$.
 	\end{definition}
 
@@ -799,7 +811,7 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 	where the absolute tolerance $\epsilon > 0$ is close to $0$ and $s^*$ is an approximation of the collision parameter of $R_{A,B}$ w.r.t. $\gamma$. If $I_{\min} \neq \emptyset$, then we refer to the element in $I_{\min}$ as \emph{collision point}.
 
 	\begin{remark}
-		Why is the notion of the collision point of interest? To exemplify the prospect of our algorithm, imagine the following secnario: Let there be a reflective interface represented by a curve $\gamma$ and a beam of light represented by a ray $R_{A,B}$. Then our model suggests the equivalence of the physical point of reflection and the collision point of the ray with respect to the curve.
+		Why is the notion of the collision point of interest? To exemplify the prospect of our algorithm, imagine the following scenario: Let there be a reflective interface represented by a curve $\gamma$ and a beam of light represented by a ray $R_{A,B}$. Then our model suggests the equivalence of the physical point of reflection and the collision point of the ray with respect to the curve.
 	\end{remark}
 
 	We can find the approximation $s^*$ of the collision parameter by using a common CAD scheme called \emph{ray marching}, in which we traverse the ray $R_{A,B}$ by a small distance increments $s$ until we achieve collision with the curve $\gamma$. How do we choose the optimal value for $s$? The idea is the following: Using the point inversion algorithm, we can calculate the \emph{safe distance} $s$ of the point $A$ on the ray to the curve $\gamma$. Then we can easily construct a point $P$ that fulfills $D(A,P) = s$ and lies on the ray $R_{A,B}$ by 
