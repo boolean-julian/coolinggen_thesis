@@ -778,12 +778,12 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 \subsection{Ray-Curve Intersection}
 	\begin{definition}
 		A \emph{ray} with support vector $A \in \mathbb{R}^d$ and direction vector $B \in \mathbb{R}^d$ is given by the set of points
-			\begin{equation}\label{eq:raysetdef}
-				\{A + tB \;:\; t \in \mathbb{R},\; t \geq 0\}.
-			\end{equation}
+			\begin{equation*}
+				\hat R_{A,B} = \{A + tB \;:\; t \in \mathbb{R},\; t \geq 0\}.
+			\end{equation*}
 		The dependence of a point on the ray on the real parameter $t$ motivates the description of this set as a map
 			$$R_{A,B}: \mathbb{R} \rightarrow \mathbb{R}^d,\;\; t \mapsto A+tB.$$
-		where Equation \ref{eq:raysetdef} is then equal to $R_{A,B}([0,\infty))$.
+		which yields the equality $\hat R_{A,B} = R_{A,B}([0,\infty))$.
 	\end{definition}
 
 	In this section, we want to find an algorithm that intersects a curve $\gamma(t)$ with $t \in [0, 1]$ with a ray $R_{A,B}(s)$ with $s \in [0, \infty)$. Generally, the intersection of these two sets can be written as
