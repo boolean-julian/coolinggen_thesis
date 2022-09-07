@@ -853,6 +853,22 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 	\end{figure}
 
 \subsection{Curve-Curve Intersection}
+	Let $\gamma_1(s)$ and $\gamma_2(t)$ be two injective, continuous curves, $s,t \in [0,1]$. We seek the set of parameters, at which $\gamma_1$ and $\gamma_2$ intersect. In other words, we are looking for the set of pairs
+		$$ I(\gamma_1, \gamma_2) := \{(s,t) \in [0,1]^2 : \gamma_1(s) = \gamma_2(t)\}, $$
+	which we call intersection parameter set. This set can be either of the following types:
+	\begin{enumerate}
+		\item A singleton set or a union of countably many singleton sets in $[0,1]^2$.
+		\item A set of line segments in $[0,1]^2$.
+		\item Any union of countably many singleton sets and line segments in $[0,1]^2$.
+	\end{enumerate}
+	We denote the set of points of intersection given as
+		$$ V(\gamma_1, \gamma_2) := \{\gamma_1(s): (s, t) \in I(\gamma_1, \gamma_2)\} = \{\gamma_2(t): (s, t) \in I(\gamma_1, \gamma_2)\}.$$
+	If $I(\gamma_1, \gamma_2)$ is a singleton set or a union of countably many singleton sets, then $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$are both nowhere locally connected. On the other hand, if $I(\gamma_1, \gamma_2)$ is a set of line segments, then $I(\gamma_1, \gamma_2$ and $V(\gamma_1, \gamma_2)$ are both locally path connected.
+
+	FIGURE
+
+	In CoolingGen, we generally only care about the type of intersections of curves where $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$ are nowhere locally connected and finite.
+
 \subsection{Fillet Creation}
 \begin{figure}[H]
 	\centering
