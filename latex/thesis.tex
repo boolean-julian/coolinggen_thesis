@@ -198,285 +198,284 @@ Göttingen, \today \hspace{2em}
 \section{Problem Statement}
 
 \chapter{Methods}
-As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Beziér curves. We will then generalize Beziér curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point inversion, curve intersection and curve fillet fitting, which we will also present.
+	As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Beziér curves. We will then generalize Beziér curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point inversion, curve intersection and curve fillet fitting, which we will also present.
 
 \section{Bézier Curves}
-Bézier curves are named after the French engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
+	Bézier curves are named after the French engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
 
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}{0.25\textwidth}
-		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees1}
-		\caption{Degree $1$.}
-	\end{subfigure}
-	\begin{subfigure}{0.25\textwidth}
-		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees2}
-		\caption{Degree $2$.}
-	\end{subfigure}
-	\begin{subfigure}{0.25\textwidth}
-		\includesvg[width=\textwidth]{../python/bezierDifferentDegrees3}
-		\caption{Degree $3$.}
-	\end{subfigure}
-	\caption{Beziér curves of different degrees (orange) and their control points (blue).}
-\end{figure}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.25\textwidth}
+			\includesvg[width=\textwidth]{../python/bezierDifferentDegrees1}
+			\caption{Degree $1$.}
+		\end{subfigure}
+		\begin{subfigure}{0.25\textwidth}
+			\includesvg[width=\textwidth]{../python/bezierDifferentDegrees2}
+			\caption{Degree $2$.}
+		\end{subfigure}
+		\begin{subfigure}{0.25\textwidth}
+			\includesvg[width=\textwidth]{../python/bezierDifferentDegrees3}
+			\caption{Degree $3$.}
+		\end{subfigure}
+		\caption{Beziér curves of different degrees (orange) and their control points (blue).}
+	\end{figure}
 
 \subsection{Definition}
-\begin{definition}
-	The \emph{Bernstein basis polynomials} of degree $n$ on the interval $[t_0,t_1]$ are defined as
-	\begin{equation}\label{eq:bernsteinbasisdef}
-		b_{n,k,[t_0, t_1]}(t) := \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n},
-	\end{equation}
-	for $k \in \{0,\dots, n\}$.
-\end{definition}
+	\begin{definition}
+		The \emph{Bernstein basis polynomials} of degree $n$ on the interval $[t_0,t_1]$ are defined as
+		\begin{equation}\label{eq:bernsteinbasisdef}
+			b_{n,k,[t_0, t_1]}(t) := \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n},
+		\end{equation}
+		for $k \in \{0,\dots, n\}$.
+	\end{definition}
 
-\begin{definition}
-	A \emph{Bézier curve} of degree $n$ is a parametric curve $B_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow \mathbb{R}^d$ that has a representation
-	\begin{equation}\label{eq:bezierdef}
-		B_{P, [t_0, t_1]}(t) = \sum_{k=0}^n b_{n,k,[t_0, t_1]}(t) P_k = \sum_{k=0}^n \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n} P_k.
-	\end{equation}
-	We call the elements of the set $P = \{P_0, P_1, \dots, P_n\} \subset \mathbb{R}^d$ the \emph{control points} of $B_P$.
-\end{definition}
+	\begin{definition}
+		A \emph{Bézier curve} of degree $n$ is a parametric curve $B_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow \mathbb{R}^d$ that has a representation
+		\begin{equation}\label{eq:bezierdef}
+			B_{P, [t_0, t_1]}(t) = \sum_{k=0}^n b_{n,k,[t_0, t_1]}(t) P_k = \sum_{k=0}^n \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n} P_k.
+		\end{equation}
+		We call the elements of the set $P = \{P_0, P_1, \dots, P_n\} \subset \mathbb{R}^d$ the \emph{control points} of $B_P$.
+	\end{definition}
 
-\begin{remark}
-	Let $t_0 = 0$ and $t_1 = 1$. Then \ref{eq:bezierdef} simplifies to
-	\begin{equation}
-		b_{n,k}(t) := b_{n,k,[0,1]}(t) = \binom{n}{k} (1-t)^{n-k}t^k
-	\end{equation}
-	and \ref{eq:bernsteinbasisdef} simplifies to
-	\begin{equation}\label{eq:bezierdefshort}
-		B_P(t) := B_{P,[0,1]}(t)= \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
-	\end{equation}
-	This case is the only case considered in this thesis.
-\end{remark}
+	\begin{remark}
+		Let $t_0 = 0$ and $t_1 = 1$. Then \ref{eq:bezierdef} simplifies to
+		\begin{equation}
+			b_{n,k}(t) := b_{n,k,[0,1]}(t) = \binom{n}{k} (1-t)^{n-k}t^k
+		\end{equation}
+		and \ref{eq:bernsteinbasisdef} simplifies to
+		\begin{equation}\label{eq:bezierdefshort}
+			B_P(t) := B_{P,[0,1]}(t)= \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
+		\end{equation}
+		This case is the only case considered in this thesis.
+	\end{remark}
 
 \subsection{De Casteljau's Algorithm}
+	The computation of Equation \ref{eq:bezierdefshort} is usually performed using de Casteljau's algorithm. This is because the algorithm yields a simple implementation and lower complexity than straightforwardly computing Equation \ref{eq:bezierdefshort}. The algorithm was proposed by Paul de Faget de Casteljau for the automobile manufacturer Citroën in the 1960s.
 
-The computation of Equation \ref{eq:bezierdefshort} is usually performed using de Casteljau's algorithm. This is because the algorithm yields a simple implementation and lower complexity than straightforwardly computing Equation \ref{eq:bezierdefshort}. The algorithm was proposed by Paul de Faget de Casteljau for the automobile manufacturer Citroën in the 1960s.
+	\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\Input
+				\Desc{$P = \{P_0, P_1, ..., P_n\}$}{set of control points}
+				\Desc{$t$}{real number}
+			\EndInput
+			\Output
+				\Desc{$P^{(n)}_0 = B_P(t)$}{the point on the Beziér curve w.r.t. to $t$}
+			\EndOutput
 
-\begin{algorithm}[H]
-	\begin{algorithmic}[1]
-		\Input
-			\Desc{$P = \{P_0, P_1, ..., P_n\}$}{set of control points}
-			\Desc{$t$}{real number}
-		\EndInput
-		\Output
-			\Desc{$P^{(n)}_0 = B_P(t)$}{the point on the Beziér curve w.r.t. to $t$}
-		\EndOutput
-
-		\caption{de Casteljau's algorithm}\label{alg:decasteljaualgo}
-		\Procedure{deCasteljau}{$P, t$}
-			\State $P^{(0)} \gets P$
-			\For {$j = 1, 2, ..., n$}
-				\For {$k = 0, 1, ..., n-j$}
-					\State $P^{(j)}_k \gets (1-t) \cdot P^{(j-1)}_k + t \cdot P^{(j-1)}_{k+1}$
+			\caption{de Casteljau's algorithm}\label{alg:decasteljaualgo}
+			\Procedure{deCasteljau}{$P, t$}
+				\State $P^{(0)} \gets P$
+				\For {$j = 1, 2, ..., n$}
+					\For {$k = 0, 1, ..., n-j$}
+						\State $P^{(j)}_k \gets (1-t) \cdot P^{(j-1)}_k + t \cdot P^{(j-1)}_{k+1}$
+					\EndFor
 				\EndFor
-			\EndFor
-			\Return $P^{(n)}_0$
-		\EndProcedure
-	\end{algorithmic}
-\end{algorithm}
+				\Return $P^{(n)}_0$
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
 
-\begin{theorem}
-	Algorithm \ref{alg:decasteljaualgo} computes $B_P(t)$.
-\end{theorem}
-\begin{proof}
-	By induction. Let $n = 1$. Then
-		$$ P_0^{(1)} = (1-t) \cdot P_0 + t \cdot P_1.$$
-	By employing the induction hypothesis
-		$$ P_j^{(n)} = \sum_{k=j}^{n+j} \binom{n}{k} (1-t)^{n-k}t^k P_{j+k}$$
-	for some $n \in \mathbb{N}$, we can infer that
-	\begin{align*}
-		P_0^{(n+1)}	&= (1-t) \cdot P_0^{(n)} + t \cdot P_1^{(n)} \\
-					&= (1-t) \cdot \sum_{k=0}^{n} \binom{n}{k} (1-t)^{n-k}t^k P_{k} + t \cdot \sum_{k=1}^{n+1} \binom{n}{k} (1-t)^{n-k}t^k P_{k+1} \\
-					&= \sum_{k=0}^{n+1} \binom{n+1}{k} (1-t)^{n+1-k}t^k P_{k},
-	\end{align*}
-	which is equal to $B_P(t)$ for degree $n+1$.
-\end{proof}
+	\begin{theorem}
+		Algorithm \ref{alg:decasteljaualgo} computes $B_P(t)$.
+	\end{theorem}
+	\begin{proof}
+		By induction. Let $n = 1$. Then
+			$$ P_0^{(1)} = (1-t) \cdot P_0 + t \cdot P_1.$$
+		By employing the induction hypothesis
+			$$ P_j^{(n)} = \sum_{k=j}^{n+j} \binom{n}{k} (1-t)^{n-k}t^k P_{j+k}$$
+		for some $n \in \mathbb{N}$, we can infer that
+		\begin{align*}
+			P_0^{(n+1)}	&= (1-t) \cdot P_0^{(n)} + t \cdot P_1^{(n)} \\
+						&= (1-t) \cdot \sum_{k=0}^{n} \binom{n}{k} (1-t)^{n-k}t^k P_{k} + t \cdot \sum_{k=1}^{n+1} \binom{n}{k} (1-t)^{n-k}t^k P_{k+1} \\
+						&= \sum_{k=0}^{n+1} \binom{n+1}{k} (1-t)^{n+1-k}t^k P_{k},
+		\end{align*}
+		which is equal to $B_P(t)$ for degree $n+1$.
+	\end{proof}
 
-A visual representation of Algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $B_P$ with degree $n$, one has to perform $\frac{n^2-n}{2}$ vector additions and $n^2-n$ scalar multiplications.
+	A visual representation of Algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $B_P$ with degree $n$, one has to perform $\frac{n^2-n}{2}$ vector additions and $n^2-n$ scalar multiplications.
 
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}{0.49\textwidth}
-		\begin{tikzpicture}
-			\def\dx{60pt}
-			\def\dy{30pt}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.49\textwidth}
+			\begin{tikzpicture}
+				\def\dx{60pt}
+				\def\dy{30pt}
 
-			\pgfmathsetmacro{\degree}{3}
+				\pgfmathsetmacro{\degree}{3}
 
-			% Make nodes
-			\newcounter{i}
-			\newcounter{j}
+				% Make nodes
+				\newcounter{i}
+				\newcounter{j}
 
-			\node (\arabic{i}) at (0,0) {$P^{(\degree)}_0$};
-			\stepcounter{i}
+				\node (\arabic{i}) at (0,0) {$P^{(\degree)}_0$};
+				\stepcounter{i}
 
-			\foreach \x in {1, ..., \degree} {
-				\pgfmathsetmacro{\xstep}{\x-2}
+				\foreach \x in {1, ..., \degree} {
+					\pgfmathsetmacro{\xstep}{\x-2}
 
-				\setcounter{j}{0}
-				\foreach \y in {\x, \xstep, ..., -\x} {
-					\node (\arabic{i}) at (\x*\dx, \y*\dy) {$P^{(\pgfmathint{\degree-\x}\pgfmathresult)}_{\arabic{j}}$};
-					\stepcounter{i}
-					\stepcounter{j}
+					\setcounter{j}{0}
+					\foreach \y in {\x, \xstep, ..., -\x} {
+						\node (\arabic{i}) at (\x*\dx, \y*\dy) {$P^{(\pgfmathint{\degree-\x}\pgfmathresult)}_{\arabic{j}}$};
+						\stepcounter{i}
+						\stepcounter{j}
+					}
 				}
-			}
-			
-			% Make arrows
-			\newcounter{z}
-			\newcounter{a}
-			\newcounter{b}
-			\pgfmathsetmacro{\maxx}{\degree}
-			\foreach \x in {1,...,\degree}{
-				\foreach \y in {1,...,\x}{
-					
-					\setcounter{a}{\arabic{z}}
-					\addtocounter{a}{\x}
+				
+				% Make arrows
+				\newcounter{z}
+				\newcounter{a}
+				\newcounter{b}
+				\pgfmathsetmacro{\maxx}{\degree}
+				\foreach \x in {1,...,\degree}{
+					\foreach \y in {1,...,\x}{
+						
+						\setcounter{a}{\arabic{z}}
+						\addtocounter{a}{\x}
 
-					\setcounter{b}{\arabic{z}}
-					\addtocounter{b}{\x}
-					\stepcounter{b}
-					
-					\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $1-t$};
-					\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $t$};
-					
-					\stepcounter{z}
+						\setcounter{b}{\arabic{z}}
+						\addtocounter{b}{\x}
+						\stepcounter{b}
+						
+						\draw [<-] (\arabic{z}) -- (\arabic{a}) node[above, midway, sloped] {\scriptsize $1-t$};
+						\draw [<-] (\arabic{z}) -- (\arabic{b}) node[above, midway, sloped] {\scriptsize $t$};
+						
+						\stepcounter{z}
+					}
 				}
-			}
-		\end{tikzpicture}
-		\caption{Algorithmic visualization.}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.49\textwidth}
-		\includesvg[width=\textwidth]{../python/deCasteljauVisual}
-		\caption{Geometric visualization of $B_P(\frac{3}{5})$.}
-	\end{subfigure}
-	\caption{Visual representations of de Casteljau's algorithm.}
-	\label{fig:decasteljautriangle}
-\end{figure}
+			\end{tikzpicture}
+			\caption{Algorithmic visualization.}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}{0.49\textwidth}
+			\includesvg[width=\textwidth]{../python/deCasteljauVisual}
+			\caption{Geometric visualization of $B_P(\frac{3}{5})$.}
+		\end{subfigure}
+		\caption{Visual representations of de Casteljau's algorithm.}
+		\label{fig:decasteljautriangle}
+	\end{figure}
 
-Interestingly, the representation of the algorithm in Figure \ref{fig:decasteljautriangle} also gives rise to an intuitive visualization of the geometric shape of the Beziér curve $B_P$. For all $i \in \{0, ..., n\}$ and all $j \in \{0, ..., n-i\}$, the point $P^{(i+1)}_j$ is the convex combination (always w.r.t. $t$) of $P^{(i)}_j$ and $P^{(i)}_{j+1}$. Thus $P^{(i+1)}_j$ always lies on the line segment between $P^{(i)}_j$ and $P^{(i)}_{j+1}$, as can be observed in the example in Figure \ref{fig:decasteljautriangle}.
+	Interestingly, the representation of the algorithm in Figure \ref{fig:decasteljautriangle} also gives rise to an intuitive visualization of the geometric shape of the Beziér curve $B_P$. For all $i \in \{0, ..., n\}$ and all $j \in \{0, ..., n-i\}$, the point $P^{(i+1)}_j$ is the convex combination (always w.r.t. $t$) of $P^{(i)}_j$ and $P^{(i)}_{j+1}$. Thus $P^{(i+1)}_j$ always lies on the line segment between $P^{(i)}_j$ and $P^{(i)}_{j+1}$, as can be observed in the example in Figure \ref{fig:decasteljautriangle}.
 
 \subsection{Properties}
-Other than being remarkably intuitive, Beziér curves have a lot of properties which make them convenient. In computer-aided design software, most graphical user interfaces rely on the principle of letting the user interactively drag and drop the control points with a mouse, granting them control over the shape of Beziér curve. The following theorems further illustrate why this is a good idea.
+	Other than being remarkably intuitive, Beziér curves have a lot of properties which make them convenient. In computer-aided design software, most graphical user interfaces rely on the principle of letting the user interactively drag and drop the control points with a mouse, granting them control over the shape of Beziér curve. The following theorems further illustrate why this is a good idea.
 
-\begin{theorem}
-	$B_P(0) = P_0$ and $B_P(1) = P_n$.
-\end{theorem}
-\begin{proof}
-	Explicit computation yields
-		$$B_P(0) = \sum_{k=0}^n \binom{n}{k} t^k P_k = \binom{n}{0} P_0 = P_0$$
-	and
-		$$B_P(1) = \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k} P_k = \binom{n}{n} P_n = P_n.$$
-\end{proof}
+	\begin{theorem}
+		$B_P(0) = P_0$ and $B_P(1) = P_n$.
+	\end{theorem}
+	\begin{proof}
+		Explicit computation yields
+			$$B_P(0) = \sum_{k=0}^n \binom{n}{k} t^k P_k = \binom{n}{0} P_0 = P_0$$
+		and
+			$$B_P(1) = \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k} P_k = \binom{n}{n} P_n = P_n.$$
+	\end{proof}
 
-\begin{theorem}
-	Let $T \in \mathbb{R}^{3 \times 3}$. Then $B_{TP}(t) = TB_P(t)$ where $TP := \{TP_0, TP_1, ..., TP_n\}$.
-\end{theorem}
-\begin{proof}
-	For all $t \in [0, 1]$ we can directly compute
-		$$TB_P(t) = \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k TP_k = B_{TP}(t).$$
-\end{proof}
+	\begin{theorem}
+		Let $T \in \mathbb{R}^{3 \times 3}$. Then $B_{TP}(t) = TB_P(t)$ where $TP := \{TP_0, TP_1, ..., TP_n\}$.
+	\end{theorem}
+	\begin{proof}
+		For all $t \in [0, 1]$ we can directly compute
+			$$TB_P(t) = \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k TP_k = B_{TP}(t).$$
+	\end{proof}
 
-\begin{theorem}
-	$B_P(t)$ lies in the convex hull of $P$ for all $t \in [0,1]$.
-\end{theorem}
-\begin{proof}
-	By the algorithm of de Casteljau (\ref{alg:decasteljaualgo}), we know that $P^{(i)}_j = (1-t) \cdot P^{(i-1)}_j + t \cdot P^{(i-1)}_{j+1}$ for all $t \in [0, 1]$. Therefore, $P^{(i)}$ lie in the convex hull of $P^{(i-1)}$. But then $B_P(t) = P^{(n)}_0$ always lies in the convex hull of $P^{(0)} = P$ by induction.
-\end{proof}
+	\begin{theorem}
+		$B_P(t)$ lies in the convex hull of $P$ for all $t \in [0,1]$.
+	\end{theorem}
+	\begin{proof}
+		By the algorithm of de Casteljau (\ref{alg:decasteljaualgo}), we know that $P^{(i)}_j = (1-t) \cdot P^{(i-1)}_j + t \cdot P^{(i-1)}_{j+1}$ for all $t \in [0, 1]$. Therefore, $P^{(i)}$ lie in the convex hull of $P^{(i-1)}$. But then $B_P(t) = P^{(n)}_0$ always lies in the convex hull of $P^{(0)} = P$ by induction.
+	\end{proof}
 
-Simple as their appearance may be, Beziér curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with just a handful of control points, is their greatest shortcoming at the same time. This is most likely the reason why Beziér curves are not the state of the art in technical engineering applications. However, Beziér curves certainly do provide an intuition for Non-Uniform Rational B-Splines or NURBS, which is their prevailing counterpart.
+	Simple as their appearance may be, Beziér curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with just a handful of control points, is their greatest shortcoming at the same time. This is most likely the reason why Beziér curves are not the state of the art in technical engineering applications. However, Beziér curves certainly do provide an intuition for Non-Uniform Rational B-Splines or NURBS, which is their prevailing counterpart.
 
 \section{Non-Uniform Rational B-splines (NURBS)}
-NURBS are a state of the art tool for curve and surface modelling. There is a somewhat common joke that describes the acronym NURBS as \emph{"Nobody Understands Rational B-Splines"} (source?). In this section, we invalidate this punch line. First of all, we discuss B-splines, then we construct B-spline curves and surfaces and then we apply simple transformations to the B-spline curves and surfaces to acquire NURBS curves and surfaces.
+	NURBS are a state of the art tool for curve and surface modelling. There is a somewhat common joke that describes the acronym NURBS as \emph{"Nobody Understands Rational B-Splines"} (source?). In this section, we invalidate this punch line. First of all, we discuss B-splines, then we construct B-spline curves and surfaces and then we apply simple transformations to the B-spline curves and surfaces to acquire NURBS curves and surfaces.
 
 \subsection{Definition}
-Similarly to how Beziér curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines or, more commonly, B-splines.
+	Similarly to how Beziér curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines or, more commonly, B-splines.
 
-\begin{definition}
-	A \emph{knot sequence} $(t_m)_{m=-\infty}^{\infty} \subset \mathbb{R}$ is a sequence with $t_{m} \leq t_{m+1}$ for all $m \in \mathbb{Z}$.
-\end{definition}
+	\begin{definition}
+		A \emph{knot sequence} $(t_m)_{m=-\infty}^{\infty} \subset \mathbb{R}$ is a sequence with $t_{m} \leq t_{m+1}$ for all $m \in \mathbb{Z}$.
+	\end{definition}
 
-\begin{definition}
-	The \emph{B-splines of degree $0$} on a knot sequence $(t_m)$ are defined as
-	\begin{equation}
-		N^{(t_m)}_{1,k}(t) :=
-		\begin{cases}
-			1 & \text{if } t \in [t_k, t_{k+1}),\\
-			0 & \text{else.}
-		\end{cases}
-	\end{equation}
-	The \emph{B-splines of degree $p-1$} with $p > 1$ are given by the \emph{Cox-de-Boor recursion formula}
-	\begin{equation}\label{eq:coxdeboorrec}
-		N_{p,k}^{(t_m)}(t) := \omega^{(t_m)}_{p-1, k}(t) \, N^{(t_m)}_{p-1, k}(t) + (1-\omega^{(t_m)}_{p-1, k+1}(t)) \, N^{(t_m)}_{p-1, k+1}(t),
-	\end{equation}
-	where
-	\begin{equation}
-		\omega^{(t_m)}_{p,k}(t) := 
-		\begin{cases}
-			\frac{t-t_k}{t_{k+p} - t_k} &\text{if } t_{k+p} \neq t,\\
-			0 							&\text{else.}
-		\end{cases}
-	\end{equation}
-\end{definition}
+	\begin{definition}
+		The \emph{B-splines of degree $0$} on a knot sequence $(t_m)$ are defined as
+		\begin{equation}
+			N^{(t_m)}_{1,k}(t) :=
+			\begin{cases}
+				1 & \text{if } t \in [t_k, t_{k+1}),\\
+				0 & \text{else.}
+			\end{cases}
+		\end{equation}
+		The \emph{B-splines of degree $p-1$} with $p > 1$ are given by the \emph{Cox-de-Boor recursion formula}
+		\begin{equation}\label{eq:coxdeboorrec}
+			N_{p,k}^{(t_m)}(t) := \omega^{(t_m)}_{p-1, k}(t) \, N^{(t_m)}_{p-1, k}(t) + (1-\omega^{(t_m)}_{p-1, k+1}(t)) \, N^{(t_m)}_{p-1, k+1}(t),
+		\end{equation}
+		where
+		\begin{equation}
+			\omega^{(t_m)}_{p,k}(t) := 
+			\begin{cases}
+				\frac{t-t_k}{t_{k+p} - t_k} &\text{if } t_{k+p} \neq t,\\
+				0 							&\text{else.}
+			\end{cases}
+		\end{equation}
+	\end{definition}
 
-\begin{remark}
-	Instead of $N_{p,k}^{(t_m)}$ we write $N_{p,k}$ and explicitly refer to $(t_m)$ when necessary. We restrict the domain of definition of $N_{p,k}$ to $[0, 1]$ by setting $\lim_{m \to -\infty} t_m = 0$ and $\lim_{m \to \infty} t_m = 1$.
-\end{remark}
+	\begin{remark}
+		Instead of $N_{p,k}^{(t_m)}$ we write $N_{p,k}$ and explicitly refer to $(t_m)$ when necessary. We restrict the domain of definition of $N_{p,k}$ to $[0, 1]$ by setting $\lim_{m \to -\infty} t_m = 0$ and $\lim_{m \to \infty} t_m = 1$.
+	\end{remark}
 
-\begin{definition}
-	A \emph{B-spline curve} of degree $p-1$ over a set of control points $P = \{P_0, P_1, ... P_n\} \subset \mathbb{R}^d$ and a knot sequence $(t_m)$ is defined as $$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k.$$
-\end{definition}
+	\begin{definition}
+		A \emph{B-spline curve} of degree $p-1$ over a set of control points $P = \{P_0, P_1, ... P_n\} \subset \mathbb{R}^d$ and a knot sequence $(t_m)$ is defined as $$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k.$$
+	\end{definition}
 
-\begin{definition}\label{def:nurbs}
-	A \emph{NURBS curve} $C_P(t)$ of degree $p-1$ with the control points $P = \{P_0, P_1, ..., P_n\} \subset \mathbb{R}^d$, the control weights $w = (w_0, w_1, ... w_n) \subset \mathbb{R}$ and a knot sequence $(t_m)$ is defined as
-	\begin{equation}
-		C_P(t) = \frac{\sum_{k=0}^n N_{p,k}(t) w_k P_k}{\sum_{k=0}^n N_{p,k}(t) w_k}.
-	\end{equation}
-\end{definition}
+	\begin{definition}\label{def:nurbs}
+		A \emph{NURBS curve} $C_P(t)$ of degree $p-1$ with the control points $P = \{P_0, P_1, ..., P_n\} \subset \mathbb{R}^d$, the control weights $w = (w_0, w_1, ... w_n) \subset \mathbb{R}$ and a knot sequence $(t_m)$ is defined as
+		\begin{equation}
+			C_P(t) = \frac{\sum_{k=0}^n N_{p,k}(t) w_k P_k}{\sum_{k=0}^n N_{p,k}(t) w_k}.
+		\end{equation}
+	\end{definition}
 
-\begin{remark}
-	Let $P \subset \mathbb{R}^d$. A NURBS curve can alternatively be understood as a projection of a B-spline curve on a transformed set of control points. For this purpose we define the embedding into the weighted vector space
-		$$\Phi_w: \mathbb{R}^d \rightarrow \mathbb{R}^{d+1}$$
-	that maps each control point $P_k = (p_1, ..., p_d) \in \mathbb{R}^d$ onto $(w_k p_1, ..., w_k p_d, w_k) \in \mathbb{R}^{d+1}$.
-	We also have to define the projection map
-		$$\Phi^\dagger: \mathbb{R}^{d+1} \rightarrow \mathbb{R}^d$$ 
-	that maps each point on the B-spline curve $S_{\Phi(P)}(t) = (s_1, ..., s_d, s_{d+1})$ onto $(\frac{s_1}{s_{d+1}}, ..., \frac{s_d}{s_{d+1}})$.
-	We can then define the NURBS curve as
-			$$ C_P(t) = \Phi^\dagger(S_{\Phi_w(P)}(t))$$ 
-	which we will make use of later on.
-\end{remark}
+	\begin{remark}
+		Let $P \subset \mathbb{R}^d$. A NURBS curve can alternatively be understood as a projection of a B-spline curve on a transformed set of control points. For this purpose we define the embedding into the weighted vector space
+			$$\Phi_w: \mathbb{R}^d \rightarrow \mathbb{R}^{d+1}$$
+		that maps each control point $P_k = (p_1, ..., p_d) \in \mathbb{R}^d$ onto $(w_k p_1, ..., w_k p_d, w_k) \in \mathbb{R}^{d+1}$.
+		We also have to define the projection map
+			$$\Phi^\dagger: \mathbb{R}^{d+1} \rightarrow \mathbb{R}^d$$ 
+		that maps each point on the B-spline curve $S_{\Phi(P)}(t) = (s_1, ..., s_d, s_{d+1})$ onto $(\frac{s_1}{s_{d+1}}, ..., \frac{s_d}{s_{d+1}})$.
+		We can then define the NURBS curve as
+				$$ C_P(t) = \Phi^\dagger(S_{\Phi_w(P)}(t))$$ 
+		which we will make use of later on.
+	\end{remark}
 
-\begin{theorem}
-	Let $w \equiv 1$. Then $S_P \equiv \Phi^\dagger(S_{\Phi_w(P)})$. In other words, NURBS curves are a generalization of B-spline curves.
-\end{theorem}
-\begin{proof}
-	Since in this case $\Phi_w((p_1, ..., p_d)) = (p_1, ..., p_d, 1)$, we have that $\Phi^\dagger(S_{\Phi_w(P)}(t)) = \Phi^\dagger(\Phi_w(S_P(t))) = S_P(t)$.
-\end{proof}
+	\begin{theorem}
+		Let $w \equiv 1$. Then $S_P \equiv \Phi^\dagger(S_{\Phi_w(P)})$. In other words, NURBS curves are a generalization of B-spline curves.
+	\end{theorem}
+	\begin{proof}
+		Since in this case $\Phi_w((p_1, ..., p_d)) = (p_1, ..., p_d, 1)$, we have that $\Phi^\dagger(S_{\Phi_w(P)}(t)) = \Phi^\dagger(\Phi_w(S_P(t))) = S_P(t)$.
+	\end{proof}
 
-Now that we have defined B-spline curves and NURBS curves, we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points. Notice that this grants us control 
+	Now that we have defined B-spline curves and NURBS curves, we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points. Notice that this grants us control 
 
-\begin{definition}
-	A \emph{B-spline surface} $S_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$ on the knot grid $(u_m), (v_m)$ is defined as
-		$$ S_P(u,v) = \sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) P_{k_u,k_v},$$
-	where $N_{p,k_u}(u) := N_{p,k_u}^{(u_m)}(u)$ and $N_{q,k_v}(v) := N_{q,k_v}^{(v_m)}(v)$.
-\end{definition}
+	\begin{definition}
+		A \emph{B-spline surface} $S_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$ on the knot grid $(u_m), (v_m)$ is defined as
+			$$ S_P(u,v) = \sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) P_{k_u,k_v},$$
+		where $N_{p,k_u}(u) := N_{p,k_u}^{(u_m)}(u)$ and $N_{q,k_v}(v) := N_{q,k_v}^{(v_m)}(v)$.
+	\end{definition}
 
-\begin{definition}
-	A \emph{NURBS surface} $C_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$, the control weights $w = \{w_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}$ and the knot grid $(u_m), (v_m)$ is defined as
-		$$ C_P(u,v) = \frac {\sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) w_{k_u, k_v} P_{k_u,k_v}}{\sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) w_{k_u, k_v}},$$
-	where $N_{p,k_u}(u) := N_{p,k_u}^{(u_m)}(u)$ and $N_{q,k_v}(v) := N_{q,k_v}^{(v_m)}(v)$.
-\end{definition}
+	\begin{definition}
+		A \emph{NURBS surface} $C_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$, the control weights $w = \{w_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}$ and the knot grid $(u_m), (v_m)$ is defined as
+			$$ C_P(u,v) = \frac {\sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) w_{k_u, k_v} P_{k_u,k_v}}{\sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) w_{k_u, k_v}},$$
+		where $N_{p,k_u}(u) := N_{p,k_u}^{(u_m)}(u)$ and $N_{q,k_v}(v) := N_{q,k_v}^{(v_m)}(v)$.
+	\end{definition}
 
-\begin{remark}
-	As with NURBS curve, we have the analogous result
-		$$ C_P(u,v) = \Phi^\dagger ({S_{\Phi_w(P)}(u,v)}) $$
-	for NURBS surfaces.
-\end{remark}
+	\begin{remark}
+		As with NURBS curve, we have the analogous result
+			$$ C_P(u,v) = \Phi^\dagger ({S_{\Phi_w(P)}(u,v)}) $$
+		for NURBS surfaces.
+	\end{remark}
 
-The notion of the knot sequence $(t_m)$ is commonly computationally simplified to that of a knot vector $\tau$, since $\tau$ only contains a finite number of elements. For our purposes, we let
-	$$\tau = (\underbrace {t_0, ..., t_{p-1}}_{= 0}, t_p, ..., t_n, \underbrace{t_{n+1}, ..., t_{n+p}}_{= 1}),$$
-where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n+p\}$. We still require the monotony property $t_k \leq t_{k+1}$ for all $k \in \{0, ..., n+p\}$.
+	The notion of the knot sequence $(t_m)$ is commonly computationally simplified to that of a knot vector $\tau$, since $\tau$ only contains a finite number of elements. For our purposes, we let
+		$$\tau = (\underbrace {t_0, ..., t_{p-1}}_{= 0}, t_p, ..., t_n, \underbrace{t_{n+1}, ..., t_{n+p}}_{= 1}),$$
+	where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n+p\}$. We still require the monotony property $t_k \leq t_{k+1}$ for all $k \in \{0, ..., n+p\}$.
 
 \subsection{De Boor's Algorithm}
 	To efficiently calculate points on a B-spline object, Carl-Wilhelm Reinhold de Boor devised an efficient algorithm, the construction of which demonstrates its correctness. Together with the embedding $\Phi_w$ and the projection $\Phi^\dagger$ from the Remark for Definition \ref{def:nurbs}, this algorithm can also be used to calculate points on a NURBS object.
@@ -775,7 +774,7 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 		\end{algorithmic}
 	\end{algorithm}
 
-\subsection{Ray-Curve Intersection}
+\subsection{Ray-Curve Intersection in 2D}
 	\begin{definition}
 		A \emph{ray} with support vector $A \in \mathbb{R}^d$ and direction vector $B \in \mathbb{R}^d$ is given by the set of points
 			\begin{equation*}
@@ -852,8 +851,8 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 		\caption{The ray marching algorithm visualized: At each iteration, a new safe distance $s$ (depicted as green circle radii) along the ray is calculated. The ray is traversed using $s$ as step size (to achieve the points depicted in green) until the safe distance falls below the absolute tolerance $\epsilon$. The resulting point, depicted in purple, is close to the collision point.}
 	\end{figure}
 
-\subsection{Curve-Curve Intersection}
-	Let $\gamma_1(s)$ and $\gamma_2(t)$ be two injective, continuous curves, $s,t \in [0,1]$. We seek the set of parameters, at which $\gamma_1$ and $\gamma_2$ intersect. In other words, we are looking for the set of pairs
+\subsection{Curve-Curve Intersection in 2D}
+	Let $\gamma_1(s)$ and $\gamma_2(t)$ be two continuous curves in $\mathbb{R}^2$ with $s,t \in [0,1]$. We seek the set of parameters, at which $\gamma_1$ and $\gamma_2$ intersect. In other words, we are looking for the set of pairs
 		$$ I(\gamma_1, \gamma_2) := \{(s,t) \in [0,1]^2 : \gamma_1(s) = \gamma_2(t)\}, $$
 	which we call intersection parameter set. This set can be either of the following types:
 	\begin{enumerate}
@@ -861,13 +860,73 @@ where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n
 		\item A set of line segments in $[0,1]^2$.
 		\item Any union of countably many singleton sets and line segments in $[0,1]^2$.
 	\end{enumerate}
-	We denote the set of points of intersection given as
+	We denote the set of points of intersection as
 		$$ V(\gamma_1, \gamma_2) := \{\gamma_1(s): (s, t) \in I(\gamma_1, \gamma_2)\} = \{\gamma_2(t): (s, t) \in I(\gamma_1, \gamma_2)\}.$$
-	If $I(\gamma_1, \gamma_2)$ is a singleton set or a union of countably many singleton sets, then $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$are both nowhere locally connected. On the other hand, if $I(\gamma_1, \gamma_2)$ is a set of line segments, then $I(\gamma_1, \gamma_2$ and $V(\gamma_1, \gamma_2)$ are both locally path connected.
+	If $I(\gamma_1, \gamma_2)$ is a singleton set or a union of countably many singleton sets, then $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$ are both nowhere locally connected. On the other hand, if $I(\gamma_1, \gamma_2)$ is a set of line segments, then $I(\gamma_1, \gamma_2$ and $V(\gamma_1, \gamma_2)$ are both locally path connected.
 
-	FIGURE
+	\begin{figure}[H]
+		\label{fig:curveIntersectionConnectedness}
+		\centering
+		\includesvg[width=0.98\textwidth]{../python/curveIntersectionConnectedness}
+		\caption{The two local types of intersections: In the top left, there are two curves which intersect at a union of singleton sets. The red dots represent the set $V(\gamma_1, \gamma_2)$. In the top right, the corresponding set $I(\gamma_1, \gamma_2) \subset [0,1]^2$ is also represented by red dots. The two curves in the bottom left intersect in such a way that $V(\gamma_1, \gamma_2)$ is locally path connected. Here, the red brackets symbolize the end points of $V(\gamma_1, \gamma_2)$. The parameter representation $I(\gamma_1, \gamma_2)$ of this intersection in the bottom right is a line.}
+	\end{figure}
 
 	In CoolingGen, we generally only care about the type of intersections of curves where $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$ are nowhere locally connected and finite.
+	
+	We employ a strategy that utilizes line segment intersection. Given two line segments $\overline{A_s A_e}$ and $\overline{B_s B_e}$, we can determine whether they intersect using their parametric definitions 
+		$$L_A(t) = (1-t)A_s + tA_e \quad\text{and}\quad L_B(t) = (1-t)B_s + tB_e,$$
+	where $t\in[0,1]$. Similarly to the definition of a ray, we can define $A_d := A_e - A_s$ and $B_d := B_e - B_s$ and write 
+		$$L_A(t) = A_s + tA_d \quad\text{and}\quad L_B(t) = B_s + tB_d,$$ 
+	respectively. If $L_A$ and $L_B$ are not parallel, the intersection of the lines is given by $L_A(t_A) = L_B(t_B)$, where
+		$$ t_A = 
+			\frac {
+				\det
+				\begin{pmatrix}
+					D_y 	& D_x		\\
+					B_{d_y}	& B_{d_x}
+				\end{pmatrix}
+			}
+			{
+				\det
+				\begin{pmatrix}
+					B_{d_x} & B_{d_y} 	\\
+					A_{d_x} & A_{d_y}
+				\end{pmatrix}
+			}
+			\quad\text{and}\quad
+			\frac {
+				\det
+				\begin{pmatrix}
+					D_y 	& D_x		\\
+					A_{d_y}	& A_{d_x}
+				\end{pmatrix}
+			}
+			{
+				\det
+				\begin{pmatrix}
+					B_{d_x} & B_{d_y} 	\\
+					A_{d_x} & A_{d_y}
+				\end{pmatrix}
+			},
+		$$
+	where $D = B_s - A_s$. If the lines are parallel, then the determinant in the denominator of $t_A$ and $t_B$ vanishes. Otherwise, $t_A, t_B \in \mathbb{R}$. If $t_A, t_B \in [0,1]$, the lines intersect. The main concept of our algorithm that intersects two lines is given by the following theorem
+
+	\begin{theorem}
+		Let $\gamma_1$ and $\gamma_2$ be two continuous curves and let $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ and $s^*, t^* \neq 0$. If the curve derivatives yield $\gamma'_1(s^*) \neq \gamma'_2(t^*)$, then there exist neighborhoods 
+			$$[s^*-\epsilon, s^*+\epsilon] \quad\text{and}\quad [t^*-\epsilon, t^*+\epsilon]$$
+		around $s^*$ and $t^*$, respectively, where $\epsilon > 0$. Then the line segments
+			$$\overline{\gamma_1(s^*-\epsilon) \gamma_1(s^*+\epsilon)} \quad\text{and}\quad \overline{\gamma_2(t^*-\epsilon) \gamma_2(t^*+\epsilon)}$$
+		intersect.
+	\end{theorem}
+	\begin{remark}
+ 		Suppose that the line segments $\overline{\gamma_1(s_1) \gamma_1(s_2)}$ and $\overline{\gamma_2(t_1) \gamma_2(t_2)}$ intersect. We cannot conclude that there is an intersection $(s,t)$ with $s \in [s_1, s_2]$ and $t \in [t_1, t_2]$. Using this theorem as core concept for our algorithm, we need to ensure that the distance between the curves is small inside of $[s_1, s_2] \times [t_1, t_2]$.
+	\end{remark}
+
+	Our algorithm samples the curves $\gamma_1$ and $\gamma_2$ at $t_i = \frac{i}{N}$, where $i \in \{0,...,N\}$. Then it checks for an intersection of 
+		$$\overline{\gamma_1(t_i) \gamma(t_{i+1})} \quad\text{and}\quad \overline{\gamma_2(t_j) \gamma_2(t_{j+1})}$$
+	for $i,j \in \{0,...,N-1\}$. For all intersection pairs $(i^*, j^*)$, we calculate the interval midpoint distance
+		$$D \left( \gamma_1 \left( \frac{t_i^* + t_{i^*+1}}{2} \right), \gamma_2 \left( \frac{t_j^* + t_{j^*+1}}{2} \right) \right)$$
+	repeat the procedure is on the curves $\gamma_1([t_i, t_{i+1}])$ and $\gamma_2([t_j, t_{j+1}])$. If after a given recursion depth, the interval midpoint distance of some pair $(i^*, j^*)$ is greater than a given absolute tolerance $\alpha$, we discard $(i^*, j^*)$.
 
 \subsection{Fillet Creation}
 \begin{figure}[H]
