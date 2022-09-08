@@ -862,13 +862,13 @@ Göttingen, \today \hspace{2em}
 	\end{enumerate}
 	We denote the set of points of intersection as
 		$$ V(\gamma_1, \gamma_2) := \{\gamma_1(s): (s, t) \in I(\gamma_1, \gamma_2)\} = \{\gamma_2(t): (s, t) \in I(\gamma_1, \gamma_2)\}.$$
-	If $I(\gamma_1, \gamma_2)$ is a singleton set or a union of countably many singleton sets, then $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$ are both nowhere locally connected. On the other hand, if $I(\gamma_1, \gamma_2)$ is a set of line segments, then $I(\gamma_1, \gamma_2$ and $V(\gamma_1, \gamma_2)$ are both locally path connected.
+	If $I(\gamma_1, \gamma_2)$ is a singleton set or a union of countably many singleton sets, then $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$ are both nowhere locally connected. On the other hand, if $I(\gamma_1, \gamma_2)$ is a set of line segments, then $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$ are both locally path connected.
 
 	\begin{figure}[H]
 		\label{fig:curveIntersectionConnectedness}
 		\centering
 		\includesvg[width=0.98\textwidth]{../python/curveIntersectionConnectedness}
-		\caption{The two local types of intersections: In the top left, there are two curves which intersect at a union of singleton sets. The red dots represent the set $V(\gamma_1, \gamma_2)$. In the top right, the corresponding set $I(\gamma_1, \gamma_2) \subset [0,1]^2$ is also represented by red dots. The two curves in the bottom left intersect in such a way that $V(\gamma_1, \gamma_2)$ is locally path connected. Here, the red brackets symbolize the end points of $V(\gamma_1, \gamma_2)$. The parameter representation $I(\gamma_1, \gamma_2)$ of this intersection in the bottom right is a line.}
+		\caption{Two types of intersection: In the top left, there are two curves which intersect at a union of singleton sets. The red dots represent the set $V(\gamma_1, \gamma_2)$. In the top right, the corresponding set $I(\gamma_1, \gamma_2) \subset [0,1]^2$ is also represented by red dots. The two curves in the bottom left intersect in such a way that $V(\gamma_1, \gamma_2)$ is locally path connected. Here, the red brackets symbolize the end points of $V(\gamma_1, \gamma_2)$. The parameter representation $I(\gamma_1, \gamma_2)$ of this intersection in the bottom right is a line.}
 	\end{figure}
 
 	In CoolingGen, we generally only care about the type of intersections of curves where $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$ are nowhere locally connected and finite. We employ a strategy that utilizes line segment intersection. Given two line segments $\overline{A_s A_e}$ and $\overline{B_s B_e}$, we can determine whether they intersect using their parametric definitions 
@@ -928,11 +928,11 @@ Göttingen, \today \hspace{2em}
 	In our algorithm we sample the curves $\gamma_1$ and $\gamma_2$ at $t_i = \frac{i}{N}$, where $i \in \{0,...,N\}$. In the next step we check for an intersection of 
 		$$\overline{\gamma_1(t_i) \gamma(t_{i+1})} \quad\text{and}\quad \overline{\gamma_2(t_j) \gamma_2(t_{j+1})}$$
 	for $i,j \in \{0,...,N-1\}$. For all intersection pairs $(i^*, j^*)$, we calculate the interval midpoint distance
-		$$D \left( \gamma_1 \left( \frac{t_i^* + t_{i^*+1}}{2} \right), \gamma_2 \left( \frac{t_j^* + t_{j^*+1}}{2} \right) \right)$$
+		$$D \left( \gamma_1 \left( \frac{t_{i^*} + t_{i^*+1}}{2} \right), \gamma_2 \left( \frac{t_{j^*} + t_{j^*+1}}{2} \right) \right)$$
 	and recursively repeat this procedure on the curves $\gamma_1([t_i, t_{i+1}])$ and $\gamma_2([t_j, t_{j+1}])$. If after a given recursion depth, the interval midpoint distance of some pair $(i^*, j^*)$ is greater than a given absolute tolerance $\alpha$, we discard $(i^*, j^*)$.
 
-	
-	
+
+
 \subsection{Fillet Creation}
 \begin{figure}[H]
 	\centering

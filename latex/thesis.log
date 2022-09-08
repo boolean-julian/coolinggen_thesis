@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.20)  8 SEP 2022 07:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.20)  8 SEP 2022 08:10
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1547,7 +1547,7 @@ pdf , page1 used on input line 56.
 ) [16 <./svg-inkscape/rayMarching_svg-tex.pdf>] [17 <./svg-inkscape/curveInters
 ectionConnectedness_svg-tex.pdf>]
 Package svg Info: Last page of `./svg-inkscape/filletVisuals_svg-tex.pdf' is 1 
-on input line 937.
+on input line 939.
  (./svg-inkscape/filletVisuals_svg-tex.pdf_tex
 <./svg-inkscape/filletVisuals_svg-tex.pdf, id=683, page=1, 361.35pt x 361.35pt>
 
@@ -1559,7 +1559,7 @@ on input line 56.
 ) [18] [19 <./svg-inkscape/filletVisuals_svg-tex.pdf>]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
-.pdf' is 1 on input line 954.
+.pdf' is 1 on input line 956.
 (./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
 <./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=717, page=1, 361.35pt 
 x 361.35pt>
@@ -1571,7 +1571,7 @@ page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
 )
 Package svg Info: Last page of `./svg-inkscape/selfIntersection_svg-tex.pdf' is
- 1 on input line 959.
+ 1 on input line 961.
 
 (./svg-inkscape/selfIntersection_svg-tex.pdf_tex
 <./svg-inkscape/selfIntersection_svg-tex.pdf, id=719, page=1, 596.23853pt x 265
@@ -1610,7 +1610,7 @@ Here is how much of TeX's memory you used:
  55252 multiletter control sequences out of 15000+600000
  541387 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,19n,92p,759b,1753s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 94i,19n,92p,748b,1753s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
 cal/texlive/2022/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texliv
 e/2022/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2022/texmf-d
@@ -1636,7 +1636,7 @@ exlive/2022/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2022
 /fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
 e1/public/marvosym/marvosym.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
 /public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (28 pages, 784674 bytes).
+Output written on thesis.pdf (28 pages, 784646 bytes).
 PDF statistics:
  908 PDF objects out of 1000 (max. 8388607)
  686 compressed objects within 7 object streams
