@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.20)  7 SEP 2022 16:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.6.20)  8 SEP 2022 07:58
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1463,7 +1463,7 @@ pdfTeX warning: pdflatex (file ./svg-inkscape/bezierDifferentDegrees3_svg-tex.p
 df): PDF inclusion: multiple pdfs with page group included in a single page
 >]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 266.
+put line 265.
  [3]
 \c@i=\count476
 \c@j=\count477
@@ -1471,7 +1471,7 @@ put line 266.
 \c@a=\count479
 \c@b=\count480
 Package svg Info: Last page of `./svg-inkscape/deCasteljauVisual_svg-tex.pdf' i
-s 1 on input line 351.
+s 1 on input line 350.
  (./svg-inkscape/deCasteljauVisual_svg-tex.pdf_tex
 <./svg-inkscape/deCasteljauVisual_svg-tex.pdf, id=297, page=1, 289.08pt x 289.0
 8pt>
@@ -1481,7 +1481,7 @@ Package pdftex.def Info: ./svg-inkscape/deCasteljauVisual_svg-tex.pdf , page1 u
 sed on input line 56.
 (pdftex.def)             Requested size: 223.07211pt x 223.06866pt.
 ) [4 <./svg-inkscape/deCasteljauVisual_svg-tex.pdf>] [5]
-Overfull \hbox (7.92734pt too wide) in paragraph at lines 428--428
+Overfull \hbox (7.92734pt too wide) in paragraph at lines 427--427
 []\T1/lmr/bx/n/10.95 Definition 2.2.3. []\T1/lmr/m/n/10.95 A \T1/lmr/m/it/10.95
  B-spline curve \T1/lmr/m/n/10.95 of de-gree $\OML/lmm/m/it/10.95 p \OMS/lmsy/m
 /n/10.95 ^^@ \OT1/lmr/m/n/10.95 1$ \T1/lmr/m/n/10.95 over a set of con-trol poi
@@ -1490,7 +1490,7 @@ nts $\OML/lmm/m/it/10.95 P \OT1/lmr/m/n/10.95 = \OMS/lmsy/m/n/10.95 f\OML/lmm/m
  []
 
 
-Overfull \hbox (25.76651pt too wide) in paragraph at lines 432--433
+Overfull \hbox (25.76651pt too wide) in paragraph at lines 431--432
 []\T1/lmr/bx/n/10.95 Definition 2.2.4. []\T1/lmr/m/n/10.95 A \T1/lmr/m/it/10.95
  NURBS curve $\OML/lmm/m/it/10.95 C[]\OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 t\
 OT1/lmr/m/n/10.95 )$ \T1/lmr/m/n/10.95 of de-gree $\OML/lmm/m/it/10.95 p \OMS/l
@@ -1500,7 +1500,7 @@ nts $\OML/lmm/m/it/10.95 P \OT1/lmr/m/n/10.95 = \OMS/lmsy/m/n/10.95 f\OML/lmm/m
  []
 
 
-Overfull \hbox (33.5575pt too wide) in paragraph at lines 454--455
+Overfull \hbox (33.5575pt too wide) in paragraph at lines 453--454
 []\T1/lmr/m/n/10.95 Since in this case $\OT1/lmr/m/n/10.95 ^^H[]((\OML/lmm/m/it
 /10.95 p[]; :::; p[]\OT1/lmr/m/n/10.95 )) = (\OML/lmm/m/it/10.95 p[]; :::; p[];
  \OT1/lmr/m/n/10.95 1)$\T1/lmr/m/n/10.95 , we have that $\OT1/lmr/m/n/10.95 ^^H
@@ -1511,7 +1511,7 @@ t/10.95 t\OT1/lmr/m/n/10.95 ))) =
 
 [6] [7] [8]
 Package svg Info: Last page of `./svg-inkscape/nurbsCurveExample_svg-tex.pdf' i
-s 1 on input line 601.
+s 1 on input line 600.
  (./svg-inkscape/nurbsCurveExample_svg-tex.pdf_tex
 <./svg-inkscape/nurbsCurveExample_svg-tex.pdf, id=428, page=1, 361.35pt x 361.3
 5pt>
@@ -1522,7 +1522,7 @@ sed on input line 56.
 (pdftex.def)             Requested size: 220.8426pt x 220.84222pt.
 ) [9 <./svg-inkscape/nurbsCurveExample_svg-tex.pdf>] [10] [11] [12] [13] [14]
 Package svg Info: Last page of `./svg-inkscape/rayMarching_svg-tex.pdf' is 1 on
- input line 851.
+ input line 850.
 
 (./svg-inkscape/rayMarching_svg-tex.pdf_tex
 <./svg-inkscape/rayMarching_svg-tex.pdf, id=496, page=1, 867.24pt x 505.89pt>
@@ -1533,7 +1533,7 @@ Package pdftex.def Info: ./svg-inkscape/rayMarching_svg-tex.pdf , page1 used on
 (pdftex.def)             Requested size: 446.13727pt x 260.24678pt.
 ) [15]
 Package svg Info: Last page of `./svg-inkscape/curveIntersectionConnectedness_s
-vg-tex.pdf' is 1 on input line 871.
+vg-tex.pdf' is 1 on input line 870.
 
 (./svg-inkscape/curveIntersectionConnectedness_svg-tex.pdf_tex
 <./svg-inkscape/curveIntersectionConnectedness_svg-tex.pdf, id=503, page=1, 578
@@ -1547,9 +1547,9 @@ pdf , page1 used on input line 56.
 ) [16 <./svg-inkscape/rayMarching_svg-tex.pdf>] [17 <./svg-inkscape/curveInters
 ectionConnectedness_svg-tex.pdf>]
 Package svg Info: Last page of `./svg-inkscape/filletVisuals_svg-tex.pdf' is 1 
-on input line 935.
+on input line 937.
  (./svg-inkscape/filletVisuals_svg-tex.pdf_tex
-<./svg-inkscape/filletVisuals_svg-tex.pdf, id=682, page=1, 361.35pt x 361.35pt>
+<./svg-inkscape/filletVisuals_svg-tex.pdf, id=683, page=1, 361.35pt x 361.35pt>
 
 File: ./svg-inkscape/filletVisuals_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletVisuals_svg-tex.pdf, page 1>
@@ -1559,9 +1559,9 @@ on input line 56.
 ) [18] [19 <./svg-inkscape/filletVisuals_svg-tex.pdf>]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
-.pdf' is 1 on input line 952.
+.pdf' is 1 on input line 954.
 (./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=715, page=1, 361.35pt 
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=717, page=1, 361.35pt 
 x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1571,10 +1571,10 @@ page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
 )
 Package svg Info: Last page of `./svg-inkscape/selfIntersection_svg-tex.pdf' is
- 1 on input line 957.
+ 1 on input line 959.
 
 (./svg-inkscape/selfIntersection_svg-tex.pdf_tex
-<./svg-inkscape/selfIntersection_svg-tex.pdf, id=717, page=1, 596.23853pt x 265
+<./svg-inkscape/selfIntersection_svg-tex.pdf, id=719, page=1, 596.23853pt x 265
 .00102pt>
 File: ./svg-inkscape/selfIntersection_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/selfIntersection_svg-tex.pdf, page 1>
@@ -1598,16 +1598,16 @@ Chapter 5.
 
 ] (./thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 4B69A205C4A400135568051EBEFBBE64;4770.
+(rerunfilecheck)             Checksum: 1485A4FCEF214183B007AC983546D5B3;4770.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37565 strings out of 478038
- 715134 string characters out of 5839077
- 1507824 words of memory out of 5000000
- 55250 multiletter control sequences out of 15000+600000
+ 37569 strings out of 478038
+ 715205 string characters out of 5839077
+ 1507890 words of memory out of 5000000
+ 55252 multiletter control sequences out of 15000+600000
  541387 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,19n,92p,759b,1753s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1636,10 +1636,10 @@ exlive/2022/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2022
 /fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
 e1/public/marvosym/marvosym.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
 /public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (28 pages, 784521 bytes).
+Output written on thesis.pdf (28 pages, 784674 bytes).
 PDF statistics:
- 906 PDF objects out of 1000 (max. 8388607)
- 684 compressed objects within 7 object streams
- 116 named destinations out of 1000 (max. 500000)
+ 908 PDF objects out of 1000 (max. 8388607)
+ 686 compressed objects within 7 object streams
+ 118 named destinations out of 1000 (max. 500000)
  400 words of extra memory for PDF output out of 10000 (max. 10000000)
 

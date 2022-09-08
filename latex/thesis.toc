@@ -16,20 +16,20 @@
 \contentsline {subsection}{\numberline {2.3.1}Point Inversion}{11}{subsection.50}%
 \contentsline {subsection}{\numberline {2.3.2}Ray-Curve Intersection in 2D}{14}{subsection.54}%
 \contentsline {subsection}{\numberline {2.3.3}Curve-Curve Intersection in 2D}{16}{subsection.60}%
-\contentsline {subsection}{\numberline {2.3.4}Fillet Creation}{19}{subsection.66}%
-\contentsline {section}{\numberline {2.4}Jet Engine Design Specifics}{19}{section.68}%
-\contentsline {subsection}{\numberline {2.4.1}Fundamental Terms}{19}{subsection.69}%
-\contentsline {subsection}{\numberline {2.4.2}The S2M Net}{19}{subsection.70}%
-\contentsline {chapter}{\numberline {3}Results}{20}{chapter.71}%
-\contentsline {section}{\numberline {3.1}Cooling Geometries And Their Parametrizations}{20}{section.72}%
-\contentsline {subsection}{\numberline {3.1.1}Chambers}{20}{subsection.73}%
-\contentsline {subsection}{\numberline {3.1.2}Turnarounds}{20}{subsection.74}%
-\contentsline {subsection}{\numberline {3.1.3}Slots}{20}{subsection.75}%
-\contentsline {subsection}{\numberline {3.1.4}Film Cooling Holes}{20}{subsection.76}%
-\contentsline {subsection}{\numberline {3.1.5}Impingement Inserts}{20}{subsection.79}%
-\contentsline {section}{\numberline {3.2}Export for CENTAUR}{20}{section.80}%
-\contentsline {section}{\numberline {3.3}Export for Open CASCADE}{20}{section.81}%
-\contentsline {chapter}{\numberline {4}Discussion}{21}{chapter.82}%
-\contentsline {section}{\numberline {4.1}Future Work}{21}{section.83}%
-\contentsline {section}{\numberline {4.2}Conclusion}{21}{section.84}%
-\contentsline {chapter}{\numberline {5}References}{22}{chapter.85}%
+\contentsline {subsection}{\numberline {2.3.4}Fillet Creation}{19}{subsection.68}%
+\contentsline {section}{\numberline {2.4}Jet Engine Design Specifics}{19}{section.70}%
+\contentsline {subsection}{\numberline {2.4.1}Fundamental Terms}{19}{subsection.71}%
+\contentsline {subsection}{\numberline {2.4.2}The S2M Net}{19}{subsection.72}%
+\contentsline {chapter}{\numberline {3}Results}{20}{chapter.73}%
+\contentsline {section}{\numberline {3.1}Cooling Geometries And Their Parametrizations}{20}{section.74}%
+\contentsline {subsection}{\numberline {3.1.1}Chambers}{20}{subsection.75}%
+\contentsline {subsection}{\numberline {3.1.2}Turnarounds}{20}{subsection.76}%
+\contentsline {subsection}{\numberline {3.1.3}Slots}{20}{subsection.77}%
+\contentsline {subsection}{\numberline {3.1.4}Film Cooling Holes}{20}{subsection.78}%
+\contentsline {subsection}{\numberline {3.1.5}Impingement Inserts}{20}{subsection.81}%
+\contentsline {section}{\numberline {3.2}Export for CENTAUR}{20}{section.82}%
+\contentsline {section}{\numberline {3.3}Export for Open CASCADE}{20}{section.83}%
+\contentsline {chapter}{\numberline {4}Discussion}{21}{chapter.84}%
+\contentsline {section}{\numberline {4.1}Future Work}{21}{section.85}%
+\contentsline {section}{\numberline {4.2}Conclusion}{21}{section.86}%
+\contentsline {chapter}{\numberline {5}References}{22}{chapter.87}%

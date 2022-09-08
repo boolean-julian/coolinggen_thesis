@@ -871,46 +871,49 @@ Göttingen, \today \hspace{2em}
 		\caption{The two local types of intersections: In the top left, there are two curves which intersect at a union of singleton sets. The red dots represent the set $V(\gamma_1, \gamma_2)$. In the top right, the corresponding set $I(\gamma_1, \gamma_2) \subset [0,1]^2$ is also represented by red dots. The two curves in the bottom left intersect in such a way that $V(\gamma_1, \gamma_2)$ is locally path connected. Here, the red brackets symbolize the end points of $V(\gamma_1, \gamma_2)$. The parameter representation $I(\gamma_1, \gamma_2)$ of this intersection in the bottom right is a line.}
 	\end{figure}
 
-	In CoolingGen, we generally only care about the type of intersections of curves where $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$ are nowhere locally connected and finite.
-	
-	We employ a strategy that utilizes line segment intersection. Given two line segments $\overline{A_s A_e}$ and $\overline{B_s B_e}$, we can determine whether they intersect using their parametric definitions 
+	In CoolingGen, we generally only care about the type of intersections of curves where $I(\gamma_1, \gamma_2)$ and $V(\gamma_1, \gamma_2)$ are nowhere locally connected and finite. We employ a strategy that utilizes line segment intersection. Given two line segments $\overline{A_s A_e}$ and $\overline{B_s B_e}$, we can determine whether they intersect using their parametric definitions 
 		$$L_A(t) = (1-t)A_s + tA_e \quad\text{and}\quad L_B(t) = (1-t)B_s + tB_e,$$
 	where $t\in[0,1]$. Similarly to the definition of a ray, we can define $A_d := A_e - A_s$ and $B_d := B_e - B_s$ and write 
 		$$L_A(t) = A_s + tA_d \quad\text{and}\quad L_B(t) = B_s + tB_d,$$ 
-	respectively. If $L_A$ and $L_B$ are not parallel, the intersection of the lines is given by $L_A(t_A) = L_B(t_B)$, where
-		$$ t_A = 
-			\frac {
-				\det
-				\begin{pmatrix}
-					D_y 	& D_x		\\
-					B_{d_y}	& B_{d_x}
-				\end{pmatrix}
-			}
-			{
-				\det
-				\begin{pmatrix}
-					B_{d_x} & B_{d_y} 	\\
-					A_{d_x} & A_{d_y}
-				\end{pmatrix}
-			}
-			\quad\text{and}\quad
-			\frac {
-				\det
-				\begin{pmatrix}
-					D_y 	& D_x		\\
-					A_{d_y}	& A_{d_x}
-				\end{pmatrix}
-			}
-			{
-				\det
-				\begin{pmatrix}
-					B_{d_x} & B_{d_y} 	\\
-					A_{d_x} & A_{d_y}
-				\end{pmatrix}
-			},
-		$$
-	where $D = B_s - A_s$. If the lines are parallel, then the determinant in the denominator of $t_A$ and $t_B$ vanishes. Otherwise, $t_A, t_B \in \mathbb{R}$. If $t_A, t_B \in [0,1]$, the lines intersect. The main concept of our algorithm that intersects two lines is given by the following theorem
+	respectively.
 
+	\begin{theorem}
+		If $L_A$ and $L_B$ are not parallel, the single intersection point of the lines that contain $L_A$ and $L_B$ is given by $L_A(t_A) = L_B(t_B)$, where
+			\begin{equation}\label{eq:lineintersection}
+				t_A = 
+				\frac {
+					\det
+					\begin{pmatrix}
+						D_y 	& D_x		\\
+						B_{d_y}	& B_{d_x}
+					\end{pmatrix}
+				}
+				{
+					\det
+					\begin{pmatrix}
+						B_{d_x} & B_{d_y} 	\\
+						A_{d_x} & A_{d_y}
+					\end{pmatrix}
+				}
+				\quad\text{and}\quad
+				t_B =
+				\frac {
+					\det
+					\begin{pmatrix}
+						D_y 	& D_x		\\
+						A_{d_y}	& A_{d_x}
+					\end{pmatrix}
+				}
+				{
+					\det
+					\begin{pmatrix}
+						B_{d_x} & B_{d_y} 	\\
+						A_{d_x} & A_{d_y}
+					\end{pmatrix}
+				},
+			\end{equation}
+		where $D = B_s - A_s$ and $t_A, t_B \in \mathbb{R}$. If $t_A, t_B \in [0,1]$, the line segments intersect in a single point.
+	\end{theorem}
 	\begin{theorem}
 		Let $\gamma_1$ and $\gamma_2$ be two continuous curves and let $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ and $s^*, t^* \neq 0$. If the curve derivatives yield $\gamma'_1(s^*) \neq \gamma'_2(t^*)$, then there exist neighborhoods 
 			$$[s^*-\epsilon, s^*+\epsilon] \quad\text{and}\quad [t^*-\epsilon, t^*+\epsilon]$$
@@ -919,15 +922,17 @@ Göttingen, \today \hspace{2em}
 		intersect.
 	\end{theorem}
 	\begin{remark}
- 		Suppose that the line segments $\overline{\gamma_1(s_1) \gamma_1(s_2)}$ and $\overline{\gamma_2(t_1) \gamma_2(t_2)}$ intersect. We cannot conclude that there is an intersection $(s,t)$ with $s \in [s_1, s_2]$ and $t \in [t_1, t_2]$. Using this theorem as core concept for our algorithm, we need to ensure that the distance between the curves is small inside of $[s_1, s_2] \times [t_1, t_2]$.
+ 		Suppose that the line segments $\overline{\gamma_1(s_1) \gamma_1(s_2)}$ and $\overline{\gamma_2(t_1) \gamma_2(t_2)}$ intersect. We cannot conclude that there is an intersection $(s,t) \in I(\gamma_1, \gamma_2)$ with $s \in [s_1, s_2]$ and $t \in [t_1, t_2]$. Using this theorem as core concept for our algorithm, we need to ensure that the distance between the curves is small inside of $[s_1, s_2] \times [t_1, t_2]$. If this is not the case, then no intersection lies inside of $[s_1, s_2] \times [t_1, t_2]$ and every line segment intersection found within should be discarded.
 	\end{remark}
 
-	Our algorithm samples the curves $\gamma_1$ and $\gamma_2$ at $t_i = \frac{i}{N}$, where $i \in \{0,...,N\}$. Then it checks for an intersection of 
+	In our algorithm we sample the curves $\gamma_1$ and $\gamma_2$ at $t_i = \frac{i}{N}$, where $i \in \{0,...,N\}$. In the next step we check for an intersection of 
 		$$\overline{\gamma_1(t_i) \gamma(t_{i+1})} \quad\text{and}\quad \overline{\gamma_2(t_j) \gamma_2(t_{j+1})}$$
 	for $i,j \in \{0,...,N-1\}$. For all intersection pairs $(i^*, j^*)$, we calculate the interval midpoint distance
 		$$D \left( \gamma_1 \left( \frac{t_i^* + t_{i^*+1}}{2} \right), \gamma_2 \left( \frac{t_j^* + t_{j^*+1}}{2} \right) \right)$$
-	repeat the procedure is on the curves $\gamma_1([t_i, t_{i+1}])$ and $\gamma_2([t_j, t_{j+1}])$. If after a given recursion depth, the interval midpoint distance of some pair $(i^*, j^*)$ is greater than a given absolute tolerance $\alpha$, we discard $(i^*, j^*)$.
+	and recursively repeat this procedure on the curves $\gamma_1([t_i, t_{i+1}])$ and $\gamma_2([t_j, t_{j+1}])$. If after a given recursion depth, the interval midpoint distance of some pair $(i^*, j^*)$ is greater than a given absolute tolerance $\alpha$, we discard $(i^*, j^*)$.
 
+	
+	
 \subsection{Fillet Creation}
 \begin{figure}[H]
 	\centering
