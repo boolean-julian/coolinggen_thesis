@@ -108,10 +108,7 @@ def _intersect(f1, f1start, f1end, f2, f2start, f2end, depth, intersections):
 
 
 def intersect(f1, f2):
-	g1 = get_piecewise_linear_interpolation(f1, samples, 0, 1)
-	g2 = get_piecewise_linear_interpolation(f2, samples, 0, 1)
 	intersections = []
-
 	_intersect(f1, 0, 1, f2, 0, 1, 0, intersections)
 	return np.array(intersections).T
 

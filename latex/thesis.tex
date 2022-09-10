@@ -270,7 +270,7 @@ Göttingen, \today \hspace{2em}
 						\State $P^{(j)}_k \gets (1-t) \cdot P^{(j-1)}_k + t \cdot P^{(j-1)}_{k+1}$
 					\EndFor
 				\EndFor
-				\Return $P^{(n)}_0$
+				\State \Return $P^{(n)}_0$
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
@@ -526,7 +526,7 @@ Göttingen, \today \hspace{2em}
 					\EndFor
 				\EndFor
 
-				\Return $P^{(p-m-1)}_{l-m} = C_P(t)$
+				\State \Return $P^{(p-m-1)}_{l-m} = C_P(t)$
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
@@ -634,7 +634,7 @@ Göttingen, \today \hspace{2em}
 					\State $Q_k \gets \text{deBoorCurve}(P_{k,\cdot}, q, \tau_v, v)$	
 				\EndFor
 				
-				\Return $\text{deBoorCurve}(Q, p, \tau_u, u)$
+				\State \Return $\text{deBoorCurve}(Q, p, \tau_u, u)$
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
@@ -750,7 +750,7 @@ Göttingen, \today \hspace{2em}
 					\EndIf
 				\EndFor
 
-				\Return $m-\frac{i}{N}, m+\frac{i}{N}, m$
+				\State \Return $m-\frac{i}{N}, m+\frac{i}{N}, m$
 			\EndProcedure
 
 			\caption{Point Inversion}\label{alg:pointinversion}
@@ -769,7 +769,7 @@ Göttingen, \today \hspace{2em}
 
 				\EndFor
 
-				\Return $t_0$
+				\State \Return $t_0$
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
@@ -836,11 +836,11 @@ Göttingen, \today \hspace{2em}
 					\State $s \gets s + D(\gamma(\text{pointInversion}(\gamma, P)), P)$
 					\State $P \gets A + sB$
 					\If {$s < \epsilon$}
-						\Return $\{P\}$
+						\State \Return $\{P\}$
 					\EndIf
 				\EndFor
 
-				\Return $\emptyset$
+				\State \Return $\emptyset$
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
@@ -930,11 +930,74 @@ Göttingen, \today \hspace{2em}
 	for $i,j \in \{0,...,N-1\}$. For all intersection pairs $(i^*, j^*)$, we calculate the interval midpoint distance
 		$$D \left( \gamma_1 \left( \frac{t_{i^*} + t_{i^*+1}}{2} \right), \gamma_2 \left( \frac{t_{j^*} + t_{j^*+1}}{2} \right) \right)$$
 	and recursively repeat this procedure on the curves $\gamma_1([t_i, t_{i+1}])$ and $\gamma_2([t_j, t_{j+1}])$. If after a given recursion depth, the interval midpoint distance of some pair $(i^*, j^*)$ is greater than a given absolute tolerance $\alpha$, we discard $(i^*, j^*)$.
+	
 	\begin{figure}[H]
 		\centering
 		\includesvg[width=0.98\textwidth]{../python/piecewiseLinearIntersection}
 		\caption{We find the intersection of the curves on the left. The two middle rows represent the different steps of the algorithm, where the curves are divided curve segments. If an intersection between end points of these segments occur, that segment is divided again into new segments until a points $(s,t)$ is found such that $D(\gamma_1(s), \gamma_2(t)) \leq \epsilon$.}
 	\end{figure}
+
+	\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\Input
+				\Desc{$\gamma_1, \gamma_2$}{curves on $[0,1]$}
+				\Desc{$N$}{number of line segments that approximate the curve}
+				\Desc{$d_{\max}$}{maximum recursion depth}
+				\Desc{$\epsilon$}{absolute tolerance value}
+			\EndInput
+			\Output
+				\Desc{$I(\gamma_1, \gamma_2)$}{intersection parameter set}
+			\EndOutput
+
+			\caption{Curve Intersection}\label{alg:curveintersection}
+
+			\Procedure{getPiecewiseLinearInterpolation}{$\gamma, l, u, N$}
+				\State $P \gets \text{empty vector with } N+1 \text{ entries}$
+				\For {$i = 0, ..., N$}
+					\State $P_i \gets \gamma \left( (u-l) \frac{i}{N} + l \right)$
+				\EndFor
+				\State \Return $P$
+			\EndProcedure
+
+			\Procedure{intersectCurvesRecursion}{$I, \gamma_1, l_1, u_1, \gamma_2, l_2, u_2, d$}
+				\State $m_1 \gets \frac{l_1 + u_1}{2}$
+				\State $m_2 \gets \frac{l_2 + u_2}{2}$
+				\If {$D(\gamma_1(m_1), \gamma_2(m_2)) \leq \epsilon$}
+					\State $\text{append } (m_1, m_2) \text{ to } I$
+					\State \Return
+				\EndIf
+
+				\If {$d \geq d_{\max}$}
+					\Return
+				\EndIf
+
+				\State $P^{(1)} \gets \text{getPiecewiseLinearInterpolation}(\gamma_1, 0, 1, N)$
+				\State $P^{(2)} \gets \text{getPiecewiseLinearInterpolation}(\gamma_2, 0, 1, N)$
+
+				\For {$i = 0,...,N-1$}
+					\For {$j = 0,...,N-1$}
+						\If {$\text{lineSegmentsIntersect}(P^{(1)}_i, P^{(1)}_{i+1}, P^{(2)}_j, P^{(2)}_{j+1})$}
+							\State $s_1 \gets (l_1 - u_1) \frac{i}{N} + l_1$
+							\State $s_2 \gets (l_1 - u_1) \frac{i+1}{N} + l_1$
+							\State $t_1 \gets (l_2 - u_2) \frac{j}{N} + l_2$
+							\State $t_2 \gets (l_2 - u_2) \frac{j+1}{N} + l_2$
+							\State $\text{intersectCurvesRecursion}(I, \gamma_1, s_1, s_2, \gamma_2, t_1, t_2, d+1)$
+						\EndIf
+					\EndFor
+				\EndFor
+
+				\State \Return $I$
+			\EndProcedure
+
+			\Procedure{intersectCurves}{$\gamma_1, \gamma_2$}
+				\State $I \gets \emptyset$
+				\State $\text{intersectCurvesRecursion}(I, \gamma_1, 0, 1, \gamma_2, 0, 1, 0)$
+
+				\State \Return $I$
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+
 
 \subsection{Fillet Creation}
 \begin{figure}[H]
