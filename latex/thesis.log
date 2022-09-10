@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.17)  9 SEP 2022 19:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.17)  10 SEP 2022 08:48
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1523,22 +1523,40 @@ pdf , page1 used on input line 56.
 (pdftex.def)             Requested size: 446.13727pt x 334.60301pt.
 ) [16 <./svg-inkscape/rayMarching_svg-tex.pdf>] [17 <./svg-inkscape/curveInters
 ectionConnectedness_svg-tex.pdf>]
+Package svg Info: Last page of `./svg-inkscape/piecewiseLinearIntersection_svg-
+tex.pdf' is 1 on input line 935.
+ (svg-inkscape/piecewiseLinearIntersection_svg-tex.pdf_tex
+<./svg-inkscape/piecewiseLinearIntersection_svg-tex.pdf, id=678, page=1, 722.7p
+t x 216.81pt>
+File: ./svg-inkscape/piecewiseLinearIntersection_svg-tex.pdf Graphic file (type
+ pdf)
+<use ./svg-inkscape/piecewiseLinearIntersection_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/piecewiseLinearIntersection_svg-tex.pdf
+ , page1 used on input line 56.
+(pdftex.def)             Requested size: 446.13727pt x 133.84186pt.
+)
+[18]
 Package svg Info: Last page of `./svg-inkscape/filletVisuals_svg-tex.pdf' is 1 
-on input line 939.
+on input line 942.
  (svg-inkscape/filletVisuals_svg-tex.pdf_tex
-<./svg-inkscape/filletVisuals_svg-tex.pdf, id=678, page=1, 361.35pt x 361.35pt>
+<./svg-inkscape/filletVisuals_svg-tex.pdf, id=686, page=1, 361.35pt x 361.35pt>
 
 File: ./svg-inkscape/filletVisuals_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletVisuals_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/filletVisuals_svg-tex.pdf , page1 used 
 on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
-) [18] [19 <./svg-inkscape/filletVisuals_svg-tex.pdf>]
+) [19 <./svg-inkscape/piecewiseLinearIntersection_svg-tex.pdf> <./svg-inkscape/
+filletVisuals_svg-tex.pdf
+
+pdfTeX warning: pdflatex.EXE (file ./svg-inkscape/filletVisuals_svg-tex.pdf): P
+DF inclusion: multiple pdfs with page group included in a single page
+>]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
-.pdf' is 1 on input line 956.
+.pdf' is 1 on input line 959.
 (svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=712, page=1, 361.35pt 
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=923, page=1, 361.35pt 
 x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1548,10 +1566,10 @@ page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
 )
 Package svg Info: Last page of `./svg-inkscape/selfIntersection_svg-tex.pdf' is
- 1 on input line 961.
+ 1 on input line 964.
 
 (svg-inkscape/selfIntersection_svg-tex.pdf_tex
-<./svg-inkscape/selfIntersection_svg-tex.pdf, id=714, page=1, 596.23853pt x 265
+<./svg-inkscape/selfIntersection_svg-tex.pdf, id=925, page=1, 596.23853pt x 265
 .00102pt>
 File: ./svg-inkscape/selfIntersection_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/selfIntersection_svg-tex.pdf, page 1>
@@ -1575,16 +1593,16 @@ Chapter 5.
 
 ] (thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 1485A4FCEF214183B007AC983546D5B3;4770.
+(rerunfilecheck)             Checksum: 4909B9F8F8D4C5B5291C8FC6359123FF;4770.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37553 strings out of 478343
- 712581 string characters out of 2844693
+ 37568 strings out of 478343
+ 713425 string characters out of 2844693
  1507333 words of memory out of 3000000
- 55215 multiletter control sequences out of 15000+600000
+ 55225 multiletter control sequences out of 15000+600000
  541387 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,19n,92p,750b,1753s stack positions out of 10000i,1000n,20000p,200000b,80000s
@@ -1610,9 +1628,9 @@ s/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts
 /type1/public/lm/lmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/l
 mtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/marvosym/marvosym.pfb
 ><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (28 pages, 858110 bytes).
+Output written on thesis.pdf (28 pages, 904470 bytes).
 PDF statistics:
- 900 PDF objects out of 1000 (max. 8388607)
- 118 named destinations out of 1000 (max. 500000)
- 400 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1111 PDF objects out of 1200 (max. 8388607)
+ 119 named destinations out of 1000 (max. 500000)
+ 410 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -930,8 +930,11 @@ Göttingen, \today \hspace{2em}
 	for $i,j \in \{0,...,N-1\}$. For all intersection pairs $(i^*, j^*)$, we calculate the interval midpoint distance
 		$$D \left( \gamma_1 \left( \frac{t_{i^*} + t_{i^*+1}}{2} \right), \gamma_2 \left( \frac{t_{j^*} + t_{j^*+1}}{2} \right) \right)$$
 	and recursively repeat this procedure on the curves $\gamma_1([t_i, t_{i+1}])$ and $\gamma_2([t_j, t_{j+1}])$. If after a given recursion depth, the interval midpoint distance of some pair $(i^*, j^*)$ is greater than a given absolute tolerance $\alpha$, we discard $(i^*, j^*)$.
-
-
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=0.98\textwidth]{../python/piecewiseLinearIntersection}
+		\caption{We find the intersection of the curves on the left. The two middle rows represent the different steps of the algorithm, where the curves are divided curve segments. If an intersection between end points of these segments occur, that segment is divided again into new segments until a points $(s,t)$ is found such that $D(\gamma_1(s), \gamma_2(t)) \leq \epsilon$.}
+	\end{figure}
 
 \subsection{Fillet Creation}
 \begin{figure}[H]
