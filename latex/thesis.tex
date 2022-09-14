@@ -1013,7 +1013,11 @@ Göttingen, \today \hspace{2em}
 		Let $\gamma(t) = (x(t), y(t)) \in \mathbb{R}^2$ for $t\in[0,1]$ be a differentiable curve. Then $O^\gamma_d(t)$ is called the $d$ offset curve and is defined as
 			$$ O^\gamma_d(t) := \gamma(t) + dN^\gamma(t),$$
 		where $N^\gamma(t)$ is called the normal of $\gamma(t)$ and defined as
-			$$N^\gamma(t) := \nabla\gamma(t)^\perp = \left(\derivative{x}{t}(t), \derivative{y}{t}(t)\right)^\perp = \left(-\derivative{y}{t}(t), \derivative{x}{t}(t)\right).$$
+			$$N^\gamma(t) := \frac{\nabla\gamma(t)^\perp}{||\nabla\gamma(t)||}$$
+		and
+			$$\nabla\gamma(t)^\perp = \left(\derivative{x}{t}(t), \derivative{y}{t}(t)\right)^\perp = \left(-\derivative{y}{t}(t), \derivative{x}{t}(t)\right)$$
+		is orthogonal to the gradient of $\gamma(t)$.
+
 	\end{definition}
 
 \subsection{Fillet Creation}
