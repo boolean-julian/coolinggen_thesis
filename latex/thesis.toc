@@ -1,35 +1,72 @@
-\babel@toc {english}{}\relax 
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {english}{}
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.2}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.1}Motivation}{1}{section.3}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.2}State of the Art}{1}{section.4}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.3}Problem Statement}{1}{section.5}%
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {2}Methods}{2}{chapter.6}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.1}Bézier Curves}{2}{section.7}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.1}Definition}{2}{subsection.9}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.2}De Casteljau's Algorithm}{3}{subsection.16}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.3}Properties}{4}{subsection.20}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.2}Non-Uniform Rational B-splines (NURBS)}{5}{section.24}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2.1}Definition}{5}{subsection.25}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2.2}De Boor's Algorithm}{7}{subsection.37}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2.3}Properties}{10}{subsection.45}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.3}Methods on NURBS Objects}{11}{section.49}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3.1}Point Inversion}{11}{subsection.50}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3.2}Ray-Curve Intersection in 2D}{14}{subsection.54}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3.3}Curve-Curve Intersection in 2D}{16}{subsection.60}%
-\contentsline {subsection}{\numberline {2.3.4}Fillet Creation}{21}{subsection.70}%
-\contentsline {section}{\numberline {2.4}Jet Engine Design Specifics}{21}{section.72}%
-\contentsline {subsection}{\numberline {2.4.1}Fundamental Terms}{21}{subsection.73}%
-\contentsline {subsection}{\numberline {2.4.2}The S2M Net}{21}{subsection.74}%
-\contentsline {chapter}{\numberline {3}Results}{22}{chapter.75}%
-\contentsline {section}{\numberline {3.1}Cooling Geometries And Their Parametrizations}{22}{section.76}%
-\contentsline {subsection}{\numberline {3.1.1}Chambers}{22}{subsection.77}%
-\contentsline {subsection}{\numberline {3.1.2}Turnarounds}{22}{subsection.78}%
-\contentsline {subsection}{\numberline {3.1.3}Slots}{22}{subsection.79}%
-\contentsline {subsection}{\numberline {3.1.4}Film Cooling Holes}{22}{subsection.80}%
-\contentsline {subsection}{\numberline {3.1.5}Impingement Inserts}{22}{subsection.83}%
-\contentsline {section}{\numberline {3.2}Export for CENTAUR}{22}{section.84}%
-\contentsline {section}{\numberline {3.3}Export for Open CASCADE}{22}{section.85}%
-\contentsline {chapter}{\numberline {4}Discussion}{23}{chapter.86}%
-\contentsline {section}{\numberline {4.1}Future Work}{23}{section.87}%
-\contentsline {section}{\numberline {4.2}Conclusion}{23}{section.88}%
-\contentsline {chapter}{\numberline {5}References}{24}{chapter.89}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.4}Offset Curves in 2D}{20}{subsection.69}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.5}Fillet Creation}{21}{subsection.71}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Jet Engine Design Specifics}{21}{section.73}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.1}Fundamental Terms}{21}{subsection.74}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.2}The S2M Net}{21}{subsection.75}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Results}{22}{chapter.76}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Cooling Geometries And Their Parametrizations}{22}{section.77}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.1}Chambers}{22}{subsection.78}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.2}Turnarounds}{22}{subsection.79}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.3}Slots}{22}{subsection.80}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.4}Film Cooling Holes}{22}{subsection.81}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.5}Impingement Inserts}{22}{subsection.84}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Export for CENTAUR}{22}{section.85}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Export for Open CASCADE}{22}{section.86}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Discussion}{23}{chapter.87}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Future Work}{23}{section.88}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Conclusion}{23}{section.89}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}References}{24}{chapter.90}%

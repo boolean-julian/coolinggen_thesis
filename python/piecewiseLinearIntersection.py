@@ -118,7 +118,7 @@ fig, ax = plt.subplot_mosaic(
 	AAGHIJKLL
 	""",
 	
-	figsize=(10,3)
+	figsize=(9,3)
 )
 
 for a in ax:
@@ -132,5 +132,6 @@ plot_points(ax["L"], intersections, "red", 'o')
 
 print(intersections)
 
+plt.tight_layout()
 plt.savefig("piecewiseLinearIntersection.svg")
-plt.show()
+#plt.show()
