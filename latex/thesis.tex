@@ -734,14 +734,10 @@ Göttingen, \today \hspace{2em}
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
 			\Input
-				\Desc{$\gamma, Q$}{curve and point}
 				\Desc{$N$}{number of samples for initial value search}
 				\Desc{$M$}{number of iterations in Newton's method}
 			\EndInput
-			\Output
-				\Desc{$t^*$}{best parameter of $\gamma$}
-			\EndOutput
-			
+
 			\Procedure{findPointInversionInitValues}{$\gamma, Q$}
 				\State $m \gets 0$
 				\For {$k = 1,...,N$}
@@ -816,19 +812,21 @@ Göttingen, \today \hspace{2em}
 
 	We can find the approximation $s^*$ of the collision parameter by using a common CAD scheme called \emph{ray marching}, in which we traverse the ray $R_{A,B}$ by a small distance increments $s$ until we achieve collision with the curve $\gamma$. How do we choose the optimal value for $s$? The idea is the following: Using the point inversion algorithm, we can calculate the \emph{safe distance} $s$ of the point $A$ on the ray to the curve $\gamma$. Then we can easily construct a point $P$ that fulfills $D(A,P) = s$ and lies on the ray $R_{A,B}$ by 
 		$$ P := A+s\frac{B}{||B||}.$$
-	Now there are only two possibilities: Either $P$ lies within the $\epsilon$-ball of the collision point, or the line segment $\overline{AP} \subset R_{A,B}([0,\infty))$ does not intersect with $\gamma$. In the first case, we can happily return $\{P\}$. In the second case, we can repeat the procedure on the set 
+	Now there are only two possibilities: Either $P$ lies within the $\epsilon$-ball of the collision point, or the line segment $\overline{AP} \subset R_{A,B}([0,\infty))$ does not intersect with $\gamma$. In the first case, we can return $\{P\}$. In the second case, we can repeat the procedure on the set 
 		$$ R_{A,B}([0,\infty)) \setminus \overline{AP} = R_{A,B}([s,\infty)) = R_{P,B}([0,\infty)).$$
 	If after a certain amount of iterations $N$ the algorithm does not converge to a point which lies within the $\epsilon$-ball of the collision point, we return $\emptyset$.
 
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=0.7\textwidth]{../python/rayMarching}
+		\caption{The ray marching algorithm.}
+		\label{fig:raymarchingvis}
+	\end{figure}
+
+	Figure \ref{fig:raymarchingvis} describes ray marching visually. At each iteration, a new safe distance $s$ (depicted as green circle radii) along the ray is calculated. The ray is traversed using $s$ as step size (to achieve the points depicted in green) until the safe distance falls below the absolute tolerance $\epsilon$. The resulting point, depicted in purple, is close to the collision point. The implementation of ray marching algorithm given a point inversion algorithm proves to be relatively simple.
+
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
-			\Input
-				\Desc{$\gamma$}{curve}
-				\Desc{$R_{A,B}$}{ray}
-			\EndInput
-			\Output
-				\Desc{$I_{\min}$}{intersection set with up to one element}
-			\EndOutput
 
 			\caption{Ray Marching}\label{alg:raymarching}
 			\Procedure{intersectCurveRay}{$\gamma, A, B$}
@@ -846,11 +844,6 @@ Göttingen, \today \hspace{2em}
 		\end{algorithmic}
 	\end{algorithm}
 
-	\begin{figure}[H]
-		\centering
-		\includesvg[width=0.98\textwidth]{../python/rayMarching}
-		\caption{The ray marching algorithm visualized: At each iteration, a new safe distance $s$ (depicted as green circle radii) along the ray is calculated. The ray is traversed using $s$ as step size (to achieve the points depicted in green) until the safe distance falls below the absolute tolerance $\epsilon$. The resulting point, depicted in purple, is close to the collision point.}
-	\end{figure}
 
 \subsection{Curve-Curve Intersection in 2D}
 	Let $\gamma_1(s)$ and $\gamma_2(t)$ be two continuous curves in $\mathbb{R}^2$ with $s,t \in [0,1]$ which instersect at finitely many points at most. In this section, we seek for the points at which the curves $\gamma_1$ and $\gamma_2$ intersect. We will employ a pragmatic scheme that uses a piecewise linear approximation of the curve, on which finding intersections is comparably simple and only involves finding the intersection of line segments.
@@ -891,7 +884,7 @@ Göttingen, \today \hspace{2em}
  		Suppose that the line segments $\overline{\gamma_1(s_1) \gamma_1(s_2)}$ and $\overline{\gamma_2(t_1) \gamma_2(t_2)}$ intersect. We cannot conclude that there is an intersection $(s,t) \in I(\gamma_1, \gamma_2)$ with $s \in [s_1, s_2]$ and $t \in [t_1, t_2]$. Using this theorem as core concept for our algorithm, we need to ensure that the distance between the curves is small inside of $[s_1, s_2] \times [t_1, t_2]$. If this is not the case, then no intersection lies inside of $[s_1, s_2] \times [t_1, t_2]$ and every line segment intersection found within should be discarded.
 	\end{remark}
 	
-	If for any intersection parameter pair $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ we have $\nabla \gamma_1(s^*) = \nabla \gamma_2(t^*)$, then it is very likely that the intersection is not detected by the described line segment intersection scheme. In CoolingGen, however, this intersection scheme performs well.
+	If for any intersection parameter pair $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ we have $\nabla \gamma_1(s^*) = \nabla \gamma_2(t^*)$, then it is very likely that the intersection is not detected by the described line segment intersection scheme.
 
 	\begin{theorem}
 		Let $L_A([0,1])$ and $L_B([0,1])$ be two line segments in $\mathbb{R}^2$. If the lines $L_A((-\infty,\infty))$ and $L_B((-\infty,\infty))$ are not parallel, their single intersection pointt is given by $L_A(t_A) = L_B(t_B)$, where
@@ -937,19 +930,41 @@ Göttingen, \today \hspace{2em}
 		$$D \left( \gamma_1 \left( \frac{t_{i^*} + t_{i^*+1}}{2} \right), \gamma_2 \left( \frac{t_{j^*} + t_{j^*+1}}{2} \right) \right)$$
 	and recursively repeat this procedure on the curves $\gamma_1([t_i, t_{i+1}])$ and $\gamma_2([t_j, t_{j+1}])$. If after a given recursion depth, the interval midpoint distance of some pair $(i^*, j^*)$ is greater than a given absolute tolerance $\alpha$, we discard $(i^*, j^*)$.
 	
+	The sampling into a piecewise linear interpolation of any curve will be handled by the following algorithm.
+	\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\Input
+				\Desc{$\gamma$}{curve on $[0,1]$}
+				\Desc{$l,u$}{lower and upper bound inside of $[0,1]$}
+				\Desc{$N$}{number of line segments that approximate the curve}
+			\EndInput
+
+			\caption{Calculating the piecewise linear interpolation}
+			\Procedure{piecewiseLinInterp}{$\gamma, l, u, N$}
+				\State $P \gets \text{empty vector with } N+1 \text{ entries}$
+				\For {$i = 0, ..., N$}
+					\State $P_i \gets \gamma \left( (u-l) \frac{i}{N} + l \right)$
+				\EndFor
+				\State \Return $P$
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+	
+	Calculating whether two line segments intersect is a constant time operation. For each recursion depth, this operation is executed $N^2$ times, granting the total performance of $O(N^2)$.
+
 	\begin{figure}[H]
 		\centering
 		\includesvg[width=0.98\textwidth]{../python/piecewiseLinearIntersection}
 		\caption{We find the intersection of the curves on the left. The two middle rows represent the different steps of the algorithm, where the curves are divided curve segments. If an intersection between end points of these segments occur, that segment is divided again into new segments until a points $(s,t)$ is found such that $D(\gamma_1(s), \gamma_2(t)) \leq \epsilon$.}
+		\label{fig:piecewiselinearintersection}
 	\end{figure}
 	
-	Calculating whether two line segments intersect is a constant time operation. For each recursion depth, this operation is executed $N^2$ times, granting the total performance of $O(N^2)$.
+	The algorithm in Figure \ref{fig:piecewiselinearintersection} first calculates estimates of the intersection points and then refines those estimates until the target distance falls below the thresold $\epsilon$, in which case it returns the point. If a maximum recursion depth $d_{\max}$ is reached before falling below target distance, no point is returned instead.
 
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
 			\Input
 				\Desc{$\gamma_1, \gamma_2$}{curves on $[0,1]$}
-				\Desc{$N$}{number of line segments that approximate the curve}
 				\Desc{$d_{\max}$}{maximum recursion depth}
 				\Desc{$\epsilon$}{absolute tolerance value}
 			\EndInput
@@ -958,37 +973,23 @@ Göttingen, \today \hspace{2em}
 			\EndOutput
 
 			\caption{Curve Intersection}\label{alg:curveintersection}
-
-			\Procedure{getPiecewiseLinearInterpolation}{$\gamma, l, u, N$}
-				\State $P \gets \text{empty vector with } N+1 \text{ entries}$
-				\For {$i = 0, ..., N$}
-					\State $P_i \gets \gamma \left( (u-l) \frac{i}{N} + l \right)$
-				\EndFor
-				\State \Return $P$
-			\EndProcedure
-
 			\Procedure{intersectCurvesRecursion}{$I, \gamma_1, l_1, u_1, \gamma_2, l_2, u_2, d$}
-				\State $m_1 \gets \frac{l_1 + u_1}{2}$
-				\State $m_2 \gets \frac{l_2 + u_2}{2}$
-				\If {$D(\gamma_1(m_1), \gamma_2(m_2)) \leq \epsilon$}
-					\State $\text{append } (m_1, m_2) \text{ to } I$
-					\State \Return
+				\State $m_1 \gets \frac{l_1 + u_1}{2}$ and $m_2 \gets \frac{l_2 + u_2}{2}$
+				
+				\If {$D(\gamma_1(m_1), \gamma_2(m_2)) \leq \epsilon$} append $(m_1, m_2)$ to $I$ and \Return
 				\EndIf
 
-				\If {$d \geq d_{\max}$}
-					\Return
+				\If {$d \geq d_{\max}$} do nothing and \Return
 				\EndIf
 
-				\State $P^{(1)} \gets \text{getPiecewiseLinearInterpolation}(\gamma_1, l_1, u_1, N)$
-				\State $P^{(2)} \gets \text{getPiecewiseLinearInterpolation}(\gamma_2, l_2, u_2, N)$
+				\State $P^{(1)} \gets \text{piecewiseLinInterp}(\gamma_1, l_1, u_1, N)$ and $P^{(2)} \gets \text{piecewiseLinInterp}(\gamma_2, l_2, u_2, N)$
+				
 
 				\For {$i = 0,...,N-1$}
 					\For {$j = 0,...,N-1$}
 						\If {$\text{lineSegmentsIntersect}(P^{(1)}_i, P^{(1)}_{i+1}, P^{(2)}_j, P^{(2)}_{j+1})$}
-							\State $s_1 \gets (l_1 - u_1) \frac{i}{N} + l_1$
-							\State $s_2 \gets (l_1 - u_1) \frac{i+1}{N} + l_1$
-							\State $t_1 \gets (l_2 - u_2) \frac{j}{N} + l_2$
-							\State $t_2 \gets (l_2 - u_2) \frac{j+1}{N} + l_2$
+							\State $s_1 \gets (l_1 - u_1) \frac{i}{N} + l_1$ and $s_2 \gets (l_1 - u_1) \frac{i+1}{N} + l_1$
+							\State $t_1 \gets (l_2 - u_2) \frac{j}{N} + l_2$ and $t_2 \gets (l_2 - u_2) \frac{j+1}{N} + l_2$
 							\State $\text{intersectCurvesRecursion}(I, \gamma_1, s_1, s_2, \gamma_2, t_1, t_2, d+1)$
 						\EndIf
 					\EndFor
@@ -1006,26 +1007,81 @@ Göttingen, \today \hspace{2em}
 		\end{algorithmic}
 	\end{algorithm}
 
+	As discussed before, this intersection algorithm will not identify every kind of intersection, however, the algorithm proves to be fast, robust and sufficient for CoolingGen.
+
 \subsection{Offset Curves in 2D}
 	Offset curves are an important CAD tool and can be used to create fillets or simply to model parallel curves, i.e. for the creation of contours of a certain thickness.
 
 	\begin{definition}
-		Let $\gamma(t) = (x(t), y(t)) \in \mathbb{R}^2$ for $t\in[0,1]$ be a differentiable curve. Then $O^\gamma_d(t)$ is called the $d$ offset curve and is defined as
+		Let $\gamma(t) = (x(t), y(t)) \in \mathbb{R}^2$ for $t\in[0,1]$ be a differentiable curve. Then $O^\gamma_d(t)$ is called the $d$-offset curve and is defined as
 			$$ O^\gamma_d(t) := \gamma(t) + dN^\gamma(t),$$
 		where $N^\gamma(t)$ is called the normal of $\gamma(t)$ and defined as
 			$$N^\gamma(t) := \frac{\nabla\gamma(t)^\perp}{||\nabla\gamma(t)||}$$
 		and
 			$$\nabla\gamma(t)^\perp = \left(\derivative{x}{t}(t), \derivative{y}{t}(t)\right)^\perp = \left(-\derivative{y}{t}(t), \derivative{x}{t}(t)\right)$$
 		is orthogonal to the gradient of $\gamma(t)$.
-
 	\end{definition}
 
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=0.7\textwidth]{../python/offsetCurveExample}
+		\caption{Offset curves for a given curve $\gamma$ and for different values of $d$.}
+		\label{fig:offsetcurveexample}
+	\end{figure}
+
+	As can be observed in Figure \ref{fig:offsetcurveexample}, some $O^\gamma_d$ tend to self-intersect even though $\gamma$ does not self-intersect. We previously established that the non-existence of any self-intersection of a curve is equivalent to its injectivity. In CoolingGen, we are often interested in modelling parallel contours. However, self-intersections do not represent meaningful objects in this context. Specifying the offset value $d$, a user of CoolingGen would expect to find a curve $\overline{O}^\gamma_d$ that at least satisfies the property
+	\begin{equation}\label{eq:offsetproperty}
+		\min_s \, D(\gamma(s), \overline{O}^\gamma_d) = d.
+	\end{equation}
+	Informally, if we imagine a ball of diameter $d$ to roll along one side of the curve $\gamma$, then $O^\gamma_d(t)$ is injective as long as the ball only touches one point at a time.
+	\begin{remark}
+		Formally, we are able to define the \emph{curvature} $\kappa^\gamma(t)$ of a curve at any given point, which is equal to the reciprocal of the radius of the tangential sphere of the curve at that point. This notion allows us to make the following observation: If there exists some $t$ such that $\kappa^\gamma(t) > \frac{1}{d}$, then $O^\gamma_d(t)$ is not injective.
+	\end{remark}
+
+	If we force injectivity of $O^\gamma_d$ in a certain way, we will be able to guarantee the property in Equation \ref{eq:offsetproperty}. To do this, we need to find the self-intersections of $O^\gamma_d$.
+
+	\begin{definition}
+		The parameter set of self-intersections of a curve $\gamma(t)$ is defined as
+			$$ I(\gamma) := \{(s,t) \in [0,1]^2 : \gamma(s) = \gamma(t) \;\wedge\; s < t \}. $$
+	\end{definition}
+
+	To find these self-intersections, we can use a slightly modified version of Algorithm \ref{alg:curveintersection}. In the first recursion step of intersectCurvesRecursion, instead of iterating $j$ from $0$ to $N-1$, we are only interested in $j$ from $i+2$ to $N-1$, since for all $(s,t) \in I(O^\gamma_d)$, we have $s < t$. Because $s < t$ each such parameter pair naturally represents an interval subset $[s, t]$ of the parameter space $[0, 1]$.
+
+	\begin{definition}
+		A pair of self-intersections $(s_1,t_1), (s_2, t_2) \in I(\gamma)$ is called nested if $[s_1, t_1] \cap [s_2, t_2] \neq \emptyset$. We call $I(\gamma)$ untangled if $I(\gamma)$ does not contain a nested pair of self-intersections.
+	\end{definition}
+
+	To meaningfully trim the curve, we need to ensure that the self-intersection parameter set is untangled. We can do this by iterating over the set of intersections $I(O^\gamma_d) = \{(s_i, t_i) : i \in \{1, ..., m\} \}$ returned by Algorithm \ref{alg:curveintersection} and checking for disjointness of pairs $[s_i, t_i]$ and $[s_j, t_j]$ for $i \neq j$, where $i,j \in \{1, ..., m\}$. In case these two sets are not disjoint, we can replace them with their union $[s_i, t_i] \cup [s_j, t_j]$. Using this procedure, we can calculate the untangled intersection set $\overline{I}(O^\gamma_d)$.
+
+	\begin{definition}
+		For an untangled self-intersection set $\overline{I}(\gamma)$, we call the set
+			$$T(\gamma) := \bigcup_{(s,t) \in \overline{I}(\gamma)} [s,t]$$
+		the trim range of $\gamma$.
+	\end{definition}
+
+	We can now choose to only further use and display the curve on $[0,1] \setminus T(O^\gamma_d)$ or on $T(O^\gamma_d)$.
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.49\textwidth}
+			\includesvg[width=0.98\textwidth]{../python/offsetCurveSelfIntersection0}
+			\caption{Non-injective offset curves.}
+		\end{subfigure}
+		\begin{subfigure}{0.49\textwidth}
+			\includesvg[width=0.98\textwidth]{../python/offsetCurveSelfIntersection1}
+			\caption{Trimmed offset curves on $[0,1] \setminus T(O^\gamma_d)$.}
+		\end{subfigure}
+		\caption{Trimming two offset curves at intervals of self intersections for a given curve $\gamma$ and for different values of $d$.}
+	\end{figure}
+
 \subsection{Fillet Creation}
-\begin{figure}[H]
-	\centering
-	\includesvg[width=0.5\textwidth]{../python/filletVisuals}
-	\caption{yeah}
-\end{figure}
+	Given two curves that intersect at their end points, we can construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle.
+
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=0.5\textwidth]{../python/filletVisuals}
+		\caption{yeah}
+	\end{figure}
 
 
 \section{Jet Engine Design Specifics}

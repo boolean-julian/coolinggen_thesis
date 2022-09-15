@@ -1,8 +1,34 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib import rc
+rc('text', usetex=True)
 
 def gamma(t):
-	return np.array([np.cos(2*np.pi*t)+0.05*np.cos(20*np.pi*t), np.sin(2*np.pi*t)+0.05*np.sin(20*np.pi*t)])
+	base_freq = 2*np.pi*t
+	osci_freq = 16*base_freq
+	osci_ampl = 0.02
+
+	circle 		= np.array([1.2*np.cos(base_freq), np.sin(base_freq)])
+	oscillation = np.array([np.cos(osci_freq), np.sin(osci_freq)])
+	oscillation *= osci_ampl
+
+	return circle+oscillation
+
+def rotate_point(point, phi, origin = np.array([0,0])):
+	shifted = point - origin
+	rotated = np.array([[np.cos(phi),-np.sin(phi)],[np.sin(phi),np.cos(phi)]]) @ shifted
+
+	return rotated + origin
+	
+def gamma2(t):
+	freq = 5*np.pi
+	amp = 0.04
+	point = np.array([t, amp*np.sin(freq*t)])
+	
+	phi = np.pi/12
+	rotated = rotate_point(point, phi)
+
+	return rotated
 
 def grad(gamma, t):
 	eps = 0.001
@@ -30,20 +56,24 @@ def plot_points(points):
 
 	plt.plot(xs, ys, '-')
 
-ts = np.linspace(0, 1, 1000)
+ts = np.linspace(-0.05, 1.05, 1000)
+ps = [gamma2(t) for t in ts]
+ds = [-0.2, -0.1, 0.1, 0.2]
+os = [[offset(gamma2, d, t) for t in ts] for d in ds]
 
-ps = [gamma(t) for t in ts]
-o1 = [offset(gamma, 0.1, t) for t in ts]
-o2 = [offset(gamma, 0.2, t) for t in ts]
-o3 = [offset(gamma, 0.3, t) for t in ts]
-
-fig, ax = plt.subplots(figsize=(5,5))
+fig, ax = plt.subplots(figsize=(8,4))
 ax.set_aspect("equal", "box")
 
 plot_points(ps)
-plot_points(o1)
-plot_points(o2)
-plot_points(o3)
+for i in range(len(ds)):
+	plot_points(os[i])
+
+fontsize = 18
+plt.text(*ps[-1], r"$\gamma$", va="top", ha="left", fontsize=fontsize)
+for i in range(len(ds)):
+	plt.text(*(os[i])[-1], r"$O^\gamma_{{{d}}}$".format(d=ds[i]), va="top", ha="left", fontsize=fontsize)
 
 plt.axis("off")
+plt.tight_layout()
+plt.savefig("offsetCurveExample.svg")
 plt.show()
