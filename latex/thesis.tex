@@ -85,6 +85,7 @@
 \newcommand{\hugespace}{\vspace{17em}}
 \newcommand{\logoheight}{4em}
 \newcommand{\derivative}[2]{\frac{\textrm{d}{#1}}{\textrm{d}{#2}}}
+\newcommand{\domrestr}{\big|}
 
 %% Special formatting for pesudocode
 \algblock{Input}{EndInput}
@@ -727,16 +728,14 @@ Göttingen, \today \hspace{2em}
 		$$ t^* = \underset{t\in[l,u]}{\arg\min}\;\phi(t). $$
 	This scheme will only converge to the global minimum of $\phi$ for large enough $n \in \mathbb{N}$.
 
-	Given that the target distance is zero and $\gamma$ is a NURBS curve, we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return one input parameter of the curve that fits the point $Q$ (in fact, the only input parameter if we also have injectivity of $\gamma$). This justifies the name \emph{point inversion algorithm}.
-
-	If the target distance is not equal to zero or the curve is not injective, the algorithm still proves useful to find the distance $D(Q, \gamma)$, since the minimum distance is the same for all $t^* \in T^*$.
-
+	We describe the procedure in pseudo-code. The start and boundary value search is described by the following algorithm.
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
 			\Input
 				\Desc{$N$}{number of samples for initial value search}
-				\Desc{$M$}{number of iterations in Newton's method}
 			\EndInput
+			
+			\caption{Start value search}
 
 			\Procedure{findPointInversionInitValues}{$\gamma, Q$}
 				\State $m \gets 0$
@@ -749,6 +748,14 @@ Göttingen, \today \hspace{2em}
 
 				\State \Return $m-\frac{i}{N}, m+\frac{i}{N}, m$
 			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+	Using the start and boundary values, we apply Newton's method for $M$ iterations to find our target value, which is returned upon completion.
+	\begin{algorithm}[H]
+		\begin{algorithmic}[1]
+			\Input
+				\Desc{$M$}{number of iterations}
+			\EndInput
 
 			\caption{Point Inversion}\label{alg:pointinversion}
 			\Procedure{pointInversion}{$\gamma, Q$}
@@ -770,6 +777,11 @@ Göttingen, \today \hspace{2em}
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
+
+
+	Given that the target distance is zero and $\gamma$ is a NURBS curve, we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return one input parameter of the curve that fits the point $Q$ (in fact, the only input parameter if we also have injectivity of $\gamma$). This justifies the name \emph{point inversion algorithm}.
+
+	If the target distance is not equal to zero or the curve is not injective, the algorithm still proves effective to find the distance $D(Q, \gamma)$, since the minimum distance is the same for all $t^* \in T^*$.
 
 \subsection{Ray-Curve Intersection in 2D}
 	\begin{definition}
@@ -858,8 +870,8 @@ Göttingen, \today \hspace{2em}
 	\begin{figure}[H]
 		\label{fig:curveIntersectionConnectedness}
 		\centering
-		\includesvg[width=0.98\textwidth]{../python/curveIntersectionConnectedness}
-		\caption{Two types of intersection: In the top row, we have $|I(\gamma_1, \gamma_2)| < \infty$, which is the case considered in this thesis. In the bottom row, $|I(\gamma_1, \gamma_2)| = \infty$. In the left column we can see the intersection points, whereas the right column represent the set $I(\gamma_1, \gamma_2)$. We only care about the type of intersection that occurs in the top row.}
+		\includesvg[width=0.75\textwidth]{../python/curveIntersectionConnectedness}
+		\caption{In the top row, we have $|I(\gamma_1, \gamma_2)| < \infty$, which is the case considered in this thesis. In the bottom row, $|I(\gamma_1, \gamma_2)| = \infty$. In the left column we can see the intersection points, whereas the right column represent the set $I(\gamma_1, \gamma_2)$.}
 	\end{figure}
 
 	\begin{definition}
@@ -1075,14 +1087,50 @@ Göttingen, \today \hspace{2em}
 	\end{figure}
 
 \subsection{Fillet Creation}
-	Given two curves that intersect at their end points, we can construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle.
+	Given two curves $\gamma_1$ and $\gamma_2$ defined on $t \in [0,1]$ that intersect at their end points, we can construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle. More formally, we can make the following definitions
+
+	\begin{definition}
+		Let $\gamma_1$ and $\gamma_2$ be two differentiable curves.
+		If curve $\phi^{\gamma_1, \gamma_2}_r$ satisfies
+			$$\phi^{\gamma_1, \gamma_2}_r([0,1]) = \{(x,y) : (x-x_0)^2 + (y-y_0)^2 = r^2\}$$
+		for a center point $(x_0, y_0)$ and a radius $r$, then it is a circle. If furthermore there exist intersection points
+			$$ \gamma_1(s_1) = \phi^{\gamma_1, \gamma_2}_r(\sigma_1) \text{ and } \gamma_2(s_2) = \phi^{\gamma_1, \gamma_2}_r(\sigma_2) $$
+		for some $s_1, s_2, \sigma_1, \sigma_2 \in [0,1]$ and these intersection points are tangential in the sense that
+			$$\nabla \gamma_1(s_1) = \nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_1) \text{ and } \nabla \gamma_2(s_2) = \nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_2),$$
+		then $\phi^{\gamma_1, \gamma_2}_r$ is a fillet circle of radius $r$ of $\gamma_1$ and $\gamma_2$.
+	\end{definition}
+	\begin{remark}
+		A fillet circle $\phi^{\gamma_1, \gamma_2}_r$ does not necessarily exist for two given curves $\gamma_1$, $\gamma_2$. If a fillet curve $\phi^{\gamma_1, \gamma_2}_{r^*}$ exists for some radius $r^*$, it does not exist for all radii $r \in \mathbb{R}$.
+	\end{remark}
 
 	\begin{figure}[H]
 		\centering
-		\includesvg[width=0.5\textwidth]{../python/filletVisuals}
-		\caption{yeah}
+		\includesvg[width=0.2\textwidth]{../python/verySimpleFillet}
+		\caption{A fillet curve of radius $1$ and the respective curves $\gamma_1$ and $\gamma_2$.}
+		\label{fig:verysimplefillet}
 	\end{figure}
 
+	If it exists, we will find a procedure that yields a fillet circle for a given radius $r$ and a pair of curves $\gamma_1, \gamma_2$. We only need to find the center point $(x_0, y_0)$. Then we can use the parametric definition of a circle to write
+		$$ \phi^{\gamma_1, \gamma_2}_r(t) = (r \cos(2 \pi t) + x_0, r \sin(2 \pi t) + y_0).$$
+	For example, as shown in Figure \ref{fig:verysimplefillet}, given the curves $\gamma_1(t) = (2t-1,1)$ and $\gamma_2 = (1,2t-1)$ and a radius $r = 1$, the center point $(x_0,y_0)$ of the circle is equal to $(0,0)$.
+
+
+
+
+	We can use offset curve and intersection methods to find the center point $(x_0, y_0)$ in the general case.
+
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=\textwidth]{../python/filletConstruction1}
+		\caption{Construction of the fillet circle of different radii.}
+	\end{figure}
+
+
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=\textwidth]{../python/filletConstruction2}
+		\caption{Trimmed curves and fillets}
+	\end{figure}
 
 \section{Jet Engine Design Specifics}
 \subsection{Fundamental Terms}
