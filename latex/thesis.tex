@@ -87,6 +87,8 @@
 \newcommand{\derivative}[2]{\frac{\textrm{d}{#1}}{\textrm{d}{#2}}}
 \newcommand{\domrestr}{\big|}
 
+\DeclareMathOperator{\arctantwo}{arctan2}
+
 %% Special formatting for pesudocode
 \algblock{Input}{EndInput}
 \algnotext{EndInput}
@@ -778,12 +780,11 @@ Göttingen, \today \hspace{2em}
 		\end{algorithmic}
 	\end{algorithm}
 
-
 	Given that the target distance is zero and $\gamma$ is a NURBS curve, we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return one input parameter of the curve that fits the point $Q$ (in fact, the only input parameter if we also have injectivity of $\gamma$). This justifies the name \emph{point inversion algorithm}.
 
 	If the target distance is not equal to zero or the curve is not injective, the algorithm still proves effective to find the distance $D(Q, \gamma)$, since the minimum distance is the same for all $t^* \in T^*$.
 
-\subsection{Ray-Curve Intersection in 2D}
+\subsection{Intersection of a Ray and a Curve in 2D}
 	\begin{definition}
 		A \emph{ray} with support vector $A \in \mathbb{R}^d$ and direction vector $B \in \mathbb{R}^d$ is given by the set of points
 			\begin{equation*}
@@ -857,22 +858,30 @@ Göttingen, \today \hspace{2em}
 	\end{algorithm}
 
 
-\subsection{Curve-Curve Intersection in 2D}
-	Let $\gamma_1(s)$ and $\gamma_2(t)$ be two continuous curves in $\mathbb{R}^2$ with $s,t \in [0,1]$ which instersect at finitely many points at most. In this section, we seek for the points at which the curves $\gamma_1$ and $\gamma_2$ intersect. We will employ a pragmatic scheme that uses a piecewise linear approximation of the curve, on which finding intersections is comparably simple and only involves finding the intersection of line segments.
+\subsection{Intersecting Two Curves in 2D}
+	In order to trim curves at intersection points, we require the pair of parameters at which two curves intersect. Let $\gamma_1(s)$ and $\gamma_2(t)$ be two continuous curves in $\mathbb{R}^2$ with $s,t \in [0,1]$ which instersect at finitely many points at most. In this section, we seek for the set of parameters at which these curves intersect.
+
+	\begin{definition}
+		The distance between two curves $\gamma_1, \gamma_2$ is defined as
+			$$ D(\gamma_1, \gamma_2) := \min_{(s,t) \in [0,1]^2} D(\gamma_1(s), \gamma_2(t)).$$
+	\end{definition}
+
+	Similarly to the prior sections, our goal is to minimize a distance function $D(\gamma_1(s), \gamma_2(t))$. In this case, we will employ a pragmatic scheme that uses a piecewise linear approximation of the curve, in which finding intersections is comparably simple and involves finding the intersection of a number of line segments.
 	
 	\begin{definition}
 		The intersection parameter set of two continuous curves $\gamma_1$ and $\gamma_2$ is defined as
 				$$ I(\gamma_1, \gamma_2) := \{(s,t) \in [0,1]^2 : \gamma_1(s) = \gamma_2(t)\}.$$
+		Notice that $\gamma_1([0,1]) \cap \gamma_2([0,1]) = \emptyset$ if and only if $I(\gamma_1, \gamma_2) = \emptyset$.
 	\end{definition}
 	
-	Our goal is to find the set $I(\gamma_1, \gamma_2)$ in case of $|I(\gamma_1, \gamma_2)| < \infty$. We only consider this case, because none other are of interest in the applications of CoolingGen.
-	
 	\begin{figure}[H]
-		\label{fig:curveIntersectionConnectedness}
 		\centering
-		\includesvg[width=0.75\textwidth]{../python/curveIntersectionConnectedness}
-		\caption{In the top row, we have $|I(\gamma_1, \gamma_2)| < \infty$, which is the case considered in this thesis. In the bottom row, $|I(\gamma_1, \gamma_2)| = \infty$. In the left column we can see the intersection points, whereas the right column represent the set $I(\gamma_1, \gamma_2)$.}
+		\includesvg[width=0.99\textwidth]{../python/curveIntersectionConnectedness}
+		\caption{In (A) we have $|I(\gamma_1, \gamma_2)| < \infty$, whereas in (B) we have $|I(\gamma_1, \gamma_2)| = \infty$.}
+		\label{fig:curveIntersectionConnectedness}
 	\end{figure}
+
+	For the use with CoolingGen, our goal is to find the set $I(\gamma_1, \gamma_2)$ in case of $|I(\gamma_1, \gamma_2)| < \infty$ (see Figure \ref{fig:curveIntersectionConnectedness}).
 
 	\begin{definition}
 		The line segment between the points $A_s$ and $A_e$ is defined as the set
@@ -886,19 +895,21 @@ Göttingen, \today \hspace{2em}
 	The key idea of our algorithm is described by the following theorem.
 	
 	\begin{theorem}
-		Let $\gamma_1$ and $\gamma_2$ be two continuous curves and let $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ and $s^*, t^* \neq 0$. If the curve derivatives yield $\nabla\gamma_1(s^*) \neq \nabla\gamma_2(t^*)$, then there exist neighborhoods 
+		Let $\gamma_1$ and $\gamma_2$ be two continuous curves and let $(s^*, t^*) \in I(\gamma_1, \gamma_2) \cap (0,1)^2$. If the curve derivatives yield $\nabla\gamma_1(s^*) \neq \nabla\gamma_2(t^*)$, then there exist neighborhoods 
 			$$[s^*-\epsilon, s^*+\epsilon] \quad\text{and}\quad [t^*-\epsilon, t^*+\epsilon]$$
 		around $s^*$ and $t^*$, respectively, where $\epsilon > 0$. Then the line segments
 			$$\overline{\gamma_1(s^*-\epsilon) \gamma_1(s^*+\epsilon)} \quad\text{and}\quad \overline{\gamma_2(t^*-\epsilon) \gamma_2(t^*+\epsilon)}$$
 		intersect.
 	\end{theorem}
 	\begin{remark}
- 		Suppose that the line segments $\overline{\gamma_1(s_1) \gamma_1(s_2)}$ and $\overline{\gamma_2(t_1) \gamma_2(t_2)}$ intersect. We cannot conclude that there is an intersection $(s,t) \in I(\gamma_1, \gamma_2)$ with $s \in [s_1, s_2]$ and $t \in [t_1, t_2]$. Using this theorem as core concept for our algorithm, we need to ensure that the distance between the curves is small inside of $[s_1, s_2] \times [t_1, t_2]$. If this is not the case, then no intersection lies inside of $[s_1, s_2] \times [t_1, t_2]$ and every line segment intersection found within should be discarded.
+ 		Suppose that the line segments $\overline{\gamma_1(s_1) \gamma_1(s_2)}$ and $\overline{\gamma_2(t_1) \gamma_2(t_2)}$ intersect. We cannot conclude that there is an intersection $(s,t) \in I(\gamma_1, \gamma_2)$ with $s \in [s_1, s_2]$ and $t \in [t_1, t_2]$. Using this theorem as core concept for our algorithm, we will need to ensure that
+ 			$$ D(\gamma_1 \domrestr_{[s_1, s_2]}, \gamma_2 \domrestr_{[t_1, t_2]}) \leq \alpha$$
+ 		for a sufficiently small absolute tolerance $\alpha > 0$. If this is not the case, then no intersection lies inside of $[s_1, s_2] \times [t_1, t_2]$ and every line segment intersection found within should be discarded.
 	\end{remark}
 	
-	If for any intersection parameter pair $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ we have $\nabla \gamma_1(s^*) = \nabla \gamma_2(t^*)$, then it is very likely that the intersection is not detected by the described line segment intersection scheme.
+	If for any intersection parameter pair $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ we have $\nabla \gamma_1(s^*) = \nabla \gamma_2(t^*)$, then it is likely that the intersection is not detected by the described line segment intersection scheme.
 
-	\begin{theorem}
+	\begin{theorem}\label{thm:lineintersection}
 		Let $L_A([0,1])$ and $L_B([0,1])$ be two line segments in $\mathbb{R}^2$. If the lines $L_A((-\infty,\infty))$ and $L_B((-\infty,\infty))$ are not parallel, their single intersection pointt is given by $L_A(t_A) = L_B(t_B)$, where
 			\begin{equation}\label{eq:lineintersection}
 				t_A = 
@@ -951,7 +962,7 @@ Göttingen, \today \hspace{2em}
 				\Desc{$N$}{number of line segments that approximate the curve}
 			\EndInput
 
-			\caption{Calculating the piecewise linear interpolation}
+			\caption{Calculating the piecewise linear interpolation}\label{alg:samplecurve}
 			\Procedure{piecewiseLinInterp}{$\gamma, l, u, N$}
 				\State $P \gets \text{empty vector with } N+1 \text{ entries}$
 				\For {$i = 0, ..., N$}
@@ -967,18 +978,18 @@ Göttingen, \today \hspace{2em}
 	\begin{figure}[H]
 		\centering
 		\includesvg[width=0.98\textwidth]{../python/piecewiseLinearIntersection}
-		\caption{We find the intersection of the curves on the left. The two middle rows represent the different steps of the algorithm, where the curves are divided curve segments. If an intersection between end points of these segments occur, that segment is divided again into new segments until a points $(s,t)$ is found such that $D(\gamma_1(s), \gamma_2(t)) \leq \epsilon$.}
+		\caption{Demonstration of the curve intersection algorithm. Figure (A) shows the input curves, Figure (B) the different steps and Figure (C) the result. The dots on the curve represent the samples on the curve. The red lines represent the intersection of two line segments.}
 		\label{fig:piecewiselinearintersection}
 	\end{figure}
 	
-	The algorithm in Figure \ref{fig:piecewiselinearintersection} first calculates estimates of the intersection points and then refines those estimates until the target distance falls below the thresold $\epsilon$, in which case it returns the point. If a maximum recursion depth $d_{\max}$ is reached before falling below target distance, no point is returned instead.
+	The algorithm in Figure \ref{fig:piecewiselinearintersection} first calculates estimates of the intersection points and then refines those estimates until the target distance falls below $\alpha$, in which case it returns the point. If a maximum recursion depth $d_{\max}$ is reached before falling below target distance, no point is returned instead. Using Algorithm \ref{alg:samplecurve} and writing the procedure from Theorem \ref{thm:lineintersection} as function \texttt{lineSegmentsIntersect}, which returns \texttt{true} if and only if the input line segments intersect, we can write the curve intersection algorithm as follows.
 
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
 			\Input
 				\Desc{$\gamma_1, \gamma_2$}{curves on $[0,1]$}
 				\Desc{$d_{\max}$}{maximum recursion depth}
-				\Desc{$\epsilon$}{absolute tolerance value}
+				\Desc{$\alpha$}{absolute tolerance value}
 			\EndInput
 			\Output
 				\Desc{$I(\gamma_1, \gamma_2)$}{intersection parameter set}
@@ -988,7 +999,7 @@ Göttingen, \today \hspace{2em}
 			\Procedure{intersectCurvesRecursion}{$I, \gamma_1, l_1, u_1, \gamma_2, l_2, u_2, d$}
 				\State $m_1 \gets \frac{l_1 + u_1}{2}$ and $m_2 \gets \frac{l_2 + u_2}{2}$
 				
-				\If {$D(\gamma_1(m_1), \gamma_2(m_2)) \leq \epsilon$} append $(m_1, m_2)$ to $I$ and \Return
+				\If {$D(\gamma_1(m_1), \gamma_2(m_2)) \leq \alpha$} append $(m_1, m_2)$ to $I$ and \Return
 				\EndIf
 
 				\If {$d \geq d_{\max}$} do nothing and \Return
@@ -1019,12 +1030,14 @@ Göttingen, \today \hspace{2em}
 		\end{algorithmic}
 	\end{algorithm}
 
-	As discussed before, this intersection algorithm will not identify every kind of intersection, however, the algorithm proves to be fast, robust and sufficient for CoolingGen.
+	Using slight modifications, one can also make use of this algorithm in self-intersection detection. The details of self-intersection are worked out in the next section.
 
-\subsection{Offset Curves in 2D}
-	Offset curves are an important CAD tool and can be used to create fillets or simply to model parallel curves, i.e. for the creation of contours of a certain thickness.
+	As discussed before, this intersection algorithm might not identify an intersection parameter pair $(s,t)$ where $\nabla \gamma_1(s) = \nabla \gamma_2(t)$. It does however prove fast and robust in the case of CoolingGen, where such intersections are currently not of interest.
 
-	\begin{definition}
+\subsection{Offset Curves and Self-Intersections in 2D}
+	Offset curves are an important CAD tool and can be used to model contours of a certain thickness, which is why they are often referred to as parallel curves. Offset curves are paramount in the creation of fillets, which we will elaborate later. Among the variety of methods in CoolingGen, the creation of offset curves proves to be the most useful one, which perhaps lies in the very nature of cooling geometries, most of which are comprised of offset surfaces inside a given turbine blade surface.
+
+	\begin{definition}\label{def:offseteasy}
 		Let $\gamma(t) = (x(t), y(t)) \in \mathbb{R}^2$ for $t\in[0,1]$ be a differentiable curve. Then $O^\gamma_d(t)$ is called the $d$-offset curve and is defined as
 			$$ O^\gamma_d(t) := \gamma(t) + dN^\gamma(t),$$
 		where $N^\gamma(t)$ is called the normal of $\gamma(t)$ and defined as
@@ -1071,7 +1084,7 @@ Göttingen, \today \hspace{2em}
 		the trim range of $\gamma$.
 	\end{definition}
 
-	We can now choose to only further use and display the curve on $[0,1] \setminus T(O^\gamma_d)$ or on $T(O^\gamma_d)$.
+	We can now choose to only further use and display the curve on $\overline{[0,1] \setminus T(O^\gamma_d)}$ or on $T(O^\gamma_d)$.
 
 	\begin{figure}[H]
 		\centering
@@ -1081,22 +1094,48 @@ Göttingen, \today \hspace{2em}
 		\end{subfigure}
 		\begin{subfigure}{0.49\textwidth}
 			\includesvg[width=0.98\textwidth]{../python/offsetCurveSelfIntersection1}
-			\caption{Trimmed offset curves on $[0,1] \setminus T(O^\gamma_d)$.}
+			\caption{Trimmed offset curves on $\overline{[0,1] \setminus T(O^\gamma_d)}$.}
 		\end{subfigure}
 		\caption{Trimming two offset curves at intervals of self intersections for a given curve $\gamma$ and for different values of $d$.}
 	\end{figure}
 
-\subsection{Fillet Creation}
-	Given two curves $\gamma_1$ and $\gamma_2$ defined on $t \in [0,1]$ that intersect at their end points, we can construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle. More formally, we can make the following definitions
+	Now, $O^{\gamma}_d \domrestr_{T(O^\gamma_d)}$ is not defined on all of $[0,1]$ if there are any self-intersections in $O^\gamma_d$. However, we can define a domain scaling map $\xi^M$, such that
+		$$O^{\gamma}_d(\xi^M([0,1])) = O^{\gamma}_d (M)$$
+	for any finite union of closed intervals $M$.
+	We write the elements of $M$ as $[s_i, t_i]$ for $i \in \{1,...,m\}$. By setting
+		$$ \tilde s_1 := 0 \quad\text{and}\quad \tilde t_m := 1 \quad\text{and}\quad \tilde s_{j+1} := \tilde t_j := \frac{s_{j+1} + t_j}{2} $$
+	for $j \in \{1,...,m-1\}$, we can define the maps
+		$$ \xi^M_i(t) = 
+				\begin{cases}
+					\frac{t_i - s_i}{\tilde t_i - \tilde s_i} \; t 	&\text{if } t \in [\tilde s_i, \tilde t_i], \\
+					0 												&\text{else},
+				\end{cases}
+		$$
+	that map $[\tilde s_i, \tilde t_i]$ onto $[s_i, t_i]$ and any other value onto $0$. Notice that
+		$$ \bigcup_{i=1}^m \; [\tilde s_i, \tilde t_i] = [0,1].$$
+	This way, the domain scaling map
+		$$ \xi^M(t) = \sum_{i=1}^m \xi^M_i(t) $$
+	maps $[0,1]$ onto $M$. Since both $\overline{[0,1] \setminus T(O^\gamma_d)}$ and $T(O^\gamma_d)$ are unions of closed intervals, we can use this procedure to define the trimmed offset curve as
+		$$ \overline{O}^\gamma_d (t) = O^\gamma_d \circ \xi^{\overline{[0,1] \setminus T(O^\gamma_d)}}(t)$$
+	or 
+		$$ \overline{O}^\gamma_d (t) = O^\gamma_d \circ \xi^{T(O^\gamma_d)}(t)$$
+	respectively. This curve now satisfies Equation \ref{eq:offsetproperty}.
 
-	\begin{definition}
+	As has been shown, the construction of meaningful offset curves is in no way trivial and requires a multitude of tools. The simple definition of an offset curve (Definition \ref{def:offseteasy}) is only seemingly adequate. Nonetheless, larger offsets, that would lead to self-intersection, are required by the industry. But since self-intersecting curves do no represent sensible objects, we sought for a far more convoluted process.
+
+	In fact, the creation of fillets also plays a role in the creation of offset curves, since the procedure presented leaves behind non-differentiable places on the trimmed offset curves, which are undesirable for CoolingGen's purposes.
+
+\subsection{The Creation of Fillets in 2D}
+	Given two curves $\gamma_1$ and $\gamma_2 \in \mathbb{R}^2$ defined on $t \in [0,1]$ we can sometimes construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle. Segments of these circles can replace non-differentiable segments from a curve. More formally, we can make the following definitions
+
+	\begin{definition}\label{def:filletcircle}
 		Let $\gamma_1$ and $\gamma_2$ be two differentiable curves.
-		If curve $\phi^{\gamma_1, \gamma_2}_r$ satisfies
+		If a curve $\phi^{\gamma_1, \gamma_2}_r$ satisfies the implicit definition
 			$$\phi^{\gamma_1, \gamma_2}_r([0,1]) = \{(x,y) : (x-x_0)^2 + (y-y_0)^2 = r^2\}$$
 		for a center point $(x_0, y_0)$ and a radius $r$, then it is a circle. If furthermore there exist intersection points
-			$$ \gamma_1(s_1) = \phi^{\gamma_1, \gamma_2}_r(\sigma_1) \text{ and } \gamma_2(s_2) = \phi^{\gamma_1, \gamma_2}_r(\sigma_2) $$
+			$$ \gamma_1(s_1) = \phi^{\gamma_1, \gamma_2}_r(\sigma_1) \quad\text{ and }\quad \gamma_2(s_2) = \phi^{\gamma_1, \gamma_2}_r(\sigma_2) $$
 		for some $s_1, s_2, \sigma_1, \sigma_2 \in [0,1]$ and these intersection points are tangential in the sense that
-			$$\nabla \gamma_1(s_1) = \nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_1) \text{ and } \nabla \gamma_2(s_2) = \nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_2),$$
+			$$\nabla \gamma_1(s_1) = \pm\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_1) \quad\text{ and }\quad \pm\nabla \gamma_2(s_2) = \nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_2),$$
 		then $\phi^{\gamma_1, \gamma_2}_r$ is a fillet circle of radius $r$ of $\gamma_1$ and $\gamma_2$.
 	\end{definition}
 	\begin{remark}
@@ -1110,27 +1149,55 @@ Göttingen, \today \hspace{2em}
 		\label{fig:verysimplefillet}
 	\end{figure}
 
-	If it exists, we will find a procedure that yields a fillet circle for a given radius $r$ and a pair of curves $\gamma_1, \gamma_2$. We only need to find the center point $(x_0, y_0)$. Then we can use the parametric definition of a circle to write
+	We will find a procedure that yields a fillet circle for a given radius $r$ and a pair of curves $\gamma_1, \gamma_2$ if it exists and returns nothing otherwise. We only need to find the center point $(x_0, y_0)$. Then we can use the parametric definition of a circle to write
 		$$ \phi^{\gamma_1, \gamma_2}_r(t) = (r \cos(2 \pi t) + x_0, r \sin(2 \pi t) + y_0).$$
-	For example, as shown in Figure \ref{fig:verysimplefillet}, given the curves $\gamma_1(t) = (2t-1,1)$ and $\gamma_2 = (1,2t-1)$ and a radius $r = 1$, the center point $(x_0,y_0)$ of the fillet circle is equal to $(0,0)$.
+	For example, as shown in Figure \ref{fig:verysimplefillet}, given the curves $\gamma_1(t) = (2t-1,1)$ and $\gamma_2 = (1,2t-1)$ and a radius $r = 1$, the center point $(x_0,y_0)$ of the fillet circle is equal to $(0,0)$. Therefore, in this case,
+		$$ \phi^{\gamma_1, \gamma_2}_r(t) = (\cos(2\pi t), \sin(2\pi t)), $$
+	which is the unit circle.
 
-
-
-
-	We can use offset curve and intersection methods to find the center point $(x_0, y_0)$ in the general case.
+	We can use offset curve and intersection methods to find the center point $(x_0, y_0)$ in the general case using the following steps given a radius $r$ and two curves $\gamma_1$ and $\gamma_2$.
+	\begin{enumerate}
+		\item Calculate the two offset curves $O^{\gamma_1}_r$ and $O^{\gamma_2}_r$.
+		\item Find their intersection parameter set $I(O^{\gamma_1}_r, O^{\gamma_2}_r)$.
+		\item For $(s,t) \in I(O^{\gamma_1}_r, O^{\gamma_2}_r)$, set $(x_0, y_0) := O^{\gamma_1}_r(s) = O^{\gamma_2}_r(t)$.
+	\end{enumerate}
 
 	\begin{figure}[H]
 		\centering
 		\includesvg[width=\textwidth]{../python/filletConstruction1}
 		\caption{Construction of the fillet circle of different radii.}
+		\label{fig:filletconstruction}
 	\end{figure}
 
+	As can be seen in Figure \ref{fig:filletconstruction}, the curve $\phi^{\gamma_1, \gamma_2}_r$ constructed this way fulfills the requirements of Definition \ref{def:filletcircle} and therefore is a fillet circle. Given the fillet circle, we now only need to trim the curves $\gamma_1$ and $\gamma_2$ and $\phi^{\gamma_1, \gamma_2}_r$.
 
 	\begin{figure}[H]
 		\centering
 		\includesvg[width=\textwidth]{../python/filletConstruction2}
 		\caption{Trimmed curves and fillets}
 	\end{figure}
+
+	In CoolingGen, the curves which we want to connect by a fillet are always connected at their boundary points. Without loss of generality, we let $\gamma_1(0) = \gamma_2(0)$. The trimmed input curves are then given by
+		$$
+			\overline{\gamma_1}(s) = \gamma_1 \domrestr_{[s^*,1]}\left(\frac{s-s^*}{1-s^*}\right) 
+			\quad\text{and}\quad
+			\overline{\gamma_2}(t) = \gamma_2 \domrestr_{[t^*,1]}\left(\frac{t-t^*}{1-t^*}\right) 
+		$$
+	for $(s^*,t^*) \in I(O^{\gamma_1}_r, O^{\gamma_2}_r)$. The parameters $s$ and $t$ are scaled such that the domains of the trimmed curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ remain equal to $[0,1]$.
+
+	Now, instead of actually trimming $\phi^{\gamma_1, \gamma_2}_r$, we can simply construct a circular arc between the end points of the trimmed curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$. Let $M = (x_0, y_0)$ the fillet circle center. By sweeping the line segment $\overline{M \gamma_1}$ by a certain angle $\Theta$, we can retrieve $\overline{\phi}^{\gamma_1, \gamma_2}_r$. This angle can be calculated by
+		$$ \Theta = \arccos \frac{(D_1-M) \cdot (D_2-M)}{||D_1-M|| \; ||D_2-M||}, $$
+	where $D_i := \overline{\gamma_i}(0)$ are the trimmed input curve start points and $(\cdot)$ is the standard dot product. We can now write the trimmed fillet curve as
+		$$ \overline{\phi}^{\gamma_1, \gamma_2}_r(t) = R_{t\Theta} \overline{M \gamma_1},$$
+	where $R_{t\Theta}$ is the rotation matrix by alpha, given by
+		$$
+			R_{t\Theta} :=
+			\begin{pmatrix}
+				\cos t\Theta & -\sin t\Theta \\
+				\sin t\Theta & \phantom{+}\cos t\Theta
+			\end{pmatrix}.
+		$$
+	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
 
 \section{Jet Engine Design Specifics}
 \subsection{Fundamental Terms}

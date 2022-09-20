@@ -73,7 +73,8 @@ sine = sine(ts)
 tria_indices, sine_indices = get_intersections(tria, sine)
 
 
-fig, ax = plt.subplots(2, 2, figsize = (8, 6))
+fig, ax = plt.subplots(1, 4, figsize = (12, 3))
+ax = ax.reshape((2,2))
 
 ax[0,0].plot(tria, ts, label=r"$\gamma_1$")
 ax[0,0].plot(sine, ts, label=r"$\gamma_2$")
@@ -192,8 +193,15 @@ ax[1,1].set_ylabel(r"$t$ of $\gamma_2(t)$")
 
 ax[0,1].set_aspect("equal", "box")
 ax[1,1].set_aspect("equal", "box")
+
 ax[0,0].axis("off")
 ax[1,0].axis("off")
+
+ax[0,0].set_title("(A)", loc="left", weight="bold")
+#ax[0,1].set_title("(A2)", loc="left", weight="bold")
+ax[1,0].set_title("(B)", loc="left", weight="bold")
+#ax[1,1].set_title("(B2)", loc="left", weight="bold")
+
 
 plt.tight_layout()
 

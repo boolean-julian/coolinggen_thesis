@@ -135,6 +135,7 @@ def draw_circle(ax, radius, center):
 	ys = radius * np.sin(2*np.pi*ts) + center[1]
 
 	ax.plot(xs, ys, "tab:green")
+	ax.text(xs[250]+0.02, ys[250]+0.05, r"$\phi_{{{d}}}^{{\gamma_1, \gamma_2}}$".format(d=radius), va = "bottom", ha = "center")
 
 
 fig, ax = plt.subplots(1, 3, figsize=(8,2))
@@ -241,7 +242,7 @@ for i in range(len(radii)):
 	ax[i+1].text(*(p1[-1]), r"$\overline{\gamma_1}$")	
 	ax[i+1].text(*(p2[0]), r"$\overline{\gamma_2}$")
 	
-	ax[i+1].text(*(cs[kbest1]), r"$\phi_{{{d}}}^{{\gamma_1, \gamma_2}}$".format(d=radii[i]), va = "top", ha = "left")
+	ax[i+1].text(*(cs[kbest1]+np.array([0.1, 0])), r"$\overline{{\phi}}_{{{d}}}^{{\gamma_1, \gamma_2}}$".format(d=radii[i]), va = "top", ha = "left")
 
 plt.tight_layout()
 plt.savefig("filletConstruction2.svg")

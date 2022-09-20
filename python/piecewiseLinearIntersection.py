@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('text', usetex=True)
 
 samples = 3
 maxdepth = 10
@@ -125,6 +127,11 @@ for a in ax:
 	ax[a].axis("off")
 	ax[a].set_aspect("equal", "box")
 
+ax["A"].set_title("(A)", loc="left", fontsize=10)
+ax["B"].set_title("(B)", loc="left", fontsize=10)
+ax["L"].set_title("(C)", loc="left", fontsize=10)
+
+
 intersections = intersect(gamma1, gamma2)
 plot_points(ax["L"], gamma1(ts), "tab:blue")
 plot_points(ax["L"], gamma2(ts), "tab:orange")
@@ -134,4 +141,4 @@ print(intersections)
 
 plt.tight_layout()
 plt.savefig("piecewiseLinearIntersection.svg")
-#plt.show()
+plt.show()
