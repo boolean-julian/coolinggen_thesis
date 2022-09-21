@@ -1126,7 +1126,7 @@ Göttingen, \today \hspace{2em}
 	In fact, the creation of fillets also plays a role in the creation of offset curves, since the procedure presented leaves behind non-differentiable places on the trimmed offset curves, which are undesirable for CoolingGen's purposes.
 
 \subsection{The Creation of Fillets in 2D}
-	Given two curves $\gamma_1$ and $\gamma_2 \in \mathbb{R}^2$ defined on $t \in [0,1]$ we can sometimes construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle. Segments of these circles can replace non-differentiable segments from a curve. More formally, we can make the following definitions
+	Given two curves $\gamma_1$ and $\gamma_2 \in \mathbb{R}^2$ defined on $t \in [0,1]$ we can sometimes construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle. Segments of these circles can replace non-differentiable segments from a curve. More formally, we can make the following definition.
 
 	\begin{definition}\label{def:filletcircle}
 		Let $\gamma_1$ and $\gamma_2$ be two differentiable curves.
@@ -1135,7 +1135,13 @@ Göttingen, \today \hspace{2em}
 		for a center point $(x_0, y_0)$ and a radius $r$, then it is a circle. If furthermore there exist intersection points
 			$$ \gamma_1(s_1) = \phi^{\gamma_1, \gamma_2}_r(\sigma_1) \quad\text{ and }\quad \gamma_2(s_2) = \phi^{\gamma_1, \gamma_2}_r(\sigma_2) $$
 		for some $s_1, s_2, \sigma_1, \sigma_2 \in [0,1]$ and these intersection points are tangential in the sense that
-			$$\nabla \gamma_1(s_1) = \pm\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_1) \quad\text{ and }\quad \pm\nabla \gamma_2(s_2) = \nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_2),$$
+			$$
+				\frac{\nabla \gamma_1(s_1)}{||\nabla \gamma_1(s_1)||} = 
+				\frac{\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_1)}{||\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_1)||} 
+				\quad\text{ and }\quad 
+				\frac{\nabla \gamma_2(s_2)}{||\nabla \gamma_2(s_2)||} =  
+				\frac{\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_2)}{||\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_2)||},
+			$$
 		then $\phi^{\gamma_1, \gamma_2}_r$ is a fillet circle of radius $r$ of $\gamma_1$ and $\gamma_2$.
 	\end{definition}
 	\begin{remark}
@@ -1149,13 +1155,42 @@ Göttingen, \today \hspace{2em}
 		\label{fig:verysimplefillet}
 	\end{figure}
 
-	We will find a procedure that yields a fillet circle for a given radius $r$ and a pair of curves $\gamma_1, \gamma_2$ if it exists and returns nothing otherwise. We only need to find the center point $(x_0, y_0)$. Then we can use the parametric definition of a circle to write
+	We will find a procedure that yields a fillet circle for a given radius $r$ and a pair of curves $\gamma_1, \gamma_2$ if it exists and returns nothing otherwise. We only need to find the center point $(x_0, y_0)$. Then we can use the parametric definition of a circle and write
 		$$ \phi^{\gamma_1, \gamma_2}_r(t) = (r \cos(2 \pi t) + x_0, r \sin(2 \pi t) + y_0).$$
 	For example, as shown in Figure \ref{fig:verysimplefillet}, given the curves $\gamma_1(t) = (2t-1,1)$ and $\gamma_2 = (1,2t-1)$ and a radius $r = 1$, the center point $(x_0,y_0)$ of the fillet circle is equal to $(0,0)$. Therefore, in this case,
 		$$ \phi^{\gamma_1, \gamma_2}_r(t) = (\cos(2\pi t), \sin(2\pi t)), $$
 	which is the unit circle.
 
-	We can use offset curve and intersection methods to find the center point $(x_0, y_0)$ in the general case using the following steps given a radius $r$ and two curves $\gamma_1$ and $\gamma_2$.
+	\begin{theorem}\label{thm:fillettheorem}
+		Let $\gamma_1, \gamma_2$ and $r$ such that a fillet circle $\phi^{\gamma_1, \gamma_2}_r$ exists. Then the midpoint $M = (x_0, y_0)$ of a fillet circle is given by
+			$$ M = O^{\gamma_1}_r(s_1) = O^{\gamma_2}_r(s_2) $$
+		for $(s_1,s_2) \in I(O^{\gamma_1}_r, O^{\gamma_2}_r)$.
+	\end{theorem}
+	\begin{proof}
+		Let $\tilde\phi(t) = r (\sin 2\pi t, \cos 2\pi t) + O^{\gamma_1}_r(s_1)$. Then we can calculate
+		\begin{align*}
+			\tilde\phi(t) 	&= r (\sin 2\pi t, \cos 2\pi t) + \gamma(s_1) + rN^\gamma(s_1) \\
+							&= r (\sin 2\pi t, \cos 2\pi t) + \gamma(s_1) + r\frac{\nabla\gamma(s_1)^\perp}{||\nabla\gamma(s_1)||}. \\
+		\end{align*}
+		Notice that $(\sin 2\pi t, \cos 2\pi t)$ is equal to an arbitrary unit vector, so for some fixed $\sigma_1 \in [0,1]$ the equation
+			$$(\sin 2\pi \sigma_1, \cos 2\pi \sigma_1) = \frac{\nabla\gamma(s_1)^\perp}{||\nabla\gamma(s_1)||}$$
+		will be satisfied, since $\frac{\nabla\gamma(s_1)^\perp}{||\nabla\gamma(s_1)||}$ is a fixed unit vector.
+		In the same manner, we can construct $\sigma_2$ for the equivalent curve definition $\tilde\phi(t) = r (\sin 2\pi t, \cos 2\pi t) + O^{\gamma_2}_r(s_2).$ Notice that $\sigma_1$ and $\sigma_2$ also satisfy
+			$$ \tilde\phi(\sigma_1) = \gamma_1(s_1) \quad\text{and}\quad \tilde\phi(\sigma_2) = \gamma_2(s_2).$$
+		By calculating $\nabla \tilde\phi(t)$, we find
+			$$ \nabla \tilde\phi(t) = 2\pi (\cos 2\pi t, -\sin 2\pi t), $$
+		which after normalization yields the equalities
+			$$
+				\frac{\nabla \gamma_1(s_1)}{||\nabla \gamma_1(s_1)||} = 
+				\frac{\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_1)}{||\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_1)||} 
+				\quad\text{ and }\quad 
+				\frac{\nabla \gamma_2(s_2)}{||\nabla \gamma_2(s_2)||} =  
+				\frac{\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_2)}{||\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_2)||}.
+			$$
+		Therefore, $\tilde \phi$ is in fact a fillet circle.
+	\end{proof}
+
+	Theorem \ref{thm:fillettheorem} tells us we can use offset curve and intersection methods to find the center point $(x_0, y_0)$ in the general case using the following steps given a radius $r$ and two curves $\gamma_1$ and $\gamma_2$.
 	\begin{enumerate}
 		\item Calculate the two offset curves $O^{\gamma_1}_r$ and $O^{\gamma_2}_r$.
 		\item Find their intersection parameter set $I(O^{\gamma_1}_r, O^{\gamma_2}_r)$.
@@ -1185,11 +1220,11 @@ Göttingen, \today \hspace{2em}
 		$$
 	for $(s^*,t^*) \in I(O^{\gamma_1}_r, O^{\gamma_2}_r)$. The parameters $s$ and $t$ are scaled such that the domains of the trimmed curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ remain equal to $[0,1]$.
 
-	Now, instead of actually trimming $\phi^{\gamma_1, \gamma_2}_r$, we can simply construct a circular arc between the end points of the trimmed curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$. Let $M = (x_0, y_0)$ the fillet circle center. By sweeping the line segment $\overline{M \gamma_1}$ by a certain angle $\Theta$, we can retrieve $\overline{\phi}^{\gamma_1, \gamma_2}_r$. This angle can be calculated by
+	Now, instead of actually trimming $\phi^{\gamma_1, \gamma_2}_r$, we can construct a circular arc between the end points $D_i := \overline{\gamma_i}(0)$ of the trimmed curves for $i \in \{1,2\}$. Let $M = (x_0, y_0)$ the fillet circle center. By sweeping the line segment $\overline{M_1 D_1}$ by a certain angle $\Theta$, we can retrieve $\overline{\phi}^{\gamma_1, \gamma_2}_r$. This angle can be calculated by
 		$$ \Theta = \arccos \frac{(D_1-M) \cdot (D_2-M)}{||D_1-M|| \; ||D_2-M||}, $$
-	where $D_i := \overline{\gamma_i}(0)$ are the trimmed input curve start points and $(\cdot)$ is the standard dot product. We can now write the trimmed fillet curve as
-		$$ \overline{\phi}^{\gamma_1, \gamma_2}_r(t) = R_{t\Theta} \overline{M \gamma_1},$$
-	where $R_{t\Theta}$ is the rotation matrix by alpha, given by
+	where $(\cdot)$ is the standard dot product. We can now write the trimmed fillet curve as
+		$$ \overline{\phi}^{\gamma_1, \gamma_2}_r(t) = R_{+t\Theta}(D_1-M)+M = R_{-t\Theta}(D_2-M)+M,$$
+	for $t \in [0,1]$, where $R_{\Theta}$ is the rotation matrix given by
 		$$
 			R_{t\Theta} :=
 			\begin{pmatrix}
@@ -1212,11 +1247,6 @@ Göttingen, \today \hspace{2em}
 \begin{figure}[H]
 	\centering
 	\includesvg[width=0.5\textwidth]{../python/fanshapedCurveDefinition}
-	\caption{yeah}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includesvg[width=0.5\textwidth]{../assets/tecplot/selfIntersection}
 	\caption{yeah}
 \end{figure}
 

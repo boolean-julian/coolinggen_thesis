@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  20 SEP 2022 11:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  21 SEP 2022 23:17
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -1632,7 +1632,7 @@ svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single
  page
 >] [22]
 Package svg Info: Last page of `./svg-inkscape/verySimpleFillet_svg-tex.pdf' is
- 1 on input line 1147.
+ 1 on input line 1153.
  (svg-inkscape/verySimpleFillet_svg-tex.pdf_tex
 <./svg-inkscape/verySimpleFillet_svg-tex.pdf, id=1002, page=1, 144.54pt x 144.5
 4pt>
@@ -1641,41 +1641,36 @@ File: ./svg-inkscape/verySimpleFillet_svg-tex.pdf Graphic file (type pdf)
 Package pdftex.def Info: ./svg-inkscape/verySimpleFillet_svg-tex.pdf , page1 us
 ed on input line 56.
 (pdftex.def)             Requested size: 91.04742pt x 91.04742pt.
-)
+) [23 <./svg-inkscape/verySimpleFillet_svg-tex.pdf>]
 Package svg Info: Last page of `./svg-inkscape/filletConstruction1_svg-tex.pdf'
- is 1 on input line 1167.
-
-(svg-inkscape/filletConstruction1_svg-tex.pdf_tex
-<./svg-inkscape/filletConstruction1_svg-tex.pdf, id=1005, page=1, 578.16pt x 14
+ is 1 on input line 1202.
+ (svg-inkscape/filletConstruction1_svg-tex.pdf_tex
+<./svg-inkscape/filletConstruction1_svg-tex.pdf, id=1023, page=1, 578.16pt x 14
 4.54pt>
 File: ./svg-inkscape/filletConstruction1_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletConstruction1_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/filletConstruction1_svg-tex.pdf , page1
  used on input line 56.
 (pdftex.def)             Requested size: 455.24411pt x 113.8104pt.
-) [23 <./svg-inkscape/verySimpleFillet_svg-tex.pdf>]
+)
+[24 <./svg-inkscape/filletConstruction1_svg-tex.pdf>]
 Package svg Info: Last page of `./svg-inkscape/filletConstruction2_svg-tex.pdf'
- is 1 on input line 1176.
- (svg-inkscape/filletConstruction2_svg-tex.pdf_tex
-<./svg-inkscape/filletConstruction2_svg-tex.pdf, id=1028, page=1, 578.16pt x 72
+ is 1 on input line 1211.
+
+(svg-inkscape/filletConstruction2_svg-tex.pdf_tex
+<./svg-inkscape/filletConstruction2_svg-tex.pdf, id=1091, page=1, 578.16pt x 72
 .27pt>
 File: ./svg-inkscape/filletConstruction2_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletConstruction2_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/filletConstruction2_svg-tex.pdf , page1
  used on input line 56.
 (pdftex.def)             Requested size: 455.24411pt x 56.90518pt.
-)
-[24 <./svg-inkscape/filletConstruction1_svg-tex.pdf> <./svg-inkscape/filletCons
-truction2_svg-tex.pdf
-
-pdfTeX warning: pdflatex.EXE (file ./svg-inkscape/filletConstruction2_svg-tex.p
-df): PDF inclusion: multiple pdfs with page group included in a single page
->] [25]
+) [25 <./svg-inkscape/filletConstruction2_svg-tex.pdf>]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
-.pdf' is 1 on input line 1214.
+.pdf' is 1 on input line 1249.
 (svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=1131, page=1, 361.35pt
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=1134, page=1, 361.35pt
  x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1683,26 +1678,9 @@ f)
 Package pdftex.def Info: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf , 
 page1 used on input line 56.
 (pdftex.def)             Requested size: 227.62206pt x 227.62413pt.
-)
-Package svg Info: Last page of `./svg-inkscape/selfIntersection_svg-tex.pdf' is
- 1 on input line 1219.
-
-(svg-inkscape/selfIntersection_svg-tex.pdf_tex
-<./svg-inkscape/selfIntersection_svg-tex.pdf, id=1133, page=1, 596.23853pt x 26
-5.00102pt>
-File: ./svg-inkscape/selfIntersection_svg-tex.pdf Graphic file (type pdf)
-<use ./svg-inkscape/selfIntersection_svg-tex.pdf, page 1>
-Package pdftex.def Info: ./svg-inkscape/selfIntersection_svg-tex.pdf , page1 us
-ed on input line 56.
-(pdftex.def)             Requested size: 227.62206pt x 101.16644pt.
 ) [26
 
- <./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf> <./svg-inkscape/selfInte
-rsection_svg-tex.pdf
-
-pdfTeX warning: pdflatex.EXE (file ./svg-inkscape/selfIntersection_svg-tex.pdf)
-: PDF inclusion: multiple pdfs with page group included in a single page
->]
+ <./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf>]
 Chapter 4.
 [27
 
@@ -1712,16 +1690,16 @@ Chapter 5.
 
 ] (thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 79ADC6154705FEC3C051C9BD2EA3077D;5211.
+(rerunfilecheck)             Checksum: E48469E89BB247B9BF4EB7ECEC6A1EC6;5211.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36117 strings out of 479173
- 668482 string characters out of 2864039
- 1495511 words of memory out of 3000000
- 52924 multiletter control sequences out of 15000+600000
+ 36104 strings out of 479173
+ 667827 string characters out of 2864039
+ 1495585 words of memory out of 3000000
+ 52916 multiletter control sequences out of 15000+600000
  475558 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,19n,96p,741b,1661s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1746,9 +1724,9 @@ s/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy
 8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/julia
 n/AppData/Roaming/MiKTeX/fonts/type1/public/marvosym/marvosym.pfb><C:/Program F
 iles/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (34 pages, 990792 bytes).
+Output written on thesis.pdf (34 pages, 966518 bytes).
 PDF statistics:
- 1299 PDF objects out of 1440 (max. 8388607)
+ 1295 PDF objects out of 1440 (max. 8388607)
  142 named destinations out of 1000 (max. 500000)
- 468 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 458 words of extra memory for PDF output out of 10000 (max. 10000000)
 
