@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  21 SEP 2022 23:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  22 SEP 2022 08:23
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -1634,18 +1634,18 @@ svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single
 Package svg Info: Last page of `./svg-inkscape/verySimpleFillet_svg-tex.pdf' is
  1 on input line 1153.
  (svg-inkscape/verySimpleFillet_svg-tex.pdf_tex
-<./svg-inkscape/verySimpleFillet_svg-tex.pdf, id=1002, page=1, 144.54pt x 144.5
+<./svg-inkscape/verySimpleFillet_svg-tex.pdf, id=1002, page=1, 433.62pt x 144.5
 4pt>
 File: ./svg-inkscape/verySimpleFillet_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/verySimpleFillet_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/verySimpleFillet_svg-tex.pdf , page1 us
 ed on input line 56.
-(pdftex.def)             Requested size: 91.04742pt x 91.04742pt.
+(pdftex.def)             Requested size: 273.14923pt x 91.05405pt.
 ) [23 <./svg-inkscape/verySimpleFillet_svg-tex.pdf>]
 Package svg Info: Last page of `./svg-inkscape/filletConstruction1_svg-tex.pdf'
  is 1 on input line 1202.
  (svg-inkscape/filletConstruction1_svg-tex.pdf_tex
-<./svg-inkscape/filletConstruction1_svg-tex.pdf, id=1023, page=1, 578.16pt x 14
+<./svg-inkscape/filletConstruction1_svg-tex.pdf, id=1032, page=1, 578.16pt x 14
 4.54pt>
 File: ./svg-inkscape/filletConstruction1_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletConstruction1_svg-tex.pdf, page 1>
@@ -1653,24 +1653,24 @@ Package pdftex.def Info: ./svg-inkscape/filletConstruction1_svg-tex.pdf , page1
  used on input line 56.
 (pdftex.def)             Requested size: 455.24411pt x 113.8104pt.
 )
-[24 <./svg-inkscape/filletConstruction1_svg-tex.pdf>]
 Package svg Info: Last page of `./svg-inkscape/filletConstruction2_svg-tex.pdf'
  is 1 on input line 1211.
 
 (svg-inkscape/filletConstruction2_svg-tex.pdf_tex
-<./svg-inkscape/filletConstruction2_svg-tex.pdf, id=1091, page=1, 578.16pt x 72
+<./svg-inkscape/filletConstruction2_svg-tex.pdf, id=1036, page=1, 578.16pt x 72
 .27pt>
 File: ./svg-inkscape/filletConstruction2_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletConstruction2_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/filletConstruction2_svg-tex.pdf , page1
  used on input line 56.
 (pdftex.def)             Requested size: 455.24411pt x 56.90518pt.
-) [25 <./svg-inkscape/filletConstruction2_svg-tex.pdf>]
+) [24 <./svg-inkscape/filletConstruction1_svg-tex.pdf>] [25 <./svg-inkscape/fil
+letConstruction2_svg-tex.pdf>]
 Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
 .pdf' is 1 on input line 1249.
 (svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=1134, page=1, 361.35pt
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=1143, page=1, 361.35pt
  x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1724,9 +1724,9 @@ s/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy
 8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/julia
 n/AppData/Roaming/MiKTeX/fonts/type1/public/marvosym/marvosym.pfb><C:/Program F
 iles/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (34 pages, 966518 bytes).
+Output written on thesis.pdf (34 pages, 967990 bytes).
 PDF statistics:
- 1295 PDF objects out of 1440 (max. 8388607)
+ 1304 PDF objects out of 1440 (max. 8388607)
  142 named destinations out of 1000 (max. 500000)
  458 words of extra memory for PDF output out of 10000 (max. 10000000)
 
