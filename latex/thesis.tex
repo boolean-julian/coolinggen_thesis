@@ -845,8 +845,8 @@ Göttingen, \today \hspace{2em}
 			\Procedure{intersectCurveRay}{$\gamma, A, B$}
 				\State $B \gets \frac{B}{||B||}, s \gets 0, P \gets A$
 				\For {$k = 1, 2,..., N$}
-					\State $s \gets s + D(\gamma(\text{pointInversion}(\gamma, P)), P)$
-					\State $P \gets A + sB$
+					\State $s \gets D(\gamma(\text{pointInversion}(\gamma, P)), P)$
+					\State $P \gets P + sB$
 					\If {$s < \epsilon$}
 						\State \Return $\{P\}$
 					\EndIf
