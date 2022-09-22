@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  22 SEP 2022 08:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.27)  22 SEP 2022 23:08
 entering extended mode
 **./thesis.tex
 (thesis.tex
@@ -1559,26 +1559,26 @@ File: ./svg-inkscape/rayMarching_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/rayMarching_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/rayMarching_svg-tex.pdf , page1 used on
  input line 56.
-(pdftex.def)             Requested size: 318.66948pt x 185.88724pt.
+(pdftex.def)             Requested size: 409.71692pt x 239.0034pt.
 ) [15 <./svg-inkscape/rayMarching_svg-tex.pdf>]
 Package svg Info: Last page of `./svg-inkscape/curveIntersectionConnectedness_s
 vg-tex.pdf' is 1 on input line 879.
  (svg-inkscape/curveIntersectionConnectedness_svg-tex.pdf_tex
-<./svg-inkscape/curveIntersectionConnectedness_svg-tex.pdf, id=598, page=1, 867
-.24pt x 216.81pt>
+<./svg-inkscape/curveIntersectionConnectedness_svg-tex.pdf, id=598, page=1, 737
+.65419pt x 184.28851pt>
 File: ./svg-inkscape/curveIntersectionConnectedness_svg-tex.pdf Graphic file (t
 ype pdf)
 <use ./svg-inkscape/curveIntersectionConnectedness_svg-tex.pdf, page 1>
 Package pdftex.def Info: ./svg-inkscape/curveIntersectionConnectedness_svg-tex.
 pdf , page1 used on input line 56.
-(pdftex.def)             Requested size: 450.69417pt x 112.67567pt.
+(pdftex.def)             Requested size: 455.24411pt x 113.73746pt.
 )
 [16 <./svg-inkscape/curveIntersectionConnectedness_svg-tex.pdf>] [17]
 Package svg Info: Last page of `./svg-inkscape/piecewiseLinearIntersection_svg-
 tex.pdf' is 1 on input line 980.
 
 (svg-inkscape/piecewiseLinearIntersection_svg-tex.pdf_tex
-<./svg-inkscape/piecewiseLinearIntersection_svg-tex.pdf, id=688, page=1, 650.43
+<./svg-inkscape/piecewiseLinearIntersection_svg-tex.pdf, id=687, page=1, 650.43
 pt x 216.81pt>
 File: ./svg-inkscape/piecewiseLinearIntersection_svg-tex.pdf Graphic file (type
  pdf)
@@ -1591,7 +1591,7 @@ Package svg Info: Last page of `./svg-inkscape/offsetCurveExample_svg-tex.pdf'
 is 1 on input line 1052.
 
 (svg-inkscape/offsetCurveExample_svg-tex.pdf_tex
-<./svg-inkscape/offsetCurveExample_svg-tex.pdf, id=914, page=1, 578.16pt x 289.
+<./svg-inkscape/offsetCurveExample_svg-tex.pdf, id=913, page=1, 578.16pt x 289.
 08pt>
 File: ./svg-inkscape/offsetCurveExample_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/offsetCurveExample_svg-tex.pdf, page 1>
@@ -1603,7 +1603,7 @@ Package svg Info: Last page of `./svg-inkscape/offsetCurveSelfIntersection0_svg
 -tex.pdf' is 1 on input line 1092.
 
 (svg-inkscape/offsetCurveSelfIntersection0_svg-tex.pdf_tex
-<./svg-inkscape/offsetCurveSelfIntersection0_svg-tex.pdf, id=944, page=1, 345.0
+<./svg-inkscape/offsetCurveSelfIntersection0_svg-tex.pdf, id=943, page=1, 345.0
 8923pt x 195.129pt>
 File: ./svg-inkscape/offsetCurveSelfIntersection0_svg-tex.pdf Graphic file (typ
 e pdf)
@@ -1616,7 +1616,7 @@ Package svg Info: Last page of `./svg-inkscape/offsetCurveSelfIntersection1_svg
 -tex.pdf' is 1 on input line 1096.
 
 (svg-inkscape/offsetCurveSelfIntersection1_svg-tex.pdf_tex
-<./svg-inkscape/offsetCurveSelfIntersection1_svg-tex.pdf, id=946, page=1, 345.0
+<./svg-inkscape/offsetCurveSelfIntersection1_svg-tex.pdf, id=945, page=1, 345.0
 8923pt x 195.129pt>
 File: ./svg-inkscape/offsetCurveSelfIntersection1_svg-tex.pdf Graphic file (typ
 e pdf)
@@ -1634,7 +1634,7 @@ svg-tex.pdf): PDF inclusion: multiple pdfs with page group included in a single
 Package svg Info: Last page of `./svg-inkscape/verySimpleFillet_svg-tex.pdf' is
  1 on input line 1153.
  (svg-inkscape/verySimpleFillet_svg-tex.pdf_tex
-<./svg-inkscape/verySimpleFillet_svg-tex.pdf, id=1002, page=1, 433.62pt x 144.5
+<./svg-inkscape/verySimpleFillet_svg-tex.pdf, id=1001, page=1, 433.62pt x 144.5
 4pt>
 File: ./svg-inkscape/verySimpleFillet_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/verySimpleFillet_svg-tex.pdf, page 1>
@@ -1645,7 +1645,7 @@ ed on input line 56.
 Package svg Info: Last page of `./svg-inkscape/filletConstruction1_svg-tex.pdf'
  is 1 on input line 1202.
  (svg-inkscape/filletConstruction1_svg-tex.pdf_tex
-<./svg-inkscape/filletConstruction1_svg-tex.pdf, id=1032, page=1, 578.16pt x 14
+<./svg-inkscape/filletConstruction1_svg-tex.pdf, id=1031, page=1, 578.16pt x 14
 4.54pt>
 File: ./svg-inkscape/filletConstruction1_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletConstruction1_svg-tex.pdf, page 1>
@@ -1657,7 +1657,7 @@ Package svg Info: Last page of `./svg-inkscape/filletConstruction2_svg-tex.pdf'
  is 1 on input line 1211.
 
 (svg-inkscape/filletConstruction2_svg-tex.pdf_tex
-<./svg-inkscape/filletConstruction2_svg-tex.pdf, id=1036, page=1, 578.16pt x 72
+<./svg-inkscape/filletConstruction2_svg-tex.pdf, id=1035, page=1, 578.16pt x 72
 .27pt>
 File: ./svg-inkscape/filletConstruction2_svg-tex.pdf Graphic file (type pdf)
 <use ./svg-inkscape/filletConstruction2_svg-tex.pdf, page 1>
@@ -1670,7 +1670,7 @@ Chapter 3.
 Package svg Info: Last page of `./svg-inkscape/fanshapedCurveDefinition_svg-tex
 .pdf' is 1 on input line 1249.
 (svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf_tex
-<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=1143, page=1, 361.35pt
+<./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf, id=1142, page=1, 361.35pt
  x 361.35pt>
 File: ./svg-inkscape/fanshapedCurveDefinition_svg-tex.pdf Graphic file (type pd
 f)
@@ -1690,15 +1690,15 @@ Chapter 5.
 
 ] (thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: E48469E89BB247B9BF4EB7ECEC6A1EC6;5211.
+(rerunfilecheck)             Checksum: C558E6B9050A38694EC82328ECC33DF8;5210.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36104 strings out of 479173
- 667827 string characters out of 2864039
- 1495585 words of memory out of 3000000
+ 36103 strings out of 479173
+ 667814 string characters out of 2864039
+ 1495578 words of memory out of 3000000
  52916 multiletter control sequences out of 15000+600000
  475558 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1724,9 +1724,9 @@ s/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy
 8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/julia
 n/AppData/Roaming/MiKTeX/fonts/type1/public/marvosym/marvosym.pfb><C:/Program F
 iles/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on thesis.pdf (34 pages, 967990 bytes).
+Output written on thesis.pdf (34 pages, 967951 bytes).
 PDF statistics:
- 1304 PDF objects out of 1440 (max. 8388607)
- 142 named destinations out of 1000 (max. 500000)
+ 1303 PDF objects out of 1440 (max. 8388607)
+ 141 named destinations out of 1000 (max. 500000)
  458 words of extra memory for PDF output out of 10000 (max. 10000000)
 

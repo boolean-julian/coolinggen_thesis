@@ -73,7 +73,7 @@ sine = sine(ts)
 tria_indices, sine_indices = get_intersections(tria, sine)
 
 
-fig, ax = plt.subplots(1, 4, figsize = (12, 3))
+fig, ax = plt.subplots(1, 4, figsize = (10.2, 2.55), gridspec_kw={'width_ratios': [1, 1.5, 1, 1.5]})
 ax = ax.reshape((2,2))
 
 ax[0,0].plot(tria, ts, label=r"$\gamma_1$")
@@ -85,18 +85,16 @@ ax[0,0].plot(tria[tria_indices], ts[tria_indices], 'ro', label="$V(\gamma_1, \ga
 
 for i in range(len(tria_indices)):
 	if (i%2 != 0):
-		dx = -0.02
-		dy = -0.01
+		dx = -0.031
+		dy = -0.005
 		va = "top"
 		ha = "right"
 
 	else:
-		dx = 0.03
-		dy = -0.01
+		dx = 0.045
+		dy = -0.005
 		va = "top"
 		ha = "left"
-
-
 
 	s = r'$\gamma_1(s_{{{n}}}) = \gamma_2(t_{{{n}}})$'.format(n=i)
 
@@ -111,9 +109,9 @@ for i in range(len(tria_indices)):
 	s = r'$(s_{{{n}}}, t_{{{n}}})$'.format(n=i)
 	
 	if i < 2:
-		dx = 0.02
-		dy = 0.01
-		va = "bottom"
+		dx = 0.05
+		dy = 0.00
+		va = "center"
 		ha = "left"
 	else:
 		dx = -0.02
@@ -154,24 +152,24 @@ def drawdelimiter(point, direction, width, height, a):
 	ny = +width*direction[0]
 
 	points = [(xs-nx+dx, ys-ny+dy), (xs-nx, ys-ny), (xs+nx, ys+ny), (xs+nx+dx, ys+ny+dy)]
-	drawpoints(points, a, 'r', False)
+	drawpoints(points, a, 'tab:red', False)
 
-width = 0.03
-height = 0.01
+width = 0.06
+height = 0.02
 drawpoints(c1points, ax[1,0], "tab:orange", False)
 drawpoints(c2points, ax[1,0], "tab:blue", True)
 drawdelimiter(c1points[1], (0,+1), width, height, ax[1,0])
 drawdelimiter(c2points[2], (0,-1), width, height, ax[1,0])
 
 
-dx = 0.05
+dx = 0.08
 ax[1,0].text(c1points[1][0]+dx, c1points[1][1]+dy, r"$\gamma_1(s_1) = \gamma_2(t_2)$")
 ax[1,0].text(c1points[2][0]+dx, c2points[2][1]+dy, r"$\gamma_1(s_2) = \gamma_2(t_1)$")
 
 
 
-width = 0.01
-height = 0.003
+width = 0.02
+height = 0.006
 
 ipoints = [(0.3,0.7), (0.7,0.3)]
 direction2 = (ipoints[0][0] - ipoints[1][0], ipoints[0][1] - ipoints[1][1])
@@ -180,10 +178,10 @@ drawpoints(ipoints, ax[1,1], "tab:red", False)
 drawdelimiter(ipoints[0], direction1, width, height, ax[1,1])
 drawdelimiter(ipoints[1], direction2, width, height, ax[1,1])
 
-dx = 0.02
+dx = 0.03
 ax[1,1].text(ipoints[0][0]+dx, ipoints[0][1]+dy, r"$(s_1, t_2)$")
 
-dx = -0.1
+dx = -0.16
 ax[1,1].text(ipoints[1][0]+dx, ipoints[1][1]+dy, r"$(s_2, t_1)$")
 
 
@@ -198,12 +196,12 @@ ax[0,0].axis("off")
 ax[1,0].axis("off")
 
 ax[0,0].set_title("(A)", loc="left", weight="bold")
-#ax[0,1].set_title("(A2)", loc="left", weight="bold")
+#ax[0,1].set_title("A2", loc="left", weight="bold")
 ax[1,0].set_title("(B)", loc="left", weight="bold")
-#ax[1,1].set_title("(B2)", loc="left", weight="bold")
+#ax[1,1].set_title("B2", loc="left", weight="bold")
 
 
-plt.tight_layout()
+plt.tight_layout(pad=0.2)
 
 plt.savefig("curveIntersectionConnectedness.svg")
 plt.show()

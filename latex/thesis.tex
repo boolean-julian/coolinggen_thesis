@@ -831,8 +831,8 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\includesvg[width=0.7\textwidth]{../python/rayMarching}
-		\caption{The ray marching algorithm.}
+		\includesvg[width=0.9\textwidth]{../python/rayMarching}
+		\caption{Ray marching.}
 		\label{fig:raymarchingvis}
 	\end{figure}
 
@@ -867,16 +867,16 @@ Göttingen, \today \hspace{2em}
 	\end{definition}
 
 	Similarly to the prior sections, our goal is to minimize a distance function $D(\gamma_1(s), \gamma_2(t))$. In this case, we will employ a pragmatic scheme that uses a piecewise linear approximation of the curve, in which finding intersections is comparably simple and involves finding the intersection of a number of line segments.
-	
+
 	\begin{definition}
 		The intersection parameter set of two continuous curves $\gamma_1$ and $\gamma_2$ is defined as
 				$$ I(\gamma_1, \gamma_2) := \{(s,t) \in [0,1]^2 : \gamma_1(s) = \gamma_2(t)\}.$$
 		Notice that $\gamma_1([0,1]) \cap \gamma_2([0,1]) = \emptyset$ if and only if $I(\gamma_1, \gamma_2) = \emptyset$.
 	\end{definition}
-	
+
 	\begin{figure}[H]
 		\centering
-		\includesvg[width=0.99\textwidth]{../python/curveIntersectionConnectedness}
+		\includesvg[width=\textwidth]{../python/curveIntersectionConnectedness}
 		\caption{In (A) we have $|I(\gamma_1, \gamma_2)| < \infty$, whereas in (B) we have $|I(\gamma_1, \gamma_2)| = \infty$.}
 		\label{fig:curveIntersectionConnectedness}
 	\end{figure}
@@ -911,7 +911,7 @@ Göttingen, \today \hspace{2em}
 
 	\begin{theorem}\label{thm:lineintersection}
 		Let $L_A([0,1])$ and $L_B([0,1])$ be two line segments in $\mathbb{R}^2$. If the lines $L_A((-\infty,\infty))$ and $L_B((-\infty,\infty))$ are not parallel, their single intersection pointt is given by $L_A(t_A) = L_B(t_B)$, where
-			\begin{equation}\label{eq:lineintersection}
+			\begin{equation*}\label{eq:lineintersection}
 				t_A = 
 				\frac {
 					\det
@@ -943,7 +943,7 @@ Göttingen, \today \hspace{2em}
 						A_{d_x} & A_{d_y}
 					\end{pmatrix}
 				},
-			\end{equation}
+			\end{equation*}
 		where $D = B_s - A_s$ and $t_A, t_B \in \mathbb{R}$. If $t_A \in [0,1] \wedge t_B \in [0,1]$, the line segments intersect in a single point.
 	\end{theorem}
 	
