@@ -202,7 +202,7 @@ Göttingen, \today \hspace{2em}
 \section{Problem Statement}
 
 \chapter{Methods}
-	As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Beziér curves. We will then generalize Beziér curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point inversion, curve intersection and curve fillet fitting, which we will also present.
+	As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Beziér curves. We will then generalize Beziér curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point inversion, ray marching, curve intersection, offset curve creation and fillet creation, which we will also present.
 
 \section{Bézier Curves}
 	Bézier curves are named after the French engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
@@ -222,6 +222,7 @@ Göttingen, \today \hspace{2em}
 			\caption{Degree $3$.}
 		\end{subfigure}
 		\caption{Beziér curves of different degrees (orange) and their control points (blue).}
+		\label{fig:bezierdifferentdegrees}
 	\end{figure}
 
 \subsection{Definition}
@@ -243,15 +244,17 @@ Göttingen, \today \hspace{2em}
 
 	\begin{remark}
 		Let $t_0 = 0$ and $t_1 = 1$. Then \ref{eq:bezierdef} simplifies to
-		\begin{equation}
+		\begin{equation*}
 			b_{n,k}(t) := b_{n,k,[0,1]}(t) = \binom{n}{k} (1-t)^{n-k}t^k
-		\end{equation}
+		\end{equation*}
 		and \ref{eq:bernsteinbasisdef} simplifies to
 		\begin{equation}\label{eq:bezierdefshort}
 			B_P(t) := B_{P,[0,1]}(t)= \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
 		\end{equation}
 		This case is the only case considered in this thesis.
 	\end{remark}
+
+	In a Beziér curve of a given degree, the control points completely determine the shape of the curve. This behavior can be observed in Figure \ref{fig:bezierdifferentdegrees}. However, changing one control point affects the whole curve, since for $n$ control points the degree of the Beziér curve is always $n-1$. This behavior also becomes apparent using de Casteljau's algorithm for the computation of points on the Beziér curve.
 
 \subsection{De Casteljau's Algorithm}
 	The computation of Equation \ref{eq:bezierdefshort} is usually performed using de Casteljau's algorithm. This is because the algorithm yields a simple implementation and lower complexity than straightforwardly computing Equation \ref{eq:bezierdefshort}. The algorithm was proposed by Paul de Faget de Casteljau for the automobile manufacturer Citroën in the 1960s.
@@ -361,9 +364,9 @@ Göttingen, \today \hspace{2em}
 	Interestingly, the representation of the algorithm in Figure \ref{fig:decasteljautriangle} also gives rise to an intuitive visualization of the geometric shape of the Beziér curve $B_P$. For all $i \in \{0, ..., n\}$ and all $j \in \{0, ..., n-i\}$, the point $P^{(i+1)}_j$ is the convex combination (always w.r.t. $t$) of $P^{(i)}_j$ and $P^{(i)}_{j+1}$. Thus $P^{(i+1)}_j$ always lies on the line segment between $P^{(i)}_j$ and $P^{(i)}_{j+1}$, as can be observed in the example in Figure \ref{fig:decasteljautriangle}.
 
 \subsection{Properties}
-	Other than being remarkably intuitive, Beziér curves have a lot of properties which make them convenient. In computer-aided design software, most graphical user interfaces rely on the principle of letting the user interactively drag and drop the control points with a mouse, granting them control over the shape of Beziér curve. The following theorems further illustrate why this is a good idea.
+	Other than being remarkably intuitive, Beziér curves have a lot of covenient properties. In computer-aided design software, most graphical user interfaces rely on the principle of letting the user interactively drag and drop the control points with a mouse, granting them control over the shape of the whole Beziér curve. The following theorems further illustrate why this is a good concept.
 
-	\begin{theorem}
+	\begin{theorem}\label{thm:bezierendpoints}
 		$B_P(0) = P_0$ and $B_P(1) = P_n$.
 	\end{theorem}
 	\begin{proof}
@@ -373,7 +376,7 @@ Göttingen, \today \hspace{2em}
 			$$B_P(1) = \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k} P_k = \binom{n}{n} P_n = P_n.$$
 	\end{proof}
 
-	\begin{theorem}
+	\begin{theorem}\label{thm:bezieraffinetransform}
 		Let $T \in \mathbb{R}^{3 \times 3}$. Then $B_{TP}(t) = TB_P(t)$ where $TP := \{TP_0, TP_1, ..., TP_n\}$.
 	\end{theorem}
 	\begin{proof}
@@ -381,14 +384,16 @@ Göttingen, \today \hspace{2em}
 			$$TB_P(t) = \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k TP_k = B_{TP}(t).$$
 	\end{proof}
 
-	\begin{theorem}
+	\begin{theorem}\label{thm:bezierconvexhull}
 		$B_P(t)$ lies in the convex hull of $P$ for all $t \in [0,1]$.
 	\end{theorem}
 	\begin{proof}
 		By the algorithm of de Casteljau (\ref{alg:decasteljaualgo}), we know that $P^{(i)}_j = (1-t) \cdot P^{(i-1)}_j + t \cdot P^{(i-1)}_{j+1}$ for all $t \in [0, 1]$. Therefore, $P^{(i)}$ lie in the convex hull of $P^{(i-1)}$. But then $B_P(t) = P^{(n)}_0$ always lies in the convex hull of $P^{(0)} = P$ by induction.
 	\end{proof}
 
-	Simple as their appearance may be, Beziér curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with just a handful of control points, is their greatest shortcoming at the same time. This is most likely the reason why Beziér curves are not the state of the art in technical engineering applications. However, Beziér curves certainly do provide an intuition for Non-Uniform Rational B-Splines or NURBS, which is their prevailing counterpart.
+	Theorem \ref{thm:bezierendpoints} guarantees the control over the end points of the the curve, whereas Theorem \ref{thm:bezierconvexhull} ensures that the Beziér curve lies close to the control points. Theorem \ref{thm:bezieraffinetransform} shows that transformations such as rotations and projections can be applied directly to the control points instead of the points on the curve.
+
+	Simple as their appearance may be, Beziér curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with a low number of of control points, is simultaneously one of their greatest shortcoming. This is most likely the reason why Beziér curves are not the state of the art in technical engineering applications. However, Beziér curves certainly do provide an intuition for Non-Uniform Rational B-Splines or NURBS, which is their prevailing counterpart.
 
 \section{Non-Uniform Rational B-splines (NURBS)}
 	NURBS are a state of the art tool for curve and surface modelling. There is a somewhat common joke that describes the acronym NURBS as \emph{"Nobody Understands Rational B-Splines"} (source?). In this section, we invalidate this punch line. First of all, we discuss B-splines, then we construct B-spline curves and surfaces and then we apply simple transformations to the B-spline curves and surfaces to acquire NURBS curves and surfaces.
@@ -503,7 +508,7 @@ Göttingen, \today \hspace{2em}
 	\end{equation}
 	we can repeat this process up to $p-2$ more times, finding
 	$$ S(t) = \sum_{k=p-1}^n N_{1, k}(t) \, P^{(p-1)}_k(t) = P^{(p-1)}_l(t)$$
-	for $t \in [t_l, t_{l+1})$. We can thus use the recursive definition in Equation \ref{eq:debooriteration} as the key step of our algorithm to compute $S(t)$. It is already clear from this place that the points calculated on a B-spline curve are in fact also a cumultated convex combination of control points, just as it is the case with Beziér curves. As zero-values for $\omega_{i,j}$ (or $1-\omega_{i,j}$) can be completely omitted by checking multiplicity, we arrive at the following algorithm:
+	for $t \in [t_l, t_{l+1})$. We can thus use the recursive definition in Equation \ref{eq:debooriteration} as the key step of our algorithm to compute $S(t)$. It becomes apparent that the points calculated on a B-spline curve are in fact also a cumultated convex combination of control points, just as it is the case with Beziér curves. As zero-values for $\omega_{i,j}$ (or $1-\omega_{i,j}$) can be completely omitted by checking multiplicity, we arrive at the following algorithm:
 
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
@@ -687,7 +692,13 @@ Göttingen, \today \hspace{2em}
 		This theorem does not hold for NURBS curves and surfaces $C_P$.
 	\end{remark}
 
-\section{Methods on NURBS Objects}
+	For a given degree $p$, B-spline and NURBS curves can have any number $n > p+1$ of control points. This makes them a much more flexible tool than their Beziér counterpart. Yet Beziér, B-splines and NURBS curves still share a lot of nice properties, which makes them, once implemented, easy to use.
+
+\section{Common Methods on Curves and Surfaces}
+	In this section, the most important tools of CoolingGen are presented. However simple the modification of NURBS objects through their control points may be, common and useful operations such as the calculation of intersection points, the projection of an arbitrary point in space onto a curve and finding useful offset curves and fillets are major challenges. (Insert SIAM journal citation about how much cost bad intersection algorithms generated).
+
+	This comes down to the fact that many of the problem statements are (generally) non-convex minimization problems. However, these problems can often be greatly simplified by asserting properties of underlying geometric patterns that arise in specific procedures.
+
 \subsection{Point Inversion}
 	Let $\gamma(t) \subset \mathbb{R}^d$ a curve, $t \in [0,1]$, and let $Q \in \mathbb{R}^d$ a point.
 	We want to find an element in the set
@@ -695,6 +706,13 @@ Göttingen, \today \hspace{2em}
 	where $D(\cdot, \cdot)$ is the Euclidean distance between two points. Notice that 
 		$$\underset{t\in[0,1]}{\min} \; D(\gamma(t), Q) = D(\gamma(t^*), Q), $$
 	is the distance between the curve $\gamma$ and the point $Q$, and is constant for all $t^* \in T^*$.
+
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=0.7\textwidth]{../python/pointInversionFigure}
+		\caption{Point inversion. Each blue point on the orange curve is the projection of the point connected to it with a dotted line.}
+		\label{fig:pointinversion}
+	\end{figure}
 
 	\begin{definition}
 		The distance between a curve $\gamma \subset \mathbb{R}^d$ and a point $Q \in \mathbb{R}^d$ is given by
@@ -714,7 +732,7 @@ Göttingen, \today \hspace{2em}
 		If $\gamma$ has no self-intersections, then no two parameters of $\gamma$ will map onto the same point. Therefore, $\gamma$ is injective. We know $t^*$ exists such that $D(\gamma(t^*), Q) = 0$, which by the point-separating property of the Euclidean norm is equivalent to $Q = \gamma(t^*)$. By injectivity, this $t^*$ is unique.
 	\end{proof}
 
-	Minimizing distance functions for general curves is, in general, a problem that is hard to solve. We therefore make some assumptions about the point-curve distance function $\phi(t) := D(\gamma(t), Q)$ that we are going to minimize in order to find one target parameter $t^* \in T^*$. If $\phi$ is convex and differentiable, then the problem statement has a well-known and easy to implement solution, namely Newton's method, which for an initial guess $t^{(0)}$ is given by the iteration
+	Minimizing distance functions for general curves is a problem that is hard to solve. We therefore make some assumptions about the point-curve distance function $\phi(t) := D(\gamma(t), Q)$ that we are going to minimize in order to find one target parameter $t^* \in T^*$. If $\phi$ is convex and differentiable, then the problem statement has a well-known and easy to implement solution, namely Newton's method, which for an initial guess $t^{(0)}$ is given by the iteration
 		$$ t^{(n+1)} = t^{(n)} - \frac {\phi(t^{(n)})}{\phi'(t^{(n)})}. $$
 	Here, $\phi'(t)$ is the derivative of $\phi(t)$ with respect to $t$, which for a small value of $\epsilon > 0$ can be approximated by the right-sided difference quotient
 		$$ \phi'_r(t) = \frac{\phi(t+\epsilon) - \phi(t)}{\epsilon}. $$
@@ -782,7 +800,7 @@ Göttingen, \today \hspace{2em}
 
 	Given that the target distance is zero and $\gamma$ is a NURBS curve, we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return one input parameter of the curve that fits the point $Q$ (in fact, the only input parameter if we also have injectivity of $\gamma$). This justifies the name \emph{point inversion algorithm}.
 
-	If the target distance is not equal to zero or the curve is not injective, the algorithm still proves effective to find the distance $D(Q, \gamma)$, since the minimum distance is the same for all $t^* \in T^*$.
+	If the target distance is not equal to zero, the algorithm can be used to project points onto the curve, as can be seen in \ref{fig:pointinversion}. If the curve is furthermore not injective, the algorithm still proves effective to find the distance $D(Q, \gamma)$, since the minimum distance is the same for all $t^* \in T^*$.
 
 \subsection{Intersection of a Ray and a Curve in 2D}
 	\begin{definition}
