@@ -433,11 +433,16 @@ Göttingen, \today \hspace{2em}
 	\end{remark}
 
 	\begin{definition}
-		A \emph{B-spline curve} of degree $p-1$ over a set of control points $P = \{P_0, P_1, ... P_n\} \subset \mathbb{R}^d$ and a knot sequence $(t_m)$ is defined as $$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k.$$
+		A \emph{B-spline curve} of degree $p-1$ over a set of control points
+			$$P = \{P_0, P_1, ... P_n\} \subset \mathbb{R}^d$$
+		and a knot sequence $(t_m)$ is defined as
+			$$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k.$$
 	\end{definition}
 
 	\begin{definition}\label{def:nurbs}
-		A \emph{NURBS curve} $C_P(t)$ of degree $p-1$ with the control points $P = \{P_0, P_1, ..., P_n\} \subset \mathbb{R}^d$, the control weights $w = (w_0, w_1, ... w_n) \subset \mathbb{R}$ and a knot sequence $(t_m)$ is defined as
+		A \emph{NURBS curve} $C_P(t)$ of degree $p-1$ with the control points 
+			$$P = \{P_0, P_1, ..., P_n\} \subset \mathbb{R}^d,$$ 
+		the control weights $w = (w_0, w_1, ... w_n) \subset \mathbb{R}$ and a knot sequence $(t_m)$ is defined as
 		\begin{equation}
 			C_P(t) = \frac{\sum_{k=0}^n N_{p,k}(t) w_k P_k}{\sum_{k=0}^n N_{p,k}(t) w_k}.
 		\end{equation}
@@ -459,7 +464,8 @@ Göttingen, \today \hspace{2em}
 		Let $w \equiv 1$. Then $S_P \equiv \Phi^\dagger(S_{\Phi_w(P)})$. In other words, NURBS curves are a generalization of B-spline curves.
 	\end{theorem}
 	\begin{proof}
-		Since in this case $\Phi_w((p_1, ..., p_d)) = (p_1, ..., p_d, 1)$, we have that $\Phi^\dagger(S_{\Phi_w(P)}(t)) = \Phi^\dagger(\Phi_w(S_P(t))) = S_P(t)$.
+		Since in this case $\Phi_w((p_1, ..., p_d)) = (p_1, ..., p_d, 1)$, we have
+			$$\Phi^\dagger(S_{\Phi_w(P)}(t)) = \Phi^\dagger(\Phi_w(S_P(t))) = S_P(t).$$
 	\end{proof}
 
 	Now that we have defined B-spline curves and NURBS curves, we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points. Notice that this grants us control 
