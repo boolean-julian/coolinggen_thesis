@@ -1,14 +1,18 @@
-import logging
 import tecplot
 import sys
-
-logging.basicConfig(level=logging.DEBUG)
+import os
 
 if '-c' in sys.argv:
 	tecplot.session.connect()
 
-tecplot.new_layout()
+# load data
+datafile = os.path.join('./nurbsSurface.dat')
+dataset = tecplot.data.load_tecplot(datafile)
 
+# settings
 frame = tecplot.active_frame()
-frame.add_text("Hello, World!", position = (36, 50), size = 34)
+frame.plot_type = tecplot.constant.PlotType.Cartesian3D
+
+# plot
+frame.plot()
 tecplot.export.save_png("nurbsSurface.png", 600, supersample=3)
