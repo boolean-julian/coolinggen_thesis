@@ -1,0 +1,68 @@
+Tecplot 2020.2.0.110596 Batch Log
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: LoadAddOn
+ACTION: NewLayout
+ACTION: ReadDataSet: "/home/luek_ju/git/masterthesis/tec/nurbsSurface/nurbsSurfaceDeg1.dat" "/home/luek_ju/git/masterthesis/tec/nurbsSurface/nurbsSurfaceDeg2.dat" "/home/luek_ju/git/masterthesis/tec/nurbsSurface/nurbsSurfaceDeg3.dat"
+ACTION: CreateNewFrame
+ACTION: CreateNewFrame
+ACTION: CreateNewFrame
+ACTION: FrameControl: ActivateByNumber
+ACTION: FrameControl: ActivateByNumber
+ACTION: FrameControl: ActivateByNumber
+ACTION: FrameControl: ActivateByNumber
+ACTION: FrameControl: DeleteActive
+ACTION: FrameControl: ActivateByNumber
+ACTION: FrameControl: ActivateByNumber
+ACTION: View: Translate
+ACTION: FrameControl: ActivateByNumber
+ACTION: FrameControl: ActivateByNumber
+ACTION: View: Translate
+ACTION: FrameControl: ActivateByNumber
+ACTION: View: Translate
+ACTION: FrameControl: ActivateByNumber
+ACTION: AttachText
+ACTION: FrameControl: ActivateByNumber
+ACTION: AttachText
+ACTION: FrameControl: ActivateByNumber
+ACTION: AttachText
+ACTION: Export

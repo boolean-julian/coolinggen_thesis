@@ -468,6 +468,12 @@ Göttingen, \today \hspace{2em}
 			$$\Phi^\dagger(S_{\Phi_w(P)}(t)) = \Phi^\dagger(\Phi_w(S_P(t))) = S_P(t).$$
 	\end{proof}
 
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{../tec/nurbsCurve/nurbsCurve.png}
+		\caption{A set of control points and three NURBS curves of different degrees.}
+	\end{figure}
+
 	Now that we have defined B-spline curves and NURBS curves, we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points. Notice that this grants us control 
 
 	\begin{definition}
@@ -487,6 +493,12 @@ Göttingen, \today \hspace{2em}
 			$$ C_P(u,v) = \Phi^\dagger ({S_{\Phi_w(P)}(u,v)}) $$
 		for NURBS surfaces.
 	\end{remark}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{../tec/nurbsSurface/nurbsSurface.png}
+		\caption{A set of control points and three NURBS surfaces of different degrees.}
+	\end{figure}
 
 	The notion of the knot sequence $(t_m)$ is commonly computationally simplified to that of a knot vector $\tau$, since $\tau$ only contains a finite number of elements. For our purposes, we let
 		$$\tau = (\underbrace {t_0, ..., t_{p-1}}_{= 0}, t_p, ..., t_n, \underbrace{t_{n+1}, ..., t_{n+p}}_{= 1}),$$
@@ -1257,12 +1269,6 @@ Göttingen, \today \hspace{2em}
 			\end{pmatrix}.
 		$$
 	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
-
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.5\textwidth]{../tec/nurbsSurface.png}
-		\caption{Testing tecplot output}
-	\end{figure}
 
 \section{Jet Engine Design Specifics}
 \subsection{Fundamental Terms}
