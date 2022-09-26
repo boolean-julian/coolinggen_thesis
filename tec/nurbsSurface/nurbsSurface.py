@@ -70,13 +70,13 @@ for p in plots:
 	p.view.translate(5, -3)
 
 framelist[0].activate()
-framelist[0].add_latex(r"$p = q = 2$", (75, 90), size=60, anchor=TextAnchor.Center)
+framelist[0].add_latex(r"$p-1 = q-1 = 1$", (75, 90), size=60, anchor=TextAnchor.Center)
 
 framelist[1].activate()
-framelist[1].add_latex(r"$p = q = 3$", (75, 90), size=60, anchor=TextAnchor.Center)
+framelist[1].add_latex(r"$p-1 = q-1 = 2$", (75, 90), size=60, anchor=TextAnchor.Center)
 
 framelist[2].activate()
-framelist[2].add_latex(r"$p = q = 4$", (75, 90), size=60, anchor=TextAnchor.Center)
+framelist[2].add_latex(r"$p-1 = q-1 = 3$", (75, 90), size=60, anchor=TextAnchor.Center)
 
 # export and trim
 filename = "nurbsSurface.png"

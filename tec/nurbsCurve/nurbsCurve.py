@@ -81,13 +81,13 @@ plots[2].fieldmap(3).show = False;
 
 # latex text
 framelist[0].activate()
-framelist[0].add_latex(r"$p = 2, \textrm{ linear}$", (75, 90), size=60, anchor=TextAnchor.Center)
+framelist[0].add_latex(r"$p-1 = 1$", (75, 90), size=60, anchor=TextAnchor.Center)
 
 framelist[1].activate()
-framelist[1].add_latex(r"$p = 3, \textrm{ quadratic}$", (75, 90), size=60, anchor=TextAnchor.Center)
+framelist[1].add_latex(r"$p-1 = 2$", (75, 90), size=60, anchor=TextAnchor.Center)
 
 framelist[2].activate()
-framelist[2].add_latex(r"$p = 4, \textrm{ cubic}$", (75, 90), size=60, anchor=TextAnchor.Center)
+framelist[2].add_latex(r"$p-1 = 3$", (75, 90), size=60, anchor=TextAnchor.Center)
 
 # export and trim
 filename = "nurbsCurve.png"
