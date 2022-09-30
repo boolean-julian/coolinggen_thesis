@@ -132,7 +132,7 @@
 
 		To-do:
 		\begin{itemize}
-			\item Ausblasungsschlitze
+			\item Ausblasungsschlitze gut machen
 			\item Pin-fins (Kühlrippen)
 		\end{itemize}
 	\end{minipage}
@@ -173,53 +173,28 @@
 	\frametitle{Methoden / Kanäle und Prallbleche}
 	\vspace{-1cm}\hspace{-0.5cm}
 	\begin{minipage}[t]{\textwidth}
-		Um die Kanäle zu erzeugen, müssen (neben anderen Parametern) die Kanalwände als Input spezifiziert werden
-		wird folgende Strategie verwendet:
+		Um die Kanäle zu erzeugen, werden $m$ Kanalwände (in Relation zur Skelettlinie) als Input spezifiziert.
+		Es wird folgende Strategie verwendet:
 		\begin{enumerate}
-			\item Schaufeloberfläche in radialer Höhe $n$ mal gesamplet $\rightarrow$ erhalten $n$ Profilkurven
+			\item Schaufeloberfläche in radialer Höhe $n$ mal samplen $\rightarrow$ $n$ Profilkurven
 			\item Koordinatentransformation $(x, y, z) \rightarrow (x, r) \rightarrow (m', \theta)$
-			\item Unterteilung der Profilkurven an den Kanalwänden
-			\item \emph{Schrumpfen} der Profilkurven (abhängig von Saug-/Druck-/Wandseite)
+			\item \emph{Schrumpfen} der Profilkurven
+			\item \emph{Unterteilung} der Profilkurven an den Kanalwänden $m$ $\rightarrow$ $n(m+1)$ Kammerschnitte 
+			\item \emph{Schrumpfen} der Kammerschnitte
 			\item Einpassung von \emph{Fillets} an \emph{Knicken/Ecken}
-			\item Rücktransformation nach $(x, y, z)$, und \emph{Lifting}
+			\item Rücktransformation nach $(x, y, z)$, und \emph{Lifting}, um $m+1$ 3D Oberflächen zu erhalten
 		\end{enumerate}
 	\end{minipage}
 	\vfill
 \end{frame}
 
 \begin{frame}
-	\frametitle{Methoden / Kanäle und Prallbleche / Unterteilung}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.3\textwidth}
-		Unterteilung der Profilkurve mithilfe von \emph{Ray-Marching}.
-	\end{minipage}
-	\begin{minipage}{.68\textwidth}
-		\begin{figure}[H]
-			\centering
-			\includesvg[width=\textwidth]{../python/rayMarching}
-		\end{figure}
-	\end{minipage}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Methoden / Kanäle und Prallbleche / Unterteilung}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.69\textwidth}
-		\centering
-		<Bild von Profilkurve mit Skelettlinie und Wänden>
-	\end{minipage}
-	\begin{minipage}[t]{.29\textwidth}
-		\centering
-		<Bild von Kammerschnitt>
-	\end{minipage}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Methoden / Kanäle und Prallbleche / Schrumpfen}
 	\vspace{-1cm}\hspace{-0.5cm}
 	\begin{minipage}[t]{\textwidth}
-		Schrumpfen erfordert die Detektion von Selbst-Schnittpunkten, aber auch dieser Prozess hinterlässt \emph{Knicke}.
-		Der Fachbegriff für solche Kurven, der auch in herkömmlicher CAD Software zu finden ist, lautet \emph{Offset-Kurve}.
+		Eine Offset-Kurve von $\gamma$ mit Abstand $d$ ist gegeben durch
+			$$ O^\gamma_d(t) := \gamma(t) + dN^\gamma(t)$$
+		wobei $N^\gamma(t)$ der Normalenvektor von $\gamma(t)$ ist.
 	\end{minipage}
 	\begin{figure}[H]
 		\centering
@@ -230,63 +205,91 @@
 			\includesvg[width=0.98\textwidth]{../python/offsetCurveSelfIntersection1}
 		\end{subfigure}
 	\end{figure}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Methoden / Kanäle und Prallbleche / Schrumpfen}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.32\textwidth}
-		\centering
-		<Geschrumpft/Fishtails>
-	\end{minipage}
-	\begin{minipage}[t]{.32\textwidth}
-		\centering
-		<Geschrumpft/Getrimmt>
-	\end{minipage}
-	\begin{minipage}[t]{.32\textwidth}
-		\centering
-		<Geschrumpft/Getrimmt/Fillets>
+	\hspace{-0.5cm}
+	\begin{minipage}[t]{\textwidth}
+		Wir hätten die Kurve $O^\gamma_d$ gerne injektiv. Das gilt jedoch nur stückweise $\rightarrow$ Trimming an Selbstschnittpunkten.\\
+		Das Trimming hinterlässt nicht diff'bare Stellen (Knicke) $\rightarrow$ Fillets!
 	\end{minipage}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Methoden / Kanäle und Prallbleche / Fillets}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{figure}[H]
-		\centering
-		\includesvg[width=\textwidth]{../python/filletConstruction1}
-		\label{fig:filletconstruction}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\includesvg[width=\textwidth]{../python/filletConstruction2}
-	\end{figure}
+	\vspace{-0.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{\textwidth}
+		Gegeben: Radius $r$, Kurven $\gamma_1, \gamma_2$. Man kann zeigen: Falls ein Filletkreis existiert, dann beschreibt
+			$$ O^{\gamma_1}_r(t) = O^{\gamma_2}_r(s)$$
+		den Mittelpunkt (bzw. die Mittelpunkte). Beweis gibt es in meiner Masterarbeit.
+		\begin{figure}[H]
+			\centering
+			\includesvg[width=0.9\textwidth]{../python/filletConstruction1}
+			\label{fig:filletconstruction}
+		\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includesvg[width=0.9\textwidth]{../python/filletConstruction2}
+		\end{figure}
+	\end{minipage}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Methoden / Kanäle und Prallbleche / Fillets}
+	\frametitle{Methoden / Kanäle und Prallbleche / Ray-Marching}
 	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.49\textwidth}
-		\centering
-		<Bild von Kammerschnitt o Fillets>
+	\begin{minipage}{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includesvg[width=0.8\textwidth]{../python/rayMarching}
+		\end{figure}
 	\end{minipage}
-	\begin{minipage}[t]{.49\textwidth}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Methoden / Kanäle und Prallbleche / Schrumpfen der Profilkurven}
+	\vspace{-1cm}\hspace{-0.5cm}
+	\begin{figure}
 		\centering
-		<Bild von Kammerschnitt m Fillets>
+		\begin{subfigure}[t]{.49\textwidth}
+			\includegraphics[height=.8\textheight]{../tec/shrinking/offset.png}
+		\end{subfigure}
+		\begin{subfigure}[t]{.49\textwidth}
+			\includegraphics[height=.8\textheight]{../tec/shrinking/trimming.png}
+		\end{subfigure}
+	\end{figure}
+	\hspace{-0.5cm}
+	\begin{minipage}[t]{\textwidth}
+		Das klappt ganz gut.
 	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Methoden / Kanäle und Prallbleche / Unterteilung}
+	\vspace{-1cm}\hspace{-0.5cm}
+	\begin{figure}
+		\centering
+		\begin{subfigure}[t]{.5\textwidth}
+			\includegraphics[height=.8\textheight]{../tec/chambers/walls.png}
+		\end{subfigure}
+		\begin{subfigure}[t]{.48\textwidth}
+			\includegraphics[height=.8\textheight]{../tec/chambers/single.png}
+		\end{subfigure}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Methoden / Kanäle und Prallbleche / Lifting}
 	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.49\textwidth}
-		\centering
-		<Bild von Kammerschnitten>
-	\end{minipage}
-	\begin{minipage}[t]{.49\textwidth}
-		\centering
-		<Bild von Kammern>
-	\end{minipage}
+	\begin{minipage}{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{0.49\textwidth}
+				\includegraphics[width=\textwidth]{../tec/lifting/lifted.png}
+				\vspace{1cm}
+			\end{subfigure}
+			\hspace{0.5cm}
+			\begin{subfigure}{0.42\textwidth}
+				\includegraphics[width=\textwidth]{../tec/lifting/complete.png}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage} 
 \end{frame}
 
 \begin{frame}
