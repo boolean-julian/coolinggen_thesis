@@ -71,21 +71,6 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Inhalt}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{\textwidth}
-		\begin{itemize}
-			\item Einleitung
-			\item Motivation
-			\item Ergebnisse
-			\item Methoden
-			\item Fragen
-		\end{itemize}
-	\end{minipage}
-	\vfill
-\end{frame}
-
-\begin{frame}
 	\frametitle{Einleitung/Motivation}
 	\vspace{-1cm}\hspace{-0.5cm}
 	\begin{minipage}[t]{\textwidth}
@@ -93,7 +78,7 @@
 		\begin{itemize}
 			\item Programm, welches mithilfe von CAD eine Schaufel aus BladeGen mit Kühlungsgeometrien ausstattet
 			\item Basiert auf BasicTools (Bibiliothek vom DLR für B-Spline Kurven/Flächen)
-			\item Entwicklung startete 2013 (Autoren: C. Voß, T. Schu...)
+			\item Entwicklung startete 2013 (Autoren: C. Voß, T. Schumacher)
 			\item Meine Arbeit daran startete im Juli 2021
 		\end{itemize}
 		\vspace{0.5cm}
@@ -101,7 +86,7 @@
 		\begin{itemize}
 			\item Erzeugung von Kühlungsgeometrien innerhalb einer Schaufel mit herkömmlichen CAD-Tools ist mühsam und dauert lange
 			\item Laufzeit von CoolingGen: ca. 20 Sekunden auf 8 $\cdot$ 3GHz
-			\item Ermöglicht Optimierung von Kühlungsgeometrien durch Phasenraumsuche gekoppelt mit CFD-Simulationen
+			\item Grundlage für die Optimierung von Kühlungsgeometrien durch Phasenraumsuche gekoppelt mit CFD-Simulationen
 		\end{itemize}
 
 	\end{minipage}
@@ -132,8 +117,8 @@
 
 		To-do:
 		\begin{itemize}
-			\item Ausblasungsschlitze gut machen
-			\item Pin-fins (Kühlrippen)
+			\item Ausblasungsschlitze
+			\item Pin-fins
 		\end{itemize}
 	\end{minipage}
 	\vfill
@@ -142,31 +127,18 @@
 \begin{frame}
 	\frametitle{Ergebnisse}
 	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.69\textwidth}
+	\begin{figure}
 		\centering
-		<Kanal mit Umlenkungen und FK Bohrungen>
-	\end{minipage}
-	\begin{minipage}[t]{.29\textwidth}
-		\centering
-		<Kanal mit Impingement Inserts>
-	\end{minipage}
+		\begin{subfigure}[t]{.49\textwidth}
+			\centering
+			\includegraphics[height=.6\textheight]{../tec/complete/17.png}
+		\end{subfigure}
+		\begin{subfigure}[t]{.49\textwidth}
+			\centering
+			\includegraphics[height=.6\textheight]{../tec/complete/18.png}
+		\end{subfigure}
+	\end{figure}
 	\vfill
-\end{frame}
-
-\begin{frame}
-	\frametitle{Methoden}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{\textwidth}
-		\begin{center}
-		Größte Herausforderung? Robuste und performante Verschnittalgorithmen!
-		\end{center}
-		\vspace{0.5cm}
-		\begin{center}
-		\emph{The single greatest cause of poor reliability of CAD systems is lack of topologically consistent surface intersection algorithms.}
-		\end{center}
-		\vspace{0.5cm}
-		\flushright -- \emph{Closing the Gap Between CAD Model and Downstream Applications} by R. Farouki
-	\end{minipage}
 \end{frame}
 
 \begin{frame}
@@ -189,7 +161,21 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Methoden / Kanäle und Prallbleche / Schrumpfen}
+	\frametitle{Methoden / Kanäle und Prallbleche / Schrumpfen der Profilkurven}
+	\vspace{-1cm}\hspace{-0.5cm}
+	\begin{figure}
+		\centering
+		\begin{subfigure}[t]{.49\textwidth}
+			\includegraphics[height=.8\textheight]{../tec/shrinking/offset.png}
+		\end{subfigure}
+		\begin{subfigure}[t]{.49\textwidth}
+			\includegraphics[height=.8\textheight]{../tec/shrinking/trimming.png}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Methoden / Kanäle und Prallbleche / Offset-Kurven}
 	\vspace{-1cm}\hspace{-0.5cm}
 	\begin{minipage}[t]{\textwidth}
 		Eine Offset-Kurve von $\gamma$ mit Abstand $d$ ist gegeben durch
@@ -213,6 +199,18 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Methoden / Kanäle und Prallbleche / (Selbst-)Schnittpunkte von Kurven}
+	\vspace{-0.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{\textwidth}
+		Lineare Approximation der Kurven schneiden ist relativ einfach $\rightarrow$ Teile und herrsche.
+		\begin{figure}[H]
+			\centering
+			\includesvg[width=0.98\textwidth]{../python/piecewiseLinearIntersection}
+		\end{figure}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Methoden / Kanäle und Prallbleche / Fillets}
 	\vspace{-0.5cm}\hspace{-0.5cm}
 	\begin{minipage}[t]{\textwidth}
@@ -232,35 +230,6 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Methoden / Kanäle und Prallbleche / Ray-Marching}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}{\textwidth}
-		\begin{figure}[H]
-			\centering
-			\includesvg[width=0.8\textwidth]{../python/rayMarching}
-		\end{figure}
-	\end{minipage}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Methoden / Kanäle und Prallbleche / Schrumpfen der Profilkurven}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{figure}
-		\centering
-		\begin{subfigure}[t]{.49\textwidth}
-			\includegraphics[height=.8\textheight]{../tec/shrinking/offset.png}
-		\end{subfigure}
-		\begin{subfigure}[t]{.49\textwidth}
-			\includegraphics[height=.8\textheight]{../tec/shrinking/trimming.png}
-		\end{subfigure}
-	\end{figure}
-	\hspace{-0.5cm}
-	\begin{minipage}[t]{\textwidth}
-		Das klappt ganz gut.
-	\end{minipage}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Methoden / Kanäle und Prallbleche / Unterteilung}
 	\vspace{-1cm}\hspace{-0.5cm}
 	\begin{figure}
@@ -269,9 +238,22 @@
 			\includegraphics[height=.8\textheight]{../tec/chambers/walls.png}
 		\end{subfigure}
 		\begin{subfigure}[t]{.48\textwidth}
-			\includegraphics[height=.8\textheight]{../tec/chambers/single.png}
+			\includegraphics[height=.8\textheight]{../tec/chambers/single_constr.png}
 		\end{subfigure}
 	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Methoden / Kanäle und Prallbleche / Ray-Marching}
+	\hspace{-0.5cm}
+	Gegeben Kurve $\gamma$ und Halberade mit Startpunkt $A$ und normiertem Richtungsvektor $B$.\\
+	Schnittpunktsuche durch folgenden Algorithmus:
+	\begin{minipage}{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includesvg[width=0.8\textwidth]{../python/rayMarching}
+		\end{figure}
+	\end{minipage}
 \end{frame}
 
 \begin{frame}
@@ -307,67 +289,91 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Methoden / Umkehrungen}
+	\frametitle{Methoden / Umkehrungen / Kombination}
 	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.49\textwidth}
+	\begin{figure}
 		\centering
-		<Bild aus Gitlab>
-	\end{minipage}
-	\begin{minipage}[t]{.49\textwidth}
+		\includegraphics[height=.8\textheight]{../tec/turn/12.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Methoden / Umkehrungen / Verschneiden}
+	\vspace{-1cm}\hspace{-0.5cm}
+	\begin{figure}
 		\centering
-		<Bild einer Turnfläche>
-	\end{minipage}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/turn/11.png}
+		\end{subfigure}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/turn/10.png}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Methoden / Kanäle}
+	\vspace{-1cm}\hspace{2.5cm}
+	\begin{figure}
+		\centering
+		\begin{subfigure}{.49\textwidth}
+			\phantom{aaaaaaa}
+			\includegraphics[height=.8\textheight]{../tec/channel/14.png}
+		\end{subfigure}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[height=.8\textheight]{../tec/channel/13.png}
+		\end{subfigure}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Methoden / Bohrungen}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.49\textwidth}
+	\vspace{-1cm}\hspace{2.5cm}
+	\begin{figure}
 		\centering
-		<Schema der Kurven einer FK Bohrung>
-	\end{minipage}
-	\begin{minipage}[t]{.49\textwidth}
-		\centering
-		<Bild von Robin von Bohrung mit Params>
-	\end{minipage}
+		\begin{subfigure}{.3\textwidth}
+			\includegraphics[height=.7\textheight]{../tec/holes/16.png}
+		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\includegraphics[height=.7\textheight]{../tec/holes/15.png}
+		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\includesvg[height=.7\textheight]{../python/fanshapedCurveDefinition}
+		\end{subfigure}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Methoden / Fazit}
 	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.49\textwidth}
-		\centering
-		Man braucht robuste, schnelle Verschneidungsalgorithmen, und einer reicht nicht:
-		\begin{enumerate}
-			\item Punkt/Kurve (um den passenden Parameter auf der Kurve zu finden)
-			\item Ray/Kurve
-			\item Kurve/Kurve und Kurve mit sich selbst
-			\item Fläche/Ebene
-			\item Fläche/Kurve
-		\end{enumerate}
-		Überdies wird eine bestimmte Gestalt dieser Schnitte angenommen, um die Algorithmen effizient zu gestalten. Beispielsweise wird bei Kurve/Kurve die Annahme getroffen, dass sich diese beiden nur an einer endlichen Vereinigung von einelementigen Punktmengen treffen. Das ist zwar ausreichend, aber nicht der allgemeine Fall. Für den allgemeinen Fall gibt es gar keine "richtige" Lösung.
-	\end{minipage}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Methoden / Umkehrungen}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.49\textwidth}
-		\centering
-		<Bild aus Gitlab>
-	\end{minipage}
-	\begin{minipage}[t]{.49\textwidth}
-		\centering
-		<Bild einer Turnfläche>
-	\end{minipage}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Recap}
 	\begin{minipage}[t]{\textwidth}
-		\centering
-		Kopie der Folie mit den Ergebnissen
+		\begin{center}
+		Größte Herausforderung? Robuste und performante Verschnittalgorithmen!
+		\end{center}
+		\vspace{0.5cm}
+		\begin{center}
+		\emph{\glqq The single greatest cause of poor reliability of CAD systems is lack of topologically consistent surface intersection algorithms.\grqq}
+		\end{center}
+		\vspace{0.5cm}
+		\flushright -- R. Farouki in \emph{\glqq Closing the Gap Between CAD Model and Downstream Applications\grqq}
 	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ergebnisse}
+	\vspace{-1cm}\hspace{-0.5cm}
+	\begin{figure}
+		\centering
+		\begin{subfigure}[t]{.49\textwidth}
+			\centering
+			\includegraphics[height=.6\textheight]{../tec/complete/17.png}
+		\end{subfigure}
+		\begin{subfigure}[t]{.49\textwidth}
+			\centering
+			\includegraphics[height=.6\textheight]{../tec/complete/18.png}
+		\end{subfigure}
+	\end{figure}
+	\vfill
 \end{frame}
 
 \begin{frame}
