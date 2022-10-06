@@ -150,8 +150,6 @@ plt.plot(xcc, ycc, "--", color = "tab:blue")
 plt.axis("off")
 #plt.legend(loc = "upper right")
 
-
+plt.tight_layout()
 plt.savefig("fanshapedCurveDefinition.svg")
-
-
 plt.show()

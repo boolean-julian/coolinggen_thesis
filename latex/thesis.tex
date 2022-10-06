@@ -201,7 +201,7 @@ Göttingen, \today \hspace{2em}
 \section{State of the Art}
 \section{Problem Statement}
 
-\chapter{Methods}
+\chapter{Geometric Methods}
 	As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Beziér curves. We will then generalize Beziér curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point inversion, ray marching, curve intersection, offset curve creation and fillet creation, which we will also present.
 
 \section{Bézier Curves}
@@ -1270,24 +1270,124 @@ Göttingen, \today \hspace{2em}
 		$$
 	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
 
-\section{Jet Engine Design Specifics}
-\subsection{Fundamental Terms}
-\subsection{The S2M Net}
+\chapter{Jet Engine Specific Methods}
+\section{Fundamental Terms}
+	\begin{itemize}
+		\item figure of (part of) turbine
+		\item explain where exactly we are in the turbine
+		\item stator/rotor difference
+		\item show distribution of (u,v) on blade
+	\end{itemize}
+
+\section{The Stream Surface Coordinate System}
+	\begin{itemize}
+		\item explain what it is
+		\item explain why we use it (makes design simple/bladegen)
+		\item mention v-isoparameter curves are planar in (m', theta)
+		\item explain how we get there
+		\item sauce: mises.pdf
+	\end{itemize}
+
+\section{The S2 Hyperplane}
+	\begin{itemize}
+		\item explain what it is
+		\item say how we get to (m', theta) using it
+	\end{itemize}
 
 \chapter{Results}
-\section{Cooling Geometries And Their Parametrizations}
-\subsection{Chambers}
-\subsection{Turnarounds}
-\subsection{Slots}
-\subsection{Film Cooling Holes}
-\begin{figure}[H]
-	\centering
-	\includesvg[width=0.5\textwidth]{../python/fanshapedCurveDefinition}
-	\caption{yeah}
-\end{figure}
+\section{Chambers}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.4\textwidth}
+			\includegraphics[width=\textwidth]{../tec/shrinking/offset.png}
+		\end{subfigure}
+		\begin{subfigure}{.4\textwidth}
+			\includegraphics[width=\textwidth]{../tec/shrinking/trimming.png}
+		\end{subfigure}
+		\caption{Offsetting and trimming a profile, then adding fillets where necessary.}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.4\textwidth}
+			\includegraphics[width=\textwidth]{../tec/chambers/walls.png}
+			\caption{Subdivision of profile along camber.}
+		\end{subfigure}
+		\phantom{aa}
+		\begin{subfigure}{.5\textwidth}
+			\includegraphics[width=\textwidth]{../tec/chambers/single_constr.png}
+			\caption{Offsetting, trimming and adding fillets.}
+		\end{subfigure}
+		\caption{Construction of a chamber profile.}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.55\textwidth}
+			\includegraphics[width=\textwidth]{../tec/lifting/lifted.png}
+			\vspace{1cm}
+			\caption{A single chamber.}
+		\end{subfigure}
+		\phantom{aa}
+		\begin{subfigure}{.41\textwidth}
+			\includegraphics[width=\textwidth]{../tec/lifting/complete.png}
+			\caption{Three chambers inside of blade surface.}
+		\end{subfigure}
+		\caption{Lifted chamber surfaces.}
+	\end{figure}
+
+\section{Turnarounds}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.48\textwidth}
+			\includegraphics[width=\textwidth]{../tec/turn/12.png}
+			\caption{Combining the chambers. The axis of rotation is marked in red.}
+		\end{subfigure}
+		\phantom{aa}
+		\begin{subfigure}{.48\textwidth}
+			\includegraphics[width=\textwidth]{../tec/turn/11.png}
+			\caption{Intersecting the combined surface with affine planes that contain the axis of rotation.}
+		\end{subfigure}
+		\caption{Construction of a turnaround.}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.4\textwidth}
+			\includegraphics[width=\textwidth]{../tec/channel/13.png}
+			\caption{Channel profiles.}
+		\end{subfigure}
+		\begin{subfigure}{.4\textwidth}
+			\includegraphics[width=\textwidth]{../tec/channel/14.png}
+			\caption{Channel surface.}
+		\end{subfigure}
+		\caption{Cooling channel with three chambers and two turnarounds.}
+	\end{figure}
 
 
-\subsection{Impingement Inserts}
+\section{Film Cooling Holes}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.15\textwidth}
+			\includegraphics[height=6cm]{../tec/holes/16.png}
+			\vspace{1.5cm}
+			\caption{Cylindrical.}
+		\end{subfigure}
+		\phantom{aa}
+		\begin{subfigure}{.19\textwidth}
+			\includegraphics[height=6cm]{../tec/holes/15.png}
+			\vspace{1.1cm}
+			\caption{Fan shaped.}
+		\end{subfigure}
+		\begin{subfigure}{.55\textwidth}
+			\includesvg[width=\textwidth]{../python/fanshapedCurveDefinition}
+			\caption{Delimiting curves.}
+		\end{subfigure}
+		\caption{Film cooling holes and their delimiting curves}
+	\end{figure}
+
+\section{Impingement Inserts}
+\section{Slots}
 \section{Export for CENTAUR}
 \section{Export for Open CASCADE}
 
