@@ -944,7 +944,7 @@ Göttingen, \today \hspace{2em}
 	\end{remark}
 	
 	If for any intersection parameter pair $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ we have $\nabla \gamma_1(s^*) = \nabla \gamma_2(t^*)$, then it is likely that the intersection is not detected by the described line segment intersection scheme.
-
+ 	
 	\begin{theorem}\label{thm:lineintersection}
 		Let $L_A([0,1])$ and $L_B([0,1])$ be two line segments in $\mathbb{R}^2$. If the lines $L_A((-\infty,\infty))$ and $L_B((-\infty,\infty))$ are not parallel, their single intersection pointt is given by $L_A(t_A) = L_B(t_B)$, where
 			\begin{equation*}\label{eq:lineintersection}
@@ -1181,7 +1181,8 @@ Göttingen, \today \hspace{2em}
 		then $\phi^{\gamma_1, \gamma_2}_r$ is a fillet circle of radius $r$ of $\gamma_1$ and $\gamma_2$.
 	\end{definition}
 	\begin{remark}
-		A fillet circle $\phi^{\gamma_1, \gamma_2}_r$ does not necessarily exist for two given curves $\gamma_1$, $\gamma_2$. If a fillet curve $\phi^{\gamma_1, \gamma_2}_{r^*}$ exists for some radius $r^*$, it does not exist for all radii $r \in \mathbb{R}$.
+		A fillet circle $\phi^{\gamma_1, \gamma_2}_r$ does not necessarily exist for two given curves $\gamma_1$, $\gamma_2$. If a fillet 
+		curve $\phi^{\gamma_1, \gamma_2}_{r^*}$ exists for some radius $r^*$, it does not exist for all radii $r \in \mathbb{R}$.
 	\end{remark}
 
 	\begin{figure}[H]
@@ -1271,28 +1272,36 @@ Göttingen, \today \hspace{2em}
 	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
 
 \chapter{Jet Engine Specific Methods}
+	
+
 \section{Fundamental Terms}
 	\begin{itemize}
 		\item figure of (part of) turbine
 		\item explain where exactly we are in the turbine
 		\item stator/rotor difference
 		\item show distribution of (u,v) on blade
+		\item cylindrical coordinates
 	\end{itemize}
 
-\section{The Stream Surface Coordinate System}
-	\begin{itemize}
-		\item explain what it is
-		\item explain why we use it (makes design simple/bladegen)
-		\item mention v-isoparameter curves are planar in (m', theta)
-		\item explain how we get there
-		\item sauce: mises.pdf
-	\end{itemize}
+\section{The S2 Stream Surface and Stream Surface Coordinates}
+	(source: Wu, 1952 at NACA)
+	A stream line is a line that at every point is tangential to the velocity vector field of the flow of the fluid. Its generalization, the stream surface, describes a surface with the same property. The flow in a turbine can be described by a generalization of the stream surface. When designing turbine blades, it is common practice to describe the flow in two families of stream surfaces. These surfaces are called $S_1$ and $S_2$. The $S_1$ surfaces, also known as \emph{blade-to-blade} surfaces, describe the flow behavior between individual blade sections, whereas their counterpart, the $S_2$ surfaces, which are also known as \emph{meridional} surfaces, describe the flow through the turbine.
 
-\section{The S2 Hyperplane}
-	\begin{itemize}
-		\item explain what it is
-		\item say how we get to (m', theta) using it
-	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=.5\textwidth]{../assets/wu_naca_s2.png}
+		\caption{Example $S_1$ and $S_2$ surfaces of a turbomachine. The $z$ coordinate in the figure is $x$.}
+	\end{figure}
+	
+	Each $S_2$ surface is a parametric surface and therefore a map
+		$$s(u,v) : [0,1]^2 \rightarrow \mathbb{R}^3, \quad (u,v) \mapsto (x, r, m),$$
+	where $x$ is the axial coordinate, $r = \sqrt{y^2+z^2}$ the distance from the hub and $m$ is the arc length.
+
+	To design the blades for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades. Each stream line described by $S_{2,m}$ can then be written as $S_{2,m}(\cdot, v)$. By intersecting the $u$-isoparametric curves $B(u,\cdot)$ of the blade $B(u,v)$ with each stream line, we can construct a planar curve $P^{(v)}_\textrm{stream}(u)$ from the intersection points $P_{u,v}$, given by
+		$$ P^{(v)}_\textrm{stream}(u) = (m, r\theta),$$
+	where $m$ is the intersection arc length, $r$ is the distance from hub of intersection and the circumferential angle $\theta$ is given by
+		$$ \theta = \arctantwo(y, z). $$
+	This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a stream surface coordinate system. One should note that for this coordinate transformation, $B(u,v)$ has to be transformed to cylindrical coordinates $(x,r)$ before intersection with the stream lines. The stream surface coordinate transformation is invertible given $v$ and $S_{2,m}$. Even though the input blade surface $B(u,v)$ lies in $\mathbb{R}^3$, the most important methods of CoolingGen (and BladeGen) are operations on objects in $(m, r\theta)$.
 
 \chapter{Results}
 \section{Chambers}

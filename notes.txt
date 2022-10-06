@@ -53,3 +53,8 @@ FRAGEN TREFFEN 20.07
 
 Derzeitige Challenges Softwareseitig:
 	Unterteilung in Kammern gestaltet sich schwierig
+
+
+
+TODO:
+figures für results machen. results beschreiben.
