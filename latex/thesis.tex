@@ -760,9 +760,9 @@ Göttingen, \today \hspace{2em}
 
 	Although in CoolingGen, we often cannot make the assumption of differentiability or convexity of $\phi$. We therefore employ a pragmatic scheme and assume continuity, piecewise differentiability and piecewise convexity of $\phi$ and run Newton's method on a small subinterval $[l,u] \subset [0,1]$.
 
-	To find $[l,u]$, we sample the curve $\gamma$ at a set of points $\{t_0, t_1, ..., t_n\}$ with $t_i = i/n$ and seek
+	To find $[l,u]$, we sample the curve $\gamma$ at a set of points $\{t_0, t_1, ..., t_n\}$ with $t_i = \frac{i}{n}$ and seek
 		$$ m = \underset{t\in\{t_0, t_1, ..., t_n\}}{\arg\min} \phi(t). $$
-	We let $l = m - \frac{i}{n}$ and $u = m + \frac{i}{n}$. Next, we can use Newton's method with the start value $m$ to find
+	We let $l = m - \frac{1}{n}$ and $u = m + \frac{1}{n}$. Next, we can use Newton's method with the start value $m$ to find
 		$$ t^* = \underset{t\in[l,u]}{\arg\min}\;\phi(t). $$
 	This scheme will only converge to the global minimum of $\phi$ for large enough $n \in \mathbb{N}$.
 
@@ -816,9 +816,15 @@ Göttingen, \today \hspace{2em}
 		\end{algorithmic}
 	\end{algorithm}
 
-	Given that the target distance is zero and $\gamma$ is a NURBS curve, we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return one input parameter of the curve that fits the point $Q$ (in fact, the only input parameter if we also have injectivity of $\gamma$). This justifies the name \emph{point inversion algorithm}.
-
 	If the target distance is not equal to zero, the algorithm can be used to project points onto the curve, as can be seen in \ref{fig:pointinversion}. If the curve is furthermore not injective, the algorithm still proves effective to find the distance $D(Q, \gamma)$, since the minimum distance is the same for all $t^* \in T^*$.
+
+	Given a surface $\beta(u,v)$ with $u,v \in [0,1]$ and a point $Q \in \mathbb{R}^d$, we can also devise a point inversion algorithm by the same principle. We let $u_i = \frac{i}{n_u}, v_j = \frac{j}{n_v}$ for $i \in \{0, ..., n_u\}, j \in \{0,..., n_v\}$ and $n_u, n_v \in \mathbb{N}$. Then we seek
+		$$ m_u, m_v = \underset{(u,v)\in\{u_0, ..., u_n\} \times \{v_0, ..., v_n\}}{\arg\min} \phi(u,v), $$
+	where $\phi(u,v) := D(\beta(u,v), Q)$.
+
+	Then we apply Newton's method on $[l_u, u_u] \times [l_v, u_v] = [m_u - \frac{1}{n_u}, m_u + \frac{1}{n_u}] \times [m_v - \frac{1}{n_v}, m_v + \frac{1}{n_v}]$ with the start parameters $m_u, m_v$.
+
+	If the target distance is zero and $\gamma$ is a NURBS curve (or $\beta$ a NURBS surface), we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return the input parameter that fits the point $Q$. This justifies the name \emph{point inversion algorithm}.
 
 \subsection{Intersection of a Ray and a Curve in 2D}
 	\begin{definition}
@@ -1304,7 +1310,15 @@ Göttingen, \today \hspace{2em}
 	This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a stream surface coordinate system. One should note that for this coordinate transformation, $B(u,v)$ has to be transformed to cylindrical coordinates $(x,r)$ before intersection with the stream lines. The stream surface coordinate transformation is invertible given $v$ and $S_{2,m}$. Even though the input blade surface $B(u,v)$ lies in $\mathbb{R}^3$, the most important methods of CoolingGen (and BladeGen) are operations on objects in $(m, r\theta)$.
 
 \chapter{Results}
+
 \section{Chambers}
+	\begin{itemize}
+		\item what are chambers
+		\item what are they good for
+		\item how do we construct them
+	\end{itemize}
+	Channels are hollow sections inside a turbine blade which allow for the coolant to pass through. For the construction of channels, we distinguish between straight and curved sections of the channel. The straight sections represent hollow bodies that let the coolant pass in $v$-direction of the turbine blade. These sections are called \emph{chambers}. The curved sections let the coolant pass in $u$-direction of the turbine blade between chambers. We cal the latter sections \emph{turns}. In this section, we present how chambers are constructed.
+
 	\begin{figure}[H]
 		\centering
 		\begin{subfigure}{.4\textwidth}
@@ -1315,6 +1329,8 @@ Göttingen, \today \hspace{2em}
 		\end{subfigure}
 		\caption{Offsetting and trimming a profile, then adding fillets where necessary.}
 	\end{figure}
+
+	First, we apply the $(m, r\theta)$ coordinate transformation to a number of $v$-isoparametric curves of the blade to calculate the profile $P^{(v_i)}_\textrm{stream}(u)$ for $i \in \{0,...,N\}$ as described in ???. These profiles are then offset by an input parameter. The profile is trimmed adequately and fillets are added, the radius of which are declared once again as an input.
 
 	\begin{figure}[H]
 		\centering
@@ -1329,6 +1345,12 @@ Göttingen, \today \hspace{2em}
 		\end{subfigure}
 		\caption{Construction of a chamber profile.}
 	\end{figure}
+
+	We calculate the camber curve of the shrunk profile. The camber curve $c(t)$ with $t \in [0,1]$ is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c$ if and only if for some $d$ its offset curve $O^c_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a set of parameters $t_i$ representing the positions of each wall relative to the camber curve, $i \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\phi_i$. Each wall position and angle pair represents two rays
+		$$ c(t_i) + sR_{\phi_i} \nabla c(t_i) \quad\text{and}\quad c(t_i) - sR_{\phi_i} \nabla c(t_i) $$
+	for $s \in [0, \infty)$. Using the ray marching algorithm, we can find the intersection $p^+$ and $p^-$ of the rays and the profiles. The line segment $\overline{p^+p^-}$ now represents the wall between two chambers. 
+	
+
 
 	\begin{figure}[H]
 		\centering
@@ -1345,7 +1367,7 @@ Göttingen, \today \hspace{2em}
 		\caption{Lifted chamber surfaces.}
 	\end{figure}
 
-\section{Turnarounds}
+\section{Turns}
 	\begin{figure}[H]
 		\centering
 		\begin{subfigure}{.48\textwidth}

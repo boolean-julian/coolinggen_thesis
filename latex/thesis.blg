@@ -1,17 +1,17 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'thesis.blg'
-[358] biber-MSWIN64:340> INFO - === 
-[493] Biber.pm:418> INFO - Reading 'thesis.bcf'
-[725] Biber.pm:972> INFO - Found 2 citekeys in bib section 0
-[757] Biber.pm:4383> INFO - Processing section 0
-[804] Biber.pm:4574> INFO - Looking for bibtex file '../bibtex/bibliography.bib' for section 0
-[937] bibtex.pm:1713> INFO - LaTeX decoding ...
-[968] bibtex.pm:1518> INFO - Found BibTeX data source '../bibtex/bibliography.bib'
-[1181] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[1181] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[1182] Biber.pm:4203> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'en-US'
-[1182] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
-[1188] bbl.pm:654> INFO - Writing 'thesis.bbl' with encoding 'UTF-8'
-[1194] bbl.pm:757> INFO - Output to thesis.bbl
-[1196] Biber.pm:130> WARN - legacy month field 'feb' in entry 'Bezier1968' is not an integer - this will probably not sort properly.
-[1196] Biber.pm:132> INFO - WARNINGS: 1
+[350] biber-MSWIN64:340> INFO - === 
+[577] Biber.pm:418> INFO - Reading 'thesis.bcf'
+[796] Biber.pm:972> INFO - Found 2 citekeys in bib section 0
+[825] Biber.pm:4383> INFO - Processing section 0
+[860] Biber.pm:4574> INFO - Looking for bibtex file '../bibtex/bibliography.bib' for section 0
+[1051] bibtex.pm:1713> INFO - LaTeX decoding ...
+[1093] bibtex.pm:1518> INFO - Found BibTeX data source '../bibtex/bibliography.bib'
+[1262] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1262] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1263] Biber.pm:4203> INFO - Sorting list 'anyt/global//global/global' of type 'entry' with template 'anyt' and locale 'en-US'
+[1263] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
+[1269] bbl.pm:654> INFO - Writing 'thesis.bbl' with encoding 'UTF-8'
+[1271] bbl.pm:757> INFO - Output to thesis.bbl
+[1272] Biber.pm:130> WARN - legacy month field 'feb' in entry 'Bezier1968' is not an integer - this will probably not sort properly.
+[1272] Biber.pm:132> INFO - WARNINGS: 1
