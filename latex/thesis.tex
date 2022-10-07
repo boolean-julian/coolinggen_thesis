@@ -1283,11 +1283,17 @@ Göttingen, \today \hspace{2em}
 \section{Fundamental Terms}
 	\begin{itemize}
 		\item figure of (part of) turbine
-		\item explain where exactly we are in the turbine
-		\item stator/rotor difference
-		\item show distribution of (u,v) on blade
-		\item cylindrical coordinates
+		\item leading edge/trailing edge
+		\item ss / ps
 	\end{itemize}
+	(sauce: books on cooling)
+	The creation of cooling geometries inside of turbine blades is not only vital for the enhancement of the thermodynamic efficiency and power output of turbine engines. The materials melting temperature is often exceeded by that of the turbine inlet. To withstand this extreme condition, cooling is required. The blade geometries that we are concerned with in the development of CoolingGen are the ones that succeed the inlet in axial direction.
+
+	CoolingGen creates geometries which lie inside of the blade surface $B(u,v)$, which is an output of BladeGen, a tool used by the DLR for the design of blade surfaces. The surface $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbines hub. Because of rotational symmetry, it is sometimes convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates is given by the map
+		$$ Z: (x,y,z) \mapsto (x, \sqrt{y^2+z^2}). $$
+	Given the associated circumferential angle $\theta = \arctantwo(y, z)$, the transformation to cylindrical coordinates is invertible.
+
+	We also make the distinction between two kinds of blades, rotor and stator blades. While the rotor blades rotate around the hub, the stator blades have fixed positions. This was taken into account when designing CoolingGen, so both kinds are currently supported.
 
 \section{The S2 Stream Surface and Stream Surface Coordinates}
 	(source: Wu, 1952 at NACA)
@@ -1301,13 +1307,12 @@ Göttingen, \today \hspace{2em}
 	
 	Each $S_2$ surface is a parametric surface and therefore a map
 		$$s(u,v) : [0,1]^2 \rightarrow \mathbb{R}^3, \quad (u,v) \mapsto (x, r, m),$$
-	where $x$ is the axial coordinate, $r = \sqrt{y^2+z^2}$ the distance from the hub and $m$ is the arc length.
+	where $x$ is the axial coordinate, $r = \sqrt{y^2+z^2}$ the distance from the turbine hub and $m$ is the arc length.
 
-	To design the blades for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades. Each stream line described by $S_{2,m}$ can then be written as $S_{2,m}(\cdot, v)$. By intersecting the $u$-isoparametric curves $B(u,\cdot)$ of the blade $B(u,v)$ with each stream line, we can construct a planar curve $P^{(v)}_\textrm{stream}(u)$ from the intersection points $P_{u,v}$, given by
-		$$ P^{(v)}_\textrm{stream}(u) = (m, r\theta),$$
-	where $m$ is the intersection arc length, $r$ is the distance from hub of intersection and the circumferential angle $\theta$ is given by
-		$$ \theta = \arctantwo(y, z). $$
-	This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a stream surface coordinate system. One should note that for this coordinate transformation, $B(u,v)$ has to be transformed to cylindrical coordinates $(x,r)$ before intersection with the stream lines. The stream surface coordinate transformation is invertible given $v$ and $S_{2,m}$. Even though the input blade surface $B(u,v)$ lies in $\mathbb{R}^3$, the most important methods of CoolingGen (and BladeGen) are operations on objects in $(m, r\theta)$.
+	To design the blades for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades. Each stream line described by $S_{2,m}$ can then be written as $S_{2,m}(\cdot, v)$. By intersecting the cylindrically transformed $u$-isoparametric curves $Z(B(u,\cdot))$ of the blade with each stream line $S_{2,m}(\cdot, v)$, we can construct a curve $P^{(v)}_\textrm{stream}(u)$ from the intersection points $P_{u,v}$, given by
+		$$ P^{(v)}_\textrm{stream}(u) = (m, r\theta, v),$$
+	where $m$ is the first argument of $P_{u,v}$, the radius $r$ is equal to the second argument of $P_{u,v}$ and $\theta$ is the circumferential angle and $v$ is constant for each $P^{(v)}_\textrm{stream}$, making the curve planar.
+	This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a so called \emph{stream surface coordinate system}. Even though the input blade surface $B(u,v)$ lies in $\mathbb{R}^3$, the most important methods of CoolingGen are operations on objects in this stream surface coordinate system.
 
 \chapter{Results}
 
@@ -1317,7 +1322,7 @@ Göttingen, \today \hspace{2em}
 		\item what are they good for
 		\item how do we construct them
 	\end{itemize}
-	Channels are hollow sections inside a turbine blade which allow for the coolant to pass through. For the construction of channels, we distinguish between straight and curved sections of the channel. The straight sections represent hollow bodies that let the coolant pass in $v$-direction of the turbine blade. These sections are called \emph{chambers}. The curved sections let the coolant pass in $u$-direction of the turbine blade between chambers. We cal the latter sections \emph{turns}. In this section, we present how chambers are constructed.
+	Channels are hollow sections inside a turbine blade which allow for the coolant to pass through. For the construction of channels, we distinguish between straight and curved sections of the channel. The straight sections represent hollow bodies that let the coolant pass in $v$-direction of the turbine blade. These sections are called \emph{chambers}. The curved sections let the coolant pass in $u$-direction of the turbine blade. We cal the latter sections \emph{turns}. Inside these turns, the coolant flows between chambers. In this section, we present how chambers are constructed, whereas turn construction is throughly explained in the next section.
 
 	\begin{figure}[H]
 		\centering
@@ -1330,7 +1335,7 @@ Göttingen, \today \hspace{2em}
 		\caption{Offsetting and trimming a profile, then adding fillets where necessary.}
 	\end{figure}
 
-	First, we apply the $(m, r\theta)$ coordinate transformation to a number of $v$-isoparametric curves of the blade to calculate the profile $P^{(v_i)}_\textrm{stream}(u)$ for $i \in \{0,...,N\}$ as described in ???. These profiles are then offset by an input parameter. The profile is trimmed adequately and fillets are added, the radius of which are declared once again as an input.
+	First, we apply the stream surface coordinate transformation to a number of $v$-isoparametric curves of the blade to calculate a fixed number of profiles $P^{(v_i)}_\textrm{stream}(u)$ for $i \in \{0,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately and fillets are added, the radius of which are declared once again as an input. We refer to the resulting profile as \emph{shrunk profile} and declare it $S^{(v_i)}(t)$.
 
 	\begin{figure}[H]
 		\centering
@@ -1346,10 +1351,11 @@ Göttingen, \today \hspace{2em}
 		\caption{Construction of a chamber profile.}
 	\end{figure}
 
-	We calculate the camber curve of the shrunk profile. The camber curve $c(t)$ with $t \in [0,1]$ is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c$ if and only if for some $d$ its offset curve $O^c_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a set of parameters $t_i$ representing the positions of each wall relative to the camber curve, $i \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\phi_i$. Each wall position and angle pair represents two rays
-		$$ c(t_i) + sR_{\phi_i} \nabla c(t_i) \quad\text{and}\quad c(t_i) - sR_{\phi_i} \nabla c(t_i) $$
-	for $s \in [0, \infty)$. Using the ray marching algorithm, we can find the intersection $p^+$ and $p^-$ of the rays and the profiles. The line segment $\overline{p^+p^-}$ now represents the wall between two chambers. 
-	
+	We calculate the camber curve of each shrunk profile $S^{(v_i)}$. The camber curve $c^{(v_i)}(t)$ is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}$ if and only if for some $d$ its offset curve $O^{S^{v_i}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a set of parameters $w_i$ representing the positions of each wall relative to the camber curve, $i \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_i$. Each position-angle pair represents two rays
+		$$ c(w_i) + sR_{\omega_i} \nabla c(w_i) \quad\text{and}\quad c(w_i) - sR_{\omega_i} \nabla c(w_i) $$
+	for $s \in [0, \infty)$, where $R$ is a rotation matrix like the one presented in ???. Using the ray marching algorithm, we can find the intersection $p_i^+$ and $p_i^-$ of the rays and the profiles. The line segment $\overline{p_i^+p_i^-}$ now represents the $i$-th wall.
+
+	The blade is then partitioned at these intersection points.
 
 
 	\begin{figure}[H]
