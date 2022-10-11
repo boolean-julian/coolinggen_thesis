@@ -1,2 +1,20 @@
 # ignore all logs
 *.log
+
+latex/*.aux
+latex/*.bbl
+latex/*.blg
+latex/*.fdb_latexmk
+latex/*.fls
+latex/*.out
+latex/*.synctex.gz
+latex/*.toc
+
+beamer/*.aux
+beamer/*.bbl
+beamer/*.blg
+beamer/*.fdb_latexmk
+beamer/*.fls
+beamer/*.out
+beamer/*.synctex.gz
+beamer/*.toc
