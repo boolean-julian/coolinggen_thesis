@@ -201,7 +201,7 @@ Göttingen, \today \hspace{2em}
 \section{State of the Art}
 \section{Problem Statement}
 
-\chapter{Geometric Methods}
+\chapter{Geometric Methods}\label{chap:methods}
 	As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Beziér curves. We will then generalize Beziér curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point inversion, ray marching, curve intersection, offset curve creation and fillet creation, which we will also present.
 
 \section{Bézier Curves}
@@ -820,9 +820,7 @@ Göttingen, \today \hspace{2em}
 
 	Given a surface $\beta(u,v)$ with $u,v \in [0,1]$ and a point $Q \in \mathbb{R}^d$, we can also devise a point inversion algorithm by the same principle. We let $u_i = \frac{i}{n_u}, v_j = \frac{j}{n_v}$ for $i \in \{0, ..., n_u\}, j \in \{0,..., n_v\}$ and $n_u, n_v \in \mathbb{N}$. Then we seek
 		$$ m_u, m_v = \underset{(u,v)\in\{u_0, ..., u_n\} \times \{v_0, ..., v_n\}}{\arg\min} \phi(u,v), $$
-	where $\phi(u,v) := D(\beta(u,v), Q)$.
-
-	Then we apply Newton's method on $[l_u, u_u] \times [l_v, u_v] = [m_u - \frac{1}{n_u}, m_u + \frac{1}{n_u}] \times [m_v - \frac{1}{n_v}, m_v + \frac{1}{n_v}]$ with the start parameters $m_u, m_v$.
+	where $\phi(u,v) := D(\beta(u,v), Q)$. Then we apply Newton's method on $[l_u, u_u] \times [l_v, u_v] = [m_u - \frac{1}{n_u}, m_u + \frac{1}{n_u}] \times [m_v - \frac{1}{n_v}, m_v + \frac{1}{n_v}]$ with the start parameters $m_u, m_v$.
 
 	If the target distance is zero and $\gamma$ is a NURBS curve (or $\beta$ a NURBS surface), we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return the input parameter that fits the point $Q$. This justifies the name \emph{point inversion algorithm}.
 
@@ -899,6 +897,7 @@ Göttingen, \today \hspace{2em}
 		\end{algorithmic}
 	\end{algorithm}
 
+	Using the point inversion algorithm for surfaces (instead of the point inversion algorithm for curves) to find the distance between a point and a surface, we can generalize this algorithm to find the intersection of a ray and a surface.
 
 \subsection{Intersecting Two Curves in 2D}
 	In order to trim curves at intersection points, we require the pair of parameters at which two curves intersect. Let $\gamma_1(s)$ and $\gamma_2(t)$ be two continuous curves in $\mathbb{R}^2$ with $s,t \in [0,1]$ which instersect at finitely many points at most. In this section, we seek for the set of parameters at which these curves intersect.
@@ -1076,7 +1075,7 @@ Göttingen, \today \hspace{2em}
 
 	As discussed before, this intersection algorithm might not identify an intersection parameter pair $(s,t)$ where $\nabla \gamma_1(s) = \nabla \gamma_2(t)$. It does however prove fast and robust in the case of CoolingGen, where such intersections are currently not of interest.
 
-\subsection{Offset Curves and Self-Intersections in 2D}
+\subsection{Offset Curves and Self-Intersections in 2D}\label{sec:offsetcurves}
 	Offset curves are an important CAD tool and can be used to model contours of a certain thickness, which is why they are often referred to as parallel curves. Offset curves are paramount in the creation of fillets, which we will elaborate later. Among the variety of methods in CoolingGen, the creation of offset curves proves to be the most useful one, which perhaps lies in the very nature of cooling geometries, most of which are comprised of offset surfaces inside a given turbine blade surface.
 
 	\begin{definition}\label{def:offseteasy}
@@ -1167,7 +1166,7 @@ Göttingen, \today \hspace{2em}
 
 	In fact, the creation of fillets also plays a role in the creation of offset curves, since the procedure presented leaves behind non-differentiable places on the trimmed offset curves, which are undesirable for CoolingGen's purposes.
 
-\subsection{The Creation of Fillets in 2D}
+\subsection{The Creation of Fillets in 2D}\label{sec:filletcurves}
 	Given two curves $\gamma_1$ and $\gamma_2 \in \mathbb{R}^2$ defined on $t \in [0,1]$ we can sometimes construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle. Segments of these circles can replace non-differentiable segments from a curve. More formally, we can make the following definition.
 
 	\begin{definition}\label{def:filletcircle}
@@ -1268,23 +1267,37 @@ Göttingen, \today \hspace{2em}
 	where $(\cdot)$ is the standard dot product. We can now write the trimmed fillet curve as
 		$$ \overline{\phi}^{\gamma_1, \gamma_2}_r(t) = R_{+t\Theta}(D_1-M)+M = R_{-t\Theta}(D_2-M)+M,$$
 	for $t \in [0,1]$, where $R_{\Theta}$ is the rotation matrix given by
-		$$
+		\begin{equation}
 			R_{t\Theta} :=
 			\begin{pmatrix}
 				\cos t\Theta & -\sin t\Theta \\
 				\sin t\Theta & \phantom{+}\cos t\Theta
 			\end{pmatrix}.
-		$$
+			\label{eq:rotationmat}
+		\end{equation}
 	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
+
+\subsection{Intersecting a Surface and a Plane}
+
+
 
 \chapter{Jet Engine Specific Methods}
 	
 
 \section{Fundamental Terms}
-	\begin{itemize}
-		\item figure of (part of) turbine
-		\item figure of different named sides of turbine blade (ss/ps/le/te)
-	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/rotor_stator/11.png}
+			\caption{View on pressure side.}
+		\end{subfigure}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/rotor_stator/12.png}
+			\caption{View on suction side.	}
+		\end{subfigure}
+		\caption{In (a) and (b), the left is surface represents a stator and the right surface represents a rotor. Yellow marks the leading edge, red the pressure side, green the suction side and blue the trailing edge.}
+	\end{figure}
+
 	(sauce: books on cooling)
 	The creation of cooling geometries inside of turbine blades is not only vital for the enhancement of the thermodynamic efficiency and power output of turbine engines. The materials melting temperature is often exceeded by that of the turbine inlet. To withstand this extreme condition, cooling is required. The blade geometries that we are concerned with in the development of CoolingGen are the ones that succeed the inlet in axial direction.
 
@@ -1296,7 +1309,7 @@ Göttingen, \today \hspace{2em}
 
 	The blade surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
 
-\section{The S2 Stream Surface and Stream Surface Coordinates}
+\section{The S2 Stream Surface and Stream Surface Coordinates}\label{sec:mrtheta}
 	\begin{itemize}
 		\item figure of s2m with correct labels
 	\end{itemize}
@@ -1322,53 +1335,61 @@ Göttingen, \today \hspace{2em}
 \chapter{Results}
 
 \section{Chambers}
-	missing figures: 
-	\begin{itemize}
-		\item first figure, first subfig: labeled figure with all curve names and $p_i^+, p_i^-$ 
-		\item in second subfig: single chamber without any offset
-		\item second figure: offsetting curves, then intersecting curves, then adding fillets as 3 subfigs
-		\item offset and trimming in single steps always
-	\end{itemize}
-	Channels are hollow sections inside a turbine blade which allow for the coolant to pass through. For the construction of channels, we distinguish between straight and curved sections of the channel. The straight sections represent hollow bodies that let the coolant pass in $v$-direction of the turbine blade. These sections are called \emph{chambers}. The curved sections let the coolant pass in $u$-direction of the turbine blade. We cal the latter sections \emph{turns}. Inside these turns, the coolant flows between chambers. In this section, we present how chambers are constructed, whereas turn construction is throughly explained in the next section.
+	Channels are hollow sections inside a turbine blade which allow for a coolant to pass through. For the construction of channels, we distinguish between straight and curved sections of the channel. The straight sections represent hollow bodies that let the coolant pass in $v$-direction of the turbine blade. These sections are called \emph{chambers}. The curved sections let the coolant pass in $u$-direction of the turbine blade. We call the latter sections \emph{turns}. Inside turns, the coolant flows between chambers. In this section, we present how chambers are constructed, whereas turn construction is thoroughly explained in the next section.
 
 	\begin{figure}[H]
 		\centering
-		\begin{subfigure}{.4\textwidth}
-			\includegraphics[width=\textwidth]{../tec/shrinking/offset.png}
+		\begin{subfigure}{.32\textwidth}
+			\includegraphics[width=\textwidth]{../tec/shrinking/11.png}
+			\caption{Offsetting.}
 		\end{subfigure}
-		\begin{subfigure}{.4\textwidth}
-			\includegraphics[width=\textwidth]{../tec/shrinking/trimming.png}
+		\begin{subfigure}{.32\textwidth}
+			\includegraphics[width=\textwidth]{../tec/shrinking/12.png}
+			\caption{Trimming.}
 		\end{subfigure}
-		\caption{Offsetting and trimming a $(m, r\theta)$ profile, then adding fillets where necessary.}
+		\begin{subfigure}{.32\textwidth}
+			\includegraphics[width=\textwidth]{../tec/shrinking/13.png}
+			\caption{Adding fillets.}
+		\end{subfigure}
+		\caption{Shrinking a profile in $(m, r\theta)$. The black curve represents $P^{(v_i)}_\textrm{stream}(u)$, whereas the red curve in (c) represents $S^{(v_i)}_\textrm{stream}(u)$.}
+		\label{fig:profileshrinking}
 	\end{figure}
 
-	First, we apply the stream surface coordinate transformation to a number of $v$-isoparametric curves of the blade to calculate a fixed number of profiles $P^{(v_i)}_\textrm{stream}(u)$ for $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately and fillets are added, the radius of which are declared once again as an input. We refer to the resulting profile as \emph{shrunk profile} and declare it $S^{(v_i)}(t)$.
+	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade to calculate the profiles $P^{(v_i)}_\textrm{stream}(u)$ for $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately and fillets are added, the radius of which are also declared as an input. We refer to the resulting profile as \emph{shrunk profile} and declare it $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}.
 
 	\begin{figure}[H]
 		\centering
-		\begin{subfigure}{.4\textwidth}
-			\includegraphics[width=\textwidth]{../tec/chambers/walls.png}
-			\caption{Subdivision of profile along camber.}
+		\includesvg[width=.66\textwidth]{../tec/chambers/walls_labeled.svg}
+		\caption{Subdivision of profile along the camber curve. The camber curve is represented by the dashed line.}
+		\label{fig:subdivision_chamber}
+	\end{figure}
+
+	We calculate the camber curve of each shrunk profile $S^{(v_i)}_\textrm{stream}$. The camber curve $c^{(v_i)}$ is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}_\textrm{stream}$ if and only if for some $d$ its offset curve $O^{S^{(v_i)}_\textrm{stream}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a sorted set of parameters $w_j$ representing the positions of each wall relative to the camber curve, $j \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_i$. Each position-angle pair represents two rays
+		$$ c(w_j) + sR_{\omega_j} \nabla c(w_j) \quad\text{and}\quad c(w_j) - sR_{\omega_j} \nabla c(w_j) $$
+	for $s \in [0, \infty)$, where $R$ is a rotation matrix like the one presented in Equation \ref{eq:rotationmat}. Using the Algorithm \ref{alg:raymarching}, we can find the intersection $p_j^+$ and $p_j^-$ of the rays and the profiles. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. 
+
+	The blade is then partitioned at these intersection points. For each such partitioning, we are left with four curves per chamber profile. Some of these curves are the walls, which are curves that represent straight lines between $p_j^+$ and $p_j^-$. There are four distinct cases. The first case is $N_C = 1$. In this case, the four curves are given by the pressure side, the leading edge, the suction side and the trailing edge partitioning of the input blade surface $B(u,v)$. If however $N_C > 1$, we have three more cases. The chamber profile located at the leading edge, which we refer to as leading chamber profile, consists of the partition of the pressure side between the leading edge and $p_1^+$, the leading edge, the partition of the suction side between the leading edge and $p_1^-$ and lastly the first wall curve. The chamber profile located at the trailing edge, which we refer to as trailing chamber, consists of the partition of the pressure side between trailing edge and $p_{N_C-1}^+$, the $(N_C-1)$-th wall, the partition of the suction side between trailing edge and $p_{N_C-1}^-$ and the trailing edge. For the $j$-th chamber profile, where $j \neq 1$ and $j \neq N_C-1$, these four curves are the partition of the pressure side between $p_j^+$ and $p_{j+1}^+$, the $j$-th wall, the partition of the suction side between $p_{j}^-$ and $p_{j+1}^-$ and the $(j+1)$-th wall. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}.
+
+	\begin{figure}
+		\begin{subfigure}{.32\textwidth}
+			\includegraphics[width=\textwidth]{../tec/chambers/11.png}
+			\caption{Offsetting.}
 		\end{subfigure}
-		\phantom{aa}
-		\begin{subfigure}{.5\textwidth}
-			\includegraphics[width=\textwidth]{../tec/chambers/single_constr.png}
-			\caption{Offsetting, trimming and adding fillets.}
+		\begin{subfigure}{.32\textwidth}
+			\includegraphics[width=\textwidth]{../tec/chambers/12.png}
+			\caption{Trimming.}
+		\end{subfigure}
+		\begin{subfigure}{.32\textwidth}
+			\includegraphics[width=\textwidth]{../tec/chambers/13.png}
+			\caption{Adding fillets.}
 		\end{subfigure}
 		\caption{Construction of a chamber profile.}
+		\label{fig:chamber_shrinking}
 	\end{figure}
 
-	We calculate the camber curve of each shrunk profile $S^{(v_i)}$. The camber curve $c^{(v_i)}(t)$ is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}$ if and only if for some $d$ its offset curve $O^{S^{v_i}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a sorted set of parameters $w_i$ representing the positions of each wall relative to the camber curve, $i \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_i$. Each position-angle pair represents two rays
-		$$ c(w_i) + sR_{\omega_i} \nabla c(w_i) \quad\text{and}\quad c(w_i) - sR_{\omega_i} \nabla c(w_i) $$
-	for $s \in [0, \infty)$, where $R$ is a rotation matrix like the one presented in ???. Using the ray marching algorithm, we can find the intersection $p_i^+$ and $p_i^-$ of the rays and the profiles. The line segment $\overline{p_i^+p_i^-}$ now represents the $i$-th wall. 
+	After performing this partitioning, we can offset the curves. However, each curve is offset differently. In the wall input, the thickness of the wall in each direction is specified as an input. In fact, this input specification is done using NURBS curves. For each partition, the user of CoolingGen specifies control points $(v_k, d_k)$, where $v_k \in [0,1]$ is the surface parameter and $d_k$ is the respective thickness with $k \in [1, ..., K]$. The leading and trailing profile offsets are linearly interpolated between suction and pressure side offsets to guarantee differentiability of the chamber profile at the leading and trailing edge transitions, respectively. Since after offsetting, the four chamber profile parts do not necessarily align, we connect the curve ends either by curve-curve intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve boundary points and $B$ represent the gradient at the curve boundary points.
 
-	The blade is then partitioned at these intersection points. For each such partitioning, we are left with four curves per chamber profile. Some of these curves are the walls, which are curves that represent straight lines between $p_i^+$ and $p_i^-$. There are four distinct cases. The first case is $N_C = 1$. In this case, the four curves are given by the pressure side, the leading edge, the suction side and the trailing edge partitioning of the input blade surface $B(u,v)$. If however $N_C > 1$, we have three more cases. The chamber profile located at the leading edge, which we will refer to as leading chamber profile, consists of the partition of the pressure side between the leading edge and $p_1^+$, the leading edge, the partition of the suction side between the leading edge and $p_1^-$ and lastly the first wall curve. The chamber profile located at the trailing edge, which we will refer to as trailing chamber, consists of the partition of the pressure side between trailing edge and $p_{N_C-1}^+$, the $(N_C-1)$-th wall, the partition of the suction side between trailing edge and $p_{N_C-1}^-$ and the trailing edge. For the $i$-th chamber profile, where $i \neq 1$ and $i \neq N_C$, these four curves are the partition of the pressure side between $p_i^+$ and $p_{i+1}^+$, the $i$-th wall, the partition of the suction side between $p_{i}^-$ and $p_{i+1}^-$ and the $(i+1)$-th wall.
-
-	After performing this partitioning, we can offset the curves. However, each curve is offset differently. In the wall input, the thickness of the wall in each direction is specified as an input. In fact, this input specification is done using NURBS curves. The user of CoolingGen specifies control points $(v_k, d_k)$, where $v_k \in [0,1]$ is the surface parameter and $d_k$ is the respective thickness with $k \in [1, ..., K]$. The leading and trailing profile offsets are linearly interpolated between suction and pressure side offsets to guarantee differentiability of the chamber profile at the leading and trailing edge transitions, respectively. Since after offsetting, the four chamber profile parts do not necessarily align, we connect the curve ends either by intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve boundary points and $B$ represent the gradient at the curve boundary points.
-
-	After connecting and trimming the offset curves using the methods in section ???, we are left with four trimmed offset curves that non-differentiably connect offset wall curves. We use the fillet curve method presented in ?? to make their connection a circular arc.
-
-	We can use the inverse coordinate transformation from the $(m, r\theta)$ stream surface coordinate system to the Cartesian coordinate system. Interpolation between the transformed chamber profiles yields $N_C$ three-dimensional chamber surfaces.
+	After connecting and trimming the offset curves using the methods in Section \ref{sec:offsetcurves}, we are left with four trimmed offset curves that intersect non-differentiably at their boundary points. We apply the fillet curve method presented in Section \ref{sec:filletcurves}. These steps can be seen in Figure \ref{fig:chamber_shrinking}.
 
 	\begin{figure}[H]
 		\centering
@@ -1384,6 +1405,8 @@ Göttingen, \today \hspace{2em}
 		\end{subfigure}
 		\caption{Lifted chamber surfaces.}
 	\end{figure}
+	
+	We can use the inverse coordinate transformation from the $(m, r\theta)$ stream surface coordinate system to the Cartesian coordinate system. Interpolation between the transformed chamber profiles yields $N_C$ many three-dimensional chamber surfaces.
 
 \section{Turns}
 	\begin{figure}[H]
