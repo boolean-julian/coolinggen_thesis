@@ -1278,13 +1278,20 @@ Göttingen, \today \hspace{2em}
 	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
 
 \subsection{Intersecting a Surface and a Plane}
-
+	a
 
 
 \chapter{Jet Engine Specific Methods}
 	
 
 \section{Fundamental Terms}
+	(sauce: books on cooling)
+	The creation of cooling geometries inside of turbine blades is not only vital for the enhancement of the thermodynamic efficiency and power output of turbine engines. The materials melting temperature is often exceeded by that of the turbine inlet. To withstand this extreme condition, cooling is required. The blade geometries that we are concerned with in the development of CoolingGen are the ones that succeed the inlet in axial direction.
+
+	CoolingGen creates geometries which lie inside of such a blade surface $B(u,v)$, which is an output of BladeGen, a tool developed by the DLR specifically for the design of blade surfaces. $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbines hub. Because of rotational symmetry of the turbine, it is sometimes convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates is given by the map
+		$$ Z: (x,y,z) \mapsto (x, \sqrt{y^2+z^2}). $$
+	Given the associated circumferential angle $\theta = \arctantwo(y, z)$, the transformation to cylindrical coordinates is invertible.
+
 	\begin{figure}[H]
 		\centering
 		\begin{subfigure}{.49\textwidth}
@@ -1297,17 +1304,8 @@ Göttingen, \today \hspace{2em}
 		\end{subfigure}
 		\caption{In (a) and (b), the left is surface represents a stator and the right surface represents a rotor. Yellow marks the leading edge, red the pressure side, green the suction side and blue the trailing edge.}
 	\end{figure}
-
-	(sauce: books on cooling)
-	The creation of cooling geometries inside of turbine blades is not only vital for the enhancement of the thermodynamic efficiency and power output of turbine engines. The materials melting temperature is often exceeded by that of the turbine inlet. To withstand this extreme condition, cooling is required. The blade geometries that we are concerned with in the development of CoolingGen are the ones that succeed the inlet in axial direction.
-
-	CoolingGen creates geometries which lie inside of such a blade surface $B(u,v)$, which is an output of BladeGen, a tool developed by the DLR specifically for the design of blade surfaces. $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbines hub. Because of rotational symmetry of the turbine, it is sometimes convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates is given by the map
-		$$ Z: (x,y,z) \mapsto (x, \sqrt{y^2+z^2}). $$
-	Given the associated circumferential angle $\theta = \arctantwo(y, z)$, the transformation to cylindrical coordinates is invertible.
-
-	We also make the distinction between two kinds of blades, rotor and stator blades. While the rotor blades rotate around the hub, the stator blades have fixed positions. This was taken into account when designing CoolingGen, so both kinds are currently supported.
-
-	The blade surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
+	
+	We make the distinction between two kinds of blades, rotor and stator blades. While the rotor blades rotate around the hub, the stator blades have fixed positions. This was taken into account when designing CoolingGen, so both kinds are currently supported. Furthermor, the blade surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
 
 \section{The S2 Stream Surface and Stream Surface Coordinates}\label{sec:mrtheta}
 	\begin{itemize}
@@ -1319,17 +1317,17 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=.5\textwidth]{../assets/wu_naca_s2.png}
-		\caption{Example $S_1$ and $S_2$ surfaces of a turbomachine. The $z$ coordinate in the figure is $x$.}
+		\includegraphics[width=.5\textwidth]{../assets/renamed_wu_naca_s2.png}
+		\caption{Example $S_1$ and $S_2$ surfaces of a turbomachine.}
 	\end{figure}
 	
 	Each $S_2$ surface is a parametric surface and therefore a map
 		$$s(u,v) : [0,1]^2 \rightarrow \mathbb{R}^3, \quad (u,v) \mapsto (x, r, m),$$
 	where $x$ is the axial coordinate, $r = \sqrt{y^2+z^2}$ the distance from the turbine hub and $m$ is the arc length.
 
-	To design the blades for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades. Each stream line described by $S_{2,m}$ can then be written as $S_{2,m}(\cdot, v)$. By intersecting the cylindrically transformed $u$-isoparametric curves $Z(B(u,\cdot))$ of the blade with each stream line $S_{2,m}(\cdot, v)$, we can construct a curve $P^{(v)}_\textrm{stream}(u)$ from the intersection points $P_{u,v}$, given by
-		$$ P^{(v)}_\textrm{stream}(u) = (m, r\theta, v),$$
-	where $m$ is the first argument of $P_{u,v}$, the radius $r$ is equal to the second argument of $P_{u,v}$ and $\theta$ is the circumferential angle and $v$ is constant for each $P^{(v)}_\textrm{stream}$, making the curve planar.
+	To design the blades for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades. Each stream line described by $S_{2,m}$ can then be written as $S_{2,m}(\cdot, v)$. By intersecting the cylindrically transformed $u$-isoparametric curves $Z(B(u,\cdot))$ of the blade with each stream line $S_{2,m}(\cdot, v)$, we can construct a curve $B^{(v)}_\textrm{stream}(u)$ from the intersection points $P_{u,v}$, given by
+		$$ B^{(v)}_\textrm{stream}(u) = (m, r\theta, v),$$
+	where $m$ is the first argument of $P_{u,v}$, the radius $r$ is equal to the second argument of $P_{u,v}$ and $\theta$ is the circumferential angle and $v$ is constant for each $B^{(v)}_\textrm{stream}$, making the curve planar.
 	This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a so called \emph{stream surface coordinate system}. Even though the input blade surface $B(u,v)$ lies in $\mathbb{R}^3$, the most important methods of CoolingGen are operations on objects in this stream surface coordinate system.
 
 \chapter{Results}
@@ -1351,11 +1349,11 @@ Göttingen, \today \hspace{2em}
 			\includegraphics[width=\textwidth]{../tec/shrinking/13.png}
 			\caption{Adding fillets.}
 		\end{subfigure}
-		\caption{Shrinking a profile in $(m, r\theta)$. The black curve represents $P^{(v_i)}_\textrm{stream}(u)$, whereas the red curve in (c) represents $S^{(v_i)}_\textrm{stream}(u)$.}
+		\caption{Shrinking a profile in $(m, r\theta)$. The black curve represents $B^{(v_i)}_\textrm{stream}(u)$, whereas the red curve in (c) represents $S^{(v_i)}_\textrm{stream}(u)$.}
 		\label{fig:profileshrinking}
 	\end{figure}
 
-	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade to calculate the profiles $P^{(v_i)}_\textrm{stream}(u)$ for $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately and fillets are added, the radius of which are also declared as an input. We refer to the resulting profile as \emph{shrunk profile} and declare it $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}.
+	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade to calculate the profiles $B^{(v_i)}_\textrm{stream}(u)$ for $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately and fillets are added, the radius of which are also declared as an input. We refer to the resulting profile as \emph{shrunk profile} and declare it $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}.
 
 	\begin{figure}[H]
 		\centering
@@ -1463,6 +1461,7 @@ Göttingen, \today \hspace{2em}
 		\end{subfigure}
 		\caption{Film cooling holes and their delimiting curves}
 	\end{figure}
+
 
 \section{Impingement Inserts}
 \section{Slots}

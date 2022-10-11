@@ -1,36 +1,72 @@
-\babel@toc {english}{}\relax 
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {english}{}
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.2}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.1}Motivation}{1}{section.3}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.2}State of the Art}{1}{section.4}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.3}Problem Statement}{1}{section.5}%
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {2}Geometric Methods}{2}{chapter.6}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.1}Bézier Curves}{2}{section.7}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.1}Definition}{2}{subsection.9}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.2}De Casteljau's Algorithm}{3}{subsection.15}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.3}Properties}{5}{subsection.19}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.2}Non-Uniform Rational B-splines (NURBS)}{6}{section.23}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2.1}Definition}{6}{subsection.24}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2.2}De Boor's Algorithm}{8}{subsection.38}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2.3}Properties}{11}{subsection.46}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.3}Common Methods on Curves and Surfaces}{12}{section.50}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3.1}Point Inversion}{12}{subsection.51}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3.2}Intersection of a Ray and a Curve in 2D}{15}{subsection.57}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3.3}Intersecting Two Curves in 2D}{17}{subsection.63}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3.4}Offset Curves and Self-Intersections in 2D}{21}{subsection.73}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3.5}The Creation of Fillets in 2D}{24}{subsection.81}%
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3.6}Intersecting a Surface and a Plane}{27}{subsection.91}%
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Jet Engine Specific Methods}{28}{chapter.92}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.1}Fundamental Terms}{28}{section.93}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.2}The S2 Stream Surface and Stream Surface Coordinates}{29}{section.95}%
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {4}Results}{31}{chapter.97}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.1}Chambers}{31}{section.98}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.2}Turns}{34}{section.103}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.3}Film Cooling Holes}{35}{section.106}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.4}Impingement Inserts}{36}{section.108}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.5}Slots}{36}{section.109}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.6}Export for CENTAUR}{36}{section.110}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.7}Export for Open CASCADE}{36}{section.111}%
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {5}Discussion}{37}{chapter.112}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.1}Future Work}{37}{section.113}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.2}Conclusion}{37}{section.114}%
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {6}References}{38}{chapter.115}%
