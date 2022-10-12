@@ -12,8 +12,15 @@
 \usepackage{subcaption}
 \renewcommand{\familydefault}{\sfdefault}
 
+% set theme color to DLR logo color
 \definecolor{mypres}{RGB}{97,107,104}
 
+% set presentation date
+\day13\relax
+\month10\relax
+\year2022\relax
+
+% set big cdot for header
 \makeatletter
 \newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
 \newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
@@ -76,16 +83,16 @@
 	\begin{minipage}[t]{\textwidth}
 		Was ist CoolingGen?
 		\begin{itemize}
-			\item Programm, welches mithilfe von CAD eine Schaufel aus BladeGen mit Kühlungsgeometrien ausstattet
+			\item Programm, welches mithilfe von CAD-Methoden eine Schaufel aus BladeGen mit Kühlungsgeometrien ausstattet
 			\item Basiert auf BasicTools (Bibiliothek vom DLR für B-Spline Kurven/Flächen)
 			\item Entwicklung startete 2013 (Autoren: C. Voß, T. Schumacher)
-			\item Meine Arbeit daran startete im Juli 2021
+			\item 3D Pendant zu PICCOOLO von Robin Schöffler
 		\end{itemize}
 		\vspace{0.5cm}
 		Warum CoolingGen?
 		\begin{itemize}
-			\item Erzeugung von Kühlungsgeometrien innerhalb einer Schaufel mit herkömmlichen CAD-Tools ist mühsam und dauert lange
-			\item Laufzeit von CoolingGen: ca. 20 Sekunden auf 8 $\cdot$ 3GHz
+			\item Erzeugung von Kühlungsgeometrien innerhalb einer Schaufel mithilfe herkömmlicher CAD-Tools ist mühsam und langwierig
+			\item Laufzeit von CoolingGen, zirka $20$ Sekunden auf $8 \cdot 4$ GHz
 			\item Grundlage für die Optimierung von Kühlungsgeometrien durch Phasenraumsuche gekoppelt mit CFD-Simulationen
 		\end{itemize}
 
@@ -166,10 +173,29 @@
 	\begin{figure}
 		\centering
 		\begin{subfigure}[t]{.49\textwidth}
-			\includegraphics[height=.8\textheight]{../tec/shrinking/offset.png}
+			\includegraphics[height=.8\textheight]{../tec/shrinking/11.png}
 		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Methoden / Kanäle und Prallbleche / Schrumpfen der Profilkurven}
+	\vspace{-1cm}\hspace{-0.5cm}
+	\begin{figure}
+		\centering
 		\begin{subfigure}[t]{.49\textwidth}
-			\includegraphics[height=.8\textheight]{../tec/shrinking/trimming.png}
+			\includegraphics[height=.8\textheight]{../tec/shrinking/12.png}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Methoden / Kanäle und Prallbleche / Schrumpfen der Profilkurven}
+	\vspace{-1cm}\hspace{-0.5cm}
+	\begin{figure}
+		\centering
+		\begin{subfigure}[t]{.49\textwidth}
+			\includegraphics[height=.8\textheight]{../tec/shrinking/13.png}
 		\end{subfigure}
 	\end{figure}
 \end{frame}
@@ -231,14 +257,24 @@
 
 \begin{frame}
 	\frametitle{Methoden / Kanäle und Prallbleche / Unterteilung}
+	\vspace{-1cm}\hspace{0.5cm}
+	\begin{figure}
+		\centering
+		\begin{subfigure}[t]{.49\textwidth}
+			\phantom{11}
+			\includegraphics[height=.79\textheight]{../tec/shrinking/13.png}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Methoden / Kanäle und Prallbleche / Unterteilung}
 	\vspace{-1cm}\hspace{-0.5cm}
+	\\[0.5em]
 	\begin{figure}
 		\centering
 		\begin{subfigure}[t]{.5\textwidth}
-			\includegraphics[height=.8\textheight]{../tec/chambers/walls.png}
-		\end{subfigure}
-		\begin{subfigure}[t]{.48\textwidth}
-			\includegraphics[height=.8\textheight]{../tec/chambers/single_constr.png}
+			\includesvg[height=.8\textheight]{../tec/chambers/walls_labeled.svg}
 		\end{subfigure}
 	\end{figure}
 \end{frame}
@@ -263,8 +299,10 @@
 		\begin{figure}[H]
 			\centering
 			\begin{subfigure}{0.49\textwidth}
+				Zurück zu $(m, r\theta)$, dann miteinander verbinden\\
+				$\rightarrow$ Lifting\\
+
 				\includegraphics[width=\textwidth]{../tec/lifting/lifted.png}
-				\vspace{1cm}
 			\end{subfigure}
 			\hspace{0.5cm}
 			\begin{subfigure}{0.42\textwidth}
