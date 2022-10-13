@@ -115,7 +115,7 @@
 		\end{itemize}
 
 		Welche Geometrien kann CoolingGen erzeugen?
-		Derzeit unterstützt (und hier vorgestellt):
+		Derzeit unterstützt:
 		\begin{itemize}
 			\item Kühlkanäle (mit Umkehrungen)
 			\item Prallbleche (mit Bohrungen)
@@ -152,16 +152,16 @@
 	\frametitle{Methoden / Kanäle und Prallbleche}
 	\vspace{-1cm}\hspace{-0.5cm}
 	\begin{minipage}[t]{\textwidth}
-		Um die Kanäle zu erzeugen, werden $m$ Kanalwände (in Relation zur Skelettlinie) als Input spezifiziert.
+		Um die Kanäle zu erzeugen, werden $k-1$ Kanalwände (in Relation zur Skelettlinie) als Input spezifiziert.
 		Es wird folgende Strategie verwendet:
 		\begin{enumerate}
 			\item Schaufeloberfläche in radialer Höhe $n$ mal samplen $\rightarrow$ $n$ Profilkurven
 			\item Koordinatentransformation $(x, y, z) \rightarrow (x, r) \rightarrow (m, r\theta)$
 			\item \emph{Schrumpfen} der Profilkurven
-			\item \emph{Unterteilung} der Profilkurven an den Kanalwänden $\rightarrow$ $n(m+1)$ Kammerschnitte 
+			\item \emph{Unterteilung} jeder Profilkurve an den Kanalwänden $\rightarrow$ $k$ Kammerschnitte pro Profilkurve
 			\item \emph{Schrumpfen} der Kammerschnitte
 			\item Einpassung von \emph{Fillets} an \emph{Knicken/Ecken}
-			\item Rücktransformation nach $(x, y, z)$, und \emph{Lifting}, um $m+1$ Oberflächen zu erhalten
+			\item Rücktransformation nach $(x, y, z)$, und \emph{Lifting}, um $k$ Oberflächen zu erhalten
 		\end{enumerate}
 	\end{minipage}
 	\vfill
@@ -291,6 +291,26 @@
 		\end{figure}
 	\end{minipage}
 \end{frame}
+
+\begin{frame}
+	\frametitle{Methoden / Kanäle und Prallbleche / Schrumpfen}
+	\hspace{-0.5cm}
+	\begin{minipage}{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.3\textwidth}
+				\includegraphics[width=\textwidth]{../tec/chambers/11.png}
+			\end{subfigure}
+			\begin{subfigure}{.3\textwidth}
+				\includegraphics[width=\textwidth]{../tec/chambers/12.png}
+			\end{subfigure}
+			\begin{subfigure}{.3\textwidth}
+				\includegraphics[width=\textwidth]{../tec/chambers/13.png}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Methoden / Kanäle und Prallbleche / Lifting}
