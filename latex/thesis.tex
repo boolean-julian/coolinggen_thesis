@@ -202,7 +202,7 @@ Göttingen, \today \hspace{2em}
 \section{Problem Statement}
 
 \chapter{Geometric Methods}\label{chap:methods}
-	As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Beziér curves. We will then generalize Beziér curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point inversion, ray marching, curve intersection, offset curve creation and fillet creation, which we will also present.
+	As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Bézier curves. We will then generalize Bézier curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point inversion, ray marching, curve intersection, offset curve creation and fillet creation, which we will also present.
 
 \section{Bézier Curves}
 	Bézier curves are named after the French engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
@@ -221,7 +221,7 @@ Göttingen, \today \hspace{2em}
 			\includesvg[width=\textwidth]{../python/bezierDifferentDegrees3}
 			\caption{Degree $3$.}
 		\end{subfigure}
-		\caption{Beziér curves of different degrees (orange) and their control points (blue).}
+		\caption{Bézier curves of different degrees (orange) and their control points (blue).}
 		\label{fig:bezierdifferentdegrees}
 	\end{figure}
 
@@ -243,21 +243,21 @@ Göttingen, \today \hspace{2em}
 	\end{definition}
 
 	\begin{remark}
-		Let $t_0 = 0$ and $t_1 = 1$. Then \ref{eq:bezierdef} simplifies to
+		Let $t_0 = 0$ and $t_1 = 1$. Then Equation (\ref{eq:bezierdef}) simplifies to
 		\begin{equation*}
 			b_{n,k}(t) := b_{n,k,[0,1]}(t) = \binom{n}{k} (1-t)^{n-k}t^k
 		\end{equation*}
-		and \ref{eq:bernsteinbasisdef} simplifies to
+		and Equation (\ref{eq:bernsteinbasisdef}) simplifies to
 		\begin{equation}\label{eq:bezierdefshort}
 			B_P(t) := B_{P,[0,1]}(t)= \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k P_k.
 		\end{equation}
 		This case is the only case considered in this thesis.
 	\end{remark}
 
-	In a Beziér curve of a given degree, the control points completely determine the shape of the curve. This behavior can be observed in Figure \ref{fig:bezierdifferentdegrees}. However, changing one control point affects the whole curve, since for $n$ control points the degree of the Beziér curve is always $n-1$. This behavior also becomes apparent using de Casteljau's algorithm for the computation of points on the Beziér curve.
+	In a Bézier curve of a given degree, the control points completely determine the shape of the curve. This behavior can be observed in Figure \ref{fig:bezierdifferentdegrees}. However, changing one control point affects the whole curve, since for $n$ control points the degree of the Bézier curve is always $n-1$. This behavior also becomes apparent using de Casteljau's algorithm for the computation of points on the Bézier curve.
 
 \subsection{De Casteljau's Algorithm}
-	The computation of Equation \ref{eq:bezierdefshort} is usually performed using de Casteljau's algorithm. This is because the algorithm yields a simple implementation and lower complexity than straightforwardly computing Equation \ref{eq:bezierdefshort}. The algorithm was proposed by Paul de Faget de Casteljau for the automobile manufacturer Citroën in the 1960s.
+	The computation of Equation (\ref{eq:bezierdefshort}) is usually performed using de Casteljau's algorithm. This is because the algorithm yields a simple implementation and lower complexity than straightforwardly computing Equation (\ref{eq:bezierdefshort}). The algorithm was proposed by Paul de Faget de Casteljau for the automobile manufacturer Citroën in the 1960s.
 
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
@@ -266,7 +266,7 @@ Göttingen, \today \hspace{2em}
 				\Desc{$t$}{real number}
 			\EndInput
 			\Output
-				\Desc{$P^{(n)}_0 = B_P(t)$}{the point on the Beziér curve w.r.t. to $t$}
+				\Desc{$P^{(n)}_0 = B_P(t)$}{the point on the Bézier curve w.r.t. to $t$}
 			\EndOutput
 
 			\caption{de Casteljau's algorithm}\label{alg:decasteljaualgo}
@@ -286,7 +286,7 @@ Göttingen, \today \hspace{2em}
 		Algorithm \ref{alg:decasteljaualgo} computes $B_P(t)$.
 	\end{theorem}
 	\begin{proof}
-		By induction. Let $n = 1$. Then
+		By induction. Let $n = 1$ and $t \in [0,1]$ be fixed. Then
 			$$ P_0^{(1)} = (1-t) \cdot P_0 + t \cdot P_1.$$
 		By employing the induction hypothesis
 			$$ P_j^{(n)} = \sum_{k=j}^{n+j} \binom{n}{k} (1-t)^{n-k}t^k P_{j+k}$$
@@ -299,7 +299,7 @@ Göttingen, \today \hspace{2em}
 		which is equal to $B_P(t)$ for degree $n+1$.
 	\end{proof}
 
-	A visual representation of Algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Beziér curve $B_P$ with degree $n$, one has to perform $\frac{n^2-n}{2}$ vector additions and $n^2-n$ scalar multiplications.
+	A visual representation of Algorithm \ref{alg:decasteljaualgo} yields a triangular scheme. To compute one point on a Bézier curve $B_P$ with degree $n$, one has to perform $\frac{n^2-n}{2}$ vector additions and $n^2-n$ scalar multiplications.
 
 	\begin{figure}[H]
 		\centering
@@ -361,16 +361,16 @@ Göttingen, \today \hspace{2em}
 		\label{fig:decasteljautriangle}
 	\end{figure}
 
-	Interestingly, the representation of the algorithm in Figure \ref{fig:decasteljautriangle} also gives rise to an intuitive visualization of the geometric shape of the Beziér curve $B_P$. For all $i \in \{0, ..., n\}$ and all $j \in \{0, ..., n-i\}$, the point $P^{(i+1)}_j$ is the convex combination (always w.r.t. $t$) of $P^{(i)}_j$ and $P^{(i)}_{j+1}$. Thus $P^{(i+1)}_j$ always lies on the line segment between $P^{(i)}_j$ and $P^{(i)}_{j+1}$, as can be observed in the example in Figure \ref{fig:decasteljautriangle}.
+	Interestingly, the representation of the algorithm in Figure \ref{fig:decasteljautriangle} also gives rise to an intuitive visualization of the geometric shape of the Bézier curve $B_P$. For all $i \in \{0, ..., n\}$ and all $j \in \{0, ..., n-i\}$, the point $P^{(i+1)}_j$ is the convex combination (always w.r.t. $t$) of $P^{(i)}_j$ and $P^{(i)}_{j+1}$. Thus $P^{(i+1)}_j$ always lies on the line segment between $P^{(i)}_j$ and $P^{(i)}_{j+1}$, as can be observed in the example in Figure \ref{fig:decasteljautriangle}.
 
 \subsection{Properties}
-	Other than being remarkably intuitive, Beziér curves have a lot of covenient properties. In computer-aided design software, most graphical user interfaces rely on the principle of letting the user interactively drag and drop the control points with a mouse, granting them control over the shape of the whole Beziér curve. The following theorems further illustrate why this is a good concept.
+	Other than being remarkably intuitive, Bézier curves have a lot of covenient properties. In computer-aided design software, most graphical user interfaces rely on the principle of letting the user interactively drag and drop the control points with a mouse, granting them control over the shape of the whole Bézier curve. The following theorems further illustrate why this is a good concept.
 
 	\begin{theorem}\label{thm:bezierendpoints}
-		$B_P(0) = P_0$ and $B_P(1) = P_n$.
+		We have $B_P(0) = P_0$ and $B_P(1) = P_n$.
 	\end{theorem}
 	\begin{proof}
-		Explicit computation yields
+		Explicit computation for $t=0$ and $t=1$ yields
 			$$B_P(0) = \sum_{k=0}^n \binom{n}{k} t^k P_k = \binom{n}{0} P_0 = P_0$$
 		and
 			$$B_P(1) = \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k} P_k = \binom{n}{n} P_n = P_n.$$
@@ -382,24 +382,25 @@ Göttingen, \today \hspace{2em}
 	\begin{proof}
 		For all $t \in [0, 1]$ we can directly compute
 			$$TB_P(t) = \sum_{k=0}^n \binom{n}{k} (1-t)^{n-k}t^k TP_k = B_{TP}(t).$$
+		This property is called invariance with respect to linear transforms.
 	\end{proof}
 
 	\begin{theorem}\label{thm:bezierconvexhull}
-		$B_P(t)$ lies in the convex hull of $P$ for all $t \in [0,1]$.
+		The Bézier curve $B_P(t)$ lies in the convex hull of $P$ for all $t \in [0,1]$.
 	\end{theorem}
 	\begin{proof}
 		By the algorithm of de Casteljau (\ref{alg:decasteljaualgo}), we know that $P^{(i)}_j = (1-t) \cdot P^{(i-1)}_j + t \cdot P^{(i-1)}_{j+1}$ for all $t \in [0, 1]$. Therefore, $P^{(i)}$ lie in the convex hull of $P^{(i-1)}$. But then $B_P(t) = P^{(n)}_0$ always lies in the convex hull of $P^{(0)} = P$ by induction.
 	\end{proof}
 
-	Theorem \ref{thm:bezierendpoints} guarantees the control over the end points of the the curve, whereas Theorem \ref{thm:bezierconvexhull} ensures that the Beziér curve lies close to the control points. Theorem \ref{thm:bezieraffinetransform} shows that transformations such as rotations and projections can be applied directly to the control points instead of the points on the curve.
+	Theorem \ref{thm:bezierendpoints} guarantees the control over the end points of the the curve, whereas Theorem \ref{thm:bezierconvexhull} ensures that the Bézier curve lies close to the control points. Theorem \ref{thm:bezieraffinetransform} shows that transformations such as rotations and projections can be applied directly to the control points instead of the points on the curve.
 
-	Simple as their appearance may be, Beziér curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with a low number of of control points, is simultaneously one of their greatest shortcoming. This is most likely the reason why Beziér curves are not the state of the art in technical engineering applications. However, Beziér curves certainly do provide an intuition for Non-Uniform Rational B-Splines or NURBS, which is their prevailing counterpart.
+	Simple as their appearance may be, Bézier curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with a low number of of control points, is simultaneously one of their greatest shortcoming. This is most likely the reason why Bézier curves are not the state of the art in technical engineering applications. However, Bézier curves certainly do provide an intuition for Non-Uniform Rational B-Splines or NURBS, which is their prevailing counterpart.
 
 \section{Non-Uniform Rational B-splines (NURBS)}
 	NURBS are a state of the art tool for curve and surface modelling. There is a somewhat common joke that describes the acronym NURBS as \emph{"Nobody Understands Rational B-Splines"} (source?). In this section, we invalidate this punch line. First of all, we discuss B-splines, then we construct B-spline curves and surfaces and then we apply simple transformations to the B-spline curves and surfaces to acquire NURBS curves and surfaces.
 
 \subsection{Definition}
-	Similarly to how Beziér curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines or, more commonly, B-splines.
+	Similarly to how Bézier curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines or, more commonly, B-splines.
 
 	\begin{definition}
 		A \emph{knot sequence} $(t_m)_{m=-\infty}^{\infty} \subset \mathbb{R}$ is a sequence with $t_{m} \leq t_{m+1}$ for all $m \in \mathbb{Z}$.
@@ -456,9 +457,16 @@ Göttingen, \today \hspace{2em}
 			$$\Phi^\dagger: \mathbb{R}^{d+1} \rightarrow \mathbb{R}^d$$ 
 		that maps each point on the B-spline curve $S_{\Phi(P)}(t) = (s_1, ..., s_d, s_{d+1})$ onto $(\frac{s_1}{s_{d+1}}, ..., \frac{s_d}{s_{d+1}})$.
 		We can then define the NURBS curve as
-				$$ C_P(t) = \Phi^\dagger(S_{\Phi_w(P)}(t))$$ 
-		which we will make use of later on.
+				$$ C_P(t) = \Phi^\dagger(S_{\Phi_w(P)}(t)).$$ 
 	\end{remark}
+
+	Utilizing the notation with the embedding map $\Phi_w$ and the projection map $\Phi^\dagger$, we will calculate points on an arbitrary NURBS curve by calculating points on a corresponding B-spline curve. To do this, we employ the following steps on a set of control points $P$ and the weights $w$:
+	\begin{enumerate}
+		\item Calculate $P_w = \Phi_w(P)$.
+		\item Calculate points on $S_{P_w}$.
+		\item Project points onto $\mathbb{R}^d$ by applying $\Phi^\dagger$ to $S_{P_w}$ to find $C_P$.
+	\end{enumerate}
+	The calculation of points on a B-spline curve can be done similarly to the calculation of a point on a Bézier curve. The exact method is presented in the next section.
 
 	\begin{theorem}
 		Let $w \equiv 1$. Then $S_P \equiv \Phi^\dagger(S_{\Phi_w(P)})$. In other words, NURBS curves are a generalization of B-spline curves.
@@ -474,7 +482,7 @@ Göttingen, \today \hspace{2em}
 		\caption{A set of control points and three NURBS curves of different degrees.}
 	\end{figure}
 
-	Now that we have defined B-spline curves and NURBS curves, we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points. Notice that this grants us control 
+	Now that we have defined B-spline curves and NURBS curves, we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points.
 
 	\begin{definition}
 		A \emph{B-spline surface} $S_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$ on the knot grid $(u_m), (v_m)$ is defined as
@@ -491,7 +499,7 @@ Göttingen, \today \hspace{2em}
 	\begin{remark}
 		As with NURBS curve, we have the analogous result
 			$$ C_P(u,v) = \Phi^\dagger ({S_{\Phi_w(P)}(u,v)}) $$
-		for NURBS surfaces.
+		for NURBS surfaces, which also yields the same calculation strategy.
 	\end{remark}
 
 	\begin{figure}[H]
@@ -502,17 +510,17 @@ Göttingen, \today \hspace{2em}
 
 	The notion of the knot sequence $(t_m)$ is commonly computationally simplified to that of a knot vector $\tau$, since $\tau$ only contains a finite number of elements. For our purposes, we let
 		$$\tau = (\underbrace {t_0, ..., t_{p-1}}_{= 0}, t_p, ..., t_n, \underbrace{t_{n+1}, ..., t_{n+p}}_{= 1}),$$
-	where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n+p\}$. We still require the monotony property $t_k \leq t_{k+1}$ for all $k \in \{0, ..., n+p\}$.
+	where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n+p\}$. We still require the monotonicity property $t_k \leq t_{k+1}$ for all $k \in \{0, ..., n+p\}$.
 
 \subsection{De Boor's Algorithm}
 	To efficiently calculate points on a B-spline object, Carl-Wilhelm Reinhold de Boor devised an efficient algorithm, the construction of which demonstrates its correctness. Together with the embedding $\Phi_w$ and the projection $\Phi^\dagger$ from the Remark for Definition \ref{def:nurbs}, this algorithm can also be used to calculate points on a NURBS object.
 
-	Let $P = \{P_0, P_1, ..., P_n\}$ a set of control points, $(t_m)$ a knot sequence and $p-1$ the degree of the B-spline curve $S(t)$. Then by the Cox-de-Boor recursion formula, we find
+	Let $P = \{P_0, P_1, ..., P_n\}$ be a set of control points, $(t_m)$ a knot sequence and $p-1$ the degree of the B-spline curve $S(t)$. Then by the Cox-de-Boor recursion formula, we find
 	\begin{align*}
 		S(t) 	&= \sum_{k=0}^n N_{p,k}(t) \, P_k \\
 				&= \sum_{k=1}^n \omega_{p-1,k}(t) \, N_{p-1, k}(t) \, P_k  \; + \; \sum_{k=0}^n \left( 1-\omega_{p-1,k+1}(t) \right) \, N_{p-1, k+1}(t) \, P_k.
 	\end{align*}
-	Changing the limits of the second term, we can summarize the two terms as
+	Shifting the summation index in the second sum, we can summarize the two sums0 as
 	\begin{align*} 
 		S(t) 	&= \sum_{k=1}^n N_{p-1, k}(t) \, \underbrace{\Big[ \omega_{p-1,k}(t) \, P_k  \, + \, \left( 1-\omega_{p-1,k}(t) \right) \, P_{k-1} \Big]}_{=: P_k^{(1)}(t)} \\
 				&= \sum_{k=1}^n N_{p-1, k}(t) \, P_k^{(1)}(t).
@@ -526,7 +534,7 @@ Göttingen, \today \hspace{2em}
 	\end{equation}
 	we can repeat this process up to $p-2$ more times, finding
 	$$ S(t) = \sum_{k=p-1}^n N_{1, k}(t) \, P^{(p-1)}_k(t) = P^{(p-1)}_l(t)$$
-	for $t \in [t_l, t_{l+1})$. We can thus use the recursive definition in Equation \ref{eq:debooriteration} as the key step of our algorithm to compute $S(t)$. It becomes apparent that the points calculated on a B-spline curve are in fact also a cumultated convex combination of control points, just as it is the case with Beziér curves. As zero-values for $\omega_{i,j}$ (or $1-\omega_{i,j}$) can be completely omitted by checking multiplicity, we arrive at the following algorithm:
+	for $t \in [t_l, t_{l+1})$. We can thus use the recursive definition in Equation (\ref{eq:debooriteration}) as the key step of our algorithm to compute $S(t)$. It becomes apparent that the points calculated on a B-spline curve are in fact also a cumultated convex combination of control points, just as it is the case with Bézier curves. As zero-values for $\omega_{i,j}$ (or $1-\omega_{i,j}$) can be completely omitted by counting how often the $t$ occurs in the knot vector, we arrive at the following algorithm:
 
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
@@ -553,7 +561,7 @@ Göttingen, \today \hspace{2em}
 					\EndFor
 				\EndFor
 
-				\State \Return $P^{(p-m-1)}_{l-m} = C_P(t)$
+				\State \Return $P^{(p-m-1)}_{l-m} = S_P(t)$
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
@@ -631,7 +639,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:debooralgo}
 	\end{figure}
 
-	To calculate one point on the B-spline curve $S_P$ of degree $p$, we require at most $\frac{p^2-p}{2}$ vector additions and $p^2-p$ scalar multiplications, which is quite similar to what we found for Beziér curves. However, we also need to calculate $\omega_{j,k}$ at every step, which in total sums up to $p^2-p$ real additions and $\frac{p^2-p}{2}$ real multiplications.
+	To calculate one point on the B-spline curve $S_P$ of degree $p$, we require at most $\frac{p^2-p}{2}$ vector additions and $p^2-p$ scalar multiplications, which is quite similar to what we found for Bézier curves. However, we also need to calculate $\omega_{j,k}$ at every step, which in total sums up to $p^2-p$ real additions and $\frac{p^2-p}{2}$ real multiplications.
 
 	By writing the definition of the B-spline surface as
 		$$ S_P(u,v) = \sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) P_{k_u,k_v} = \sum_{k_u=0}^{n_u} N_{p,k_u}(u) \underbrace{\left( \sum_{k_v=0}^{n_v} N_{q,k_v}(v) P_{k_u,k_v} \right)}_{:= \, q_{k_u}(v)},$$
@@ -666,19 +674,13 @@ Göttingen, \today \hspace{2em}
 		\end{algorithmic}
 	\end{algorithm}
 
-	Utilizing the notation with the embedding map $\Phi_w$ and the projection map $\Phi^\dagger$, we can calculate points on NURBS objects with these two algorithms. To do this, we employ the following steps on a set of control points $P$ and the weights $w$:
-	\begin{enumerate}
-		\item Calculate $P_w = \Phi_w(P)$.
-		\item Use de Boor's algorithm to calculate points on $S_{P_w}$.
-		\item Project points onto $\mathbb{R}^d$ by applying $\Phi^\dagger$ to $S_{P_w}$ to find $C_P$.
-	\end{enumerate}
-
+	Similarly to the Remark under Definition \ref{def:nurbs}, we can use Algorithm \ref{alg:debooralgosurf} to calculate points on NURBS surfaces by employing the projection map $\Phi_w$ and the projection map $\Phi^\dagger$.
 
 \subsection{Properties}
-	In this section, we will see that B-spline curves and NURBS curves share some (although not all) useful properties with Beziér curves.
+	In this section, we will see that B-spline curves and NURBS curves share some (although not all) useful properties with Bézier curves.
 
 	\begin{theorem}
-		Let $S_P$ a B-spline curve and $C_P$ a NURBS curve. Then $S_P(0) = P_0$ and $S_P(1) = P_n$ and therefore $C_P(0) = P_0$ and $C_P(1) = P_n$.
+		Let $S_P$ be a B-spline curve and let $C_P$ be a NURBS curve. Then $S_P(0) = P_0$ and $S_P(1) = P_n$ and therefore $C_P(0) = P_0$ and $C_P(1) = P_n$.
 	\end{theorem}
 	\begin{proof}
 		By using Algorithm \ref{alg:debooralgo}, we have $m = p$ and return $P_l$ without calculation, which is $P_0$ in the case of $t = 0$ and $P_n$ in the case of $t = 1$. Then by $C_P(t) = \Phi^\dagger(S_{\Phi_w(P)}(t))$, we have $C_P(0) = \Phi^\dagger\Phi_w(P_0) = P_0$ and $C_P(1) = \Phi^\dagger\Phi_w(P_n) = P_n$.
@@ -704,63 +706,59 @@ Göttingen, \today \hspace{2em}
 		A B-spline curve or surface $S_P$ lies in the convex hull of its control points $P$.
 	\end{theorem}
 	\begin{proof}
-		Using Equation \ref{eq:debooriteration}, we can see that every iteration of Algorithm \ref{alg:debooralgo} produces a set of points which all lie in the convex hull of the last iteration. Therefore, $S_P(t) = P^{(p-1)}_l$ lies in the convex hull of $P^{(0)}$ for all $l$.
+		Using Equation (\ref{eq:debooriteration}), we can see that every iteration of Algorithm \ref{alg:debooralgo} produces a set of points which all lie in the convex hull of the last iteration. Therefore, $S_P(t) = P^{(p-1)}_l$ lies in the convex hull of $P^{(0)}$ for all $l$.
 	\end{proof}
 	\begin{remark}
 		This theorem does not hold for NURBS curves and surfaces $C_P$.
 	\end{remark}
 
-	For a given degree $p$, B-spline and NURBS curves can have any number $n > p+1$ of control points. This makes them a much more flexible tool than their Beziér counterpart. Yet Beziér, B-splines and NURBS curves still share a lot of nice properties, which makes them, once implemented, easy to use.
+	For a given degree $p$, B-spline and NURBS curves can have any number $n > p+1$ of control points. This makes them a much more flexible tool than their Bézier counterpart. Yet Bézier, B-splines and NURBS curves still share a lot of nice properties, which makes them, once implemented, easy to use.
 
 \section{Common Methods on Curves and Surfaces}
-	In this section, the most important tools of CoolingGen are presented. However simple the modification of NURBS objects through their control points may be, common and useful operations such as the calculation of intersection points, the projection of an arbitrary point in space onto a curve and finding useful offset curves and fillets are major challenges. (Insert SIAM journal citation about how much cost bad intersection algorithms generated).
+	In this section, the most important tools of CoolingGen are presented. The modification of NURBS objects through their control points may be simple, but common and useful operations that are imperative for CAD are, unfortunately, not as simple. Such operations include the calculation of intersection points of NURBS objects, the projection of an arbitrary point in space onto a NURBS object and the construction of so called offset curves and fillets.
 
 	This comes down to the fact that many of the problem statements are (generally) non-convex minimization problems. However, these problems can often be greatly simplified by asserting properties of underlying geometric patterns that arise in specific procedures.
 
-\subsection{Point Inversion}
-	Let $\gamma(t) \subset \mathbb{R}^d$ a curve, $t \in [0,1]$, and let $Q \in \mathbb{R}^d$ a point.
+\subsection{Point Projection}\label{subsec:pointproj}
+	Let $\gamma(t) \subset \mathbb{R}^d$ a parametric curve, $t \in [0,1]$, and let $Q \in \mathbb{R}^d$ a point.
 	We want to find an element in the set
 		$$T^* := \underset{t\in[0,1]}{\arg\min} \; D(\gamma(t), Q), $$
 	where $D(\cdot, \cdot)$ is the Euclidean distance between two points. Notice that 
 		$$\underset{t\in[0,1]}{\min} \; D(\gamma(t), Q) = D(\gamma(t^*), Q), $$
 	is the distance between the curve $\gamma$ and the point $Q$, and is constant for all $t^* \in T^*$.
+	We call $T^*$ the set of projection parameters for the point $Q$ onto the curve $\gamma$.
 
 	\begin{figure}[H]
 		\centering
 		\includesvg[width=0.7\textwidth]{../python/pointInversionFigure}
-		\caption{Point inversion. Each blue point on the orange curve is the projection of the point connected to it with a dotted line.}
+		\caption{Point projection. Each blue point on the orange curve is the projection of the point connected to it with a dotted line.}
 		\label{fig:pointinversion}
 	\end{figure}
 
 	\begin{definition}
-		The distance between a curve $\gamma \subset \mathbb{R}^d$ and a point $Q \in \mathbb{R}^d$ is given by
-			$$D(Q, \gamma) := D(\gamma, Q) := \underset{t}{\min} \; D(\gamma(t), Q).$$
+		The distance between a parametric curve $\gamma(t) \subset \mathbb{R}^d$ with $t \in [0,1]$ and a point $Q \in \mathbb{R}^d$ is given by
+			$$D(Q, \gamma) := D(\gamma, Q) := \underset{t \in [0,1]}{\min} \; D(\gamma(t), Q).$$
 	\end{definition}
 
 	\begin{remark}
-		If $D(Q, \gamma) = 0$, then by the point-separating property of the Euclidean norm, $Q$ lies on the curve $\gamma$.
+		If $D(Q, \gamma) = 0$, then by the point-separating property of the Euclidean norm, $Q$ lies on the curve $\gamma$. This special case, in which the point $Q$ lies on the curve $\gamma(t)$, will be handled later. In general, the projection of a point is not necessarily unique. If we consider, for example, the curve $\gamma(t) = (\sin 2\pi t, \cos 2\pi t)$ with $t \in [0,1]$ and $Q = (0,0)$, the set of projection parameters $T^*$ is equal to the whole domain of definition $[0,1]$.
 	\end{remark}
 
-	\begin{theorem}
-		Let $\gamma(t) \subset \mathbb{R}^d$ a curve, $t \in [0,1]$ and let $Q \in \mathbb{R}^d$. If $\gamma$ has no self-intersections and
-			$$\underset{t\in[0,1]}{\min} \; D(\gamma(t), Q) = 0$$
-		then $T^*$ is a single element set.
-	\end{theorem}
-	\begin{proof}
-		If $\gamma$ has no self-intersections, then no two parameters of $\gamma$ will map onto the same point. Therefore, $\gamma$ is injective. We know $t^*$ exists such that $D(\gamma(t^*), Q) = 0$, which by the point-separating property of the Euclidean norm is equivalent to $Q = \gamma(t^*)$. By injectivity, this $t^*$ is unique.
-	\end{proof}
+	Minimizing distance functions for general curves is a problem that is hard to solve. We therefore make some assumptions about the point-curve distance function $\phi(t) := D(\gamma(t), Q)$ that we are going to minimize in order to find one target parameter $t^* \in T^*$. If $\phi$ is convex and two times differentiable, then this problem can be solved iteratively by Newton's method. For an initial guess $t^{(0)}$ close to a target parameter $t^* \in T^*$ we use the iteration
+		$$ t^{(n+1)} = t^{(n)} - \frac {\phi'(t^{(n)})}{\phi''(t^{(n)})}. $$
+	Here, $\phi'(t)$ is the derivative of $\phi(t)$ with respect to $t$, which for a small value of $\epsilon > 0$ can be approximated by the central difference quotient
+		\begin{equation}
+			\phi'(t) \approx \frac{\phi(t+\epsilon) - \phi(t-\epsilon)}{2\epsilon}
+		\end{equation}
+	for $t \in [\epsilon, 1-\epsilon]$. The expression $\phi''(t)$ is the second derivative of $\phi(t)$ with respect to $t$, which can be approximated by the difference quotient
+		\begin{equation}
+			\phi''(t) \approx \frac{\phi(t+\epsilon) - 2\phi(t) + \phi(t-\epsilon)}{\epsilon^2}
+		\end{equation}
+	for $t \in [\epsilon, 1-\epsilon]$. For $t_0 \in [0,\epsilon]$, we assign $\phi'(t_0) \approx \phi'(\epsilon)$ and $\phi''(t_0) \approx \phi''(\epsilon)$ and for $t_1 [1-\epsilon,1]$ we assign $\phi'(t_1) \approx \phi'(1-\epsilon)$ and $\phi''(t_1) \approx \phi''(1-\epsilon)$.
 
-	Minimizing distance functions for general curves is a problem that is hard to solve. We therefore make some assumptions about the point-curve distance function $\phi(t) := D(\gamma(t), Q)$ that we are going to minimize in order to find one target parameter $t^* \in T^*$. If $\phi$ is convex and differentiable, then the problem statement has a well-known and easy to implement solution, namely Newton's method, which for an initial guess $t^{(0)}$ is given by the iteration
-		$$ t^{(n+1)} = t^{(n)} - \frac {\phi(t^{(n)})}{\phi'(t^{(n)})}. $$
-	Here, $\phi'(t)$ is the derivative of $\phi(t)$ with respect to $t$, which for a small value of $\epsilon > 0$ can be approximated by the right-sided difference quotient
-		$$ \phi'_r(t) = \frac{\phi(t+\epsilon) - \phi(t)}{\epsilon}. $$
-	However, to ensure differentiability of $\phi$ adjacent to $t$, it is recommended to compare the value of the right-sided difference quotient to
-		$$ \phi'_l(t) = \frac{\phi(t) - \phi(t-\epsilon)}{\epsilon}, $$
-	which is the left-sided difference-quotient. If $\phi'_r(t) = \phi'_l(t)$, then we can assume $\phi'_l(t) \approx \phi(t) \approx \phi'_r(t)$.
+	However, in CoolingGen we often cannot make the assumption of differentiability or convexity of $\phi$. We therefore employ a pragmatic scheme and assume piecewise two time differentiability and piecewise convexity of $\phi$ and run Newton's method only on a small subinterval $[l,u] \subset [0,1]$.
 
-	Although in CoolingGen, we often cannot make the assumption of differentiability or convexity of $\phi$. We therefore employ a pragmatic scheme and assume continuity, piecewise differentiability and piecewise convexity of $\phi$ and run Newton's method on a small subinterval $[l,u] \subset [0,1]$.
-
-	To find $[l,u]$, we sample the curve $\gamma$ at a set of points $\{t_0, t_1, ..., t_n\}$ with $t_i = \frac{i}{n}$ and seek
+	To find $[l,u]$, we sample the curve $\gamma(t)$ at a set of points $\{t_0, t_1, ..., t_n\}$ with $t_i = \frac{i}{n}$ and seek
 		$$ m = \underset{t\in\{t_0, t_1, ..., t_n\}}{\arg\min} \phi(t). $$
 	We let $l = m - \frac{1}{n}$ and $u = m + \frac{1}{n}$. Next, we can use Newton's method with the start value $m$ to find
 		$$ t^* = \underset{t\in[l,u]}{\arg\min}\;\phi(t). $$
@@ -784,7 +782,7 @@ Göttingen, \today \hspace{2em}
 					\EndIf
 				\EndFor
 
-				\State \Return $m-\frac{i}{N}, m+\frac{i}{N}, m$
+				\State \Return $m-\frac{1}{N}, m+\frac{1}{N}, m$
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
@@ -793,36 +791,74 @@ Göttingen, \today \hspace{2em}
 		\begin{algorithmic}[1]
 			\Input
 				\Desc{$M$}{number of iterations}
+				\Desc{$\epsilon > 0$}{differentiation step (small)}
 			\EndInput
 
 			\caption{Point Inversion}\label{alg:pointinversion}
 			\Procedure{pointInversion}{$\gamma, Q$}
 				\State $l, u, m \gets \text{findPointInversionInitValues}(\gamma, Q)$
-				\State $t_0 \gets m$
+				\State $t \gets m$
 
 				\For {$k = 1, 2,..., M$}
-					\State $t_1 \gets t_0 + \epsilon$
-					\State $\phi_0 \gets D(\gamma(t_0), Q) \text{ and } \phi_1 \gets D(\gamma(t_1), Q)$
+					\State $t_+ \gets t + \epsilon$ and $t_- \gets t - \epsilon$
+					\State $\phi \gets D(\gamma(t), Q)$
+					\State $\phi_+ \gets D(\gamma(t_+), Q)$ and $\phi_- \gets D(\gamma(t_-), Q)$
+
+					\State $\phi' \gets \frac{\phi_+ - \phi_-}{2\epsilon}$
+					\State $\phi'' \gets \frac{\phi_+ - 2\phi + \phi_-}{\epsilon^2}$
 					
-					\State $\phi' \gets \frac{\phi_1 - \phi_0}{\epsilon}$
-					\State $t_0 \gets t_0 - \frac{\phi_0}{\phi'}$
-					\If {$t_0 < l$} $t_0 \gets l$ \EndIf
-					\If {$t_0 > u$} $t_0 \gets u$ \EndIf
+					\State $t \gets t - \frac{\phi'}{\phi''}$
+					\If {$t < l$} $t \gets l$ \EndIf
+					\If {$t > u$} $t \gets u$ \EndIf
 
 				\EndFor
 
-				\State \Return $t_0$
+				\State \Return $t$
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
 
-	If the target distance is not equal to zero, the algorithm can be used to project points onto the curve, as can be seen in \ref{fig:pointinversion}. If the curve is furthermore not injective, the algorithm still proves effective to find the distance $D(Q, \gamma)$, since the minimum distance is the same for all $t^* \in T^*$.
+	If the curve $\gamma(t)$ does not satisfy the aforementioned assumptions, then we might still be able to find $t^*$ by applying the start value search scheme iteratively on the domain of $\gamma(t)$ to find smaller intervals $[l,u]$ if $\gamma(t)$ is at least continuous. Continuity of curves can safely be assumed all throughout CoolingGen.
 
-	Given a surface $\beta(u,v)$ with $u,v \in [0,1]$ and a point $Q \in \mathbb{R}^d$, we can also devise a point inversion algorithm by the same principle. We let $u_i = \frac{i}{n_u}, v_j = \frac{j}{n_v}$ for $i \in \{0, ..., n_u\}, j \in \{0,..., n_v\}$ and $n_u, n_v \in \mathbb{N}$. Then we seek
+	We now treat the special case that the minimum target distance is equal to zero, in which case $Q$ lies on the curve $\gamma(t)$.
+	\begin{theorem}
+		Let $\gamma(t) \subset \mathbb{R}^d$ be a curve, $t \in [0,1]$ and let $Q \in \mathbb{R}^d$. If $\gamma$ has no self-intersections and
+			$$\underset{t\in[0,1]}{\min} \; D(\gamma(t), Q) = 0$$
+		then $T^*$ is a single element set.
+	\end{theorem}
+	\begin{proof}
+		If $\gamma$ has no self-intersections, then no two parameters of $\gamma$ will map onto the same point. Therefore, $\gamma$ is injective. We know $t^*$ exists such that $D(\gamma(t^*), Q) = 0$, which by the point-separating property of the Euclidean norm is equivalent to $Q = \gamma(t^*)$. By injectivity, this $t^*$ is unique.
+	\end{proof}
+
+	If the target distance is zero and $\gamma$ is a NURBS curve, we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return the input parameter that fits the point $Q$. This justifies the name \emph{point inversion} for this special case.
+
+	Using these principles, we can also project (or invert) a point $Q \in \mathbb{R}^d$ on a parametric surface $\beta(u,v)$ with $u,v \in [0,1]$ by generalizing the presented methods.
+	In this case, the distance function we want to minimize is 
+		$$ \phi(u,v) := D(\beta(u,v), Q)$$
+	We once again use the start value search. We let $u_i = \frac{i}{n_u}, v_j = \frac{j}{n_v}$ for $i \in \{0, ..., n_u\}, j \in \{0,..., n_v\}$ and $n_u, n_v \in \mathbb{N}$. Then we seek
 		$$ m_u, m_v = \underset{(u,v)\in\{u_0, ..., u_n\} \times \{v_0, ..., v_n\}}{\arg\min} \phi(u,v), $$
-	where $\phi(u,v) := D(\beta(u,v), Q)$. Then we apply Newton's method on $[l_u, u_u] \times [l_v, u_v] = [m_u - \frac{1}{n_u}, m_u + \frac{1}{n_u}] \times [m_v - \frac{1}{n_v}, m_v + \frac{1}{n_v}]$ with the start parameters $m_u, m_v$.
-
-	If the target distance is zero and $\gamma$ is a NURBS curve (or $\beta$ a NURBS surface), we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return the input parameter that fits the point $Q$. This justifies the name \emph{point inversion algorithm}.
+	where $\phi(u,v) := D(\beta(u,v), Q)$. We use Newton's method only on the subset
+		$$  M = [m_u - \frac{1}{n_u}, m_u + \frac{1}{n_u}] \times [m_v - \frac{1}{n_v}, m_v + \frac{1}{n_v}] \subset [0,1]^2, $$
+	which in this case for each iteration yields a linear system of equations
+		$$ 	
+			H_\phi
+			\left(
+					u^{(k)},
+					v^{(k)}
+			\right)
+			\cdot
+			\begin{pmatrix}
+				u^{(k+1)} - u^{(k)} \\
+				v^{(k+1)} - v^{(k)} 
+			\end{pmatrix} 
+			=
+			-\nabla \phi
+			\left(
+					u^{(k)},
+					v^{(k)}
+			\right),
+		$$
+	where $H_\phi(u,v)$ is the Hessian of $\phi$ and $\nabla \phi(u,v)$ is the gradient of $\phi$. These differentials can once again be approximated by finite differences. If $H_\phi(u,v)$ and $\nabla \phi(u,v)$ do not exist for some $(u,v)$ in the set $M$, then we can once again iteratively apply the start value search to find smaller subsets of $M$ to calculate some $(u^*, v^*)$ in the set of projection parameters for the point $Q$.
 
 \subsection{Intersection of a Ray and a Curve in 2D}
 	\begin{definition}
@@ -865,7 +901,7 @@ Göttingen, \today \hspace{2em}
 
 	We can find the approximation $s^*$ of the collision parameter by using a common CAD scheme called \emph{ray marching}, in which we traverse the ray $R_{A,B}$ by a small distance increments $s$ until we achieve collision with the curve $\gamma$. How do we choose the optimal value for $s$? The idea is the following: Using the point inversion algorithm, we can calculate the \emph{safe distance} $s$ of the point $A$ on the ray to the curve $\gamma$. Then we can easily construct a point $P$ that fulfills $D(A,P) = s$ and lies on the ray $R_{A,B}$ by 
 		$$ P := A+s\frac{B}{||B||}.$$
-	Now there are only two possibilities: Either $P$ lies within the $\epsilon$-ball of the collision point, or the line segment $\overline{AP} \subset R_{A,B}([0,\infty))$ does not intersect with $\gamma$. In the first case, we can return $\{P\}$. In the second case, we can repeat the procedure on the set 
+	Now there are only two possibilities: Either $P$ lies within the $\epsilon$-ball of the collision point, or the line segment $\overline{AP} \subset R_{A,B}([0,\infty))$ has at least $\epsilon$ distance to $\gamma$. In the first case, we can return $\{P\}$. In the second case, we can repeat the procedure on the set 
 		$$ R_{A,B}([0,\infty)) \setminus \overline{AP} = R_{A,B}([s,\infty)) = R_{P,B}([0,\infty)).$$
 	If after a certain amount of iterations $N$ the algorithm does not converge to a point which lies within the $\epsilon$-ball of the collision point, we return $\emptyset$.
 
@@ -900,7 +936,7 @@ Göttingen, \today \hspace{2em}
 	Using the point inversion algorithm for surfaces (instead of the point inversion algorithm for curves) to find the distance between a point and a surface, we can generalize this algorithm to find the intersection of a ray and a surface.
 
 \subsection{Intersecting Two Curves in 2D}
-	In order to trim curves at intersection points, we require the pair of parameters at which two curves intersect. Let $\gamma_1(s)$ and $\gamma_2(t)$ be two continuous curves in $\mathbb{R}^2$ with $s,t \in [0,1]$ which instersect at finitely many points at most. In this section, we seek for the set of parameters at which these curves intersect.
+	In order to trim curves at intersection points, we require the pair of parameters at which two curves intersect. Let $\gamma_1(s)$ and $\gamma_2(t)$ be two continuous curves in $\mathbb{R}^2$ with $s,t \in [0,1]$ which intersect at finitely many points at most. In this section, we seek for the set of parameters at which these curves intersect.
 
 	\begin{definition}
 		The distance between two curves $\gamma_1, \gamma_2$ is defined as
@@ -925,30 +961,37 @@ Göttingen, \today \hspace{2em}
 	For the use with CoolingGen, our goal is to find the set $I(\gamma_1, \gamma_2)$ in case of $|I(\gamma_1, \gamma_2)| < \infty$ (see Figure \ref{fig:curveIntersectionConnectedness}).
 
 	\begin{definition}
-		The line segment between the points $A_s$ and $A_e$ is defined as the set
+		The line segment between the points $A_s = (A_{s_x}, A_{s_y})^T$ and $A_e = (A_{e_x}, A_{e_y})^T$ is defined as the set
 			$$ \overline{A_s A_e} := \{(1-t)A_s + tA_e : t \in [0,1]\}. $$
 		The dependence of a point on the line segment on the real parameter $t$ motivates the description of this set as a map
 			$$ L_A : \mathbb{R} \rightarrow \mathbb{R}^d, \quad t \mapsto (1-t)A_s + tA_e,$$
-		which yields the equation $\overline{A_s A_e} = L_A([0,1])$. Notice that given the definition of the direction vector $A_d := A_e - A_s$, we can write
-			$$ L_A(t) = A_s + tA_d $$
+		which yields the equation $\overline{A_s A_e} = L_A([0,1])$. Notice that given the definition of the direction vector $A_d := A_e - A_s = (A_{d_x}, A_{d_y})$, we can write
+			$$ L_A(t) = A_s + tA_d.$$
 	\end{definition}
 	
-	The key idea of our algorithm is described by the following theorem.
-	
-	\begin{theorem}
-		Let $\gamma_1$ and $\gamma_2$ be two continuous curves and let $(s^*, t^*) \in I(\gamma_1, \gamma_2) \cap (0,1)^2$. If the curve derivatives yield $\nabla\gamma_1(s^*) \neq \nabla\gamma_2(t^*)$, then there exist neighborhoods 
+	We write the derivative of a curve $\gamma(t)$ as $\nabla \gamma(t) := \gamma'(t)$. The key idea of our algorithm is described by the following theorem.
+
+	\begin{theorem}\label{thm:parallelintersection}
+		Let $\gamma_1$ and $\gamma_2$ be two differentiable curves and let $(s^*, t^*) \in I(\gamma_1, \gamma_2) \cap (0,1)^2$. If the curve derivatives $\nabla\gamma_1(s^*)$ and $\nabla\gamma_2(t^*)$ are not parallel, then there exist neighborhoods 
 			$$[s^*-\epsilon, s^*+\epsilon] \quad\text{and}\quad [t^*-\epsilon, t^*+\epsilon]$$
-		around $s^*$ and $t^*$, respectively, where $\epsilon > 0$. Then the line segments
-			$$\overline{\gamma_1(s^*-\epsilon) \gamma_1(s^*+\epsilon)} \quad\text{and}\quad \overline{\gamma_2(t^*-\epsilon) \gamma_2(t^*+\epsilon)}$$
-		intersect.
+		around $s^*$ and $t^*$, respectively, where $\epsilon > 0$ such that the line segments
+			$$\overline{\gamma_1(s^*-\epsilon) \, \gamma_1(s^*+\epsilon)} \quad\text{and}\quad \overline{\gamma_2(t^*-\epsilon) \, \gamma_2(t^*+\epsilon)}$$
+		intersect. 
 	\end{theorem}
 	\begin{remark}
- 		Suppose that the line segments $\overline{\gamma_1(s_1) \gamma_1(s_2)}$ and $\overline{\gamma_2(t_1) \gamma_2(t_2)}$ intersect. We cannot conclude that there is an intersection $(s,t) \in I(\gamma_1, \gamma_2)$ with $s \in [s_1, s_2]$ and $t \in [t_1, t_2]$. Using this theorem as core concept for our algorithm, we will need to ensure that
+ 		Suppose that the line segments $\overline{\gamma_1(s_1) \, \gamma_1(s_2)}$ and $\overline{\gamma_2(t_1) \, \gamma_2(t_2)}$ intersect. We cannot conclude that there is an intersection $(s,t) \in I(\gamma_1, \gamma_2)$ with $s \in [s_1, s_2]$ and $t \in [t_1, t_2]$. Using this theorem as core concept for our algorithm, we will need to ensure that the distance between the target curve segments is zero. In this numerical setting, it is sufficient to instead ensure
  			$$ D(\gamma_1 \domrestr_{[s_1, s_2]}, \gamma_2 \domrestr_{[t_1, t_2]}) \leq \alpha$$
- 		for a sufficiently small absolute tolerance $\alpha > 0$. If this is not the case, then no intersection lies inside of $[s_1, s_2] \times [t_1, t_2]$ and every line segment intersection found within should be discarded.
+ 		for a sufficiently small absolute tolerance $\alpha > 0$. If this is not the case, then no intersection lies inside of $[s_1, s_2] \times [t_1, t_2]$ and every line segment intersection found within should be discarded. Here, the notation $\gamma \domrestr{M}$ for some parametric curve $\gamma$ and a subset $M \in [0,1]$ is the domain restriction of $\gamma$ onto $[a,b]$.
 	\end{remark}
 	
-	If for any intersection parameter pair $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ we have $\nabla \gamma_1(s^*) = \nabla \gamma_2(t^*)$, then it is likely that the intersection is not detected by the described line segment intersection scheme.
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=0.55\textwidth]{../python/linearApproxCircleIntersection}
+		\caption{Two curves that intersect in a point tangentially and their linear approximations.}
+		\label{fig:tangentialintersection}
+	\end{figure}
+
+	What Theorem \ref{thm:parallelintersection} and it's Remark tell us is that parallel intersection points (for example in two circular curves that intersect in exactly one point, see Figure \ref{fig:tangentialintersection}) are rarely detected by intersecting a piecewise linear approximation of the curve. In other words, if for any intersection parameter pair $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ we have $\nabla \gamma_1(s^*) = \nabla \gamma_2(t^*)$, then it is likely that the intersection is not detected by the described line segment intersection scheme.
  	
 	\begin{theorem}\label{thm:lineintersection}
 		Let $L_A([0,1])$ and $L_B([0,1])$ be two line segments in $\mathbb{R}^2$. If the lines $L_A((-\infty,\infty))$ and $L_B((-\infty,\infty))$ are not parallel, their single intersection pointt is given by $L_A(t_A) = L_B(t_B)$, where
@@ -957,7 +1000,7 @@ Göttingen, \today \hspace{2em}
 				\frac {
 					\det
 					\begin{pmatrix}
-						D_y 	& D_x		\\
+						\Delta S_y 	& \Delta S_x		\\
 						B_{d_y}	& B_{d_x}
 					\end{pmatrix}
 				}
@@ -973,7 +1016,7 @@ Göttingen, \today \hspace{2em}
 				\frac {
 					\det
 					\begin{pmatrix}
-						D_y 	& D_x		\\
+						\Delta S_y 	& \Delta S_x		\\
 						A_{d_y}	& A_{d_x}
 					\end{pmatrix}
 				}
@@ -985,11 +1028,11 @@ Göttingen, \today \hspace{2em}
 					\end{pmatrix}
 				},
 			\end{equation*}
-		where $D = B_s - A_s$ and $t_A, t_B \in \mathbb{R}$. If $t_A \in [0,1] \wedge t_B \in [0,1]$, the line segments intersect in a single point.
+		where $\Delta S = B_s - A_s$ and $t_A, t_B \in \mathbb{R}$. If $t_A \in [0,1] \wedge t_B \in [0,1]$, the line segments intersect in a single point.
 	\end{theorem}
 	
 	In our algorithm we sample the curves $\gamma_1$ and $\gamma_2$ at $t_i = \frac{i}{N}$, where $i \in \{0,...,N\}$. In the next step we check for an intersection of 
-		$$\overline{\gamma_1(t_i) \gamma(t_{i+1})} \quad\text{and}\quad \overline{\gamma_2(t_j) \gamma_2(t_{j+1})}$$
+		$$\overline{\gamma_1(t_i) \, \gamma(t_{i+1})} \quad\text{and}\quad \overline{\gamma_2(t_j) \, \gamma_2(t_{j+1})}$$
 	for $i,j \in \{0,...,N-1\}$. For all intersection pairs $(i^*, j^*)$, we calculate the interval midpoint distance
 		$$D \left( \gamma_1 \left( \frac{t_{i^*} + t_{i^*+1}}{2} \right), \gamma_2 \left( \frac{t_{j^*} + t_{j^*+1}}{2} \right) \right)$$
 	and recursively repeat this procedure on the curves $\gamma_1([t_i, t_{i+1}])$ and $\gamma_2([t_j, t_{j+1}])$. If after a given recursion depth, the interval midpoint distance of some pair $(i^*, j^*)$ is greater than a given absolute tolerance $\alpha$, we discard $(i^*, j^*)$.
@@ -1084,9 +1127,13 @@ Göttingen, \today \hspace{2em}
 		where $N^\gamma(t)$ is called the normal of $\gamma(t)$ and defined as
 			$$N^\gamma(t) := \frac{\nabla\gamma(t)^\perp}{||\nabla\gamma(t)||}$$
 		and
-			$$\nabla\gamma(t)^\perp = \left(\derivative{x}{t}(t), \derivative{y}{t}(t)\right)^\perp = \left(-\derivative{y}{t}(t), \derivative{x}{t}(t)\right)$$
+			$$\nabla\gamma(t)^\perp = \left(\derivative{x}{t}(t), \derivative{y}{t}(t)\right)^\perp := \left(-\derivative{y}{t}(t), \derivative{x}{t}(t)\right)$$
 		is orthogonal to the gradient of $\gamma(t)$.
 	\end{definition}
+
+	\begin{remark}
+		Notice that this definition makes the convention of an oriented normal vector, because it will be useful later. The unit vector $-N^\gamma(t)$ is also orthogonal to $\nabla \gamma(t)$.
+	\end{remark}
 
 	\begin{figure}[H]
 		\centering
@@ -1104,7 +1151,7 @@ Göttingen, \today \hspace{2em}
 		Formally, we are able to define the \emph{curvature} $\kappa^\gamma(t)$ of a curve at any given point, which is equal to the reciprocal of the radius of the tangential sphere of the curve at that point. This notion allows us to make the following observation: If there exists some $t$ such that $\kappa^\gamma(t) > \frac{1}{d}$, then $O^\gamma_d(t)$ is not injective.
 	\end{remark}
 
-	If we force injectivity of $O^\gamma_d$ in a certain way, we will be able to guarantee the property in Equation \ref{eq:offsetproperty}. To do this, we need to find the self-intersections of $O^\gamma_d$.
+	If we force injectivity of $O^\gamma_d$ in a certain way, we will be able to guarantee the property in Equation (\ref{eq:offsetproperty}). To do this, we need to find the self-intersections of $O^\gamma_d$.
 
 	\begin{definition}
 		The parameter set of self-intersections of a curve $\gamma(t)$ is defined as
@@ -1114,14 +1161,8 @@ Göttingen, \today \hspace{2em}
 	To find these self-intersections, we can use a slightly modified version of Algorithm \ref{alg:curveintersection}. In the first recursion step of intersectCurvesRecursion, instead of iterating $j$ from $0$ to $N-1$, we are only interested in $j$ from $i+2$ to $N-1$, since for all $(s,t) \in I(O^\gamma_d)$, we have $s < t$. Because $s < t$ each such parameter pair naturally represents an interval subset $[s, t]$ of the parameter space $[0, 1]$.
 
 	\begin{definition}
-		A pair of self-intersections $(s_1,t_1), (s_2, t_2) \in I(\gamma)$ is called nested if $[s_1, t_1] \cap [s_2, t_2] \neq \emptyset$. We call $I(\gamma)$ untangled if $I(\gamma)$ does not contain a nested pair of self-intersections.
-	\end{definition}
-
-	To meaningfully trim the curve, we need to ensure that the self-intersection parameter set is untangled. We can do this by iterating over the set of intersections $I(O^\gamma_d) = \{(s_i, t_i) : i \in \{1, ..., m\} \}$ returned by Algorithm \ref{alg:curveintersection} and checking for disjointness of pairs $[s_i, t_i]$ and $[s_j, t_j]$ for $i \neq j$, where $i,j \in \{1, ..., m\}$. In case these two sets are not disjoint, we can replace them with their union $[s_i, t_i] \cup [s_j, t_j]$. Using this procedure, we can calculate the untangled intersection set $\overline{I}(O^\gamma_d)$.
-
-	\begin{definition}
-		For an untangled self-intersection set $\overline{I}(\gamma)$, we call the set
-			$$T(\gamma) := \bigcup_{(s,t) \in \overline{I}(\gamma)} [s,t]$$
+		For a self-intersection set $I(\gamma)$, we call the set
+			$$T(\gamma) := \bigcup_{(s,t) \in I(\gamma)} [s,t]$$
 		the trim range of $\gamma$.
 	\end{definition}
 
@@ -1140,10 +1181,10 @@ Göttingen, \today \hspace{2em}
 		\caption{Trimming two offset curves at intervals of self intersections for a given curve $\gamma$ and for different values of $d$.}
 	\end{figure}
 
-	Now, $O^{\gamma}_d \domrestr_{T(O^\gamma_d)}$ is not defined on all of $[0,1]$ if there are any self-intersections in $O^\gamma_d$. However, we can define a domain scaling map $\xi^M$, such that
+	Now, the restriction $O^{\gamma}_d \domrestr_{T(O^\gamma_d)}$ of the curve $O^{\gamma}_d$ to the trim range $T(O^\gamma_d)$ is not necessarily defined for all $t \in [0,1]$. Similarly, the restriction $O^{\gamma}_d \domrestr_{\overline{[0,1] \setminus T(O^\gamma_d)}}$ of the curve $O^{\gamma}_d$ to the trim range complement $\overline{[0,1] \setminus T(O^\gamma_d)}$ is not necessarily defined for all $t \in [0,1]$. However, we can define a domain scaling map $\xi^M$, that maps a union $M \subset [0,1]$ of finite intervals onto $[0,1]$, where $M$ will be equal to the trim range or its complement. In other words, we want to define a map that allows us to write
 		$$O^{\gamma}_d(\xi^M([0,1])) = O^{\gamma}_d (M)$$
-	for any finite union of closed intervals $M$.
-	We write the elements of $M$ as $[s_i, t_i]$ for $i \in \{1,...,m\}$. By setting
+	for any finite union $M$ of closed intervals.
+	We write the connected components of $M$ as $[s_i, t_i]$ for $i \in \{1,...,m\}$. By setting
 		$$ \tilde s_1 := 0 \quad\text{and}\quad \tilde t_m := 1 \quad\text{and}\quad \tilde s_{j+1} := \tilde t_j := \frac{s_{j+1} + t_j}{2} $$
 	for $j \in \{1,...,m-1\}$, we can define the maps
 		$$ \xi^M_i(t) = 
@@ -1160,14 +1201,14 @@ Göttingen, \today \hspace{2em}
 		$$ \overline{O}^\gamma_d (t) = O^\gamma_d \circ \xi^{\overline{[0,1] \setminus T(O^\gamma_d)}}(t)$$
 	or 
 		$$ \overline{O}^\gamma_d (t) = O^\gamma_d \circ \xi^{T(O^\gamma_d)}(t)$$
-	respectively. This curve now satisfies Equation \ref{eq:offsetproperty}.
+	respectively. This curve now satisfies Equation (\ref{eq:offsetproperty}).
 
 	As has been shown, the construction of meaningful offset curves is in no way trivial and requires a multitude of tools. The simple definition of an offset curve (Definition \ref{def:offseteasy}) is only seemingly adequate. Nonetheless, larger offsets, that would lead to self-intersection, are required by the industry. But since self-intersecting curves do no represent sensible objects, we sought for a far more convoluted process.
 
 	In fact, the creation of fillets also plays a role in the creation of offset curves, since the procedure presented leaves behind non-differentiable places on the trimmed offset curves, which are undesirable for CoolingGen's purposes.
 
 \subsection{The Creation of Fillets in 2D}\label{sec:filletcurves}
-	Given two curves $\gamma_1$ and $\gamma_2 \in \mathbb{R}^2$ defined on $t \in [0,1]$ we can sometimes construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle. Segments of these circles can replace non-differentiable segments from a curve. More formally, we can make the following definition.
+	Given two curves $\gamma_1$ and $\gamma_2 \in \mathbb{R}^2$ defined on $t \in [0,1]$ we can sometimes construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle. Segments of these circles can replace non-differentiable segments of a curve. More formally, we can make the following definition.
 
 	\begin{definition}\label{def:filletcircle}
 		Let $\gamma_1$ and $\gamma_2$ be two differentiable curves.
@@ -1178,16 +1219,16 @@ Göttingen, \today \hspace{2em}
 		for some $s_1, s_2, \sigma_1, \sigma_2 \in [0,1]$ and these intersection points are tangential in the sense that
 			$$
 				\frac{\nabla \gamma_1(s_1)}{||\nabla \gamma_1(s_1)||} = 
-				\frac{\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_1)}{||\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_1)||} 
+				\pm\frac{\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_1)}{||\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_1)||} 
 				\quad\text{ and }\quad 
 				\frac{\nabla \gamma_2(s_2)}{||\nabla \gamma_2(s_2)||} =  
-				\frac{\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_2)}{||\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_2)||},
+				\pm\frac{\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_2)}{||\nabla \phi^{\gamma_1, \gamma_2}_r(\sigma_2)||},
 			$$
 		then $\phi^{\gamma_1, \gamma_2}_r$ is a fillet circle of radius $r$ of $\gamma_1$ and $\gamma_2$.
 	\end{definition}
 	\begin{remark}
 		A fillet circle $\phi^{\gamma_1, \gamma_2}_r$ does not necessarily exist for two given curves $\gamma_1$, $\gamma_2$. If a fillet 
-		curve $\phi^{\gamma_1, \gamma_2}_{r^*}$ exists for some radius $r^*$, it does not exist for all radii $r \in \mathbb{R}$.
+		curve $\phi^{\gamma_1, \gamma_2}_{r^*}$ exists for some radius $r^*$, it does usually not exist for all radii $r \in \mathbb{R}$.
 	\end{remark}
 
 	\begin{figure}[H]
@@ -1205,14 +1246,14 @@ Göttingen, \today \hspace{2em}
 
 	\begin{theorem}\label{thm:fillettheorem}
 		Let $\gamma_1, \gamma_2$ and $r$ such that a fillet circle $\phi^{\gamma_1, \gamma_2}_r$ exists. Then the midpoint $M = (x_0, y_0)$ of a fillet circle is given by
-			$$ M = O^{\gamma_1}_r(s_1) = O^{\gamma_2}_r(s_2) $$
-		for $(s_1,s_2) \in I(O^{\gamma_1}_r, O^{\gamma_2}_r)$.
+			$$ M = O^{\gamma_1}_{\pm r}(s_1) = O^{\gamma_2}_{\pm r}(s_2) $$
+		for $(s_1,s_2) \in I(O^{\gamma_1}_{\pm r}, O^{\gamma_2}_{\pm r})$.
 	\end{theorem}
 	\begin{proof}
 		Let $\tilde\phi(t) = r (\sin 2\pi t, \cos 2\pi t) + O^{\gamma_1}_r(s_1)$. Then we can calculate
 		\begin{align*}
-			\tilde\phi(t) 	&= r (\sin 2\pi t, \cos 2\pi t) + \gamma(s_1) + rN^\gamma(s_1) \\
-							&= r (\sin 2\pi t, \cos 2\pi t) + \gamma(s_1) + r\frac{\nabla\gamma(s_1)^\perp}{||\nabla\gamma(s_1)||}.
+			\tilde\phi(t) 	&= r (\sin 2\pi t, \cos 2\pi t) + \gamma(s_1) \pm rN^\gamma(s_1) \\
+							&= r (\sin 2\pi t, \cos 2\pi t) + \gamma(s_1) \pm r\frac{\nabla\gamma(s_1)^\perp}{||\nabla\gamma(s_1)||}.
 		\end{align*}
 		Notice that $(\sin 2\pi t, \cos 2\pi t)$ is equal to an arbitrary unit vector, so for some fixed $\sigma_1 \in [0,1]$ the equation
 			$$(\sin 2\pi \sigma_1, \cos 2\pi \sigma_1) = \frac{\nabla\gamma(s_1)^\perp}{||\nabla\gamma(s_1)||}$$
@@ -1224,10 +1265,10 @@ Göttingen, \today \hspace{2em}
 		which after normalization yields the equalities
 			$$
 				\frac{\nabla \gamma_1(s_1)}{||\nabla \gamma_1(s_1)||} = 
-				\frac{\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_1)}{||\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_1)||} 
+				\pm\frac{\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_1)}{||\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_1)||} 
 				\quad\text{ and }\quad 
 				\frac{\nabla \gamma_2(s_2)}{||\nabla \gamma_2(s_2)||} =  
-				\frac{\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_2)}{||\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_2)||}.
+				\pm\frac{\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_2)}{||\nabla \tilde\phi^{\gamma_1, \gamma_2}_r(\sigma_2)||}.
 			$$
 		Therefore, $\tilde \phi$ is in fact a fillet circle.
 	\end{proof}
@@ -1278,8 +1319,52 @@ Göttingen, \today \hspace{2em}
 	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
 
 \subsection{Intersecting a Surface and a Plane}
-	Hello!
+	In this section, we want to find an algorithm that intersects a plane and a surface in $\mathbb{R}^3$. The intersection genereally takes the form of a surface, a curve, a point or any union of the aforementioned. In the case of CoolingGen, we only care about the case that the intersection is a single curve. This assumption is implicitly made in many of the statements involving the intersection algorithm. First, we need to introduce some notions.
 
+	\begin{definition}
+		A plane $P$ with support vector $S \in \mathbb{R}^3$ and normal vector $N \in \mathbb{R}^3$ with $||N|| = 1$ is given by the set
+			$$ P_{S,N} := \{S+V : \mathbb{R}^3 \ni V \perp N\}. $$
+		It should be noted that for $\tilde S \in P_{\tilde S, N}$ we have the identity $P_{\tilde S, N} = P_{S, N}$. In other words, the choice of the support vector is arbitrary as long as it lies in the same plane.
+	\end{definition}
+
+	In linear Algebra, it is often the case that a plane is defined by a support vector and two direction vectors. In CAD however, it is instead commonplace to use the pair $(S,N)$ of support vector and normal vector, which is always perpendicular to the two direction vectors of the plane. It should be noted that planes, which are two-dimensional affine subspace of $\mathbb{R}^d$, can only be described that way in the case $d = 3$. In our algorithm, the normal vector notation will prove very helpful.
+
+	\begin{definition}
+		The cross product of two vectors $A, B \in \mathbb{R}^3$ is given by
+			$$ A \times B := ||A|| \, ||B|| \, \sin(\theta) \, N,$$
+		where $\theta$ is the angle between $A$ and $B$ and $A, B \perp N$ with $||N|| = 1$. Here, $||\cdot||$ is the Euclidean norm of a vector. If $A$ and $B$ are parallel, then $A \times B = 0$
+	\end{definition}
+
+	The cross product maps two vectors $A, B$ onto another vector $C$. If $A$ and $B$ are not parallel to each other, then the three vectors $A,B,C$ span $\mathbb{R}^3$. In other words, the cross product produces a vector that is perpendicular to the two input vectors.
+
+	\begin{theorem}\label{thm:planeequivalence}
+		Let $S \in \mathbb{R}^3$ a support vector and $A, B \in \mathbb{R}^3$ two non-parallel direction vectors. Then the plane $\tilde P = \{S + tA + sB : t, s \in \mathbb{R}\}$ can be written as $P_{S,N}$ with 
+			$$ N := \frac{A \times B}{||A \times B||}. $$
+	\end{theorem}
+	\begin{proof}
+		Let $X \in \tilde P$. Then
+			$$X - S \; \in \; \tilde P - S = \{tA+sB : t,s \in \mathbb{R}\}.$$
+		But then because $A, B \perp N$ we have $X-S \in P_{0,N}$, where $0$ is the null vector. Now, 
+			$$ X-S+S = X \in P_{0,N} + S = P_{S,N}.$$
+	\end{proof}
+
+	As Theorem \ref{thm:planeequivalence} shows, the notation using the pair $(S,N)$ is valid. Given a parametric surface $\beta(u,v)$ with $(u,v) \in [0,1]^2$ and two parameters $(u^*, v^*) \in [0,1]^2$, we can construct a plane that is tangent to $\beta(u^{(0)}, v^{(0)})$ by using the $u$ and $v$ gradients of $\beta$ and taking their cross product. We make the following definition.
+
+	\begin{definition}
+		Let $\beta(u,v)$ with $(u,v) \in [0,1]^2$ be a parametric surface that is differentiable in $u$ and $v$. Then the tangent plane of $\beta$ at $(u^{(0)}, v^{(0)}) \in [0,1]^2$ is given by the plane
+			$$T_{\beta}(u^{(0)}, v^{(0)}) := P_{\beta(u^{(0)},v^{(0)}), N_{\beta}(u^{(0)},v^{(0)})},$$
+		where 
+			$$N_{\beta}(u,v) := \frac{\nabla_u \beta(u,v) \times \nabla_v \beta(u,v)}{||\nabla_u \beta(u,v) \times \nabla_v \beta(u,v)||}$$
+		is the normal vector of the surface $\beta$ at $(u, v)$.
+	\end{definition}
+
+	In this section (and in CoolingGen), the surface $\beta(u,v)$ is always differentiable in $u$ and $v$. Suppose we want to intersect the plane $P_{S,N}$ with the parametric surface $\beta(u,v)$ for $(u,v) \in [0,1]^2$. If the surface and the plane do intersect in some point, there exists $(u^{(0)}, v^{(0)}) \in [0,1]^2$ such that $S = \beta(u^{(0)}, v^{(0)})$ is a valid representation for the support vector. If we know such a $(u^{(0)}, v^{(0)})$, then surely there are points in the neighborhood of $(u^{(0)}, v^{(0)})$ that also lie in the plane.
+
+	To find such a neighboring point, we construct the line of intersection of the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$. Using the normal notation of the planes and the fact that $S = \beta(u^{(0)}, v^{(0)})$ lies in the intersection, we can easily find the tangent intersection line, which can be written as
+		$$ L^{(0)}(t) = \beta(u^{(0)}, v^{(0)}) + t \cdot (T_{\beta}(u^{(0)}, v^{(0)}) \times N)$$
+	for $t \in \mathbb{R}$.
+
+	Using an appropriate step size $\alpha \in \mathbb{R}$, we can project the point $L^{(0)}(\alpha)$ (which lies in both the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$) onto the surface $\beta$ using the methods from Section \ref{subsec:pointproj} to acquire the point $\beta(u^{(1)}, v^{(1)})$. If this point lies too far away from the tangent intersection line $L^{(0)}$, we discard the point and choose a step size less than $\alpha$ and repeat the process. This iteration step is repeated until the step size falls below a certain threshold $\alpha_0$, yielding a $n$ points, which we can interpolate in between using NURBS.
 
 \chapter{Jet Engine Specific Methods}
 	
@@ -1304,7 +1389,7 @@ Göttingen, \today \hspace{2em}
 		\end{subfigure}
 		\caption{In (a) and (b), the left is surface represents a stator and the right surface represents a rotor. Yellow marks the leading edge, red the pressure side, green the suction side and blue the trailing edge.}
 	\end{figure}
-	
+
 	We make the distinction between two kinds of blades, rotor and stator blades. While the rotor blades rotate around the hub, the stator blades have fixed positions. This was taken into account when designing CoolingGen, so both kinds are currently supported. Furthermor, the blade surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
 
 \section{The S2 Stream Surface and Stream Surface Coordinates}\label{sec:mrtheta}
@@ -1364,7 +1449,7 @@ Göttingen, \today \hspace{2em}
 
 	We calculate the camber curve of each shrunk profile $S^{(v_i)}_\textrm{stream}$. The camber curve $c^{(v_i)}$ is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}_\textrm{stream}$ if and only if for some $d$ its offset curve $O^{S^{(v_i)}_\textrm{stream}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a sorted set of parameters $w_j$ representing the positions of each wall relative to the camber curve, $j \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_i$. Each position-angle pair represents two rays
 		$$ c(w_j) + sR_{\omega_j} \nabla c(w_j) \quad\text{and}\quad c(w_j) - sR_{\omega_j} \nabla c(w_j) $$
-	for $s \in [0, \infty)$, where $R$ is a rotation matrix like the one presented in Equation \ref{eq:rotationmat}. Using the Algorithm \ref{alg:raymarching}, we can find the intersection $p_j^+$ and $p_j^-$ of the rays and the profiles. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. 
+	for $s \in [0, \infty)$, where $R$ is a rotation matrix like the one presented in Equation (\ref{eq:rotationmat}). Using the Algorithm \ref{alg:raymarching}, we can find the intersection $p_j^+$ and $p_j^-$ of the rays and the profiles. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. 
 
 	The blade is then partitioned at these intersection points. For each such partitioning, we are left with four curves per chamber profile. Some of these curves are the walls, which are curves that represent straight lines between $p_j^+$ and $p_j^-$. There are four distinct cases. The first case is $N_C = 1$. In this case, the four curves are given by the pressure side, the leading edge, the suction side and the trailing edge partitioning of the input blade surface $B(u,v)$. If however $N_C > 1$, we have three more cases. The chamber profile located at the leading edge, which we refer to as leading chamber profile, consists of the partition of the pressure side between the leading edge and $p_1^+$, the leading edge, the partition of the suction side between the leading edge and $p_1^-$ and lastly the first wall curve. The chamber profile located at the trailing edge, which we refer to as trailing chamber, consists of the partition of the pressure side between trailing edge and $p_{N_C-1}^+$, the $(N_C-1)$-th wall, the partition of the suction side between trailing edge and $p_{N_C-1}^-$ and the trailing edge. For the $j$-th chamber profile, where $j \neq 1$ and $j \neq N_C-1$, these four curves are the partition of the pressure side between $p_j^+$ and $p_{j+1}^+$, the $j$-th wall, the partition of the suction side between $p_{j}^-$ and $p_{j+1}^-$ and the $(j+1)$-th wall. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}.
 
