@@ -960,7 +960,7 @@ Göttingen, \today \hspace{2em}
 
 	For the use with CoolingGen, our goal is to find the set $I(\gamma_1, \gamma_2)$ in case of $|I(\gamma_1, \gamma_2)| < \infty$ (see Figure \ref{fig:curveIntersectionConnectedness}).
 
-	\begin{definition}
+	\begin{definition}\label{def:linesegdef}
 		The line segment between the points $A_s = (A_{s_x}, A_{s_y})^T$ and $A_e = (A_{e_x}, A_{e_y})^T$ is defined as the set
 			$$ \overline{A_s A_e} := \{(1-t)A_s + tA_e : t \in [0,1]\}. $$
 		The dependence of a point on the line segment on the real parameter $t$ motivates the description of this set as a map
@@ -1319,13 +1319,20 @@ Göttingen, \today \hspace{2em}
 	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
 
 \subsection{Intersecting a Surface and a Plane}
-	In this section, we want to find an algorithm that intersects a plane and a surface in $\mathbb{R}^3$. The intersection genereally takes the form of a surface, a curve, a point or any union of the aforementioned. In the case of CoolingGen, we only care about the case that the intersection is a single curve. This assumption is implicitly made in many of the statements involving the intersection algorithm. First, we need to introduce some notions.
+	In this section, we want to find an algorithm that intersects a plane and a surface in $\mathbb{R}^3$. The intersection genereally takes the form of a surface, a curve, a point or any union of the aforementioned. In the case of CoolingGen, we only care about the case that the intersection is a single curve. This assumption is implicitly made in many of the statements involving the intersection algorithm. First, we need to introduce some basic notions.
 
 	\begin{definition}
 		A plane $P$ with support vector $S \in \mathbb{R}^3$ and normal vector $N \in \mathbb{R}^3$ with $||N|| = 1$ is given by the set
 			$$ P_{S,N} := \{S+V : \mathbb{R}^3 \ni V \perp N\}. $$
 		It should be noted that for $\tilde S \in P_{\tilde S, N}$ we have the identity $P_{\tilde S, N} = P_{S, N}$. In other words, the choice of the support vector is arbitrary as long as it lies in the same plane.
 	\end{definition}
+
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=\textwidth]{../python/argh}
+		\caption{Intersecting a surface (blue) and a plane (grey) yields a curve (orange).}
+		\label{fig:planeintersectionexample}
+	\end{figure}
 
 	In linear Algebra, it is often the case that a plane is defined by a support vector and two direction vectors. In CAD however, it is instead commonplace to use the pair $(S,N)$ of support vector and normal vector, which is always perpendicular to the two direction vectors of the plane. It should be noted that planes, which are two-dimensional affine subspace of $\mathbb{R}^d$, can only be described that way in the case $d = 3$. In our algorithm, the normal vector notation will prove very helpful.
 
@@ -1360,11 +1367,31 @@ Göttingen, \today \hspace{2em}
 
 	In this section (and in CoolingGen), the surface $\beta(u,v)$ is always differentiable in $u$ and $v$. Suppose we want to intersect the plane $P_{S,N}$ with the parametric surface $\beta(u,v)$ for $(u,v) \in [0,1]^2$. If the surface and the plane do intersect in some point, there exists $(u^{(0)}, v^{(0)}) \in [0,1]^2$ such that $S = \beta(u^{(0)}, v^{(0)})$ is a valid representation for the support vector. If we know such a $(u^{(0)}, v^{(0)})$, then surely there are points in the neighborhood of $(u^{(0)}, v^{(0)})$ that also lie in the plane.
 
-	To find such a neighboring point, we construct the line of intersection of the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$. Using the normal notation of the planes and the fact that $S = \beta(u^{(0)}, v^{(0)})$ lies in the intersection, we can easily find the tangent intersection line, which can be written as
+	To find such a neighboring point, we construct the line of intersection of the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$. Using the normal notation of the planes and the fact that $S = \beta(u^{(0)}, v^{(0)})$ lies in the intersection, we can easily find the tangent intersection line.
+
+	\begin{theorem}
+		Let $P_{S, N_1}$ and $P_{S, N_2}$ be two planes with $N_1$ and $N_2$ not parallel. Then
+			$$ P_{S, N_1} \cap P_{S, N_2} = L_{S, S+N}(-\infty, \infty), $$
+		where $N = \frac{N_1 \times N_2}{|| N_1 \times N_2 ||}$ and $L_{S,S+N}(-\infty, \infty)$ is the line through $S$ and $S+N$. 
+	\end{theorem}
+	\begin{proof}
+		Let $t \in \mathbb{R}$. Notice that $tN \perp N_1$ and $tN \perp N_2$. Therefore, $tN \in P_{0, N_1} \cap P_{0, N_2}$, which is equivalent to $S+tN \in P_{S, N_1} \cap P_{S, N_2}$. But $S+tN = (1-t)S + t(S+N) = L_{S,S+N}(t)$ according to Definition \ref{def:linesegdef}.
+	\end{proof}
+
+	We can define the tangent intersection line for the intersection parameters $(u^{(0)}, v^{(0)})$ as
 		$$ L^{(0)}(t) = \beta(u^{(0)}, v^{(0)}) + t \cdot \left(\frac{T_{\beta}(u^{(0)}, v^{(0)}) \times N}{||T_{\beta}(u^{(0)}, v^{(0)}) \times N||}\right),$$
 	for $t \in \mathbb{R}$.
 
-	Using an appropriate step size $\alpha \in \mathbb{R}$, we can project the point $L^{(0)}(\alpha)$ (which lies in both the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$) onto the surface $\beta$ using the methods from Section \ref{subsec:pointproj} to acquire the point $\beta(u^{(1)}, v^{(1)})$. If this point lies too far away from the tangent intersection line $L^{(0)}$, we discard the point and choose a step size less than $\alpha$ and repeat the process. This iteration step is repeated until the step size falls below a certain threshold $\alpha_0$, yielding a $n$ points, which we can interpolate in between using NURBS.
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=\textwidth]{../python/argh2}
+		\caption{We intersect the blue surface $\beta$ with the green plane $P_{S,N}$. The intersection point $\beta(u^{(0)}, v^{(0)})$ is represented by the red dot. The orange tangent plane at $(u^{(0)}, v^{(0)})$ is intersected with the green plane to find the black line $L^{(0)}$. In a neighborhood of the red dot, the black line runs close to the black dashed line, which is the true intersection. The arrows represent the normal vectors of the planes.}
+		\label{fig:planeintersectionline}
+	\end{figure}
+
+	Using an appropriate step size $\alpha \in \mathbb{R}$, we can project the point $L^{(0)}(\alpha)$ (which lies in both the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$) onto the surface $\beta$ using the methods from Section \ref{subsec:pointproj} to acquire the point $\beta(u^{(1)}, v^{(1)})$. If this point lies too far away from the tangent intersection line $L^{(0)}$, we discard the point and choose a step size less than $\alpha$ and repeat the process. This iteration step is repeated until the step size falls below a certain threshold $\alpha_0$.
+
+	We are then left with $n$ points which lie on the intersection curve. We interpolate between these points using NURBS. If necessary, the control points of the NURBS curve can then be projected onto the plane $P_{S,N}$ to ensure that the curve is planar.
 
 \chapter{Jet Engine Specific Methods}
 	
