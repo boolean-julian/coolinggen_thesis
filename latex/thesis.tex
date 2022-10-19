@@ -202,7 +202,7 @@ Göttingen, \today \hspace{2em}
 \section{Problem Statement}
 
 \chapter{Geometric Methods}\label{chap:methods}
-	As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Bézier curves. We will then generalize Bézier curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point inversion, ray marching, curve intersection, offset curve creation and fillet creation, which we will also present.
+	As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Bézier curves. We will then generalize Bézier curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point projection, ray marching, curve intersection, offset curve creation and fillet creation, which we will also present.
 
 \section{Bézier Curves}
 	Bézier curves are named after the French engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design.
@@ -773,7 +773,7 @@ Göttingen, \today \hspace{2em}
 			
 			\caption{Start value search}
 
-			\Procedure{findPointInversionInitValues}{$\gamma, Q$}
+			\Procedure{findPointProjectionInitValues}{$\gamma, Q$}
 				\State $m \gets 0$
 				\For {$k = 1,...,N$}
 					\State $t \gets \frac{k}{N}$
@@ -794,9 +794,9 @@ Göttingen, \today \hspace{2em}
 				\Desc{$\epsilon > 0$}{differentiation step (small)}
 			\EndInput
 
-			\caption{Point Inversion}\label{alg:pointinversion}
-			\Procedure{pointInversion}{$\gamma, Q$}
-				\State $l, u, m \gets \text{findPointInversionInitValues}(\gamma, Q)$
+			\caption{Point Projection}\label{alg:pointinversion}
+			\Procedure{pointProjection}{$\gamma, Q$}
+				\State $l, u, m \gets \text{findPointProjectionInitValues}(\gamma, Q)$
 				\State $t \gets m$
 
 				\For {$k = 1, 2,..., M$}
@@ -899,7 +899,7 @@ Göttingen, \today \hspace{2em}
 		Why is the notion of the collision point of interest? To exemplify the prospect of our algorithm, imagine the following scenario: Let there be a reflective interface represented by a curve $\gamma$ and a beam of light represented by a ray $R_{A,B}$. Then our model suggests the equivalence of the physical point of reflection and the collision point of the ray with respect to the curve.
 	\end{remark}
 
-	We can find the approximation $s^*$ of the collision parameter by using a common CAD scheme called \emph{ray marching}, in which we traverse the ray $R_{A,B}$ by a small distance increments $s$ until we achieve collision with the curve $\gamma$. How do we choose the optimal value for $s$? The idea is the following: Using the point inversion algorithm, we can calculate the \emph{safe distance} $s$ of the point $A$ on the ray to the curve $\gamma$. Then we can easily construct a point $P$ that fulfills $D(A,P) = s$ and lies on the ray $R_{A,B}$ by 
+	We can find the approximation $s^*$ of the collision parameter by using a common CAD scheme called \emph{ray marching}, in which we traverse the ray $R_{A,B}$ by a small distance increments $s$ until we achieve collision with the curve $\gamma$. How do we choose the optimal value for $s$? The idea is the following: Using the point projection algorithm, we can calculate the \emph{safe distance} $s$ of the point $A$ on the ray to the curve $\gamma$. Then we can easily construct a point $P$ that fulfills $D(A,P) = s$ and lies on the ray $R_{A,B}$ by 
 		$$ P := A+s\frac{B}{||B||}.$$
 	Now there are only two possibilities: Either $P$ lies within the $\epsilon$-ball of the collision point, or the line segment $\overline{AP} \subset R_{A,B}([0,\infty))$ has at least $\epsilon$ distance to $\gamma$. In the first case, we can return $\{P\}$. In the second case, we can repeat the procedure on the set 
 		$$ R_{A,B}([0,\infty)) \setminus \overline{AP} = R_{A,B}([s,\infty)) = R_{P,B}([0,\infty)).$$
@@ -912,7 +912,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:raymarchingvis}
 	\end{figure}
 
-	Figure \ref{fig:raymarchingvis} describes ray marching visually. At each iteration, a new safe distance $s$ (depicted as green circle radii) along the ray is calculated. The ray is traversed using $s$ as step size (to achieve the points depicted in green) until the safe distance falls below the absolute tolerance $\epsilon$. The resulting point, depicted in purple, is close to the collision point. The implementation of ray marching algorithm given a point inversion algorithm proves to be relatively simple.
+	Figure \ref{fig:raymarchingvis} describes ray marching visually. At each iteration, a new safe distance $s$ (depicted as green circle radii) along the ray is calculated. The ray is traversed using $s$ as step size (to achieve the points depicted in green) until the safe distance falls below the absolute tolerance $\epsilon$. The resulting point, depicted in purple, is close to the collision point. The implementation of ray marching algorithm given a point projection algorithm proves to be relatively simple.
 
 	\begin{algorithm}[H]
 		\begin{algorithmic}[1]
@@ -921,7 +921,7 @@ Göttingen, \today \hspace{2em}
 			\Procedure{intersectCurveRay}{$\gamma, A, B$}
 				\State $B \gets \frac{B}{||B||}, s \gets 0, P \gets A$
 				\For {$k = 1, 2,..., N$}
-					\State $s \gets D(\gamma(\text{pointInversion}(\gamma, P)), P)$
+					\State $s \gets D(\gamma(\text{pointProjection}(\gamma, P)), P)$
 					\State $P \gets P + sB$
 					\If {$s < \epsilon$}
 						\State \Return $\{P\}$
@@ -933,7 +933,7 @@ Göttingen, \today \hspace{2em}
 		\end{algorithmic}
 	\end{algorithm}
 
-	Using the point inversion algorithm for surfaces (instead of the point inversion algorithm for curves) to find the distance between a point and a surface, we can generalize this algorithm to find the intersection of a ray and a surface.
+	Using the point projection algorithm for surfaces (instead of the point projection algorithm for curves) to find the distance between a point and a surface, we can generalize this algorithm to find the intersection of a ray and a surface.
 
 \subsection{Intersecting Two Curves in 2D}
 	In order to trim curves at intersection points, we require the pair of parameters at which two curves intersect. Let $\gamma_1(s)$ and $\gamma_2(t)$ be two continuous curves in $\mathbb{R}^2$ with $s,t \in [0,1]$ which intersect at finitely many points at most. In this section, we seek for the set of parameters at which these curves intersect.
@@ -1334,6 +1334,21 @@ Göttingen, \today \hspace{2em}
 		\label{fig:planeintersectionexample}
 	\end{figure}
 
+	\begin{definition}
+		The distance between a plane $P_{S,N}$ and a point $Q \in \mathbb{R}^3$ is defined as
+			$$ D(P_{S,N}, Q) := \underset{V \in P_{S,N}}{\arg\min} \; D(V, Q). $$
+	\end{definition}
+
+	\begin{theorem}
+		The expression $\langle (Q - S), N \rangle$ solves $\underset{V \in P_{S,N}}{\arg\min} \; D(V, Q).$
+	\end{theorem}
+
+	\begin{corollary}
+		The projection of a point $Q \in \mathbb{R}^3$ onto the plane $P_{S,N}$ is given by
+			$$Q_\textrm{proj} := Q - \langle (Q - S), N \rangle N,$$
+		where $\langle \cdot,\cdot \rangle$ is the standard scalar product.
+	\end{corollary}
+
 	In linear Algebra, it is often the case that a plane is defined by a support vector and two direction vectors. In CAD however, it is instead commonplace to use the pair $(S,N)$ of support vector and normal vector, which is always perpendicular to the two direction vectors of the plane. It should be noted that planes, which are two-dimensional affine subspace of $\mathbb{R}^d$, can only be described that way in the case $d = 3$. In our algorithm, the normal vector notation will prove very helpful.
 
 	\begin{definition}
@@ -1379,17 +1394,46 @@ Göttingen, \today \hspace{2em}
 	\end{proof}
 
 	We can define the tangent intersection line for the intersection parameters $(u^{(0)}, v^{(0)})$ as
-		$$ L^{(0)}(t) = \beta(u^{(0)}, v^{(0)}) + t \cdot \left(\frac{T_{\beta}(u^{(0)}, v^{(0)}) \times N}{||T_{\beta}(u^{(0)}, v^{(0)}) \times N||}\right),$$
+		$$ L^{(0)}(t) = \beta(u^{(0)}, v^{(0)}) + t \cdot \left(\frac{N_{\beta}(u^{(0)}, v^{(0)}) \times N}{||N_{\beta}(u^{(0)}, v^{(0)}) \times N||}\right),$$
 	for $t \in \mathbb{R}$.
+
+	Using an appropriate step size $\alpha \in \mathbb{R}$, we can project the point $L^{(0)}(\alpha)$ (which lies in both the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$) onto the surface $\beta$ using the methods from Section \ref{subsec:pointproj} to acquire the point $\beta(u^{(1)}, v^{(1)})$. If this point lies too far away from the tangent intersection line $L^{(0)}$, we discard the point and choose a step size less than $\alpha$ and repeat the process. This iteration step is repeated until the step size falls below a certain threshold $\alpha_0$.
+
+	\begin{algorithm}[H]
+	\begin{algorithmic}[1]
+		\Input
+			\Desc{$\alpha > \alpha_0$}{step size and minimum step size}
+			\Desc{$\xi < 1$}{step size scaling factor}
+			\Desc{$\epsilon$}{absolute tolerance}
+		\EndInput
+		\Output
+			\Desc{$\{u^{(i)}, v^{(i)}) : i \in \{1, 2, ...\}\}$}{set of points on the intersection}
+		\EndOutput
+
+		\caption{Surface Plane Intersection}\label{alg:surfplaneintersection}
+		\Procedure{intersectSurfacePlane}{$\beta, S, N, (u^{(0)}, v^{(0)})$}
+			\State $L \gets$ list containing only $(u^{(0)}, v^{(0)})$
+			\While {$|\alpha| > |\alpha_0|$}
+				\State $(u,v) \gets$ last entry in $L$
+				\State $M \gets \left(\frac{N_{\beta}(u, v) \times N}{||N_{\beta}(u, v) \times N||}\right)$
+				\State $P \gets \beta(u,v) + \alpha M$
+				\State $u_\textrm{proj}, v_\textrm{proj} = \textrm{pointProjection}(\beta, P)$
+				\If {$D(\beta(u_\textrm{proj}, v_\textrm{proj}), P_{S,N}) > \epsilon$}
+					$\alpha \gets \xi\alpha$
+				\Else {} append $(u_\textrm{proj}, v_\textrm{proj})$ to $L$
+				\EndIf
+			\EndWhile
+			\State \Return $L$
+		\EndProcedure
+	\end{algorithmic}
+	\end{algorithm}
 
 	\begin{figure}[H]
 		\centering
-		\includesvg[width=\textwidth]{../python/argh2}
+		\includesvg[width=.8\textwidth]{../python/argh2}
 		\caption{We intersect the blue surface $\beta$ with the green plane $P_{S,N}$. The intersection point $\beta(u^{(0)}, v^{(0)})$ is represented by the red dot. The orange tangent plane at $(u^{(0)}, v^{(0)})$ is intersected with the green plane to find the black line $L^{(0)}$. In a neighborhood of the red dot, the black line runs close to the black dashed line, which is the true intersection. The arrows represent the normal vectors of the planes.}
 		\label{fig:planeintersectionline}
 	\end{figure}
-
-	Using an appropriate step size $\alpha \in \mathbb{R}$, we can project the point $L^{(0)}(\alpha)$ (which lies in both the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$) onto the surface $\beta$ using the methods from Section \ref{subsec:pointproj} to acquire the point $\beta(u^{(1)}, v^{(1)})$. If this point lies too far away from the tangent intersection line $L^{(0)}$, we discard the point and choose a step size less than $\alpha$ and repeat the process. This iteration step is repeated until the step size falls below a certain threshold $\alpha_0$.
 
 	We are then left with $n$ points which lie on the intersection curve. We interpolate between these points using NURBS. If necessary, the control points of the NURBS curve can then be projected onto the plane $P_{S,N}$ to ensure that the curve is planar.
 
