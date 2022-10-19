@@ -860,7 +860,7 @@ Göttingen, \today \hspace{2em}
 		$$
 	where $H_\phi(u,v)$ is the Hessian of $\phi$ and $\nabla \phi(u,v)$ is the gradient of $\phi$. These differentials can once again be approximated by finite differences. If $H_\phi(u,v)$ and $\nabla \phi(u,v)$ do not exist for some $(u,v)$ in the set $M$, then we can once again iteratively apply the start value search to find smaller subsets of $M$ to calculate some $(u^*, v^*)$ in the set of projection parameters for the point $Q$.
 
-\subsection{Intersection of a Ray and a Curve in 2D}
+\subsection{Intersection of a Ray and a Curve in 2D}\label{subsec:raymarching}
 	\begin{definition}
 		A \emph{ray} with support vector $A \in \mathbb{R}^d$ and direction vector $B \in \mathbb{R}^d$ is given by the set of points
 			\begin{equation*}
@@ -1319,7 +1319,7 @@ Göttingen, \today \hspace{2em}
 	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
 
 \subsection{Intersecting a Surface and a Plane}
-	In this section, we want to find an algorithm that intersects a plane and a surface in $\mathbb{R}^3$. The intersection generally takes the form of a surface, a curve, a point or any union of the aforementioned. In the case of CoolingGen, we only care about the case that the surface-plane intersection is a single curve. This assumption is implicitly made in many of the statements involving the intersection algorithm. First, we need to introduce some basic notions.
+	In this section, we present an algorithm that intersects a plane and a surface in $\mathbb{R}^3$. The intersection generally takes the form of a surface, a curve, a point or any union of the aforementioned. In the case of CoolingGen, we only care about the case that the surface-plane intersection is a single curve. This assumption is implicitly made in many of the statements involving the intersection algorithm. First, we need to introduce some basic notions.
 
 	\begin{definition}
 		A plane $P$ with support vector $S \in \mathbb{R}^3$ and normal vector $N \in \mathbb{R}^3$ with $||N|| = 1$ is given by the set
@@ -1330,7 +1330,7 @@ Göttingen, \today \hspace{2em}
 	\begin{figure}[H]
 		\centering
 		\includesvg[width=\textwidth]{../python/argh}
-		\caption{In our case, intersecting a surface (blue) and a plane (grey) yields a curve (orange).}
+		\caption{The intersection of a surface and a plane generally does not yield a curve. For our purposes, however, this type of intersection is the only case of interest.}
 		\label{fig:planeintersectionexample}
 	\end{figure}
 
@@ -1352,7 +1352,7 @@ Göttingen, \today \hspace{2em}
 		\caption{Projection of a point onto a plane as described by Theorem \ref{thm:planeprojection}.}
 	\end{figure}
 
-	In linear Algebra, it is often the case that a plane is defined by a support vector and two direction vectors. In CAD however, it is instead commonplace to use the pair $(S,N)$ of support vector and normal vector. The normal vector is perpendicular to the two direction vectors of the plane. It should be noted that planes, which are two-dimensional affine subspace of $\mathbb{R}^d$, can only be described that way in the case $d = 3$. In our algorithm, the normal vector notation will prove helpful.
+	In linear algebra, it is often the case that a plane is defined by a support vector and two direction vectors. In CAD it is instead commonplace to use the pair $(S,N)$ of support vector and normal vector. The normal vector is perpendicular to the two direction vectors of the plane. It should be noted that planes, which are two-dimensional affine subspace of $\mathbb{R}^d$, can only be described that way in the case $d = 3$. In our algorithm, the normal vector notation will prove helpful.
 
 	\begin{definition}
 		The cross product of two vectors $A, B \in \mathbb{R}^3$ is given by
@@ -1383,9 +1383,9 @@ Göttingen, \today \hspace{2em}
 		is the normal vector of the surface $\beta$ at $(u, v)$.
 	\end{definition}
 
-	In this section (and in CoolingGen), the surface $\beta(u,v)$ is always differentiable in $u$ and $v$. Suppose we want to intersect the plane $P_{S,N}$ with the parametric surface $\beta(u,v)$ for $(u,v) \in [0,1]^2$. If the surface and the plane do intersect in some point, there exists $(u^{(0)}, v^{(0)}) \in [0,1]^2$ such that $S = \beta(u^{(0)}, v^{(0)})$ is a valid representation for the support vector. If we know such a $(u^{(0)}, v^{(0)})$ a priori, then we can find points in the neighborhood of $(u^{(0)}, v^{(0)})$ that also lie in the plane.
+	In this section (and in CoolingGen), the surface $\beta(u,v)$ is always differentiable in $u$ and $v$. Suppose we want to intersect the plane $P_{S,N}$ with the parametric surface $\beta(u,v)$ for $(u,v) \in [0,1]^2$. If the surface and the plane do intersect in some point, there exists $(u^{(0)}, v^{(0)}) \in [0,1]^2$ such that $S = \beta(u^{(0)}, v^{(0)})$ is a valid representation for the support vector. If we know such a $(u^{(0)}, v^{(0)})$ a priori, we can find points in the neighborhood of $(u^{(0)}, v^{(0)})$ that also lie in the plane.
 
-	To find such a neighboring point, we construct the line of intersection of the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$. Using the normal notation of the planes and the intersection parameter pair $(u^{(0)}, v^{(0)})$, we can easily find the tangent intersection line using the following theorem.
+	To find a neighboring point, we find the line of intersection $L^{(0)}$ of the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$. Using the normal notation of the planes and the intersection parameter pair $(u^{(0)}, v^{(0)})$, we can easily do this using the following theorem.
 
 	\begin{theorem}
 		Let $P_{S, N_1}$ and $P_{S, N_2}$ be two planes with $N_1$ and $N_2$ not parallel. Then
@@ -1396,11 +1396,9 @@ Göttingen, \today \hspace{2em}
 		Let $t \in \mathbb{R}$. Notice that $tN \perp N_1$ and $tN \perp N_2$. Therefore, $tN \in P_{0, N_1} \cap P_{0, N_2}$, which is equivalent to $S+tN \in P_{S, N_1} \cap P_{S, N_2}$. But $S+tN = (1-t)S + t(S+N) = L_{S,S+N}(t)$ according to Definition \ref{def:linesegdef}.
 	\end{proof}
 
-	We can define the tangent intersection line for the intersection parameters $(u^{(0)}, v^{(0)})$ as
-		$$ L^{(0)}(t) = \beta(u^{(0)}, v^{(0)}) + t \cdot \left(\frac{N_{\beta}(u^{(0)}, v^{(0)}) \times N}{||N_{\beta}(u^{(0)}, v^{(0)}) \times N||}\right),$$
-	for $t \in \mathbb{R}$.
-
-	Using an appropriate step size $\alpha \in \mathbb{R}$, we can project the point $L^{(0)}(\alpha)$ (which lies in both the tangent plane $T_{\beta}(u^{(0)}, v^{(0)})$ and the target plane $P_{S,N} = P_{\beta(u^{(0)}, v^{(0)}), N}$) onto the surface $\beta$ using the methods from Section \ref{subsec:pointproj} to acquire a candidate for the point $\beta(u^{(1)}, v^{(1)})$. If this point lies outside of the plane $P_{S,N}$, we discard the point and choose a step size less than $\alpha$ and repeat the process. If such a point $\beta(u^{(1)}, v^{(1)})$ exists, we can repeat the process to search $\beta(u^{(2)}, v^{(2)})$. To do this, we construct $L^{(1)}$ by intersecting $P_{S,N}$ and $T_{\beta}(u^{(1)}, v^{(1)})$ and project $L^{(1)}(\alpha)$ onto $\beta$. We can repeat this process for some $alpha_0 > 0$ until $|\alpha| < \alpha_0$. If this condition is satisfied, we return the list of $n$ parameters $L = \{(u^{(i)}, v^{(i)}): i \in \{1,2,...,n\}\}$.
+	The tangent intersection line for the intersection parameters $(u^{(0)}, v^{(0)})$ is equal to
+		$$ L^{(0)}(t) = \beta(u^{(0)}, v^{(0)}) + t \cdot \left(\frac{N_{\beta}(u^{(0)}, v^{(0)}) \times N}{||N_{\beta}(u^{(0)}, v^{(0)}) \times N||}\right)$$
+	for $t \in \mathbb{R}$. Using an appropriate step size $\alpha \in \mathbb{R}$, we can project the point $L^{(0)}(\alpha) \in T_{\beta}(u^{(0)}, v^{(0)}) \cap P_{\beta(u^{(0)}, v^{(0)}), N}$ onto the surface $\beta$ using the methods from Section \ref{subsec:pointproj} to acquire a candidate for the point $\beta(u^{(1)}, v^{(1)})$. If this point lies outside of the plane $P_{S,N}$, we discard the point, choose a step size less than $\alpha$ and repeat the process. Numerically, we accept a candidate if is within $\epsilon$-distance of te plane $P_{\beta(u^{(0)}, v^{(0)}), N}$ for a small value of $\epsilon > 0$. If $\beta(u^{(1)}, v^{(1)})$ has been found, we repeat this process to find $\beta(u^{(2)}, v^{(2)})$. To do this, we construct $L^{(1)}$ by intersecting $P_{S,N}$ and $T_{\beta}(u^{(1)}, v^{(1)})$ and project $L^{(1)}(\alpha)$ onto $\beta$. We can repeat this iteration step until $|\alpha| < \alpha_0$ for some $\alpha_0 > 0$. If this condition is satisfied, we return the list of the $n$ parameters of intersection, which we can write as $L = \{(u^{(i)}, v^{(i)}): i \in \{1,2,...,n\}\}$.
 
 	\begin{algorithm}[H]
 	\begin{algorithmic}[1]
@@ -1438,7 +1436,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:planeintersectionline}
 	\end{figure}
 
-	We are then left with $n$ points which lie on the intersection curve. We interpolate between these points using NURBS. If necessary, the control points of the NURBS curve can then be projected onto the plane $P_{S,N}$ to ensure that the curve is planar.
+	After successfully running Algorithm \ref{alg:surfplaneintersection}, we are left with $n$ points which lie on the intersection curve. We interpolate between these points using NURBS. If necessary, the control points of the NURBS curve can then be projected onto the plane $P_{S,N}$ to ensure that the curve is planar. This scheme proves useful for CoolingGen, because a start parameter pair $(u^{(0)}, v^{(0)})$ is practically always known in this context. Otherwise, a start point can be found using the ray marching technique, which was briefly discussed in Section \ref{subsec:raymarching}.
 
 \chapter{Jet Engine Specific Methods}
 	
