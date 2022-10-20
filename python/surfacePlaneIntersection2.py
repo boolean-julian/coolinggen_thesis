@@ -91,8 +91,20 @@ ax.plot(*origin, 'ro')
 ax.view_init(30, 145, 180)
 
 plt.tight_layout()
-plt.savefig("surfacePlaneIntersection2.svg")
-plt.show()
+
+filenames = ["surfacePlaneIntersection2_whole.png"]
+plt.savefig(filenames[0], bbox_inches='tight', dpi = 500)
+
+from PIL import Image
+
+outnames = ["surfacePlaneIntersection2_cropped.png"]
+
+for i in range(len(filenames)):
+	with Image.open(filenames[i]) as inp:
+		arr = np.array(inp)[200:-150,400:-400]
+		out = Image.fromarray(arr)
+		out.save(outnames[i])
+
 
 """
 for a in range(360):

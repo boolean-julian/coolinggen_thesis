@@ -1319,7 +1319,7 @@ Göttingen, \today \hspace{2em}
 	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
 
 \subsection{Intersecting a Surface and a Plane}
-	In this section, we present an algorithm that intersects a plane and a surface in $\mathbb{R}^3$, which is hugely motivated by \cite{Barnhill1990}. The intersection generally takes the form of a surface, a curve, a point or any union of the aforementioned. In the case of CoolingGen, we only care about the case that the surface-plane intersection is a single curve. This assumption is implicitly made in many of the statements involving the intersection algorithm. First, we need to introduce some basic notions.
+	In this section, we present an algorithm that intersects a plane and a surface in $\mathbb{R}^3$, which is largely motivated by \cite{Barnhill1990}. The intersection generally takes the form of a surface, a curve, a point or any union of the aforementioned. In the case of CoolingGen, we only care about the case that the surface-plane intersection is a single curve. This assumption is implicitly made in many of the statements involving the intersection algorithm. First, we need to introduce some basic notions.
 
 	\begin{definition}
 		A plane $P$ with support vector $S \in \mathbb{R}^3$ and normal vector $N \in \mathbb{R}^3$ with $||N|| = 1$ is given by the set
@@ -1329,7 +1329,7 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\includesvg[width=\textwidth]{../python/surfacePlaneIntersection1}
+		\includegraphics[width=\textwidth]{../python/surfacePlaneIntersection1_cropped.png}
 		\caption{The intersection of a surface and a plane generally does not yield a curve. For our purposes, however, this type of intersection is the only case of interest.}
 		\label{fig:planeintersectionexample}
 	\end{figure}
@@ -1403,12 +1403,12 @@ Göttingen, \today \hspace{2em}
 	\begin{algorithm}[H]
 	\begin{algorithmic}[1]
 		\Input
-			\Desc{$\alpha > \alpha_0$}{step size and minimum step size}
-			\Desc{$\xi < 1$}{step size scaling factor}
-			\Desc{$\epsilon$}{absolute tolerance}
+			\Desc{$\alpha > \alpha_0$}{\phantom{aa} step size and minimum step size}
+			\Desc{$\xi < 1$}{\phantom{aa} step size scaling factor}
+			\Desc{$\epsilon$}{\phantom{aa} absolute tolerance}
 		\EndInput
 		\Output
-			\Desc{$\{u^{(i)}, v^{(i)}) : i \in \{1, 2, ..., n\}\}$ }{set of points on the intersection}
+			\Desc{$\{(u^{(i)}, v^{(i)}) : i \in \{1, 2, ..., n\}\}$ }{\phantom{aa} set of points on the intersection}
 		\EndOutput
 
 		\caption{Surface Plane Intersection}\label{alg:surfplaneintersection}
@@ -1431,7 +1431,7 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\includesvg[width=.8\textwidth]{../python/surfacePlaneIntersection2}
+		\includegraphics[width=.8\textwidth]{../python/surfacePlaneIntersection2_cropped.png}
 		\caption{Intersection of surface $\beta$ (blue) with the plane $P_{S,N}$ (green). The intersection point $\beta(u^{(0)}, v^{(0)})$ is represented by the red dot. We intersect the tangent plane (orange) of $\beta$ at $(u^{(0)}, v^{(0)})$ with $P_{S,N}$, yielding the line $L^{(0)}$ (black). Near the intersection point, $L^{(0)}$ and the true solution (black dashed curve) are close. The arrows represent the normal vectors.}
 		\label{fig:planeintersectionline}
 	\end{figure}

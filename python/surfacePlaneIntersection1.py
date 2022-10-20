@@ -70,5 +70,15 @@ ax.plot_wireframe(xp, yp, zp, rstride=16, cstride=16, linewidth=0.5, color = "gr
 
 
 plt.tight_layout()
-plt.savefig("surfacePlaneIntersection1.svg")
-plt.show()
+filenames = ["surfacePlaneIntersection1_whole.png"]
+plt.savefig(filenames[0], bbox_inches='tight', dpi = 500)
+
+from PIL import Image
+
+outnames = ["surfacePlaneIntersection1_cropped.png"]
+
+for i in range(len(filenames)):
+	with Image.open(filenames[i]) as inp:
+		arr = np.array(inp)[100:-200,150:-150]
+		out = Image.fromarray(arr)
+		out.save(outnames[i])
