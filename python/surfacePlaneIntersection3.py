@@ -64,12 +64,12 @@ ax.plot(*[[S[i], Qnorm[i]] for i in range(len(S))], '--', color = "tab:blue")
 ax.view_init(30, 115, 180)
 plt.tight_layout()
 
-plt.savefig("argh3.png", bbox_inches='tight', dpi = 500)
+filenames = ["surfacePlaneIntersection3.png"]
+plt.savefig(filenames[0], bbox_inches='tight', dpi = 500)
 
 from PIL import Image
 
-filenames = ["argh3.png"]
-outnames = ["argh4.png"]
+outnames = ["surfacePlaneIntersection3_cropped.png"]
 
 for i in range(len(filenames)):
 	with Image.open(filenames[i]) as inp:

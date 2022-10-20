@@ -21,7 +21,7 @@
 
 @Book{Royce2015,
   author    = {Rolls Royce},
-  publisher = {Wiley and Sons, Limited},
+  publisher = {Wiley & Sons, Limited},
   title     = {Jet Engine},
   year      = {2015},
   isbn      = {9781119065999},

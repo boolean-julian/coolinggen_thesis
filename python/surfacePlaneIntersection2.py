@@ -91,7 +91,7 @@ ax.plot(*origin, 'ro')
 ax.view_init(30, 145, 180)
 
 plt.tight_layout()
-plt.savefig("argh2.svg")
+plt.savefig("surfacePlaneIntersection2.svg")
 plt.show()
 
 """

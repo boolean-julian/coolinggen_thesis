@@ -70,5 +70,5 @@ ax.plot_wireframe(xp, yp, zp, rstride=16, cstride=16, linewidth=0.5, color = "gr
 
 
 plt.tight_layout()
-plt.savefig("argh.svg")
+plt.savefig("surfacePlaneIntersection1.svg")
 plt.show()
