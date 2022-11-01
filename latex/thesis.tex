@@ -858,6 +858,20 @@ Göttingen, \today \hspace{2em}
 		$$
 	where $H_\phi(u,v)$ is the Hessian of $\phi$ and $\nabla \phi(u,v)$ is the gradient of $\phi$. These differentials can once again be approximated by finite differences. If $H_\phi(u,v)$ and $\nabla \phi(u,v)$ do not exist for some $(u,v)$ in the set $M$, then we can once again iteratively apply the start value search to find smaller subsets of $M$ to calculate some $(u^*, v^*)$ in the set of projection parameters for the point $Q$.
 
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/projection/02.png}
+		\end{subfigure}
+		\hspace{0.5cm}
+		\begin{subfigure}{.45\textwidth}
+			\includegraphics[width=\textwidth]{../tec/projection/01.png}
+			\vspace{0.5cm}
+		\end{subfigure}
+		\caption{Point projection. Each blue point on the orange surface is the projection of the point connected to it with a dotted line.}
+	\end{figure}
+
+
 \subsection{Ray-Curve and Ray-Surface Intersection}\label{subsec:raymarching}
 	This section describes the intersection of a ray and a curve according to \cite{Hart1996}.
 
@@ -1442,11 +1456,11 @@ Göttingen, \today \hspace{2em}
 	
 
 \section{Fundamental Terms}
-	The creation of cooling geometries inside of turbine blades is not only vital for the enhancement of the thermodynamic efficiency and power output of turbine engines. The materials melting temperature is often exceeded by that of the turbine inlet. To withstand this extreme condition, cooling is required. The blade geometries that we are concerned with in the development of CoolingGen are the ones that succeed the inlet in axial direction.
+	The creation of cooling geometries inside of turbine blades is vital for the enhancement of the thermodynamic efficiency and power output of turbine engines. The materials melting temperature is exceeded by that of the hot gas in modern turbines. To withstand this extreme condition, cooling is required. The blade geometries that we are concerned with in the development of CoolingGen are the ones that succeed the inlet in axial direction.
 
-	CoolingGen creates geometries which lie inside of such a blade surface $B(u,v)$, which is an output of BladeGen, a tool developed by the DLR specifically for the design of blade surfaces. $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbines hub. Because of rotational symmetry of the turbine, it is sometimes convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates is given by the map
-		$$ Z: (x,y,z) \mapsto (x, \sqrt{y^2+z^2}). $$
-	Given the associated circumferential angle $\theta = \arctantwo(y, z)$, the transformation to cylindrical coordinates is invertible.
+	CoolingGen creates geometries which lie inside of such a blade surface $B(u,v)$, which is an output of BladeGen, a tool developed by the DLR specifically for the design of blade surfaces. $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbines hub. Because of rotational symmetry of the turbine, it is sometimes convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates in this case is given by the map
+		$$ Z: (x,y,z) \mapsto (x, r, \theta), $$
+	where $\theta = \arctantwo(y, z)$ is the circumferential angle and $\sqrt{y^2+z^2}$ is the distance from the turbine hub. This transformation is invertible.
 
 	\begin{figure}[H]
 		\centering
@@ -1461,7 +1475,7 @@ Göttingen, \today \hspace{2em}
 		\caption{In (a) and (b), the left is surface represents a stator and the right surface represents a rotor. Yellow marks the leading edge, red the pressure side, green the suction side and blue the trailing edge.}
 	\end{figure}
 
-	We make the distinction between two kinds of blades, rotor and stator blades. While the rotor blades rotate around the hub, the stator blades have fixed positions. This was taken into account when designing CoolingGen, so both kinds are currently supported. Furthermor, the blade surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
+	We make the distinction between two kinds of blades, rotor and stator blades. While the rotor blades rotate around the hub, the stator blades have fixed positions. Furthermore, the blade surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
 
 \section{The S2 Stream Surface and Stream Surface Coordinates}\label{sec:mrtheta}
 	A stream line is a line that at every point is tangential to the velocity vector field of the flow of the fluid. Its generalization, the stream surface, describes a surface with the same property. The flow in a turbine can be described by a generalization of the stream surface. When designing turbine blades, it is common practice to describe the flow in two families of stream surfaces. These surfaces are called $S_1$ and $S_2$. The $S_1$ surfaces, also known as \emph{blade-to-blade} surfaces, describe the flow behavior between individual blade sections, whereas their counterpart, the $S_2$ surfaces, which are also known as \emph{meridional} surfaces, describe the flow through the turbine \cite{Wu1952}.
@@ -1474,16 +1488,19 @@ Göttingen, \today \hspace{2em}
 	
 	Each $S_2$ surface is a parametric surface and therefore a map
 		$$s(u,v) : [0,1]^2 \rightarrow \mathbb{R}^3, \quad (u,v) \mapsto (x, r, m),$$
-	where $x$ is the axial coordinate, $r = \sqrt{y^2+z^2}$ the distance from the turbine hub and $m$ is the arc length.
+	where $x$ is the axial coordinate, $r = \sqrt{y^2+z^2}$ the distance from the turbine hub and 
+		$$m(u,v) = \int_0^u \sqrt{x(t,v)^2 + r(t,v)^2} \; \textrm{dt}$$
+	is the arc length. To design the blades for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades \cite{Wu1952}. Each stream line described by $S_{2,m}$ can then be written as $v$-isoparametric curve $S_{2,m}(\cdot, v)$.
 
-	To design the blades for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades \cite{Wu1952}. Each stream line described by $S_{2,m}$ can then be written as $S_{2,m}(\cdot, v)$. By intersecting the cylindrically transformed $u$-isoparametric curves $Z(B(u,\cdot))$ of the blade with each stream line $S_{2,m}(\cdot, v)$, we can construct a curve $B^{(v)}_\textrm{stream}(u)$ from the intersection points $P_{u,v}$, given by
-		$$ B^{(v)}_\textrm{stream}(u) = (m, r\theta, v),$$
-	where $m$ is the first argument of $P_{u,v}$, the radius $r$ is equal to the second argument of $P_{u,v}$ and $\theta$ is the circumferential angle and $v$ is constant for each $B^{(v)}_\textrm{stream}$, making the curve planar.
-	This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a so called \emph{stream surface coordinate system}. Even though the input blade surface $B(u,v)$ lies in $\mathbb{R}^3$, the most important methods of CoolingGen are operations on objects in this stream surface coordinate system.
+	By intersecting the transformed $u$-isoparametric curves $Z(B(u,\cdot))$ of the blade with each such stream line $S_{2,m}(\cdot, v)$ in their first two arguments $(x,r)$, we can construct a curve
+		$$ B^{(v)}_\textrm{stream}(u) = (m, r\theta),$$
+	where $m$ is the intersection arc length of $S_{2,m}(\cdot, v)$, $r$ is the intersection distance from the hub and $\theta$ is the intersection circumferential angle. This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a so called \emph{stream surface coordinate system} and given $v$, it is invertible. 
+
+	Since this coordinate transformation produces a set of planar curves for $v_i \in [0,1]\}$, where $i \in \{1, 2, ..., N\}\}$, we can often use two-dimensional operations on this set of curves instead of using three-dimensional operations directly on $B(u,v)$. This yields a significant performance boost over using three-dimensional operations. The resulting curves can then be transformed back to the Cartesian coordinate system. Using surface skinning we can interpolate between families of curves to find a surface \cite{Piegl1997}. This approach will be used in the construction of chambers and impingement inserts.
 
 \chapter{Results}
 
-\section{Chambers}
+\section{Chambers}\label{sec:chambers}
 	Channels are hollow sections inside a turbine blade which allow for a coolant to pass through \cite{Giampaolo2020}. For the construction of channels, we distinguish between straight and curved sections of the channel. The straight sections represent hollow bodies that let the coolant pass in $v$-direction of the turbine blade. These sections are called \emph{chambers}. The curved sections let the coolant pass in $u$-direction of the turbine blade. We call the latter sections \emph{turns}. Inside turns, the coolant flows between chambers. In this section, we present how chambers are constructed, whereas turn construction is thoroughly explained in the next section.
 
 	\begin{figure}[H]
@@ -1504,7 +1521,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:profileshrinking}
 	\end{figure}
 
-	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade to calculate the profiles $B^{(v_i)}_\textrm{stream}(u)$ for $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately and fillets are added, the radius of which are also declared as an input. We refer to the resulting profile as \emph{shrunk profile} and declare it $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}.
+	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade to calculate the profiles $B^{(v_i)}_\textrm{stream}(u)$ for $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately and fillets are added, the radius of which are also declared as an input. We refer to the resulting profile as \emph{shrunk profile} and declare it $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}. The subdivision into leading edge, pressure side, suction side and trailing edge is kept by using the fillet boundaries as transition points.
 
 	\begin{figure}[H]
 		\centering
@@ -1513,13 +1530,15 @@ Göttingen, \today \hspace{2em}
 		\label{fig:subdivision_chamber}
 	\end{figure}
 
-	We calculate the camber curve of each shrunk profile $S^{(v_i)}_\textrm{stream}$. The camber curve $c^{(v_i)}$ is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}_\textrm{stream}$ if and only if for some $d$ its offset curve $O^{S^{(v_i)}_\textrm{stream}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a sorted set of parameters $w_j$ representing the positions of each wall relative to the camber curve, $j \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_i$. Each position-angle pair represents two rays
+	Next, we calculate the camber curve $c^{(v_i)}$ of each shrunk profile $S^{(v_i)}_\textrm{stream}$. The camber curve is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}_\textrm{stream}$ if and only if for some $d$ its offset curve $O^{S^{(v_i)}_\textrm{stream}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a sorted set of parameters $w_j$ representing the positions of each wall relative to the camber curve, $j \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_i$.
+
+	Each position-angle pair represents two rays
 		$$ c(w_j) + sR_{\omega_j} \nabla c(w_j) \quad\text{and}\quad c(w_j) - sR_{\omega_j} \nabla c(w_j) $$
-	for $s \in [0, \infty)$, where $R$ is a rotation matrix like the one presented in Equation (\ref{eq:rotationmat}). Using the Algorithm \ref{alg:raymarching}, we can find the intersection $p_j^+$ and $p_j^-$ of the rays and the profiles. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. 
+	for $s \in [0, \infty)$, where $R_{\omega_j}$ is a rotation matrix like presented in Equation (\ref{eq:rotationmat}). Using Algorithm \ref{alg:raymarching}, we can find the respective intersection points $p_j^+$ and $p_j^-$ of the rays and the shrunk profile. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. This process is repeated for all $j \in \{1,...,N_C-1\}$.
 
-	The blade is then partitioned at these intersection points. For each such partitioning, we are left with four curves per chamber profile. Some of these curves are the walls, which are curves that represent straight lines between $p_j^+$ and $p_j^-$. There are four distinct cases. The first case is $N_C = 1$. In this case, the four curves are given by the pressure side, the leading edge, the suction side and the trailing edge partitioning of the input blade surface $B(u,v)$. If however $N_C > 1$, we have three more cases. The chamber profile located at the leading edge, which we refer to as leading chamber profile, consists of the partition of the pressure side between the leading edge and $p_1^+$, the leading edge, the partition of the suction side between the leading edge and $p_1^-$ and lastly the first wall curve. The chamber profile located at the trailing edge, which we refer to as trailing chamber, consists of the partition of the pressure side between trailing edge and $p_{N_C-1}^+$, the $(N_C-1)$-th wall, the partition of the suction side between trailing edge and $p_{N_C-1}^-$ and the trailing edge. For the $j$-th chamber profile, where $j \neq 1$ and $j \neq N_C-1$, these four curves are the partition of the pressure side between $p_j^+$ and $p_{j+1}^+$, the $j$-th wall, the partition of the suction side between $p_{j}^-$ and $p_{j+1}^-$ and the $(j+1)$-th wall. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}.
+	Next, the blade is partitioned at the intersection points $p_j^+$ and $p_j^-$ for all $j \in \{1,...,N_C-1\}$. For each such partitioning, we are left with four chamber-delimiting curves per chamber profile. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}. If there is only one chamber, the old partitioning scheme (leading edge, suction side, pressure side and trailing edge) is kept. In case of multiple chambers, the leading and trailing chambers have to be treated differently, because then each of them are delimited by only one wall. However, we can use the leading edge partition or trailing edge partition in place of the respective wall.
 
-	\begin{figure}
+	\begin{figure}[H]
 		\begin{subfigure}{.32\textwidth}
 			\includegraphics[width=\textwidth]{../tec/chambers/11.png}
 			\caption{Offsetting.}
@@ -1536,9 +1555,18 @@ Göttingen, \today \hspace{2em}
 		\label{fig:chamber_shrinking}
 	\end{figure}
 
-	After performing this partitioning, we can offset the curves. However, each curve is offset differently. In the wall input, the thickness of the wall in each direction is specified as an input. In fact, this input specification is done using NURBS curves. For each partition, the user of CoolingGen specifies control points $(v_k, d_k)$, where $v_k \in [0,1]$ is the surface parameter and $d_k$ is the respective thickness with $k \in [1, ..., K]$. The leading and trailing profile offsets are linearly interpolated between suction and pressure side offsets to guarantee differentiability of the chamber profile at the leading and trailing edge transitions, respectively. Since after offsetting, the four chamber profile parts do not necessarily align, we connect the curve ends either by curve-curve intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve boundary points and $B$ represent the gradient at the curve boundary points.
+	After partitioning, we can offset the curves. Each curve is offset differently. In the wall input, the thickness of the wall in each direction is specified as an input. In fact, this input specification is done using two B-spline curves. For each wall, the user of CoolingGen specifies two sets control points $\{(v^1_k, d^1_k) : k \in \{1, ..., K\}\}$ and $\{(v^2_j, d^2_j) : j \in \{1, ..., J\}\}$, where $v^1_k, v^2_j \in [0,1]$ are surface parameters and $d^1_k$ are the respective thicknesses of the leading and trailing walls, respectively. Similarly, the suction and pressure side thicknesses for each chamber are defined by two B-spline curves.
 
-	After connecting and trimming the offset curves using the methods in Section \ref{sec:offsetcurves}, we are left with four trimmed offset curves that intersect non-differentiably at their boundary points. We apply the fillet curve method presented in Section \ref{sec:filletcurves}. These steps can be seen in Figure \ref{fig:chamber_shrinking}.
+	\begin{figure}[H]
+		\centering
+		\includesvg[width=0.25\textwidth]{../python/linearContinuationCurve}
+		\caption{Linear continuation of curves using rays to ensure their intersection.}
+		\label{fig:linear_continuation_curve}
+	\end{figure}
+
+	The leading and trailing partition offsets are linearly interpolated between suction and pressure side offsets to guarantee continuity and differentiability of the chamber profile at the leading and trailing edge transitions. After offsetting, the chamber-delimiting curve end points do not necessarily intersect. Therefore, we connect the curve ends either by curve-curve intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve end points and $B$ represent the gradient at the curve boundary points. These rays can be understood as the linear continuation of the chamber-delimiting curves (see \ref{fig:linear_continuation_curve}).
+
+	After connecting and trimming the offset curves using the methods in Section \ref{sec:offsetcurves}, we are left with four trimmed offset curves that intersect at their end points. We apply the fillet curve method between presented in Section \ref{sec:filletcurves} between neighboring chamber-delimiting curves. The offsetting, trimming and fillet creation steps can be seen in Figure \ref{fig:chamber_shrinking}.
 
 	\begin{figure}[H]
 		\centering
@@ -1552,12 +1580,15 @@ Göttingen, \today \hspace{2em}
 			\includegraphics[width=\textwidth]{../tec/lifting/complete.png}
 			\caption{Three chambers inside of blade surface.}
 		\end{subfigure}
-		\caption{Lifted chamber surfaces.}
+		\caption{Skinned chamber surfaces.}
+		\label{fig:skinned_chambers}
 	\end{figure}
 	
-	We can use the inverse coordinate transformation from the $(m, r\theta)$ stream surface coordinate system to the Cartesian coordinate system. Interpolation between the transformed chamber profiles yields $N_C$ many three-dimensional chamber surfaces.
+	As described in Section \ref{sec:mrtheta}, we can use the inverse coordinate transformation from the $(m, r\theta)$ stream surface coordinate system to the Cartesian coordinate system and use surface skinning to create chamber surfaces. \ref{fig:skinned_chambers} shows a possible result of this procedure.
 
 \section{Turns}
+	As mentioned in Section \ref{sec:chambers}, turns let coolant flow between two chambers. Notice that this procedure, unlike the construction of chambers, takes place in Cartesian coordinates.
+
 	\begin{figure}[H]
 		\centering
 		\begin{subfigure}{.48\textwidth}
@@ -1572,6 +1603,16 @@ Göttingen, \today \hspace{2em}
 		\caption{Construction of a turnaround.}
 	\end{figure}
 
+	First, we construct the combined chamber, for which the two chambers that shall be connected by the turn are specified. The intermediate surface partitions are removed, and the suction and pressure sides of the two chambers are connected differentiably by inserting control points. For this purpose, the user specifies a lower bound $v_L$ and an upper bound $v_U$, between which the combined chamber is constructed.
+
+	Next, the turn axis is constructed. The wall input presented in \ref{sec:chambers} of the intermediate wall has a Cartesian representation. The $v_L$-isoparametric curve end points are connected with a straight line. This yields the turn axis. Using the turn axis, we can construct a set of planes which intersect the turn axis. The number and angles relative to the intermediate wall of which are specified as an input. The combined chamber is partitioned into a suction and a pressure side. The transition points are the points of maximum distance from the turn axis.
+
+	We employ Algorithm \ref{alg:surfplaneintersection} to find the intersection of these planes and the suction and pressure side of the combined chamber, yielding two curves for each plane, which start at the turn axis and end at the suction or pressure side boundary, respectively. The start points of these curves do not intersect, but both points lie on the turn axis. We connect these points using a straight line. If the end points do not intersect, we also connect them using a straight line.
+
+	Since all of these curves (including the straight lines, which are represented as curves within CoolingGen) are planar by definition, we can use two-dimensional operations. Since CoolingGen uses the first two coordinates for all of these operations, the curves have to be rotated onto the $(x,y)$-plane.
+
+	To ensure a differentiable connection between the chambers, the axis-aligned curve is offset. The size of the offset is given by the linear interpolation in terms of the angle between the wall thickness on the leading and on the trailing side. Similar to the procedure in \ref{sec:chambers}, the pressure- and suction-sided curves are then trimmed accordingly and fillets are added between them.
+
 	\begin{figure}[H]
 		\centering
 		\begin{subfigure}{.4\textwidth}
@@ -1585,13 +1626,14 @@ Göttingen, \today \hspace{2em}
 		\caption{Cooling channel with three chambers and two turnarounds.}
 	\end{figure}
 
+	After rotating the planar curves back from the $(x,y)$-plane onto their original plane, we once again use skinning to combine the planar curves to turn surfaces. However, these turn surfaces do not contain the chambers. As mentioned before, the coherent combination of turns and chambers is called channel. To construct a channel from turns and chambers, we find the profiles and planar curves that belong to the channel. We align their start points by shifting the parameter space in the following way.
+
+	Given a parametric curve $\gamma(t)$ with $t \in [0,1]$, we can align the curve by applying the map
+		$$ \Phi(s, \sigma, t): [0,1] \mapsto [0,1] \quad t \mapsto (s+\sigma t+1) \textrm{ mod } 1, $$
+	to the input parameter $t$, where $s \in [0,1]$ is the parametric shift, $\sigma \in \{1, -1\}$ is the curve direction, and $\textrm{mod}$ is the modulus operator. Using this map and Algorithm \ref{alg:pointinversion}, we can align two curves at a point.
 
 \section{Film Cooling Holes}
-	\begin{itemize}
-		\item parametric definitions of delimiting curves
-		\item explain how these are made
-		\item then explain how they are basically made out of rays and how that is helpful with intersections
-	\end{itemize}
+	A film cooling hole is a hole that transfers the coolant from the inside of the channel to the outside of the blade. An array of these holes provides a protective fluid layer that restrains heat transfer to the blade.
 
 	\begin{figure}[H]
 		\centering
@@ -1608,10 +1650,102 @@ Göttingen, \today \hspace{2em}
 		\end{subfigure}
 		\begin{subfigure}{.55\textwidth}
 			\includesvg[width=\textwidth]{../python/fanshapedCurveDefinition}
-			\caption{Delimiting curves.}
+			\caption{$f_\textrm{circular}$ (orange) and $f_\textrm{fan shaped}$ (blue).}
 		\end{subfigure}
-		\caption{Film cooling holes and their delimiting curves}
+		\caption{Film cooling holes and their delimiting curves.}
+		\label{fig:filmholes}
 	\end{figure}
+
+	In CoolingGen, the geometric shape of a film cooling hole is described using two delimiting curves and a transitional $v$-parameter. CoolingGen currently supports two types of delimiting parametric curves, but can be extended to provide a multitude of such curves. These types of curves are the circular curve
+		$$ f_\textrm{circular}(t) =
+			\begin{pmatrix}
+				r \cos 2\pi t \\
+				r \sin 2\pi t
+			\end{pmatrix}
+		$$
+	for a given radius $r$ and the more complex fan shaped curve
+		$$ f_\textrm{fan shaped}(t) = 
+			\begin{cases} 
+				\begin{pmatrix}
+					r\\
+					0 
+				\end{pmatrix}
+				& \textrm{ if } t \in \{0, 1\},\\[1.1em]
+				
+				\begin{pmatrix}
+					0 \\
+					b
+				\end{pmatrix}
+				& \textrm{ if } t = \frac{1}{4},\\[1.1em]
+
+				\begin{pmatrix}
+					r - 2d \\
+					0
+				\end{pmatrix}
+				& \textrm{ if } t = \frac{1}{2},\\[1.1em]
+
+				\begin{pmatrix}
+					0 \\
+					-b
+				\end{pmatrix}
+				& \textrm{ if } t = \frac{3}{4},\\[1.1em]				
+			\end{cases}
+			\quad\textrm{or}\quad
+			\begin{cases} 
+				\begin{pmatrix}
+					r \cos 2\pi t \\
+					r \sin 2\pi t + (b-r)
+				\end{pmatrix}
+				& \textrm{ if } t \in (0, \frac{1}{4}),\\[1.1em]
+
+				\begin{pmatrix}
+					r \cos 2\pi t - 2(d-r) \\
+					r \sin 2\pi t + (b-r)
+				\end{pmatrix}
+				& \textrm{ if } t \in (\frac{1}{4}, \frac{1}{2}),\\[1.1em]
+
+				\begin{pmatrix}
+					r \cos 2\pi t - 2(d-r)\\
+					r \sin 2\pi t - (b-r)
+				\end{pmatrix}
+				& \textrm{ if } t \in (\frac{1}{2}, \frac{3}{4}),\\[1.1em]
+
+				\begin{pmatrix}
+					r \cos 2\pi t \\
+					r \sin 2\pi t - (b-r)
+				\end{pmatrix}
+				& \textrm{ if } t \in (\frac{3}{4}, 1),\\[1.1em]
+			\end{cases}
+		$$
+	where $r$ is the corner radius, $b$ is the height, $d$ the width and $t \in [0,1]$. Both of these curves can be seen in Figure \ref{fig:filmholes}.
+
+	To construct a surface from a delimiting curve $f$, we canonically embed the two-dimensional curves into three-dimensional space using the map
+		$$ E: \mathbb{R}^2 \mapsto \mathbb{R}^3, \quad (x, y) \rightarrow (x, y, 0). $$
+	We also require a line segment $L_{A,B}$ between two points $A, B \in \mathbb{R}^3$.
+	The curve $E(f)$ lies in the $(x,y)$-plane that has the normal vector $N_{(x,y)} = (0, 0, 1)$. We construct the rotation matrix $R \in \mathbb{R}^{3 \times 3}$ that rotates $N_{(x,y)}$ onto the direction $(B-A)$ of the line segment $L_{A,B}$ by finding the angle between $(B-A)$ and $N_{(x,y)}$. The rotation axis is given by the cross product $(B-A) \times N_{(x,y)}$. Using the rotation matrix $R$, we can rotate $E(f)$ to find $RE(f)$. We can translate $RE(f)$ to the start and end point of $L_{A,B}$ to find the curves
+		$$ f_A := A+RE(f) \quad\textrm{and}\quad f_B = B+RE(f). $$
+	For each $u, v \in [0,1]$, we can linearly interpolate between $f_A(u)$ and $f_B(u)$ to find the surface 
+		$$F(u,v) = (1-v)\,f_A(u) + v\,f_B(u).$$
+	We call the surface $F(u,v)$ the extrusion of $f$ along $L_{A,B}$.
+
+	Setting a value $v_\textrm{transition} \in [0,1]$, we can combine two surfaces extrusion surfaces of different curve types along the same line segment. For this purpose, let $F_1(u,v)$ be the extrusion of $f_1(t)$ along $L_{A,B}$ and let $F_2(u,v)$ be the extrusion of $f_2$ along $L_{A,B}$. We can now write the combined surface of $F_1$ and $F_2$ along $L_{A,B}$ as
+		$$
+			C^{(v_\textrm{trans})}(u,v) = 
+				\begin{cases}
+					F_1(u,v) 																										& \textrm{ if } v \leq v_\textrm{trans} \\
+					\frac{v-v_\textrm{trans}}{1-v_\textrm{trans}} F_1(u,v_\textrm{trans}) + \frac{v}{1-v_\textrm{trans}} F_2(u,1)	& \textrm{ else.} 
+				\end{cases}
+		$$
+
+	The surface $C^{(v_\textrm{trans})}$ is a representation of a film cooling hole. There are currently two supported types of hole surfaces in CoolingGen. The first type is the cylindrical hole, where $f_1 = f_2 = f_\textrm{circular}$. The second type of film cooling hole is $f_1 = f_\textrm{circular}$ and $f_2 = f_\textrm{fan shaped}$. Both of these types can be reviewed in Figure \ref{fig:filmholes}.
+
+
+
+	\begin{itemize}
+		\item parametric definitions of delimiting curves
+		\item explain how these are made
+		\item then explain how they are basically made out of rays and how that is helpful with intersections
+	\end{itemize}
 
 
 \section{Impingement Inserts}
