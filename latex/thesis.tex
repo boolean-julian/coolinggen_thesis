@@ -1521,7 +1521,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:profileshrinking}
 	\end{figure}
 
-	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade to calculate the profiles $B^{(v_i)}_\textrm{stream}(u)$ for $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately and fillets are added, the radius of which are also declared as an input. We refer to the resulting profile as \emph{shrunk profile} and declare it $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}. The subdivision into leading edge, pressure side, suction side and trailing edge is kept by using the fillet boundaries as transition points.
+	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade to calculate the profiles $B^{(v_i)}_\textrm{stream}(u)$ for $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately (as described in Section \ref{sec:offsetcurves}) and fillets are added, the radius of which are also declared as an input. We refer to the resulting profile as \emph{shrunk profile} and declare it $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}. The subdivision into leading edge, pressure side, suction side and trailing edge is kept by using the fillet boundaries as transition points.
 
 	\begin{figure}[H]
 		\centering
@@ -1530,13 +1530,13 @@ Göttingen, \today \hspace{2em}
 		\label{fig:subdivision_chamber}
 	\end{figure}
 
-	Next, we calculate the camber curve $c^{(v_i)}$ of each shrunk profile $S^{(v_i)}_\textrm{stream}$. The camber curve is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}_\textrm{stream}$ if and only if for some $d$ its offset curve $O^{S^{(v_i)}_\textrm{stream}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a sorted set of parameters $w_j$ representing the positions of each wall relative to the camber curve, $j \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_i$.
+	Next, we calculate the camber curve $c^{(v_i)}$ of each shrunk profile $S^{(v_i)}_\textrm{stream}$. The camber curve is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}_\textrm{stream}$ if and only if for some $d$ the offset curve $O^{S^{(v_i)}_\textrm{stream}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a set of parameters $w_j$ representing the positions of each wall relative to the camber curve, $j \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_j$.
 
 	Each position-angle pair represents two rays
 		$$ c(w_j) + sR_{\omega_j} \nabla c(w_j) \quad\text{and}\quad c(w_j) - sR_{\omega_j} \nabla c(w_j) $$
 	for $s \in [0, \infty)$, where $R_{\omega_j}$ is a rotation matrix like presented in Equation (\ref{eq:rotationmat}). Using Algorithm \ref{alg:raymarching}, we can find the respective intersection points $p_j^+$ and $p_j^-$ of the rays and the shrunk profile. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. This process is repeated for all $j \in \{1,...,N_C-1\}$.
 
-	Next, the blade is partitioned at the intersection points $p_j^+$ and $p_j^-$ for all $j \in \{1,...,N_C-1\}$. For each such partitioning, we are left with four chamber-delimiting curves per chamber profile. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}. If there is only one chamber, the old partitioning scheme (leading edge, suction side, pressure side and trailing edge) is kept. In case of multiple chambers, the leading and trailing chambers have to be treated differently, because then each of them are delimited by only one wall. However, we can use the leading edge partition or trailing edge partition in place of the respective wall.
+	Next, the blade is partitioned at the intersection points $p_j^+$ and $p_j^-$ for all $j \in \{1,...,N_C-1\}$. For each such partitioning, we are left with four chamber-delimiting curves per chamber profile. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}. If there is only one chamber, the a priori partitioning scheme (leading edge, suction side, pressure side and trailing edge) is kept. In case of multiple chambers, the leading and trailing chambers have to be treated differently, because in this case each of them are delimited by only one wall. In this case, use the leading edge partition or trailing edge partition in place of the respective wall.
 
 	\begin{figure}[H]
 		\begin{subfigure}{.32\textwidth}
@@ -1564,7 +1564,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:linear_continuation_curve}
 	\end{figure}
 
-	The leading and trailing partition offsets are linearly interpolated between suction and pressure side offsets to guarantee continuity and differentiability of the chamber profile at the leading and trailing edge transitions. After offsetting, the chamber-delimiting curve end points do not necessarily intersect. Therefore, we connect the curve ends either by curve-curve intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve end points and $B$ represent the gradient at the curve boundary points. These rays can be understood as the linear continuation of the chamber-delimiting curves (see \ref{fig:linear_continuation_curve}).
+	The leading and trailing partition offsets are linearly interpolated between suction and pressure side offsets to guarantee continuity and differentiability of the chamber profile at the leading and trailing edge transitions. After offsetting, the chamber-delimiting curve end points do not necessarily intersect. Therefore, we connect the curve ends either by curve-curve intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve end points and $B$ represent the (positive or negative) gradient at the curve boundary points. These rays can be understood as the linear continuation of the chamber-delimiting curves (see \ref{fig:linear_continuation_curve}).
 
 	After connecting and trimming the offset curves using the methods in Section \ref{sec:offsetcurves}, we are left with four trimmed offset curves that intersect at their end points. We apply the fillet curve method between presented in Section \ref{sec:filletcurves} between neighboring chamber-delimiting curves. The offsetting, trimming and fillet creation steps can be seen in Figure \ref{fig:chamber_shrinking}.
 
@@ -1605,7 +1605,7 @@ Göttingen, \today \hspace{2em}
 
 	First, we construct the combined chamber, for which the two chambers that shall be connected by the turn are specified. The intermediate surface partitions are removed, and the suction and pressure sides of the two chambers are connected differentiably by inserting control points. For this purpose, the user specifies a lower bound $v_L$ and an upper bound $v_U$, between which the combined chamber is constructed.
 
-	Next, the turn axis is constructed. The wall input presented in \ref{sec:chambers} of the intermediate wall has a Cartesian representation. The $v_L$-isoparametric curve end points are connected with a straight line. This yields the turn axis. Using the turn axis, we can construct a set of planes which intersect the turn axis. The number and angles relative to the intermediate wall of which are specified as an input. The combined chamber is partitioned into a suction and a pressure side. The transition points are the points of maximum distance from the turn axis.
+	Next, the turn axis is constructed. The wall input presented in \ref{sec:chambers} of the intermediate wall has a Cartesian representation as a surface. The $v_L$-isoparametric curve end points of this wall surface are connected with a straight line. This yields the turn axis. Using the turn axis, we can construct a set of planes which intersect the turn axis. The number and angles relative to the intermediate wall of which are specified as an input. The combined chamber is partitioned into a suction and a pressure side. The transition points are the points of maximum distance from the turn axis.
 
 	We employ Algorithm \ref{alg:surfplaneintersection} to find the intersection of these planes and the suction and pressure side of the combined chamber, yielding two curves for each plane, which start at the turn axis and end at the suction or pressure side boundary, respectively. The start points of these curves do not intersect, but both points lie on the turn axis. We connect these points using a straight line. If the end points do not intersect, we also connect them using a straight line.
 
@@ -1626,14 +1626,18 @@ Göttingen, \today \hspace{2em}
 		\caption{Cooling channel with three chambers and two turnarounds.}
 	\end{figure}
 
-	After rotating the planar curves back from the $(x,y)$-plane onto their original plane, we once again use skinning to combine the planar curves to turn surfaces. However, these turn surfaces do not contain the chambers. As mentioned before, the coherent combination of turns and chambers is called channel. To construct a channel from turns and chambers, we find the profiles and planar curves that belong to the channel. We align their start points by shifting the parameter space in the following way.
+	After rotating the planar curves back from the $(x,y)$-plane onto their original plane, we once again use skinning to combine the planar curves to turn surfaces. However, these turn surfaces do not contain the chambers. As mentioned in Section \ref{sec:chambers}, the coherent combination of turns and chambers is called channel. To construct a channel from turns and chambers, we find the profiles and planar curves that belong to the channel. We align their start points by shifting the parameter space in the following way.
 
 	Given a parametric curve $\gamma(t)$ with $t \in [0,1]$, we can align the curve by applying the map
-		$$ \Phi(s, \sigma, t): [0,1] \mapsto [0,1] \quad t \mapsto (s+\sigma t+1) \textrm{ mod } 1, $$
+		$$ \Phi(s, \sigma, t): [0,1] \rightarrow [0,1] \quad t \mapsto (s+\sigma t+1) \textrm{ mod } 1, $$
 	to the input parameter $t$, where $s \in [0,1]$ is the parametric shift, $\sigma \in \{1, -1\}$ is the curve direction, and $\textrm{mod}$ is the modulus operator. Using this map and Algorithm \ref{alg:pointinversion}, we can align two curves at a point.
 
-\section{Film Cooling Holes}
-	A film cooling hole is a hole that transfers the coolant from the inside of the channel to the outside of the blade. An array of these holes provides a protective fluid layer that restrains heat transfer to the blade.
+	\begin{itemize}
+		\item missing figure: intersection of plane and combined chamber in two steps
+	\end{itemize}
+
+\section{Film Cooling Holes}\label{sec:filmcooling}
+	A film cooling hole is a hole that transfers the coolant from the inside of the channel to the outside of the blade. An array of these holes provides a protective fluid layer that restrains net heat transfer to the blade.
 
 	\begin{figure}[H]
 		\centering
@@ -1656,14 +1660,14 @@ Göttingen, \today \hspace{2em}
 		\label{fig:filmholes}
 	\end{figure}
 
-	In CoolingGen, the geometric shape of a film cooling hole is described using two delimiting curves and a transitional $v$-parameter. CoolingGen currently supports two types of delimiting parametric curves, but can be extended to provide a multitude of such curves. These types of curves are the circular curve
+	In CoolingGen, the general shape of a film cooling hole is described using two delimiting curves which are closed and a transitional $v$-parameter, which we will call $v_\textrm{transition} \in [0,1]$. CoolingGen currently supports two types of delimiting parametric curves, but can be extended to provide a multitude of such curves. These curves are the circular curve
 		$$ f_\textrm{circular}(t) =
 			\begin{pmatrix}
 				r \cos 2\pi t \\
 				r \sin 2\pi t
 			\end{pmatrix}
 		$$
-	for a given radius $r$ and the more complex fan shaped curve
+	for a given radius $r$ and the fan shaped curve
 		$$ f_\textrm{fan shaped}(t) = 
 			\begin{cases} 
 				\begin{pmatrix}
@@ -1720,35 +1724,103 @@ Göttingen, \today \hspace{2em}
 	where $r$ is the corner radius, $b$ is the height, $d$ the width and $t \in [0,1]$. Both of these curves can be seen in Figure \ref{fig:filmholes}.
 
 	To construct a surface from a delimiting curve $f$, we canonically embed the two-dimensional curves into three-dimensional space using the map
-		$$ E: \mathbb{R}^2 \mapsto \mathbb{R}^3, \quad (x, y) \rightarrow (x, y, 0). $$
-	We also require a line segment $L_{A,B}$ between two points $A, B \in \mathbb{R}^3$.
-	The curve $E(f)$ lies in the $(x,y)$-plane that has the normal vector $N_{(x,y)} = (0, 0, 1)$. We construct the rotation matrix $R \in \mathbb{R}^{3 \times 3}$ that rotates $N_{(x,y)}$ onto the direction $(B-A)$ of the line segment $L_{A,B}$ by finding the angle between $(B-A)$ and $N_{(x,y)}$. The rotation axis is given by the cross product $(B-A) \times N_{(x,y)}$. Using the rotation matrix $R$, we can rotate $E(f)$ to find $RE(f)$. We can translate $RE(f)$ to the start and end point of $L_{A,B}$ to find the curves
-		$$ f_A := A+RE(f) \quad\textrm{and}\quad f_B = B+RE(f). $$
-	For each $u, v \in [0,1]$, we can linearly interpolate between $f_A(u)$ and $f_B(u)$ to find the surface 
-		$$F(u,v) = (1-v)\,f_A(u) + v\,f_B(u).$$
-	We call the surface $F(u,v)$ the extrusion of $f$ along $L_{A,B}$.
+		$$ E: \mathbb{R}^2 \rightarrow \mathbb{R}^3, \quad (x, y) \mapsto (x, y, 0). $$
+	We also require a line segment $L_{P_B,P_C}$ between two points $P_B, P_C \in \mathbb{R}^3$.
+	The curve $E(f)$ lies in the $(x,y)$-plane that has the normal vector $N_{(x,y)} = (0, 0, 1)$. We construct the rotation matrix $R \in \mathbb{R}^{3 \times 3}$ that rotates $N_{(x,y)}$ onto the direction $(P_C-P_B)$ of the line segment $L_{P_B,P_C}$ by finding the angle between $(P_C-P_B)$ and $N_{(x,y)}$. The rotation axis is given by the cross product $(P_C-P_B) \times N_{(x,y)}$. Using the rotation matrix $R$, we can rotate $E(f)$ to find $RE(f)$. We can translate $RE(f)$ to the start and end point of $L_{P_B,P_C}$ to find the curves
+		$$ f_B := P_B+RE(f) \quad\textrm{and}\quad f_C = P_C+RE(f). $$
+	For all $v \in [0,1]$, we can linearly interpolate between $f_B(u)$ and $f_C(u)$ for each $u \in [0,1]$ to find the surface 
+		$$F(u,v) = (1-v)\,f_B(u) + v\,f_C(u).$$
+	We call the surface $F(u,v)$ the extrusion of $f$ along $L_{P_B,P_C}$.
 
-	Setting a value $v_\textrm{transition} \in [0,1]$, we can combine two surfaces extrusion surfaces of different curve types along the same line segment. For this purpose, let $F_1(u,v)$ be the extrusion of $f_1(t)$ along $L_{A,B}$ and let $F_2(u,v)$ be the extrusion of $f_2$ along $L_{A,B}$. We can now write the combined surface of $F_1$ and $F_2$ along $L_{A,B}$ as
+	Setting a value $v_\textrm{transition} \in [0,1]$, we can combine two extrusion surfaces of different curves $f_1$ and $f_2$ along the same line segment. This will yield the characteristic shape of the film cooling holes. For this purpose, let $F_1(u,v)$ be the extrusion of $f_1(t)$ along $L_{P_B,P_C}$ and let $F_2(u,v)$ be the extrusion of $f_2$ along $L_{P_B,P_C}$. We can now write the combined surface of $F_1$ and $F_2$ along $L_{P_B,P_C}$ as the linear interpolation
 		$$
-			C^{(v_\textrm{trans})}(u,v) = 
+			F^{(v_\textrm{transition})}(u,v) = 
 				\begin{cases}
-					F_1(u,v) 																										& \textrm{ if } v \leq v_\textrm{trans} \\
-					\frac{v-v_\textrm{trans}}{1-v_\textrm{trans}} F_1(u,v_\textrm{trans}) + \frac{v}{1-v_\textrm{trans}} F_2(u,1)	& \textrm{ else.} 
+					\frac{v_\textrm{transition}-v}{v_\textrm{transition}} F_1(u,0) + 
+					\frac{v}{v_\textrm{transition}} F_2(u,v_\textrm{transition}) + 
+					& \textrm{ if } v \leq v_\textrm{transition} \\
+
+					\\[-0.5em]
+					
+					F_2(u,v)
+					& \textrm{ else.} 
 				\end{cases}
 		$$
 
-	The surface $C^{(v_\textrm{trans})}$ is a representation of a film cooling hole. There are currently two supported types of hole surfaces in CoolingGen. The first type is the cylindrical hole, where $f_1 = f_2 = f_\textrm{circular}$. The second type of film cooling hole is $f_1 = f_\textrm{circular}$ and $f_2 = f_\textrm{fan shaped}$. Both of these types can be reviewed in Figure \ref{fig:filmholes}.
+	The surface $F^{(v_\textrm{transition})}(u,v)$ is a basic representation of a film cooling hole. There are currently two supported types of hole surfaces in CoolingGen. The first type is the cylindrical hole, where $f_1 = f_2 = f_\textrm{circular}$. The second type of film cooling hole is called fan shaped hole, where $f_1 = f_\textrm{fan shaped}$ and $f_2 = f_\textrm{circular}$. The input radii $r$ are the same for each two curves. Both of these types can be reviewed in Figure \ref{fig:filmholes}.
 
+	As mentioned before, film cooling holes transport the fluid between the inside of a channel and the outside of the blade. Therefore it is necessary to intersect $F^{(v_\textrm{transition})}(u,v)$ with the blade surface and the corresponding channel surface. We want to somehow align the $f_1$ side of $F^{(v_\textrm{transition})}$ to the blade surface and the $f_2$ side of $F^{(v_\textrm{transition})}$ to one of the channel surfaces.
 
+	In CoolingGen, we define the starting point $P_B := B(u_B, v_B)$ of the line segment $L_{P_B,P_C}$ in terms of the blade surface $B(u,v)$ by using the input parameters $(u_B, v_B) \in [0,1]^2$. The input also specifies a direction $D$ in which the film cooling hole should be pointed (via the specification of two angles relative to the blade surface). The end point $P_C$ of the line segment is then found by using the surface ray marching method presented in Section \ref{subsec:raymarching} for the ray $R_{P_B,D}$ for each channel. If multiple channels intersect $R_{P_B,D}$, then the channel surface $C(u,v)$ which has the minimum distance from $B(u_B, v_B)$ is chosen. We set the end point $P_C$ of the line segment $L_{P_B,P_C}$ to be equal to the chosen intersection point $C(u_C, v_C)$ for $(u_B, v_B) \in [0,1]^2$. We can then calculate the surface $F^{(v_\textrm{transition})}(u,v)$ along $L_{P_B,P_C}$ as already explained.
 
+	Notice that using this process, the start and end points of $P_B$ and $P_C$ are now aligned to the corresponding surfaces $B(u,v)$ and $C(u,v)$, but the two surface boundaries $F^{(v_\textrm{transition})}(u,0)$ and $F^{(v_\textrm{transition})}(u,1)$ do not align with the surfaces $B(u,v)$ and $C(u,v)$, respectively. Notice also that the basic shape of the surface $F^{(v_\textrm{transition})}(u,v)$ has the following property regarding rays:
+		$$ F^{(v_\textrm{transition})}([0,1]^2) \subset \bigcup_{v_F \in \{0,1\}}\bigcup_{u_F\in[0,1]} R_{P,Q-P}([0, \infty)), $$
+	where $P := F^{(v_\textrm{transition})}(u_F,v_\textrm{transition})$ and $Q := F^{(v_\textrm{transition})}(u_F,v_F)$.
+	In other words, the film cooling hole is made up out of line segments or, equivalently, subsets of rays, the support and direction vectors of which we already know.
+
+	This observation gives rise to a solution to our boundary problem. We can use the ray marching algorithm from Section \ref{subsec:raymarching} to find ray intersections of all such $R_{P,Q-P}$ and $B(u,v)$ by setting $v_F = 0$. This yields a delimiting curve $B_d(u)$, which marks one boundary of the film cooling hole and lies completely within $B(u,v)$. By setting $v_F = 1$, we find the ray intersections of all such $R_{P, Q-P}$ and $C(u,v)$, yielding a delimiting curve $C_d(u)$ which marks the other boundary of the film cooling hole and lies completely within $C(u,v)$.
+
+	We are left with three important curves. The blade delimiting curve $B_d(u)$, the transition isocurve $F^{(v_\textrm{transition})}(u,v_\textrm{transition})$ and the channel delimiting curve $C_d(u)$. We can linearly interpolate between these three defining curves. The intersected film cooling hole surface is then equal to
+		$$ \Phi(u,v) = 
+				\begin{cases}
+					\frac{v_\textrm{transition} - v}{v_\textrm{transition}} \, B(u,v) +
+					\frac{v}{v_\textrm{transition}} \, F^{(v_\textrm{transition})}(u,v_\textrm{transition})
+					& \textrm{ if } v \leq v_\textrm{transition} \\
+
+					\\[-0.5em]
+					
+					\frac{1 - v}{1 - v_\textrm{transition}} \, F^{(v_\textrm{transition})}(u,v_\textrm{transition}) + 
+					\frac{v - v_\textrm{transition}}{1 - v_\textrm{transition}} \, C(u,v)		
+					& \textrm{ else.}
+
+				\end{cases}
+		 $$
+
+	Using this procedure, we can efficiently create multiple film cooling holes. In CoolingGen, a distribution function is used to create a row of multiple film cooling holes at once that share the same direction $D$, radius $r$ and shape parameters $b, d$, but differ in position. This distribution function takes the number of holes $H \in \mathbb{N}$, a parameter $u_B \in [0,1]$ and an interval $[v_L, v_U] \subset [0,1]$ as an input and distributes $H$ film cooling holes on $B(u_B, [v_L, v_U])$. Multiple of these rows are usually specified.
+
+	missing figs:
 	\begin{itemize}
-		\item parametric definitions of delimiting curves
-		\item explain how these are made
-		\item then explain how they are basically made out of rays and how that is helpful with intersections
+		\item show extrusion surface
+		\item show intersected surface
+		\item show context (w blade and surface)
 	\end{itemize}
 
 
 \section{Impingement Inserts}
+	Impingement inserts are thin sheets that reside within channels and have cylindrical holes in them. However, impingement inserts do currently not support turns. To model an impingement insert, we use two large surfaces, the outer and the inner surface of the sheet, and cylinder surfaces, which represent the holes.
+
+	The creation of the inner and outer surfaces relies on the same principles as the creation of chambers, which was discussed in Section \ref{sec:chambers}. Since we already calculated the $(m, r\theta)$ profiles of the chambers, we skip the first few steps. For each impingement insert, an inner distance $i$, outer distance $o$ and a thickness $d$ is specified.
+
+	The profile partitions that run parallel to the blade are offset by $o$, whereas the profile partitions that lie between chambers are offset by $i$. The new profile partitions are trimmed and fillets are added. This yields the outer impingement insert profile. The outer impingement insert profile is then offset by $d$ to find the inner impingement insert profile. After using surface skinning, we are left with two surfaces that represent the impingement insert.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.2\textwidth}
+			\includesvg[width=\textwidth]{../python/alignedstaggered_aligned}
+			\caption{Aligned.}
+		\end{subfigure}
+		\phantom{aaaaaaaaaaa}
+		\begin{subfigure}{.2\textwidth}
+			\includesvg[width=\textwidth]{../python/alignedstaggered_staggered}
+			\caption{Staggered.}
+		\end{subfigure}
+		\caption{Aligned and staggered pattern of impingement insert holes.}
+		\label{fig:alignedstaggered}
+	\end{figure}
+
+	Using the methods from \ref{sec:filmcooling}, we can construct cylindrical holes between the outer and inner surface of the impingement insert. Instead of using a distribution function for positioning, we instead specify two intervals $[u_L, u_U]$ and $[v_L, v_U]$ on the outer impingement insert surface and the number of rows $N$ and columns $M$ of film cooling holes per array, to place $NM$ holes between the outer and inner impingement insert surface, inside the specified intervals. We also specify the type of hole distribution, which can be either aligned or staggered.
+
+	missing figs:
+	\begin{itemize}
+		\item figure with impingement only
+		\item figure with impingement in blade with channel
+	\end{itemize}
+
+
+
+
+
+
 \section{Slots}
 \section{Export for CENTAUR}
 \section{Export for Open CASCADE}
