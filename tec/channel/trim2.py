@@ -1,8 +1,8 @@
 import numpy as np
 from PIL import Image
 
-filenames = ["1.png", "2.png", "3.png", "4.png", "5.png"]
-outnames = ["01.png", "02.png", "03.png", "04.png", "05.png"]
+filenames = ["01.png", "02.png", "03.png", "04.png"]
+outnames = ["11.png", "12.png", "13.png", "14.png"]
 
 for i in range(len(filenames)):
 	with Image.open(filenames[i]) as inp:
