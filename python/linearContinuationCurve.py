@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 fig, ax = plt.subplots(figsize=(5,5))
 ax.set_aspect("equal", "box")
 ax.axis("off")
+ax.set_xlim(-0.35, 1.05)
+ax.set_ylim(-0.35, 1.05)
 
 def gamma1(t):
 	return np.array([0.1*np.sin(2*np.pi*t), t])
@@ -43,4 +45,29 @@ plot_points(c2, "tab:orange", "--")
 plt.tight_layout()
 
 plt.savefig("linearContinuationCurve.svg")
+plt.show()
+
+fig, ax = plt.subplots(figsize=(5,5))
+ax.set_aspect("equal", "box")
+ax.axis("off")
+ax.set_xlim(-0.35, 1.05)
+ax.set_ylim(-0.35, 1.05)
+
+ts = np.linspace(0.2, 1, 1000)
+g1 = np.array([gamma1(t) for t in ts])
+g2 = np.array([gamma2(t) for t in ts])
+
+ss = np.linspace(0, 0.13, 100)
+c1 = np.array([lin_cont(gamma1, 0.2, -1, s) for s in ss])
+c2 = np.array([lin_cont(gamma2, 0.2, -1, s) for s in ss])
+
+plot_points(g1, "tab:blue")
+plot_points(g2, "tab:orange")
+
+plot_points(c1, "tab:green")
+plot_points(c2, "tab:green")
+
+plt.tight_layout()
+
+plt.savefig("linearContinuationCurve2.svg")
 plt.show()

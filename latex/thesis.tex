@@ -1457,7 +1457,7 @@ Göttingen, \today \hspace{2em}
 	
 
 \section{Fundamental Terms}
-	The creation of cooling geometries inside of turbine blades is vital for the enhancement of the thermodynamic efficiency and power output of turbine engines. The materials melting temperature is exceeded by that of the hot gas in modern turbines. To withstand this extreme condition, cooling is required. The blade geometries that we are concerned with in the development of CoolingGen are the ones that succeed the inlet in axial direction.
+	The creation of cooling geometries inside of turbine blades is vital for the enhancement of the thermodynamic efficiency and longevity of turbine engines. In modern turbines, the materials thermal limits are exceeded by the hot gas. To withstand this extreme condition, cooling is required. The blade geometries that we are concerned with in the development of CoolingGen are the ones that succeed the inlet in axial direction.
 
 	CoolingGen creates geometries which lie inside of such a blade surface $B(u,v)$, which is an output of BladeGen, a tool developed by the DLR specifically for the design of blade surfaces. $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbines hub. Because of rotational symmetry of the turbine, it is sometimes convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates in this case is given by the map
 		$$ Z: (x,y,z) \mapsto (x, r, \theta), $$
@@ -1526,8 +1526,16 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\includesvg[width=.66\textwidth]{../tec/chambers/walls_labeled.svg}
-		\caption{Subdivision of profile along the camber curve. The camber curve is represented by the dashed line.}
+		\begin{subfigure}{.6\textwidth}
+			\includesvg[width=\textwidth]{../tec/chambers/walls_labeled.svg}
+			\caption{Partitioning the profile.}
+		\end{subfigure}
+		\begin{subfigure}{.35\textwidth}
+			\includegraphics[width=\textwidth]{../tec/chambers/only_walls.png}
+			\vspace{1.5cm}
+			\caption{Resulting partition.}
+		\end{subfigure}
+		\caption{Profile partitioning along rays that emerge from the camber curve. The camber curve is represented by the dashed line.}
 		\label{fig:subdivision_chamber}
 	\end{figure}
 
@@ -1560,8 +1568,17 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\includesvg[width=0.25\textwidth]{../python/linearContinuationCurve}
-		\caption{Linear continuation of curves using rays to ensure their intersection.}
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\includesvg[width=0.5\textwidth]{../python/linearContinuationCurve}
+			\caption{Linear continuation of two curves.}
+		\end{subfigure}
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\includesvg[width=0.5\textwidth]{../python/linearContinuationCurve2}
+			\caption{Intersection of the linear continuation.}
+		\end{subfigure}
+		\caption{Ensuring intersection by linear continuation.}
 		\label{fig:linear_continuation_curve}
 	\end{figure}
 
@@ -1571,15 +1588,14 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\begin{subfigure}{.55\textwidth}
+		\begin{subfigure}{.65\textwidth}
 			\includegraphics[width=\textwidth]{../tec/lifting/lifted.png}
-			\vspace{1cm}
 			\caption{A single chamber.}
 		\end{subfigure}
 		\phantom{aa}
-		\begin{subfigure}{.41\textwidth}
+		\begin{subfigure}{.3\textwidth}
 			\includegraphics[width=\textwidth]{../tec/lifting/complete.png}
-			\caption{Three chambers inside of blade surface.}
+			\caption{Three chambers.}
 		\end{subfigure}
 		\caption{Skinned chamber surfaces.}
 		\label{fig:skinned_chambers}
@@ -1592,16 +1608,15 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\begin{subfigure}{.48\textwidth}
-			\includegraphics[width=\textwidth]{../tec/turn/12.png}
-			\caption{Combining the chambers. The red dashed line represents the turn axis.}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/channel/02.png}
+			\caption{Close-up.}
 		\end{subfigure}
-		\phantom{aa}
-		\begin{subfigure}{.48\textwidth}
-			\includegraphics[width=\textwidth]{../tec/turn/11.png}
-			\caption{Intersecting the combined surface with planes that are supersets of the turn axis.}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/channel/01.png}
+			\caption{Blade context.}
 		\end{subfigure}
-		\caption{Construction of a turnaround.}
+		\caption{Construction of a turn. The red dashed line represents the axis around which the turn is constructed. The black curves are the chamber profiles which were calculated in Section \ref{sec:chambers}. The blue surface is the combination of two neighboring chambers. The orange curves are intersections of planes that contain the turn axis and the combined chamber.}
 	\end{figure}
 
 	First, we construct the combined chamber, for which the two chambers that shall be connected by the turn are specified. The intermediate surface partitions are removed, and the suction and pressure sides of the two chambers are connected differentiably by inserting control points. For this purpose, the user specifies a lower bound $v_L$ and an upper bound $v_U$, between which the combined chamber is constructed.
@@ -1616,16 +1631,15 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\begin{subfigure}{.3\textwidth}
-			\includegraphics[width=\textwidth]{../tec/channel/13.png}
-			\caption{Channel profiles.}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/channel/03.png}
+			\caption{Profile curves.}
 		\end{subfigure}
-		\phantom{aaaaaaaaaaa}
-		\begin{subfigure}{.3\textwidth}
-			\includegraphics[width=\textwidth]{../tec/channel/14.png}
-			\caption{Channel surface.}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/channel/05.png}
+			\caption{Surface.}
 		\end{subfigure}
-		\caption{Cooling channel with three chambers and two turnarounds.}
+		\caption{Three cooling channels.}
 	\end{figure}
 
 	After rotating the planar curves back from the $(x,y)$-plane onto their original plane, we once again use skinning to combine the planar curves to turn surfaces. However, these turn surfaces do not contain the chambers. As mentioned in Section \ref{sec:chambers}, the coherent combination of turns and chambers is called channel. To construct a channel from turns and chambers, we find the profiles and planar curves that belong to the channel. We align their start points by shifting the parameter space in the following way.
@@ -1852,12 +1866,13 @@ Göttingen, \today \hspace{2em}
 
 	Using the methods from \ref{sec:filmcooling}, we can construct cylindrical holes between the outer and inner surface of the impingement insert. Instead of using a distribution function for positioning, we instead specify two intervals $[u_L, u_U]$ and $[v_L, v_U]$ on the outer impingement insert surface and the number of rows $N$ and columns $M$ of film cooling holes per array, to place $NM$ holes between the outer and inner impingement insert surface, inside the specified intervals. We also specify the type of hole distribution, which can be either aligned or staggered. These two types can be seen in Figure \ref{fig:alignedstaggered} and Figure \ref{fig:impingementinsert}.
 
-
 \section{Slots}
-\section{Export for CENTAUR}
-\section{Export for Open CASCADE}
+	
+
 
 \chapter{Discussion}
+%Mention CENTAUR/Tec/?OpenCASCADE?
+
 \section{Future Work}
 \section{Conclusion}
 

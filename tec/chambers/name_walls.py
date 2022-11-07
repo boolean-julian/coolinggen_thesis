@@ -13,10 +13,10 @@ ax.imshow(image)
 
 def labeled_point(x, y, dx, dy, text, c = "red"):
 	ax.plot(x, y, 'o', color = c)
-	ax.text(x+dx, y+dy, text, fontsize=18, color = c)
+	ax.text(x+dx, y+dy, text, fontsize=22, color = c)
 
 def label(x, y, text):
-	ax.text(x, y, text, fontsize = 18)
+	ax.text(x, y, text, fontsize = 22)
 
 labeled_point(301, 842, -15, -15, r"$$p_1^+$$")
 labeled_point(421, 792, -20, -15, r"$$p_2^+$$")
