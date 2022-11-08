@@ -1332,7 +1332,7 @@ Göttingen, \today \hspace{2em}
 		\end{equation}
 	We are now left with the two trimmed input curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ and the fillet curve $\overline{\phi}^{\gamma_1, \gamma_2}_r(t)$.
 
-\subsection{Intersecting a Surface and a Plane}
+\subsection{Intersecting a Surface and a Plane}\label{sec:surfaceplaneintersection}
 	In this section, we present an algorithm that intersects a plane and a surface in $\mathbb{R}^3$, which is largely motivated by \cite{Barnhill1990}. The intersection generally takes the form of a surface, a curve, a point or any union of the aforementioned. In the case of CoolingGen, we only care about the case that the surface-plane intersection is a single curve. This assumption is implicitly made in many of the statements involving the intersection algorithm. First, we need to introduce some basic notions.
 
 	\begin{definition}
@@ -1390,7 +1390,7 @@ Göttingen, \today \hspace{2em}
 
 	As Theorem \ref{thm:planeequivalence} shows, the notation using the pair $(S,N)$ is valid. Given a parametric surface $\beta(u,v)$ with $(u,v) \in [0,1]^2$, we can construct a plane that is tangent to $\beta(u, v)$ for all $(u,v) \in [0,1]^2$ by using the $u$ and $v$ gradients of $\beta$ and taking their cross product. This yields the normal vector of the tangent plane. The support vector of the plane is just equal to the point $\beta(u,v)$. We make the following definition.
 
-	\begin{definition}
+	\begin{definition}\label{def:tangentplanenormal}
 		Let $\beta(u,v)$ with $(u,v) \in [0,1]^2$ be a parametric surface that is differentiable in $u$ and $v$. Then the tangent plane of $\beta$ at $(u, v \in [0,1]^2$ is given by the plane
 			$$T_{\beta}(u, v) := P_{\beta(u,v), N_{\beta}(u,v)},$$
 		where 
@@ -1866,8 +1866,72 @@ Göttingen, \today \hspace{2em}
 	Using the methods from \ref{sec:filmcooling}, we can construct cylindrical holes between the outer and inner surface of the impingement insert. Instead of using a distribution function for positioning, we instead specify two intervals $[u_L, u_U]$ and $[v_L, v_U]$ on the outer impingement insert surface and the number of rows $N$ and columns $M$ of film cooling holes per array, to place $NM$ holes between the outer and inner impingement insert surface, inside the specified intervals. We also specify the type of hole distribution, which can be either aligned or staggered. These two types can be seen in Figure \ref{fig:alignedstaggered} and Figure \ref{fig:impingementinsert}.
 
 \section{Slots}
-	
+	Slots transport the coolant from the inside of the leading edge channel to the pressure side of the blade. A slot is partially defined by two delimiting surfaces, the inlet surface $I(u,v)$ and the outlet surface $O(u,v)$ for $u,v \in [0,1]$. The inlet surface $I(u,v)$ is a subsurface of the channel surface $C(u,v)$ that lies closest to the trailing edge. The outlet surface $O(u,v)$ is a subsurface of the blade surface $B(u,v)$.
 
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.35\textwidth}
+			\includegraphics[width=\textwidth]{../tec/slots/14.png}
+		\end{subfigure}
+		\begin{subfigure}{.35\textwidth}
+			\includegraphics[width=\textwidth]{../tec/slots/15.png}
+		\end{subfigure}
+		\caption{The inlet surface $I(u,v)$ on the trailing edge channel $C(u,v)$ and the outlet surface $O(u,v)$ on the blade $B(u,v)$ are calculated using plane-surface intersection.}
+		\label{fig:slot_plane_intersection}
+	\end{figure}
+
+	Given the input lower bounds $u_B^L$ and $u_C^L$ and the input upper bounds $u_B^H$ and $u_C^H$ of $B(u,v)$ and $C(u,v)$, respectively, we can find the subsurfaces
+		$$ B\domrestr_{u \in [u_B^L, u_B^H]}(u,v) \quad\text{and}\quad C\domrestr_{u \in [u_C^L, u_C^H]}(u,v),$$
+	of $B(u,v)$ and $C(u,v)$, which are represented by the blue surfaces in Figure \ref{fig:slot_plane_intersection}.
+	Furthermore, the input for the inlet surface $I(u,v)$ requires a lower bound $v_C^L$ and an upper bound $v_C^H$ of $C(u,v)$. Additionally, two angles $\omega_L$ and $\omega_H$ are specified in relation to the trailing edge of $C(u,v)$. Given this data, we can construct the planes
+		$$ P_{C(u_C^L,v_C^L), D_L} \quad\text{and}\quad P_{C(u_C^L, v_C^H), D_H},$$
+	where normal vector $D_L$ is given by rotating the vector $C(u_C^L, v_C^H)-C(u_C^L, v_C^L)$ by $\omega_L$ around the vector $C(u_C^H, v_C^L) - C(u_C^L, v_C^L)$. The normal vector $D_H$ is given by rotating the vector $C(u_C^H, v_C^H)-C(u_C^H, v_C^L)$ by $\omega_L$ around the vector $C(u_C^H, v_C^H) - C(u_C^L, v_C^H)$. In this section, the figures show two especially large values for the angles $\omega_L$ and $\omega_H$ to better demonstrate the underlying geometric methods.
+
+	Given the input lower bounds $u_B^L$ and $u_C^L$ and the input upper bounds $u_B^H$ and $u_C^H$ of $B(u,v)$ and $C(u,v)$, respectively, we can find all intersections of the aforementioned planes and subsurfaces using the methods from \ref{sec:surfaceplaneintersection}. This intersection procedure yields two intersection curves per subsurface. We trim the subsurfaces at the intersection curves to find $I(u,v)$ and $O(u,v)$. A representation of $I(u,v)$ and $O(u,v)$ is represented in orange in Figure \ref{fig:slot_plane_intersection}.
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.3\textwidth]{../tec/slots/16.png}
+		\caption{Connecting $I(u,v)$ and $O(u,v)$ yields the blue surfaces.}
+		\label{fig:slot_connection}
+	\end{figure}
+
+	In the next step, we connect the boundary curves of $I(u,v)$ and $O(u,v)$. The suction-sided boundaries ($u = 0$) and the pressure-sided boundaries ($u = 1$) are connected by two NURBS surfaces. Given a value $v \in [0,1]$, we can construct two more equidistant intermediate control points for each $u \in \{0,1\}$. For this purpose, we define four input angles. The suction-sided inlet angle $\alpha_\textrm{suction}$, the pressure-sided inlet angle $\alpha_\textrm{pressure}$, the suction-sided outlet angle $\beta_\textrm{suction}$ and the pressure-sided outlet angle $\beta_\textrm{pressure}$. Figure \ref{fig:slot_connection} shows an example of this procedure, in which the connecting surfaces are blue.
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.39\textwidth}
+			\includegraphics[width=\textwidth]{../tec/slots/17.png}
+			\caption{Without fillets.}
+		\end{subfigure}
+		\begin{subfigure}{.39\textwidth}
+			\includegraphics[width=\textwidth]{../tec/slots/18.png}
+			\caption{With fillets.}
+		\end{subfigure}
+		\begin{subfigure}{.2\textwidth}
+			\includesvg[width=\textwidth]{../python/rightAngleFillet}
+			\vspace{1cm}
+			\caption{Fillet creation.}
+		\end{subfigure}
+		\caption{Adding fillets to the slot surface.}
+		\label{fig:slot_coon}
+	\end{figure}
+
+	The boundaries of the emerging surface, which are represented in red in Figure \ref{fig:slot_connection}, can be connected by a special surface called Coons patch (reference to Coons). Combining the Coons patches with the suction- and pressure-sided surfaces we created, we can make a slot surface that is closed (see left side of Figure \ref{fig:slot_coon}).
+
+	Next, we add fillets to the isoparameter curves of the slot curves. Since the isoparametric curves are not planar, we cannot use the methods from Section \ref{sec:filletcurves}. Instead, we use a different approach using a different assumption. We assume that the corners of the isoparameter curves are right-angled corners. In this case, we can use the fillet procedure shown in Figure \ref{fig:slot_coon}. To do this, we trim the curves near the corner by the input radius $r$ and connect the trimmed curves using a circular arc.
+
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.35\textwidth}
+			\includegraphics[width=\textwidth]{../tec/slots/12.png}
+		\end{subfigure}
+		\begin{subfigure}{.35\textwidth}
+			\includegraphics[width=\textwidth]{../tec/slots/11.png}
+		\end{subfigure}
+		\caption{An array of slots with realistic values of $\omega_L$ and $\omega_H$.}
+		\label{fig:slots_real}
+	\end{figure}
 
 \chapter{Discussion}
 %Mention CENTAUR/Tec/?OpenCASCADE?
