@@ -1500,7 +1500,13 @@ Göttingen, \today \hspace{2em}
 	Since this coordinate transformation produces a set of planar curves for $v_i \in [0,1]$, where $i \in \{1, 2, ..., N\}$, we can use two-dimensional operations on such a set of stream surface curves instead of using three-dimensional operations directly on the Cartesian represented $B(u,v)$. This yields a significant performance boost. The resulting stream surface curves can then be transformed back to the Cartesian coordinate system. Using surface skinning we can interpolate between families of stream surface curves to find a surface (see \cite{Piegl1997}). This approach will be used in the construction of chambers and impingement inserts.
 
 \chapter{Results}
-	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=.8\textwidth]{../tec/complete/11.png}
+		\caption{Rotor and stator blade with cooling geometries.}
+	\end{figure}
+
+
 \section{Chambers}\label{sec:chambers}
 	Channels are hollow sections inside a turbine blade which allow for a coolant to pass through \cite{Giampaolo2020}. For the construction of channels, we distinguish between straight and curved sections of the channel. The straight sections represent hollow bodies that let the coolant pass in $v$-direction of the turbine blade. These sections are called \emph{chambers}. The curved sections let the coolant pass in $u$-direction of the turbine blade. We call the latter sections \emph{turns}. Inside turns, the coolant flows between chambers. In this section, we present how chambers are constructed, whereas turn construction is thoroughly explained in the next section.
 
