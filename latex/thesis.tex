@@ -1453,10 +1453,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:planeintersectionline}
 	\end{figure}
 
-\chapter{Jet Engine Specific Methods}
-	
-
-\section{Fundamental Terms}
+\chapter{Jet Engine Specific Methods}\label{chap:jetenginespecifics}
 	The creation of cooling geometries inside of turbine blades is vital for the enhancement of the thermodynamic efficiency and longevity of turbine engines. In modern turbines, the materials thermal limits are exceeded by the hot gas. To withstand this extreme condition, cooling is required. The blade geometries that we are concerned with in the development of CoolingGen are the ones that succeed the inlet in axial direction.
 
 	CoolingGen creates geometries which lie inside of such a blade surface $B(u,v)$, which is an output of BladeGen, a tool developed by the DLR specifically for the design of blade surfaces. $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbines hub. Because of rotational symmetry of the turbine, it is sometimes convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates in this case is given by the map
@@ -1474,6 +1471,7 @@ Göttingen, \today \hspace{2em}
 			\caption{View on suction side.	}
 		\end{subfigure}
 		\caption{In (a) and (b), the left is surface represents a stator and the right surface represents a rotor. Yellow marks the leading edge, red the pressure side, green the suction side and blue the trailing edge.}
+		\label{fig:rotor_stator}
 	\end{figure}
 
 	We make the distinction between two kinds of blades, rotor and stator blades. While the rotor blades rotate around the hub, the stator blades have fixed positions. Furthermore, the blade surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
@@ -1500,15 +1498,41 @@ Göttingen, \today \hspace{2em}
 	Since this coordinate transformation produces a set of planar curves for $v_i \in [0,1]$, where $i \in \{1, 2, ..., N\}$, we can use two-dimensional operations on such a set of stream surface curves instead of using three-dimensional operations directly on the Cartesian represented $B(u,v)$. This yields a significant performance boost. The resulting stream surface curves can then be transformed back to the Cartesian coordinate system. Using surface skinning we can interpolate between families of stream surface curves to find a surface (see \cite{Piegl1997}). This approach will be used in the construction of chambers and impingement inserts.
 
 \chapter{Results}
+	In this chapter, we present the construction of different blade cooling geometries using CoolingGen. For this purpose, we require the methods presented in Chapter \ref{chap:methods} and Chapter \ref{chap:jetenginespecifics}. CoolingGen is capable of producing four distinct types of geometries: channels, film cooling holes, impingement inserts and trailing edge slots. These four types are supported on rotor blades as well as on stator blades.
+ 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=.8\textwidth]{../tec/complete/11.png}
-		\caption{Rotor and stator blade with cooling geometries.}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/complete/60.png}
+			\caption{View on pressure side.}
+		\end{subfigure}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/complete/61.png}
+			\caption{View on suction side.}
+		\end{subfigure}
+		\begin{subfigure}{.49\textwidth}
+			\includegraphics[width=\textwidth]{../tec/complete/80.png}
+			\caption{Detail view.}
+		\end{subfigure}		
+		\begin{subfigure}{.49\textwidth}
+			\centering
+			\includegraphics[width=.55\textwidth]{../tec/complete/84.png}
+			\caption{Rotor channel.}
+		\end{subfigure}
+		\caption{Like Figure \ref{fig:rotor_stator}, but equipped with cooling geometries. The outer orange surfaces are channels. The green surfaces are film cooling holes. The inner orange surfaces are impingement inserts. The short yellow cylindrical surfaces represent the holes inside the impingement inserts. In the detail view, we can see the impingement insert of the leading edge channel of the stator and the slots on the pressure side of the rotor. On the single rotor channel we can see the distinction of turns (blue) and chambers (orange).}
+		\label{fig:results_complete}
 	\end{figure}
 
+	Channels are hollow sections inside a turbine blade which allow for a coolant to pass through. For the construction of channels, we distinguish between straight and curved sections of the channel. The straight sections represent hollow bodies that let the coolant pass in $v$-direction of the turbine blade. These sections are called chambers. The curved sections let the coolant pass in $u$-direction of the turbine blade. We call the latter sections turns. Inside turns, the coolant flows between chambers.
+
+	A film cooling hole is a hollow body that transfers the coolant from the inside of the channel to the outside of the blade. An array of these holes provides a protective fluid layer that restrains net heat transfer to the blade. 
+
+	Impingement inserts are thin sheets that reside within channels and have cylindrical holes in them. 
+
+	A slot is a hollow body inside a turbine blade that transports the coolant from the inside of the trailing edge channel to the trailing edge or pressure side of the turbine blade.
 
 \section{Chambers}\label{sec:chambers}
-	Channels are hollow sections inside a turbine blade which allow for a coolant to pass through \cite{Giampaolo2020}. For the construction of channels, we distinguish between straight and curved sections of the channel. The straight sections represent hollow bodies that let the coolant pass in $v$-direction of the turbine blade. These sections are called \emph{chambers}. The curved sections let the coolant pass in $u$-direction of the turbine blade. We call the latter sections \emph{turns}. Inside turns, the coolant flows between chambers. In this section, we present how chambers are constructed, whereas turn construction is thoroughly explained in the next section.
+	 In this section, we present how chambers are constructed in CoolingGen.
 
 	\begin{figure}[H]
 		\centering
@@ -1528,7 +1552,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:profileshrinking}
 	\end{figure}
 
-	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade to calculate the profiles $B^{(v_i)}_\textrm{stream}(u)$ for $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately (as described in Section \ref{sec:offsetcurves}) and fillets are added, the radius of which are also declared as an input. We refer to the resulting profile as \emph{shrunk profile} and declare it $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}. The subdivision into leading edge, pressure side, suction side and trailing edge is kept by using the fillet boundaries as transition points.
+	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade to calculate the profiles $B^{(v_i)}_\textrm{stream}(u)$ for $v_i \in [0,1]$, $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately (as described in Section \ref{sec:offsetcurves}) and fillets are added, the radius of which are also declared as an input. We refer to the resulting profile as shrunk profile $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}. The subdivision into leading edge, pressure side, suction side and trailing edge is kept by using the fillet boundaries as transition points.
 
 	\begin{figure}[H]
 		\centering
@@ -1545,13 +1569,13 @@ Göttingen, \today \hspace{2em}
 		\label{fig:subdivision_chamber}
 	\end{figure}
 
-	Next, we calculate the camber curve $c^{(v_i)}$ of each shrunk profile $S^{(v_i)}_\textrm{stream}$. The camber curve is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}_\textrm{stream}$ if and only if for some $d$ the offset curve $O^{S^{(v_i)}_\textrm{stream}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a set of parameters $w_j$ representing the positions of each wall relative to the camber curve, $j \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_j$.
+	Next, we calculate the camber curve $c^{(v_i)}$ of each shrunk profile $S^{(v_i)}_\textrm{stream}$. The camber curve is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}_\textrm{stream}$ if and only if for some $d$ the offset curve $O^{S^{(v_i)}_\textrm{stream}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a set of parameters $w_j \in [0,1]$ representing the positions of each wall as parameter of the camber curve, $j \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_j \in (0, \pi)$.
 
 	Each position-angle pair represents two rays
 		$$ c(w_j) + sR_{\omega_j} \nabla c(w_j) \quad\text{and}\quad c(w_j) - sR_{\omega_j} \nabla c(w_j) $$
-	for $s \in [0, \infty)$, where $R_{\omega_j}$ is a rotation matrix like presented in Equation (\ref{eq:rotationmat}). Using Algorithm \ref{alg:raymarching}, we can find the respective intersection points $p_j^+$ and $p_j^-$ of the rays and the shrunk profile. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. This process is repeated for all $j \in \{1,...,N_C-1\}$.
+	for $s \in [0, \infty)$, where $R_{\omega_j}$ is a rotation matrix like presented in Equation (\ref{eq:rotationmat}). Using Algorithm \ref{alg:raymarching}, we can find the respective intersection points $p_j^+$ and $p_j^-$ of the rays and the shrunk profile $S^{(v_i)}_\textrm{stream}$. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. This process is repeated for all $j \in \{1,...,N_C-1\}$.
 
-	Next, the blade is partitioned at the intersection points $p_j^+$ and $p_j^-$ for all $j \in \{1,...,N_C-1\}$. For each such partitioning, we are left with four chamber-delimiting curves per chamber profile. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}. If there is only one chamber, the a priori partitioning scheme (leading edge, suction side, pressure side and trailing edge) is kept. In case of multiple chambers, the leading and trailing chambers have to be treated differently, because in this case each of them are delimited by only one wall. In this case, use the leading edge partition or trailing edge partition in place of the respective wall.
+	Next, the blade is partitioned at the intersection points $p_j^+$ and $p_j^-$ for all $j \in \{1,...,N_C-1\}$. For each such partitioning, we are left with four chamber-delimiting curves per chamber profile. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}. If there is only one chamber, the a priori partitioning scheme (leading edge, suction side, pressure side and trailing edge) is kept. In case of multiple chambers, the leading and trailing chambers have to be treated differently, because in this case each of them are delimited by only one wall. In this case, we use the leading edge partition or trailing edge partition in place of a wall.
 
 	\begin{figure}[H]
 		\begin{subfigure}{.32\textwidth}
@@ -1588,9 +1612,9 @@ Göttingen, \today \hspace{2em}
 		\label{fig:linear_continuation_curve}
 	\end{figure}
 
-	The leading and trailing partition offsets are linearly interpolated between suction and pressure side offsets to guarantee continuity and differentiability of the chamber profile at the leading and trailing edge transitions. After offsetting, the chamber-delimiting curve end points do not necessarily intersect. Therefore, we connect the curve ends either by curve-curve intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve end points and $B$ represent the (positive or negative) gradient at the curve boundary points. These rays can be understood as the linear continuation of the chamber-delimiting curves (see Figure \ref{fig:linear_continuation_curve}).
+	The leading and trailing partition offsets are linearly interpolated between suction and pressure side offsets to guarantee continuity and differentiability of the chamber profile at the leading and trailing edge transitions. After offsetting, the chamber-delimiting curve end points do not necessarily intersect. Therefore, we connect the curve ends either by curve-curve intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve end points and $B$ represent the (positive at the end point of the curve or negative at the start point of the curve) gradient at the curve boundary points. These rays can be understood as the linear continuation of the chamber-delimiting curves (see Figure \ref{fig:linear_continuation_curve}).
 
-	After connecting and trimming the offset curves using the methods in Section \ref{sec:offsetcurves}, we are left with four trimmed offset curves that intersect at their end points. We apply the fillet curve method between presented in Section \ref{sec:filletcurves} between neighboring chamber-delimiting curves. The offsetting, trimming and fillet creation steps can be seen in Figure \ref{fig:chamber_shrinking}.
+	After connecting and trimming the offset curves using the methods in Section \ref{sec:offsetcurves}, we are left with four trimmed offset curves that intersect at their end points. We apply the fillet curve method presented in Section \ref{sec:filletcurves} between neighboring chamber-delimiting curves. The offsetting, trimming and fillet creation steps can be seen in Figure \ref{fig:chamber_shrinking}.
 
 	\begin{figure}[H]
 		\centering
@@ -1610,7 +1634,7 @@ Göttingen, \today \hspace{2em}
 	As described in Section \ref{sec:mrtheta}, we can use the inverse coordinate transformation from the $(m, r\theta)$ stream surface coordinate system to the Cartesian coordinate system and use surface skinning to create chamber surfaces. Figure \ref{fig:skinned_chambers} shows an exemplary result of this procedure.
 
 \section{Turns}
-	As mentioned in Section \ref{sec:chambers}, turns let coolant flow between two chambers. Notice that this procedure, unlike the construction of chambers, takes place in Cartesian coordinates.
+	As mentioned before, turns let coolant flow between two chambers. Notice that this procedure, unlike the construction of chambers, takes place in Cartesian coordinates.
 
 	\begin{figure}[H]
 		\centering
@@ -1624,13 +1648,13 @@ Göttingen, \today \hspace{2em}
 		\caption{Construction of a turn. The red dashed line represents the axis around which the turn is constructed. The black curves are the chamber profiles which were calculated in Section \ref{sec:chambers}. The blue surface is the combination of two neighboring chambers. The orange curves are intersections of planes that contain the turn axis and the combined chamber.}
 	\end{figure}
 
-	First, we construct the combined chamber, for which the two chambers that shall be connected by the turn are specified. The intermediate surface partitions are removed, and the suction and pressure sides of the two chambers are connected differentiably by inserting control points. For this purpose, the user specifies a lower bound $v_L$ and an upper bound $v_U$, between which the combined chamber is constructed.
+	First, we construct the combined chamber, for which the two chambers that shall be connected by the turn are specified. The intermediate surface partitions are removed, and the suction and pressure sides of the two chambers are connected differentiably by inserting control points. For this purpose, the user specifies a lower bound $v_L$ and an upper bound $v_U$, between which the combined chamber (and therefore the turn) is constructed.
 
-	Next, the turn axis is constructed. The wall input of the intermediate wall (see Section \ref{sec:chambers}) has a Cartesian representation as a surface. The $v_L$-isoparametric curve end points of this wall surface are connected with a straight line. This yields the turn axis. Using the turn axis, we can construct a set of planes which intersect the turn axis. The number and angles relative to the intermediate wall of which are specified as an input. The combined chamber is partitioned into a suction and a pressure side. The transition points are the points of maximum distance from the turn axis.
+	Next, the turn axis is constructed. The wall input of the intermediate wall (see Section \ref{sec:chambers}) has a Cartesian representation as a surface. The $v_L$-isoparametric curve end points of this wall surface are connected with a straight line. This yields the turn axis. Using the turn axis, we can construct a set of planes which intersect the turn axis. A set of angles (relative to the intermediate wall) are specified as an input. The combined chamber is partitioned into a suction and a pressure side. The transition points are the points of maximum distance from the turn axis.
 
-	We use Algorithm \ref{alg:surfplaneintersection} to find the intersection of these planes and the suction and pressure side of the combined chamber, yielding two curves for each plane, which start at the turn axis and end at the suction or pressure side boundary, respectively. The start points of these curves do not intersect, but both points lie on the turn axis. We connect these points using a straight line. If the end points do not intersect, we also connect them using a straight line.
+	We use Algorithm \ref{alg:surfplaneintersection} to find the intersection of these planes and the suction and pressure side of the combined chamber, yielding two curves for each plane. The intersection curves start at the turn axis and end at the suction or pressure side boundary, respectively. The start points of these curves do not intersect, but both start points lie on the turn axis. We connect these points using a straight line, which lies inside the turn axis. If the end points do not intersect, we also connect them using a straight line.
 
-	Since all of these curves (including the straight lines, which are represented as curves within CoolingGen) are planar by definition, we can use two-dimensional operations. Since CoolingGen uses the first two coordinates for all of these operations, the curves have to be rotated onto the $(x,y)$-plane.
+	Since all of these curves (including the straight lines, which are represented as curves within CoolingGen) are planar by construction, we can use two-dimensional operations to offset, trim and add fillets. Since CoolingGen performs two-dimensional operations on the $(x,y)$ plane, the curves have to be rotated.
 
 	To ensure a differentiable connection between the chambers, the axis-aligned curve is offset. The size of the offset is given by the linear interpolation in terms of the angle between the wall thickness on the leading and on the trailing side. Similar to the procedure in \ref{sec:chambers}, the pressure- and suction-sided curves are then trimmed accordingly and fillets are added between them.
 
@@ -1647,14 +1671,16 @@ Göttingen, \today \hspace{2em}
 		\caption{Three cooling channels.}
 	\end{figure}
 
-	After rotating the planar curves back from the $(x,y)$-plane onto their original plane, we once again use skinning to combine the planar curves to turn surfaces. However, these turn surfaces do not contain the chambers. As mentioned in Section \ref{sec:chambers}, the coherent combination of turns and chambers is called channel. To construct a channel from turns and chambers, we find the profiles and planar curves that belong to the channel. We align their start points by shifting the parameter space in the following way.
+	After rotating the planar curves back from the $(x,y)$-plane onto their original plane, we once again use skinning to combine the planar curves to turn surfaces. However, these turn surfaces do not contain the chambers. As mentioned at the beginning of this chapter, the coherent combination of turns and chambers is called channel. To construct a channel from turns and chambers, we find the profiles and planar curves that belong to the channel. We align their start points and direction by shifting the parameter space in the following way.
 
 	Given a parametric curve $\gamma(t)$ with $t \in [0,1]$, we can align the curve by applying the map
 		$$ \Phi(s, \sigma, t): [0,1] \rightarrow [0,1] \quad t \mapsto (s+\sigma t+1) \textrm{ mod } 1, $$
 	to the input parameter $t$, where $s \in [0,1]$ is the parametric shift, $\sigma \in \{1, -1\}$ is the curve direction, and $\textrm{mod}$ is the modulus operator. Using this map and Algorithm \ref{alg:pointinversion}, we can align two curves at a point.
 
+	The reason why this is necessary may become apparent through Figure \ref{fig:results_complete}, Subfigure (d). The black curve on the channel represents the $u=0$ isoparametric curve of the channel surface. As can be seen, this curve switches position throughout the turn. In the first chamber, the curve lies on the leading edge side, then on the trailing edge side and then once again on the leading edge side. The turns show the same behavior. In the turn on the leading edge side, the curve lies on the far side of the turn, whereas in the turn on the trailing edge side, the curve lies on the near side of the turn.
+
 \section{Film Cooling Holes}\label{sec:filmcooling}
-	A film cooling hole is a hole that transfers the coolant from the inside of the channel to the outside of the blade. An array of these holes provides a protective fluid layer that restrains net heat transfer to the blade.
+	In this section, the construction of film cooling holes is presented.
 
 	\begin{figure}[H]
 		\centering
@@ -1677,7 +1703,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:filmholes}
 	\end{figure}
 
-	In CoolingGen, the general shape of a film cooling hole is described using two delimiting curves which are closed and a transitional $v$-parameter, which we will call $v_\textrm{transition} \in [0,1]$. CoolingGen currently supports two types of delimiting parametric curves, but can be extended to provide a multitude of such curves. The currently supported curves are the circular curve
+	The general shape of a film cooling hole is described using two delimiting curves which are closed and a transitional $v$-parameter, which we will call $v_\textrm{transition} \in [0,1]$. CoolingGen currently supports two types of delimiting parametric curves, but can be extended to provide a multitude of such curves. The currently supported curves are the circular curve
 		$$ f_\textrm{circular}(t) =
 			\begin{pmatrix}
 				r \cos 2\pi t \\
@@ -1757,7 +1783,7 @@ Göttingen, \today \hspace{2em}
 	To construct a surface from a delimiting curve $f$, we canonically embed the two-dimensional curves into three-dimensional space using the map
 		$$ E: \mathbb{R}^2 \rightarrow \mathbb{R}^3, \quad (x, y) \mapsto (x, y, 0). $$
 	We also require a line segment $L_{P_B,P_C}$ between two points $P_B, P_C \in \mathbb{R}^3$.
-	The curve $E(f)$ lies in the $(x,y)$-plane that has the normal vector $N_{(x,y)} = (0, 0, 1)$. We construct the rotation matrix $R \in \mathbb{R}^{3 \times 3}$ that rotates $N_{(x,y)}$ onto the direction $(P_C-P_B)$ of the line segment $L_{P_B,P_C}$ by finding the angle between $(P_C-P_B)$ and $N_{(x,y)}$. The rotation axis is given by the cross product $(P_C-P_B) \times N_{(x,y)}$. Using the rotation matrix $R$, we can rotate $E(f)$ to find $RE(f)$. We can translate $RE(f)$ to the start and end points of $L_{P_B,P_C}$ to calculate two curves
+	The curve $E(f)$ lies in the $(x,y)$-plane that has the normal vector $N_{(x,y)} = (0, 0, 1)$. We construct the rotation matrix $R \in \mathbb{R}^{3 \times 3}$ that rotates $N_{(x,y)}$ onto the direction $(P_C-P_B)$ of the line segment $L_{P_B,P_C}$ by finding the angle between $(P_C-P_B)$ and $N_{(x,y)}$. The rotation axis is given by the cross product $(P_C-P_B) \times N_{(x,y)}$. Using the rotation matrix $R$, we can rotate $E(f)$ to calculate $RE(f)$. We can translate $RE(f)$ to the start and end points of $L_{P_B,P_C}$ to calculate two curves
 		$$ f_B(t) := P_B+RE(f(t)) \quad\textrm{and}\quad f_C(t) = P_C+RE(f(t)), $$
 	for $t \in [0,1]$.
 	For all $v \in [0,1]$, we can linearly interpolate between $f_B(u)$ and $f_C(u)$ for each $u \in [0,1]$ to find the surface 
@@ -1830,7 +1856,7 @@ Göttingen, \today \hspace{2em}
 	Using this procedure, we can efficiently create multiple film cooling holes. In CoolingGen, a distribution function is used to create a row of multiple film cooling holes at once that share the same direction $D$, radius $r$ and shape parameters $b, d$, but differ in position. This distribution function takes the number of holes $H \in \mathbb{N}$, a parameter $u_B \in [0,1]$ and an interval $[v_L, v_U] \subset [0,1]$ as an input and distributes $H$ film cooling holes on $B(u_B, [v_L, v_U])$. Multiple of these rows are usually specified.
 
 \section{Impingement Inserts}
-	Impingement inserts are thin sheets that reside within channels and have cylindrical holes in them. However, impingement inserts do currently not support turns. To model an impingement insert, we use two large surfaces, the outer and the inner surface of the sheet, and cylinder surfaces, which represent the holes.
+	To construct an impingement insert, we use two surfaces to model the outer and the inner surface of the sheet that reside within the channel, respectively. The holes in this sheet are represented by cylindrical surfaces. Notice that the creation of impingement insert is not compatible with the creation of channels.
 
 	\begin{figure}[H]
 		\centering
@@ -1850,9 +1876,9 @@ Göttingen, \today \hspace{2em}
 		\label{fig:impingementinsert}
 	\end{figure}
 
-	The creation of the inner and outer surfaces relies on the same principles as the creation of chambers, which was discussed in Section \ref{sec:chambers}. Since we already calculated the $(m, r\theta)$ profiles of the chambers, we skip the first few steps. For each impingement insert, an inner distance $i > 0$, outer distance $o > 0$ and a thickness $d > 0$ is specified.
+	The creation of the inner and outer surfaces relies on the same principles as the creation of chambers, which was discussed in Section \ref{sec:chambers}. Since we already calculated the $(m, r\theta)$ profiles of the chambers, we only need to offset, trim, add fillets and use skinning to make these surfaces. For each impingement insert, an inner distance $i > 0$, outer distance $o > 0$ and a thickness $d > 0$ is specified.
 
-	The profile partitions that run parallel to the blade are offset by $o$, whereas the profile partitions that lie between chambers are offset by $i$. The new profile partitions are trimmed and fillets are added. This yields the outer impingement insert profile. The outer impingement insert profile is then offset by $d$ to find the inner impingement insert profile. After using surface skinning, we are left with two surfaces that represent the impingement insert, an example of which can be seen in Figure \ref{fig:impingementinsert}.
+	The profile partitions that run parallel to the blade are offset by $o$, whereas the profile partitions that lie between chambers are offset by $i$. The new profile partitions are trimmed and fillets are added. This yields the outer impingement insert profile. The outer impingement insert profiles are then offset by $d$ to calculate the inner impingement insert profiles. After using surface skinning, we are left with two surfaces that represent the impingement insert, an example of which can be seen in Figure \ref{fig:impingementinsert}.
 	
 	\begin{figure}[H]
 		\centering
@@ -1869,17 +1895,17 @@ Göttingen, \today \hspace{2em}
 		\label{fig:alignedstaggered}
 	\end{figure}
 
-	Using the methods from \ref{sec:filmcooling}, we can construct cylindrical holes between the outer and inner surface of the impingement insert. Instead of using a distribution function for positioning, we instead specify two intervals $[u_L, u_U]$ and $[v_L, v_U]$ on the outer impingement insert surface and the number of rows $N$ and columns $M$ of film cooling holes per array, to place $NM$ holes between the outer and inner impingement insert surface, inside the specified intervals. We also specify the type of hole distribution, which can be either aligned or staggered. These two types can be seen in Figure \ref{fig:alignedstaggered} and Figure \ref{fig:impingementinsert}.
+	Using the methods from \ref{sec:filmcooling}, we can construct cylindrical holes between the outer and inner surface of the impingement insert. Instead of using a distribution function for positioning, we instead specify two intervals $[u_L, u_U]$ and $[v_L, v_U]$ on the outer impingement insert surface and the number of rows $N$ and columns $M$ of film cooling holes per array, to place (up to) $NM$ holes between the outer and inner impingement insert surface, inside the specified intervals. We also specify the type of hole distribution, which can be either aligned or staggered. These two types can be seen in Figure \ref{fig:alignedstaggered} and Figure \ref{fig:impingementinsert}.
 
 \section{Slots}
 	Slots transport the coolant from the inside of the leading edge channel to the pressure side of the blade. A slot is partially defined by two delimiting surfaces, the inlet surface $I(u,v)$ and the outlet surface $O(u,v)$ for $u,v \in [0,1]$. The inlet surface $I(u,v)$ is a subsurface of the channel surface $C(u,v)$ that lies closest to the trailing edge. The outlet surface $O(u,v)$ is a subsurface of the blade surface $B(u,v)$.
 
 	\begin{figure}[H]
 		\centering
-		\begin{subfigure}{.35\textwidth}
+		\begin{subfigure}{.45\textwidth}
 			\includegraphics[width=\textwidth]{../tec/slots/14.png}
 		\end{subfigure}
-		\begin{subfigure}{.35\textwidth}
+		\begin{subfigure}{.45\textwidth}
 			\includegraphics[width=\textwidth]{../tec/slots/15.png}
 		\end{subfigure}
 		\caption{The inlet surface $I(u,v)$ on the trailing edge channel $C(u,v)$ and the outlet surface $O(u,v)$ on the blade $B(u,v)$ are calculated using plane-surface intersection.}
@@ -1897,8 +1923,16 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.3\textwidth]{../tec/slots/16.png}
-		\caption{Connecting $I(u,v)$ and $O(u,v)$ yields the blue surfaces.}
+		\begin{subfigure}{0.4\textwidth}
+			\includegraphics[width=\textwidth]{../tec/slots/16.png}
+			\caption{Connection of $I$ and $O$.}
+		\end{subfigure}
+		\begin{subfigure}{0.59\textwidth}
+			\includesvg[width=\textwidth]{../python/coonsPatch}
+			\vspace{0.3cm}
+			\caption{Example of a Coons patch $\mathfrak{C}$.}
+		\end{subfigure}
+		\caption{Connecting $I(u,v)$ and $O(u,v)$ yields the blue surfaces. We can create a Coons patch from the emerging boundary.}
 		\label{fig:slot_connection}
 	\end{figure}
 
@@ -1923,9 +1957,15 @@ Göttingen, \today \hspace{2em}
 		\label{fig:slot_coon}
 	\end{figure}
 
-	The boundaries of the emerging surface, which are represented in red in Figure \ref{fig:slot_connection}, can be connected by a special surface called Coons patch (reference to Coons). Combining the Coons patches with the suction- and pressure-sided surfaces we created, we can make a slot surface that is closed (see left side of Figure \ref{fig:slot_coon}).
+	The boundaries of the emerging surface, which are represented in red in Figure \ref{fig:slot_connection}, can be connected by a special surface. Given four parametric boundary curves $c_0(t)$, $c_1(t)$, $d_0(t)$ and $d_1(t)$ for $t \in [0,1]$ with $c_0(0) = d_0(0)$, $c_0(1) = d_1(0)$, $c_1(0) = d_0(1)$ and $c_1(1) = d_1(1)$ we can construct an intermediate parametric surface $\mathfrak{C}$ by using linear interpolation on pairs $c_0, c_1$ and $d_0, d_1$ and bilinear interpolation the corner points $c_0(0), c_0(1), c_1(0), c_1(1)$ using bilinear blending, in other words
+	\begin{align*}
+		\mathfrak{C}(u,v) 	&= (1-v)\,c_0(u) + v\,c_1(u) \\
+				&+ (1-u)\,d_0(v) + u\,d_1(v) \\
+				&- (1-u)(1-v)\,c_0(0) - u(1-v)\,c_0(1)(1) - (1-u)v\,c_1(0) - uv\,c_1(1),
+	\end{align*}
+	where $(u,v) \in [0,1]^2$. This surface is called Coons patch. Combining the Coons patches of the two boundaries with the suction- and pressure-sided surfaces we created, we can make a slot surface like on the left side of Figure \ref{fig:slot_coon}.
 
-	Next, we add fillets to the isoparameter curves of the slot curves. Since the isoparametric curves are not planar, we cannot use the methods from Section \ref{sec:filletcurves}. Instead, we use a different approach using a different assumption. We assume that the corners of the isoparameter curves are right-angled corners. In this case, we can use the fillet procedure shown in Figure \ref{fig:slot_coon}. To do this, we trim the curves near the corner by the input radius $r$ and connect the trimmed curves using a circular arc.
+	Next, we add fillets to the isoparameter curves of the slot curves. Since the isoparametric curves are not planar, we cannot use the methods from Section \ref{sec:filletcurves}. Instead, we use a different approach. We assume that the corners of the isoparameter curves are right-angled corners. In this case, we can use the fillet procedure shown in Figure \ref{fig:slot_coon}, where we trim the curves near the corner by the input radius $r$ and connect the trimmed curves using a circular arc, the midpoint of which is a mirror image of the corner.
 
 	\begin{figure}[H]
 		\centering
@@ -1935,9 +1975,11 @@ Göttingen, \today \hspace{2em}
 		\begin{subfigure}{.35\textwidth}
 			\includegraphics[width=\textwidth]{../tec/slots/11.png}
 		\end{subfigure}
-		\caption{An array of slots with realistic values of $\omega_L$ and $\omega_H$.}
+		\caption{An array of slots constructed with realistic angles $\omega_L$ and $\omega_H$.}
 		\label{fig:slots_real}
 	\end{figure}
+
+	The figures prior to Figure \ref{fig:slots_real} show relatively big angles $\omega_L$ and $\omega_H$ to better visualize the methods used for the construction. Although the presented angles produce valid slot surfaces, smaller angles are favorable in realistic scenarios. A more realistic setup can be seen in Figure \ref{fig:slots_real}.
 
 \chapter{Discussion}
 %Mention CENTAUR/Tec/?OpenCASCADE?

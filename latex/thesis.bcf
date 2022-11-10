@@ -2360,16 +2360,14 @@
     <bcf:citekey order="14">Wu1952</bcf:citekey>
     <bcf:citekey order="15">Wu1952</bcf:citekey>
     <bcf:citekey order="16">Piegl1997</bcf:citekey>
-    <bcf:citekey order="17">Giampaolo2020</bcf:citekey>
-    <bcf:citekey order="18">Bezier1968</bcf:citekey>
-    <bcf:citekey order="19">Farin2001</bcf:citekey>
-    <bcf:citekey order="20">Piegl1997</bcf:citekey>
-    <bcf:citekey order="21">Hart1996</bcf:citekey>
-    <bcf:citekey order="22">Elber1997</bcf:citekey>
-    <bcf:citekey order="23">Sorby2016</bcf:citekey>
-    <bcf:citekey order="24">Barnhill1990</bcf:citekey>
-    <bcf:citekey order="25">Wu1952</bcf:citekey>
-    <bcf:citekey order="26">Giampaolo2020</bcf:citekey>
+    <bcf:citekey order="17">Bezier1968</bcf:citekey>
+    <bcf:citekey order="18">Farin2001</bcf:citekey>
+    <bcf:citekey order="19">Piegl1997</bcf:citekey>
+    <bcf:citekey order="20">Hart1996</bcf:citekey>
+    <bcf:citekey order="21">Elber1997</bcf:citekey>
+    <bcf:citekey order="22">Sorby2016</bcf:citekey>
+    <bcf:citekey order="23">Barnhill1990</bcf:citekey>
+    <bcf:citekey order="24">Wu1952</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="anyt">
