@@ -39,7 +39,7 @@
 %% Page geometry
 \usepackage[onehalfspacing]{setspace}
 \usepackage{parskip}
-\usepackage[top=30mm, left=25mm, right=25mm, bottom=20mm]{geometry}
+\usepackage[top=25mm, left=25mm, right=25mm, bottom=20mm]{geometry}
 \usepackage{titlesec}
 
 %% Figures and graphics
@@ -836,7 +836,7 @@ Göttingen, \today \hspace{2em}
 	Using these principles, we can also project (or invert) a point $Q \in \mathbb{R}^d$ on a parametric surface $\beta(u,v)$ with $u,v \in [0,1]$ by generalizing the presented methods. This procedure is also described in \cite{Piegl1997}.
 	In this case, the distance function we want to minimize is 
 		$$ \phi(u,v) := D(\beta(u,v), Q)$$
-	We once again use the start value search. We let $u_i = \frac{i}{n_u}, v_j = \frac{j}{n_v}$ for $i \in \{0, ..., n_u\}, j \in \{0,..., n_v\}$ and $n_u, n_v \in \mathbb{N}$. Then we seek
+	We once again use the start value search. We let $u_i = \frac{i}{n_u}, v_j = \frac{j}{n_v}$ for $i \in \{0, ..., n_u\}$, $j \in \{0,..., n_v\}$ and $n_u, n_v \in \mathbb{N}$. Then we seek
 		$$ m_u, m_v = \underset{(u,v)\in\{u_0, ..., u_n\} \times \{v_0, ..., v_n\}}{\arg\min} \phi(u,v), $$
 	where $\phi(u,v) := D(\beta(u,v), Q)$. We use Newton's method only on the subset
 		$$  M = [m_u - \frac{1}{n_u}, m_u + \frac{1}{n_u}] \times [m_v - \frac{1}{n_v}, m_v + \frac{1}{n_v}] \subset [0,1]^2, $$
