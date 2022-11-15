@@ -2344,30 +2344,32 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">../bibtex/bibliography.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">Bezier1968</bcf:citekey>
-    <bcf:citekey order="2">Farin2001</bcf:citekey>
-    <bcf:citekey order="3">Piegl1997</bcf:citekey>
-    <bcf:citekey order="4">Farin2001</bcf:citekey>
-    <bcf:citekey order="5">Piegl1997</bcf:citekey>
+    <bcf:citekey order="1">Giampaolo2020</bcf:citekey>
+    <bcf:citekey order="2">Bezier1968</bcf:citekey>
+    <bcf:citekey order="3">Farin2001</bcf:citekey>
+    <bcf:citekey order="4">Piegl1997</bcf:citekey>
+    <bcf:citekey order="5">Farin2001</bcf:citekey>
     <bcf:citekey order="6">Piegl1997</bcf:citekey>
     <bcf:citekey order="7">Piegl1997</bcf:citekey>
-    <bcf:citekey order="8">Hart1996</bcf:citekey>
-    <bcf:citekey order="9">Elber1997</bcf:citekey>
-    <bcf:citekey order="10">Sorby2016</bcf:citekey>
-    <bcf:citekey order="11">Barnhill1990</bcf:citekey>
-    <bcf:citekey order="12">Wu1952</bcf:citekey>
+    <bcf:citekey order="8">Piegl1997</bcf:citekey>
+    <bcf:citekey order="9">Hart1996</bcf:citekey>
+    <bcf:citekey order="10">Elber1997</bcf:citekey>
+    <bcf:citekey order="11">Sorby2016</bcf:citekey>
+    <bcf:citekey order="12">Barnhill1990</bcf:citekey>
     <bcf:citekey order="13">Wu1952</bcf:citekey>
     <bcf:citekey order="14">Wu1952</bcf:citekey>
     <bcf:citekey order="15">Wu1952</bcf:citekey>
-    <bcf:citekey order="16">Piegl1997</bcf:citekey>
-    <bcf:citekey order="17">Bezier1968</bcf:citekey>
-    <bcf:citekey order="18">Farin2001</bcf:citekey>
-    <bcf:citekey order="19">Piegl1997</bcf:citekey>
-    <bcf:citekey order="20">Hart1996</bcf:citekey>
-    <bcf:citekey order="21">Elber1997</bcf:citekey>
-    <bcf:citekey order="22">Sorby2016</bcf:citekey>
-    <bcf:citekey order="23">Barnhill1990</bcf:citekey>
-    <bcf:citekey order="24">Wu1952</bcf:citekey>
+    <bcf:citekey order="16">Wu1952</bcf:citekey>
+    <bcf:citekey order="17">Piegl1997</bcf:citekey>
+    <bcf:citekey order="18">Giampaolo2020</bcf:citekey>
+    <bcf:citekey order="19">Bezier1968</bcf:citekey>
+    <bcf:citekey order="20">Farin2001</bcf:citekey>
+    <bcf:citekey order="21">Piegl1997</bcf:citekey>
+    <bcf:citekey order="22">Hart1996</bcf:citekey>
+    <bcf:citekey order="23">Elber1997</bcf:citekey>
+    <bcf:citekey order="24">Sorby2016</bcf:citekey>
+    <bcf:citekey order="25">Barnhill1990</bcf:citekey>
+    <bcf:citekey order="26">Wu1952</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="anyt">
