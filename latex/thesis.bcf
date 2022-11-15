@@ -2356,20 +2356,21 @@
     <bcf:citekey order="10">Elber1997</bcf:citekey>
     <bcf:citekey order="11">Sorby2016</bcf:citekey>
     <bcf:citekey order="12">Barnhill1990</bcf:citekey>
-    <bcf:citekey order="13">Wu1952</bcf:citekey>
+    <bcf:citekey order="13">Piegl1997</bcf:citekey>
     <bcf:citekey order="14">Wu1952</bcf:citekey>
     <bcf:citekey order="15">Wu1952</bcf:citekey>
     <bcf:citekey order="16">Wu1952</bcf:citekey>
-    <bcf:citekey order="17">Piegl1997</bcf:citekey>
-    <bcf:citekey order="18">Giampaolo2020</bcf:citekey>
-    <bcf:citekey order="19">Bezier1968</bcf:citekey>
-    <bcf:citekey order="20">Farin2001</bcf:citekey>
-    <bcf:citekey order="21">Piegl1997</bcf:citekey>
-    <bcf:citekey order="22">Hart1996</bcf:citekey>
-    <bcf:citekey order="23">Elber1997</bcf:citekey>
-    <bcf:citekey order="24">Sorby2016</bcf:citekey>
-    <bcf:citekey order="25">Barnhill1990</bcf:citekey>
-    <bcf:citekey order="26">Wu1952</bcf:citekey>
+    <bcf:citekey order="17">Wu1952</bcf:citekey>
+    <bcf:citekey order="18">Piegl1997</bcf:citekey>
+    <bcf:citekey order="19">Giampaolo2020</bcf:citekey>
+    <bcf:citekey order="20">Bezier1968</bcf:citekey>
+    <bcf:citekey order="21">Farin2001</bcf:citekey>
+    <bcf:citekey order="22">Piegl1997</bcf:citekey>
+    <bcf:citekey order="23">Hart1996</bcf:citekey>
+    <bcf:citekey order="24">Elber1997</bcf:citekey>
+    <bcf:citekey order="25">Sorby2016</bcf:citekey>
+    <bcf:citekey order="26">Barnhill1990</bcf:citekey>
+    <bcf:citekey order="27">Wu1952</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="anyt">

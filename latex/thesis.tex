@@ -202,7 +202,9 @@ Göttingen, \today \hspace{2em}
 
 	Making such cooling geometries is laborious and requires expertise using conventional interactive computer-aided design (CAD) software. The approach of automating this process using a set of parameters certainly bears great potential in this regard. At the German Aerospace Center (DLR), blade and vane contours are already successfully designed using parametric CAD in a tool called BladeGen. Its successor, CoolingGen, is a parametric CAD software written in C that allows for the creation of three-dimensional turbine cooling geometries of blades and vanes. It was first developed by Timo Schumacher and Christian Voß in 2013 at the DLR, but was in large part revised in 2022 to support realistic cooling geometries. The 2013 release, while being a great proof of concept, lacked an underlying framework of established geometric methods and thus failed to fulfill real world requirements. For the current version of CoolingGen, such geometric methods were provided.
 
-	Currently, CoolingGen supports four distinct types of cooling geometries: internal cooling channels, film cooling, impingement cooling and ejection slots. The parameters for each of these cooling geometries are provided in the Extensible Markup Language (XML). The geometries are modeled using Non-Uniform Rational B-spline (NURBS) surfaces. To create a complete set of cooling geometries for a single blade or vane, CoolingGen currently averages out at approximately 20 seconds on a modern home computer.
+	Currently, CoolingGen supports four distinct types of cooling geometries: internal cooling channels, film cooling, impingement cooling and ejection slots. Channels are hollow sections inside a turbine blade or vane which allow for a coolant to pass through. A film cooling hole is a hollow body that transfers the coolant from the inside of the channel to the outside of the blade or vane. An array of these holes provides a protective fluid layer that restrains net heat transfer to the blade or vane. Impingement inserts are thin sheets that reside within channels and have cylindrical holes in them. An ejection slot is a hollow body inside a turbine blade that transports the coolant from the inside of the trailing edge  channel to the trailing edge or pressure side of the turbine blade or vane.
+
+	The parameters for each of these cooling geometries are provided in the Extensible Markup Language (XML). The geometries are modeled using Non-Uniform Rational B-spline (NURBS) surfaces. To create a complete set of cooling geometries for a single blade or vane, CoolingGen currently averages out at approximately 20 seconds on a modern home computer.
 
 	This thesis essentially highlights the geometric methods that are imperative to achieve these remarkable results in terms of realism and speed in Chapter 2. The fundamental methods of jet engine design required for channel creation are briefly presented in Chapter 3. Combining the methods from Chapter 2 and Chapter 3, we are able to create all aforementioned cooling geometries. Their exact construction plus examples are illustrated in Chapter 4.
 
@@ -211,10 +213,10 @@ Göttingen, \today \hspace{2em}
 	% problem statement
 
 \chapter{Geometric Methods}\label{chap:methods}
-	As stated before, Non-Uniform Rational B-splines (NURBS) curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Bézier curves. We will then generalize Bézier curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point projection, ray marching, curve intersection, offset curve creation and fillet creation, which we will also present.
+	As stated before, NURBS curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Bézier curves. We will then generalize Bézier curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point projection, ray marching, curve intersection, offset curve creation and fillet creation, which we will also present.
 
 \section{Bézier Curves}
-	Bézier curves are named after the French engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in computer-aided design. In this section, we present the famous algorithm of de Casteljau and some important properties of Bézier curves according to \cite{Farin2001}.
+	Bézier curves are named after the French engineer Pierre Bézier, who famously utilized them in the 1960s to design car bodies for the automobile manufacturer Renault \cite{Bezier1968}. Today, they are used in a wide variety of vector graphics applications (i.e. in font representation on computers). At first glance, the definition of the Bézier curve might seem cumbersome, but given the mathematical foundation and a few graphical representations, it becomes apparent why they are such a powerful tool in CAD. In this section, we present the famous algorithm of de Casteljau and some important properties of Bézier curves according to \cite{Farin2001}.
 
 	\begin{figure}[H]
 		\centering
@@ -373,7 +375,7 @@ Göttingen, \today \hspace{2em}
 	Interestingly, the representation of the algorithm in Figure \ref{fig:decasteljautriangle} also gives rise to an intuitive visualization of the geometric shape of the Bézier curve $B_P$. For all $i \in \{0, ..., n\}$ and all $j \in \{0, ..., n-i\}$, the point $P^{(i+1)}_j$ is the convex combination (always w.r.t. $t$) of $P^{(i)}_j$ and $P^{(i)}_{j+1}$. Thus $P^{(i+1)}_j$ always lies on the line segment between $P^{(i)}_j$ and $P^{(i)}_{j+1}$, as can be observed in the example in Figure \ref{fig:decasteljautriangle}.
 
 \subsection{Properties}
-	Other than being remarkably intuitive, Bézier curves have a lot of covenient properties. In computer-aided design software, most graphical user interfaces rely on the principle of letting the user interactively drag and drop the control points with a mouse, granting them control over the shape of the whole Bézier curve. The following theorems further illustrate why this is a good concept.
+	Other than being remarkably intuitive, Bézier curves have a lot of covenient properties. In CAD software, most graphical user interfaces rely on the principle of letting the user interactively drag and drop the control points with a mouse, granting them control over the shape of the whole Bézier curve. The following theorems further illustrate why this is a good concept.
 
 	\begin{theorem}\label{thm:bezierendpoints}
 		We have $B_P(0) = P_0$ and $B_P(1) = P_n$.
@@ -403,10 +405,10 @@ Göttingen, \today \hspace{2em}
 
 	Theorem \ref{thm:bezierendpoints} guarantees the control over the end points of the the curve, whereas Theorem \ref{thm:bezierconvexhull} ensures that the Bézier curve lies close to the control points. Theorem \ref{thm:bezieraffinetransform} shows that transformations such as rotations and projections can be applied directly to the control points instead of the points on the curve.
 
-	Simple as their appearance may be, Bézier curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with a low number of of control points, is simultaneously one of their greatest shortcoming. This is most likely the reason why Bézier curves are not the state of the art in technical engineering applications. However, Bézier curves certainly do provide an intuition for Non-Uniform Rational B-Splines or NURBS, which is their prevailing counterpart.
+	Simple as their appearance may be, Bézier curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with a low number of of control points, is simultaneously one of their greatest shortcoming. This is most likely the reason why Bézier curves are not the state of the art in technical engineering applications. However, Bézier curves certainly do provide an intuition for NURBS, which is their prevailing counterpart.
 
 \section{Non-Uniform Rational B-splines (NURBS)}
-	NURBS are a state of the art tool for curve and surface modelling. There is a somewhat common joke that describes the acronym NURBS as \emph{"Nobody Understands Rational B-Splines"}, which can be found at the back of \cite{Piegl1997}. In this section, we invalidate this punch line. First of all, we discuss B-splines and construct B-spline curves and surfaces according to \cite{Farin2001}, including the famous algorithm of de Boor. Then we apply simple transformations to the B-spline curves and surfaces to acquire NURBS curves and surfaces as described in \cite{Piegl1997}.
+	NURBS are another tool for curve and surface modelling. There is a somewhat common joke that describes the acronym NURBS as \emph{"Nobody Understands Rational B-Splines"}, which can be found at the back of \cite{Piegl1997}. In this section, we invalidate this punch line. First of all, we discuss B-splines and construct B-spline curves and surfaces according to \cite{Farin2001}, including the famous algorithm of de Boor. Then we apply simple transformations to the B-spline curves and surfaces to acquire NURBS curves and surfaces as described in \cite{Piegl1997}.
 
 \subsection{Definition}
 	Similarly to how Bézier curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines or, more commonly, B-splines.
@@ -922,7 +924,7 @@ Göttingen, \today \hspace{2em}
 		Why is the notion of the collision point of interest? To exemplify the prospect of our algorithm, imagine the following scenario: Let there be a reflective interface represented by a curve $\gamma$ and a beam of light represented by a ray $R_{A,B}$. Then our model suggests the equivalence of the physical point of reflection and the collision point of the ray with respect to the curve.
 	\end{remark}
 
-	We can find the approximation $s^*$ of the collision parameter by using a common CAD scheme called \emph{ray marching}, in which we traverse the ray $R_{A,B}$ by a small distance increments $s$ until we achieve collision with the curve $\gamma$. How do we choose the optimal value for $s$? The idea is the following: Using the point projection algorithm, we can calculate the \emph{safe distance} $s$ of the point $A$ on the ray to the curve $\gamma$. Then we can easily construct a point $P$ that fulfills $D(A,P) = s$ and lies on the ray $R_{A,B}$ by 
+	We can find the approximation $s^*$ of the collision parameter by using a common CAD scheme called \emph{ray marching}, in which we traverse the ray $R_{A,B}$ by small distance increment s$s$ until we achieve collision with the curve $\gamma$. How do we choose the optimal value for $s$? The idea is the following: Using the point projection algorithm, we can calculate the \emph{safe distance} $s$ of the point $A$ on the ray to the curve $\gamma$. Then we can easily construct a point $P$ that fulfills $D(A,P) = s$ and lies on the ray $R_{A,B}$ by 
 		$$ P := A+s\frac{B}{||B||}.$$
 	Now there are only two possibilities: Either $P$ lies within the $\epsilon$-ball of the collision point, or the line segment $\overline{AP} \subset R_{A,B}([0,\infty))$ has at least $\epsilon$ distance to $\gamma$. In the first case, we can return $\{P\}$. In the second case, we can repeat the procedure on the set 
 		$$ R_{A,B}([0,\infty)) \setminus \overline{AP} = R_{A,B}([s,\infty)) = R_{P,B}([0,\infty)).$$
@@ -1017,7 +1019,7 @@ Göttingen, \today \hspace{2em}
 	What Theorem \ref{thm:parallelintersection} and it's Remark tell us is that parallel intersection points (for example in two circular curves that intersect in exactly one point, see Figure \ref{fig:tangentialintersection}) are rarely detected by intersecting a piecewise linear approximation of the curve. In other words, if for any intersection parameter pair $(s^*, t^*) \in I(\gamma_1, \gamma_2)$ we have $\nabla \gamma_1(s^*) = \nabla \gamma_2(t^*)$, then it is likely that the intersection is not detected by the described line segment intersection scheme.
  	
 	\begin{theorem}\label{thm:lineintersection}
-		Let $L_A([0,1])$ and $L_B([0,1])$ be two line segments in $\mathbb{R}^2$. If the lines $L_A((-\infty,\infty))$ and $L_B((-\infty,\infty))$ are not parallel, their single intersection pointt is given by $L_A(t_A) = L_B(t_B)$, where
+		Let $L_A([0,1])$ and $L_B([0,1])$ be two line segments in $\mathbb{R}^2$. If the lines $L_A((-\infty,\infty))$ and $L_B((-\infty,\infty))$ are not parallel, their single intersection point is given by $L_A(t_A) = L_B(t_B)$, where
 			\begin{equation*}\label{eq:lineintersection}
 				t_A = 
 				\frac {
@@ -1181,7 +1183,7 @@ Göttingen, \today \hspace{2em}
 			$$ I(\gamma) := \{(s,t) \in [0,1]^2 : \gamma(s) = \gamma(t) \;\wedge\; s < t \}. $$
 	\end{definition}
 
-	To find these self-intersections, we can use a slightly modified version of Algorithm \ref{alg:curveintersection}. In the first recursion step of intersectCurvesRecursion, instead of iterating $j$ from $0$ to $N-1$, we are only interested in $j$ from $i+2$ to $N-1$, since for all $(s,t) \in I(O^\gamma_d)$, we have $s < t$. Because $s < t$ each such parameter pair naturally represents an interval subset $[s, t]$ of the parameter space $[0, 1]$.
+	To find these self-intersections, we can use a slightly modified version of Algorithm \ref{alg:curveintersection}. In the first recursion step of \texttt{intersectCurvesRecursion}, instead of iterating $j$ from $0$ to $N-1$, we are only interested in $j$ from $i+2$ to $N-1$, since for all $(s,t) \in I(O^\gamma_d)$, we have $s < t$. Because $s < t$ each such parameter pair naturally represents an interval subset $[s, t]$ of the parameter space $[0, 1]$.
 
 	\begin{definition}
 		For a self-intersection set $I(\gamma)$, we call the set
@@ -1326,9 +1328,9 @@ Göttingen, \today \hspace{2em}
 		$$
 	for $(s^*,t^*) \in I(O^{\gamma_1}_r, O^{\gamma_2}_r)$. The parameters $s$ and $t$ are scaled such that the domains of the trimmed curves $\overline{\gamma_1}$ and $\overline{\gamma_2}$ remain equal to $[0,1]$.
 
-	Now, instead of actually trimming $\phi^{\gamma_1, \gamma_2}_r$, we can construct a circular arc between the end points $D_i := \overline{\gamma_i}(0)$ of the trimmed curves for $i \in \{1,2\}$. Let $M = (x_0, y_0)$ the fillet circle center. By sweeping the line segment $\overline{M_1 D_1}$ by a certain angle $\Theta$, we can retrieve $\overline{\phi}^{\gamma_1, \gamma_2}_r$. This angle can be calculated by
-		$$ \Theta = \arccos \frac{(D_1-M) \cdot (D_2-M)}{||D_1-M|| \; ||D_2-M||}, $$
-	where $(\cdot)$ is the standard dot product. We can now write the trimmed fillet curve as
+	Now, instead of actually trimming $\phi^{\gamma_1, \gamma_2}_r$, we can construct a circular arc between the end points $D_i := \overline{\gamma_i}(0)$ of the trimmed curves for $i \in \{1,2\}$. Let $M = (x_0, y_0)$ the fillet circle center. By sweeping the line segment $\overline{M D_1}$ by a certain angle $\Theta$, we can retrieve $\overline{\phi}^{\gamma_1, \gamma_2}_r$. This angle can be calculated by
+		$$ \Theta = \arccos \frac{\langle D_1-M, D_2-M \rangle}{||D_1-M|| \; ||D_2-M||}, $$
+	where $\langle \cdot, \cdot \rangle$ is the standard scalar product. We can now write the trimmed fillet curve as
 		$$ \overline{\phi}^{\gamma_1, \gamma_2}_r(t) = R_{+t\Theta}(D_1-M)+M = R_{-t\Theta}(D_2-M)+M,$$
 	for $t \in [0,1]$, where $R_{\Theta}$ is the rotation matrix given by
 		\begin{equation}
@@ -1376,7 +1378,7 @@ Göttingen, \today \hspace{2em}
 		\caption{Projection of a point onto a plane as described by Theorem \ref{thm:planeprojection}.}
 	\end{figure}
 
-	In linear algebra, it is often the case that a plane is defined by a support vector and two direction vectors. In CAD it is instead commonplace to use the pair $(S,N)$ of support vector and normal vector. The normal vector is perpendicular to the two direction vectors of the plane. It should be noted that planes, which are two-dimensional affine subspace of $\mathbb{R}^d$, can only be described that way in the case $d = 3$. In our algorithm, the normal vector notation will prove helpful in combination with the cross-product.
+	In linear algebra, it is often the case that a plane is defined by a support vector and two direction vectors. In CAD it is instead commonplace to use the pair $(S,N)$ of support vector and normal vector. The normal vector is perpendicular to the two direction vectors of the plane. It should be noted that planes, which are two-dimensional affine subspace of $\mathbb{R}^d$, can only be described that way in the case $d = 3$. In our algorithm, the normal vector notation will prove helpful in combination with the cross product.
 
 	\begin{definition}
 		The cross product of two vectors $A, B \in \mathbb{R}^3$ is given by
@@ -1422,7 +1424,7 @@ Göttingen, \today \hspace{2em}
 
 	The tangent intersection line for the intersection parameters $(u^{(0)}, v^{(0)})$ is equal to
 		$$ L^{(0)}(t) = \beta(u^{(0)}, v^{(0)}) + t \cdot \left(\frac{N_{\beta}(u^{(0)}, v^{(0)}) \times N}{||N_{\beta}(u^{(0)}, v^{(0)}) \times N||}\right)$$
-	for $t \in \mathbb{R}$. Using an appropriate step size $\alpha \in \mathbb{R}$, we can project the point $L^{(0)}(\alpha) \in T_{\beta}(u^{(0)}, v^{(0)}) \cap P_{\beta(u^{(0)}, v^{(0)}), N}$ onto the surface $\beta$ using the methods from Section \ref{subsec:pointproj} to acquire a candidate for the point $\beta(u^{(1)}, v^{(1)})$. If this point lies outside of the plane $P_{S,N}$, we discard the point, choose a step size less than $\alpha$ and repeat the process. Numerically, we accept a candidate if is within $\epsilon$-distance of the plane $P_{\beta(u^{(0)}, v^{(0)}), N}$ for a small value of $\epsilon > 0$. If $\beta(u^{(1)}, v^{(1)})$ has been found, we repeat this process to find $\beta(u^{(2)}, v^{(2)})$. To do this, we construct $L^{(1)}$ by intersecting $P_{S,N}$ and $T_{\beta}(u^{(1)}, v^{(1)})$ and project $L^{(1)}(\alpha)$ onto $\beta$. We can repeat this iteration step until $|\alpha| < \alpha_0$ for some $\alpha_0 > 0$. If this condition is satisfied, we return the list of the $n$ parameters of intersection, which we can write as $L = \{(u^{(i)}, v^{(i)}): i \in \{1,2,...,n\}\}$.
+	for $t \in \mathbb{R}$. Using an appropriate step size $\alpha \in \mathbb{R}$, we can project the point $L^{(0)}(\alpha) \in T_{\beta}(u^{(0)}, v^{(0)}) \cap P_{\beta(u^{(0)}, v^{(0)}), N}$ onto the surface $\beta$ using the methods from Section \ref{subsec:pointproj} to acquire a candidate for the point $\beta(u^{(1)}, v^{(1)})$. If this point lies outside of the plane $P_{S,N}$, we discard the point, choose a step size less than $\alpha$ and repeat the process. Numerically, we accept a candidate if it is within $\epsilon$-distance of the plane $P_{\beta(u^{(0)}, v^{(0)}), N}$ for a small value of $\epsilon > 0$. If $\beta(u^{(1)}, v^{(1)})$ has been found, we repeat this process to find $\beta(u^{(2)}, v^{(2)})$. To do this, we construct $L^{(1)}$ by intersecting $P_{S,N}$ and $T_{\beta}(u^{(1)}, v^{(1)})$ and project $L^{(1)}(\alpha)$ onto $\beta$. We can repeat this iteration step until $|\alpha| < \alpha_0$ for some $\alpha_0 > 0$. If this condition is satisfied, we return the list of the $n$ parameters of intersection, which we can write as $L = \{(u^{(i)}, v^{(i)}): i \in \{1,2,...,n\}\}$.
 
 	\begin{algorithm}[H]
 	\begin{algorithmic}[1]
@@ -1453,7 +1455,7 @@ Göttingen, \today \hspace{2em}
 	\end{algorithmic}
 	\end{algorithm}
 
-	After successfully running Algorithm \ref{alg:surfplaneintersection}, we are left with $n$ points which lie on the intersection curve. We interpolate between these points using NURBS. If necessary, the control points of the NURBS curve can then be projected onto the plane $P_{S,N}$ to ensure that the curve is planar. This scheme proves useful for CoolingGen, because a start parameter pair $(u^{(0)}, v^{(0)})$ is practically always known in this context. Otherwise, a start point can be found using the ray marching technique, which was discussed in Section \ref{subsec:raymarching}.
+	After successfully running Algorithm \ref{alg:surfplaneintersection}, we are left with $n$ points which lie on the intersection curve. We interpolate between these points using NURBS (see \cite{Piegl1997}). If necessary, the control points of the NURBS curve can then be projected onto the plane $P_{S,N}$ to ensure that the curve is planar. This scheme proves useful for CoolingGen, because a start parameter pair $(u^{(0)}, v^{(0)})$ is practically always known in this context. Otherwise, a start point can be found using the ray marching technique, which was discussed in Section \ref{subsec:raymarching}.
 
 	\begin{figure}[H]
 		\centering
@@ -1462,7 +1464,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:planeintersectionline}
 	\end{figure}
 
-\section{Coons Patch}
+\subsection{Coons Patch}
 	Given four parametric boundary curves $c_0(t)$, $c_1(t)$, $d_0(t)$ and $d_1(t)$ for $t \in [0,1]$ with $c_0(0) = d_0(0)$, $c_0(1) = d_1(0)$, $c_1(0) = d_0(1)$ and $c_1(1) = d_1(1)$ we can construct an intermediate parametric surface $\mathfrak{C}$ by using linear interpolation on pairs $c_0, c_1$ and $d_0, d_1$ and bilinear interpolation the corner points $c_0(0), c_0(1), c_1(0), c_1(1)$ using bilinear blending, in other words
 	\begin{align*}
 		\mathfrak{C}(u,v) 	&= (1-v)\,c_0(u) + v\,c_1(u) \\
@@ -1478,7 +1480,7 @@ Göttingen, \today \hspace{2em}
 	\end{figure}
 
 \chapter{Jet Engine Specific Methods}\label{chap:jetenginespecifics}
-	CoolingGen creates geometries which lie inside of such a blade surface $B(u,v)$, which is an output of BladeGen, a tool developed by the DLR specifically for the design of blade surfaces. $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbines hub. Because of rotational symmetry of the turbine, it is convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates in this case is given by the map
+	CoolingGen creates geometries which lie inside a blade or vane surface $B(u,v)$, which is an output of BladeGen, a tool developed by the DLR specifically for the design of blade and vane surfaces. $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbines hub. Because of rotational symmetry of the turbine, it is convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates in this case is given by the map
 		$$ Z: (x,y,z) \mapsto (x, r, \theta), $$
 	where $\theta = \arctantwo(y, z)$ is the circumferential angle and $\sqrt{y^2+z^2}$ is the distance from the turbine hub. This transformation is invertible.
 
@@ -1496,10 +1498,10 @@ Göttingen, \today \hspace{2em}
 		\label{fig:rotor_stator}
 	\end{figure}
 
-	A distinction is made between two kinds of blades, rotor blades and stator vanes. While the rotor blades rotate around the hub, the stator vanes have fixed positions. Furthermore, the blade surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
+	A distinction is made between two kinds of surfaces: rotor blades and stator vanes. While the rotor blades rotate around the hub, the stator vanes have fixed positions. Furthermore, the blade or vane surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
 
 \section{The S2 Stream Surface and Stream Surface Coordinates}\label{sec:mrtheta}
-	A stream line is a line that at every point is tangential to the velocity vector field of the flow of the fluid. Its generalization, the stream surface, describes a surface with the same property. The flow in a turbine can be described by a generalization of the stream surface. When designing turbine blades, it is common practice to describe the flow in two families of stream surfaces. These surfaces are called $S_1$ and $S_2$. The $S_1$ surfaces, also known as \emph{blade-to-blade} surfaces, describe the flow behavior between individual blade sections, whereas their counterpart, the $S_2$ surfaces, which are also known as \emph{meridional} surfaces, describe the flow in the axial direction \cite{Wu1952}.
+	A stream line is a line that at every point is tangential to the velocity vector field of the flow of the fluid. Its generalization, the stream surface, describes a surface with the same property. The flow in a turbine can be described by a generalization of the stream surface. When designing turbine blades or vanes, it is common practice to describe the flow in two families of stream surfaces. These surfaces are called $S_1$ and $S_2$. The $S_1$ surfaces, also known as \emph{blade-to-blade} surfaces, describe the flow behavior between individual blade (or vane) sections, whereas their counterpart, the $S_2$ surfaces, which are also known as \emph{meridional} surfaces, describe the flow in the axial direction \cite{Wu1952}.
 
 	\begin{figure}[H]
 		\centering
@@ -1511,16 +1513,16 @@ Göttingen, \today \hspace{2em}
 		$$s(u,v) : [0,1]^2 \rightarrow \mathbb{R}^3, \quad (u,v) \mapsto (x, r, m),$$
 	where $x$ is the axial coordinate, $r = \sqrt{y^2+z^2}$ the distance from the turbine hub and 
 		$$m(u,v) = \int_0^u \sqrt{x(t,v)^2 + r(t,v)^2} \; \textrm{dt}$$
-	is the $v$-isoparametric arc length of the stream surface. To design the blades for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades \cite{Wu1952}. Each stream line described by $S_{2,m}$ can then be written as $v$-isoparametric curve $S_{2,m}(\cdot, v)$.
+	is the $v$-isoparametric arc length of the stream surface. To design the blades (and vanes) for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades \cite{Wu1952}. Each stream line described by $S_{2,m}$ can then be written as $v$-isoparametric curve $S_{2,m}(\cdot, v)$.
 
-	By intersecting the transformed $u$-isoparametric curves $Z(B(u,\cdot))$ of the blade with each such stream line $S_{2,m}(\cdot, v)$ in their first two arguments $(x,r)$, we can construct a curve
+	By intersecting the transformed $u$-isoparametric curves $Z(B(u,\cdot))$ of the blade (or vane) with each such stream line $S_{2,m}(\cdot, v)$ in their first two arguments $(x,r)$, we can construct a curve
 		$$ B^{(v)}_\textrm{stream}(u) = (m, r\theta),$$
 	where $m$ is the intersection arc length of $S_{2,m}(\cdot, v)$, $r$ is the intersection distance from the hub and $\theta$ is the intersection circumferential angle. This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a so called \emph{stream surface coordinate system}. Given $v$ and the stream surface, each point $(m, r\theta)$ can bijectively be mapped back onto the respective Cartesian coordinates $(x, y, z)$.
 
 	Since this coordinate transformation produces a set of planar curves for $v_i \in [0,1]$, where $i \in \{1, 2, ..., N\}$, we can use two-dimensional operations on such a set of stream surface curves instead of using three-dimensional operations directly on the Cartesian represented $B(u,v)$. This yields a significant performance boost. The resulting stream surface curves can then be transformed back to the Cartesian coordinate system. Using surface skinning we can interpolate between families of stream surface curves to find a surface (see \cite{Piegl1997}). This approach will be used in the construction of the internal geometries.
 
 \chapter{Results}
-	In this chapter, we present the construction of different blade cooling geometries using CoolingGen. For this purpose, we require the methods presented in Chapter \ref{chap:methods} and Chapter \ref{chap:jetenginespecifics}. CoolingGen is capable of producing four distinct types of geometries: channels, film cooling holes, impingement inserts and trailing edge slots. These four types are supported on rotor blades as well as on stator vanes.
+	In this chapter, we present the construction of different blade and vane cooling geometries using CoolingGen. For this purpose, we require the methods presented in Chapter \ref{chap:methods} and Chapter \ref{chap:jetenginespecifics}. As mentioned before, CoolingGen is capable of producing four distinct types of geometries: channels, film cooling holes, impingement inserts and trailing edge slots. These four types are supported on rotor blades as well as on stator vanes.
  	
 	\begin{figure}[H]
 		\centering
@@ -1543,14 +1545,6 @@ Göttingen, \today \hspace{2em}
 		\caption{Like Figure \ref{fig:rotor_stator}, but equipped with cooling geometries. The outer orange surfaces are channels. The green surfaces are film cooling holes. The inner orange surfaces are impingement inserts. The short yellow cylindrical surfaces represent the holes inside the impingement inserts. In the detail view, we can see the impingement insert of the leading edge channel of the stator and the slots on the pressure side of the rotor.}
 		\label{fig:results_complete}
 	\end{figure}
-
-	Channels are hollow sections inside a turbine blade which allow for a coolant to pass through.
-
-	A film cooling hole is a hollow body that transfers the coolant from the inside of the channel to the outside of the blade. An array of these holes provides a protective fluid layer that restrains net heat transfer to the blade. 
-
-	Impingement inserts are thin sheets that reside within channels and have cylindrical holes in them. 
-
-	A slot is a hollow body inside a turbine blade that transports the coolant from the inside of the trailing edge channel to the trailing edge or pressure side of the turbine blade.
 
 \section{Channels}
 	 For the construction of channels, we distinguish between straight and curved sections of the channel. The straight sections represent hollow bodies that let the coolant pass in $v$-direction of the turbine blade. These sections are called chambers. The curved sections let the coolant pass in $u$-direction of the turbine blade. We call the latter sections turns. Inside turns, the coolant flows between chambers.
@@ -1589,7 +1583,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:profileshrinking}
 	\end{figure}
 
-	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade to calculate the profiles $B^{(v_i)}_\textrm{stream}(u)$ for $v_i \in [0,1]$, $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately (as described in Section \ref{sec:offsetcurves}) and fillets are added to round off the emerging corners. The fillet radius is also declared as an input. We refer to the resulting profile as shrunk profile $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}. The subdivision into leading edge, pressure side, suction side and trailing edge is kept by using the fillet boundaries as transition points.
+	First, we apply the stream surface coordinate transformation presented in Section \ref{sec:mrtheta} to a fixed number $N$ of $v$-isoparametric curves of the blade (or vane) to calculate the profiles $B^{(v_i)}_\textrm{stream}(u)$ for $v_i \in [0,1]$, $i \in \{1,...,N\}$. These profiles are then offset by an input parameter. The profile is automatically trimmed adequately (as described in Section \ref{sec:offsetcurves}) and fillets are added to round off the emerging corners. The fillet radius is also declared as an input. We refer to the resulting profile as shrunk profile $S^{(v_i)}_\textrm{stream}(u)$. This process is depicted in Figure \ref{fig:profileshrinking}. The subdivision into leading edge, pressure side, suction side and trailing edge is kept by using the fillet boundaries as transition points.
 
 	Next, we calculate the camber curve $c^{(v_i)}$ of each shrunk profile $S^{(v_i)}_\textrm{stream}$. The camber curve is a design aid which is defined by the following property. A point $x$ lies on the camber curve $c^{(v_i)}$ of $S^{(v_i)}_\textrm{stream}$ if and only if for some $d$ the offset curve $O^{S^{(v_i)}_\textrm{stream}}_d$ has a self intersection at $x$. Along the camber curve, we define the wall input, which is given by a set of parameters $w_j \in [0,1]$ representing the positions of each wall as parameter of the camber curve, $j \in \{1,...,N_C-1\}$, where $N_C$ is the number of chambers that shall be created. For each position, we also define an angle $\omega_j \in (0, \pi)$.
 
@@ -1613,7 +1607,7 @@ Göttingen, \today \hspace{2em}
 		$$ c(w_j) + sR_{\omega_j} \nabla c(w_j) \quad\text{and}\quad c(w_j) - sR_{\omega_j} \nabla c(w_j) $$
 	for $s \in [0, \infty)$, where $R_{\omega_j}$ is a rotation matrix like presented in Equation (\ref{eq:rotationmat}). Using Algorithm \ref{alg:raymarching}, we can find the respective intersection points $p_j^+$ and $p_j^-$ of the rays and the shrunk profile $S^{(v_i)}_\textrm{stream}$. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. This process is repeated for all $j \in \{1,...,N_C-1\}$.
 
-	Next, the blade is partitioned at the intersection points $p_j^+$ and $p_j^-$ for all $j \in \{1,...,N_C-1\}$. For each such partitioning, we are left with four chamber-delimiting curves per chamber profile. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}. If there is only one chamber, the a priori partitioning scheme (leading edge, suction side, pressure side and trailing edge) is kept. In case of multiple chambers, the leading and trailing chambers have to be treated differently, because in this case each of them are delimited by only one wall. In this case, we use the leading edge partition or trailing edge partition in place of a wall.
+	Next, the blade (or vane) is partitioned at the intersection points $p_j^+$ and $p_j^-$ for all $j \in \{1,...,N_C-1\}$. For each such partitioning, we are left with four chamber-delimiting curves per chamber profile. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}. If there is only one chamber, the a priori partitioning scheme (leading edge, suction side, pressure side and trailing edge) is kept. In case of multiple chambers, the leading and trailing chambers have to be treated differently, because in this case each of them are delimited by only one wall. In this case, we use the leading edge partition or trailing edge partition in place of a wall.
 
 	\begin{figure}[H]
 		\begin{subfigure}{.32\textwidth}
@@ -1850,9 +1844,9 @@ Göttingen, \today \hspace{2em}
 
 	The surface $F^{(v_\textrm{transition})}(u,v)$ is a basic representation of a film cooling hole. There are currently two supported types of hole surfaces in CoolingGen. The first type is the cylindrical hole, where $f_1 = f_2 = f_\textrm{circular}$. The second type of film cooling hole is called fan shaped hole, where $f_1 = f_\textrm{fan shaped}$ and $f_2 = f_\textrm{circular}$. The input radii $r$ are the same for each pair of curves. Both of these types can be seen in Figure \ref{fig:filmholes}.
 
-	As mentioned before, film cooling holes transport the fluid from the inside of a channel to the outside of the blade. Therefore it is necessary to connect $F^{(v_\textrm{transition})}(u,v)$ with the blade surface and the corresponding channel surface. Our aim is to align the $f_1$ side of $F^{(v_\textrm{transition})}$ to the blade surface and the $f_2$ side of $F^{(v_\textrm{transition})}$ to one of the channel surfaces.
+	As mentioned before, film cooling holes transport the fluid from the inside of a channel to the outside of the blade or vane. Therefore it is necessary to connect $F^{(v_\textrm{transition})}(u,v)$ with the blade or vane surface and the corresponding channel surface. Our aim is to align the $f_1$ side of $F^{(v_\textrm{transition})}$ to the blade or vane surface and the $f_2$ side of $F^{(v_\textrm{transition})}$ to one of the channel surfaces.
 
-	In CoolingGen, we define the starting point $P_B := B(u_B, v_B)$ of the line segment $L_{P_B,P_C}$ in terms of the blade surface $B(u,v)$ by using the input parameters $(u_B, v_B) \in [0,1]^2$. The input also specifies a direction $D$ in which the film cooling hole should be pointed (via the specification of two angles relative to the blade surface). The end point $P_C$ of the line segment is then found by using the surface ray marching method presented in Section \ref{subsec:raymarching} for the ray $R_{P_B,D}$ for each channel. If multiple channels intersect $R_{P_B,D}$, then the channel surface $C(u,v)$, which has the minimum distance from $B(u_B, v_B)$, is chosen. We set the end point $P_C$ of the line segment $L_{P_B,P_C}$ to be equal to the chosen intersection point $C(u_C, v_C)$ for $(u_B, v_B) \in [0,1]^2$. We can then calculate the surface $F^{(v_\textrm{transition})}(u,v)$ along $L_{P_B,P_C}$ as already explained.
+	In CoolingGen, we define the starting point $P_B := B(u_B, v_B)$ of the line segment $L_{P_B,P_C}$ in terms of the blade or vane surface $B(u,v)$ by using the input parameters $(u_B, v_B) \in [0,1]^2$. The input also specifies a direction $D$ in which the film cooling hole should be pointed (via the specification of two angles relative to the blade or vane surface). The end point $P_C$ of the line segment is then found by using the surface ray marching method presented in Section \ref{subsec:raymarching} for the ray $R_{P_B,D}$ for each channel. If multiple channels intersect $R_{P_B,D}$, then the channel surface $C(u,v)$, which has the minimum distance from $B(u_B, v_B)$, is chosen. We set the end point $P_C$ of the line segment $L_{P_B,P_C}$ to be equal to the chosen intersection point $C(u_C, v_C)$ for $(u_B, v_B) \in [0,1]^2$. We can then calculate the surface $F^{(v_\textrm{transition})}(u,v)$ along $L_{P_B,P_C}$ as already explained.
 
 	\begin{figure}[H]
 		\centering
@@ -1880,7 +1874,7 @@ Göttingen, \today \hspace{2em}
 
 	This observation gives rise to a solution to our boundary problem. We can use the ray marching algorithm from Section \ref{subsec:raymarching} to find ray intersections of all such $R_{P,Q-P}$ and $B(u,v)$ by setting $v_F = 0$. This yields a delimiting curve $B_d(u)$, which marks one boundary of the film cooling hole and lies completely within $B(u,v)$. By setting $v_F = 1$, we find the ray intersections of all such $R_{P, Q-P}$ and $C(u,v)$, yielding a delimiting curve $C_d(u)$ which marks the other boundary of the film cooling hole and lies completely within $C(u,v)$.
 
-	We are left with three important curves. The blade delimiting curve $B_d(u)$, the transition isocurve $F^{(v_\textrm{transition})}(u,v_\textrm{transition})$ and the channel delimiting curve $C_d(u)$. We can linearly interpolate between these three curves. The intersected film cooling hole surface is then equal to
+	We are left with three important curves. The blade or vane delimiting curve $B_d(u)$, the transition isocurve $F^{(v_\textrm{transition})}(u,v_\textrm{transition})$ and the channel delimiting curve $C_d(u)$. We can linearly interpolate between these three curves. The intersected film cooling hole surface is then equal to
 		$$ \Phi(u,v) = 
 				\begin{cases}
 					\frac{v_\textrm{transition} - v}{v_\textrm{transition}} \, B_d(u) +
@@ -1921,7 +1915,7 @@ Göttingen, \today \hspace{2em}
 
 	The creation of the inner and outer surfaces relies on the same principles as the creation of chambers, which was discussed in Section \ref{sec:chambers}. Since we already calculated the $(m, r\theta)$ profiles of the chambers, we only need to offset, trim, add fillets and use skinning to make these surfaces. For each impingement insert, an inner distance $i > 0$, outer distance $o > 0$ and a thickness $d > 0$ is specified.
 
-	The profile partitions that run parallel to the blade are offset by $o$, whereas the profile partitions that lie between chambers are offset by $i$. The new profile partitions are trimmed and fillets are added. This yields the outer impingement insert profile. The outer impingement insert profiles are then offset by $d$ to calculate the inner impingement insert profiles. After using surface skinning, we are left with two surfaces that represent the impingement insert, an example of which can be seen in Figure \ref{fig:impingementinsert}.
+	The profile partitions that run parallel to the blade or vane are offset by $o$, whereas the profile partitions that lie between chambers are offset by $i$. The new profile partitions are trimmed and fillets are added. This yields the outer impingement insert profile. The outer impingement insert profiles are then offset by $d$ to calculate the inner impingement insert profiles. After using surface skinning, we are left with two surfaces that represent the impingement insert, an example of which can be seen in Figure \ref{fig:impingementinsert}.
 	
 	\begin{figure}[H]
 		\centering
@@ -1940,8 +1934,8 @@ Göttingen, \today \hspace{2em}
 
 	Using the methods from \ref{sec:filmcooling}, we can construct cylindrical holes between the outer and inner surface of the impingement insert. Instead of using a distribution function for positioning, we instead specify two intervals $[u_L, u_U]$ and $[v_L, v_U]$ on the outer impingement insert surface and the number of rows $N$ and columns $M$ of film cooling holes per array, to place (up to) $NM$ holes between the outer and inner impingement insert surface, inside the specified intervals. We also specify the type of hole distribution, which can be either aligned or staggered. These two types can be seen in Figure \ref{fig:alignedstaggered} and Figure \ref{fig:impingementinsert}.
 
-\section{Slots}
-	Slots transport the coolant from the inside of the trailing edge channel to the pressure side of the blade. A slot is partially defined by two delimiting surfaces, the inlet surface $I(u,v)$ and the outlet surface $O(u,v)$ for $u,v \in [0,1]$. The inlet surface $I(u,v)$ is a subsurface of the channel surface $C(u,v)$ that lies closest to the trailing edge. The outlet surface $O(u,v)$ is a subsurface of the blade surface $B(u,v)$.
+\section{Ejection Slots}
+	Ejection slots transport the coolant from the inside of the trailing edge channel to the pressure side of the blade or vane. A slot is partially defined by two delimiting surfaces, the inlet surface $I(u,v)$ and the outlet surface $O(u,v)$ for $u,v \in [0,1]$. The inlet surface $I(u,v)$ is a subsurface of the channel surface $C(u,v)$ that lies closest to the trailing edge. The outlet surface $O(u,v)$ is a subsurface of the blade or vane surface $B(u,v)$.
 
 	\begin{figure}[H]
 		\centering
