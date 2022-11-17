@@ -76,7 +76,26 @@
 \newtheorem{theorem}[definition]{Theorem}
 \newtheorem{corollary}[definition]{Corollary}
 \newtheorem*{remark}{Remark}
-\newenvironment{myAbstract}{\section*{Abstract}}{}
+
+\renewenvironment{abstract}[1]{%
+	\begin{center}
+		\normalfont\textbf{Abstract}
+	\end{center}
+	\begin{minipage}{\textwidth}
+		#1
+	\end{minipage}
+	\vspace{1em}
+}
+
+\newenvironment{zusammenfassung}[1]{%
+	\begin{center}
+		\normalfont\textbf{Zusammenfassung}
+	\end{center}
+	\begin{minipage}{\textwidth}
+		#1
+	\end{minipage}
+	\vspace{1em}
+}
 
 %%% Special formatting
 \renewcommand{\emph}[1]{\textit{#1}}
@@ -153,7 +172,7 @@
 				\flushleft
 				Prof. Dr. Gerlind Plonka-Hoch\\
 				Prof. Dr. Christoph Lehrenfeld\\
-				M. Sc. Robin Schöffler
+				M.Sc. Robin Schöffler
 			\end{minipage}
 		\end{minipage}
 	\end{center}
@@ -187,23 +206,20 @@ Göttingen, \today \hspace{2em}
 
 % Abstract and Zusammenfassung
 \restoregeometry
-\begin{abstract}
-	\thispagestyle{plain}
-	\pagenumbering{roman}
-	\setcounter{page}{3}
-	\lipsum[1-3]
-\end{abstract}
-\renewcommand{\abstractname}{Zusammenfassung}
-\begin{abstract}
-	\thispagestyle{plain}
-	\pagenumbering{roman}
-	\setcounter{page}{4}
-	\lipsum[4-6]
-\end{abstract}
+\newgeometry{top=40mm, left=35mm, right=35mm}
+\thispagestyle{plain}
+\pagenumbering{roman}
+\setcounter{page}{3}
+\abstract{
+	\lipsum[1]
+}
+\vspace{2cm}
+\zusammenfassung{
+	\lipsum[3]
+}
 \pagebreak
 
 % Table of contents
-\setcounter{page}{5}
 \restoregeometry
 \tableofcontents
 \pagebreak
@@ -215,37 +231,33 @@ Göttingen, \today \hspace{2em}
 \pagestyle{plain}
 
 \chapter{Introduction}
-	Modelling cooling geometries inside of existing turbine blades and vanes using conventional interactive computer-aided design (CAD) methods currently is a difficult but necessary process in the design of modern jet engine turbines. For this purpose, the German Aersospace Center (DLR) has been concerned with finding a simple method to model such structures. As part of many CAD-related research projects at the DLR, parametric CAD has evidently been a simpler alternative to its conventional counterpart. The complexity and inevitable inter-dependence of cooling structures has ever since been a challenge in the development of a parametric CAD tool made solely for turbine cooling. In this thesis, we present a high-performance tool, CoolingGen, that uses custom-made algorithms and evidently satisfies the goal of creating models of such cooling structures.
+	Modelling cooling geometries inside of existing turbine blades and vanes using conventional interactive computer-aided design (CAD) methods currently is a difficult but necessary process in the design of modern jet engine turbines. For this purpose, the German Aerospace Center (DLR, Deutsches Zentrum für Luft- und Raumfahrt) has been concerned with finding a simple method to model cooling structures. As part of many CAD-related research projects at the DLR, parametric CAD has proven to be a simpler alternative to its conventional counterpart. The complexity and inevitable inter-dependence of cooling structures has ever since been a challenge in the development of a parametric CAD tool made solely for turbine cooling. In this thesis, we present CoolingGen, a high-performance tool that uses custom-made algorithms and evidently satisfies the goal of creating models of such cooling structures.
 
 	% Prozesskette?
-
 	\section{Cooling Design}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=.75\textwidth]{../assets/gthandbook_turbine.png}
-			\caption{Jet engine high pressure turbine and combustor as depicted in \cite{Giampaolo2020}.}
+			\includesvg[width=.6\textwidth]{../assets/turbofan}
+			\caption{Schematic diagram illustrating the operation of a 2-spool, low-bypass turbofan jet engine, with low pressure spool in green and high pressure spool in purple. Credit: K. Aainsqatsi.}
 		\end{figure}
 
-		In a jet engine, kinetic energy is supplied from high pressure gas combustion. Cooling is a necessity to sensibly increase the combustion chamber's firing temperature, thus raising the thermodynamic efficiency. In modern jet engine turbines, the materials thermal limits are exceeded by the hot gas temperature succeeding the combustion chamber in axial direction. To combat this extreme condition, 20\% to 30\% of the compressed air that precedes the combustion chamber is passed through the blades and vanes of the high pressure turbine. The longevity of the turbine blades and vanes therefore majorly relies on cooling. Alongside materials selection and treatment of the coolant, the design of the cooling measures entails the creation of sensible cooling geometries that reside within the blade or vane (see \cite{Giampaolo2020}, Section 4.2.1).
+		In a jet engine, kinetic energy is supplied from high pressure gas combustion. To increase the jet engine's thermodynamic efficiency, the firing temperature of the combustion chamber must be increased. In modern jet engine turbines, the hot gas temperature after combustion exceeds the materials' thermal limits. To combat this extreme condition, 20\% to 30\% of the compressed air that precedes the combustion chamber is used as a coolant, which is passed through the blades and vanes of the high pressure turbine. Alongside selection of the materials and treatment of the coolant, the design of the cooling measures entails the creation of sensible cooling geometries that are located within the blade or vane (see \cite{Giampaolo2020}, Section 4.2.1).
 
 	\section{State of the Art}
-		Conventional CAD systems are modelers that allow their user to create free-form curves and surfaces using interactive control points that can be moved to any location on a three-dimensional canvas. This gives the user an unlimited amount of strategies for creating a CAD model fit for their use. However, the amount of possible modelling strategies impedes the adaptability of most resulting models. An alternative to conventional CAD systems are feature-based parametric CAD systems, which relies on a parent-child structure of a mechanical model and its constituent parts (see \cite{Shah1995} and \cite{Camba2016}). This behavior can also be observed in the parametric CAD software GTLab, which is a tool developed at the DLR that combines different aeroplane geometries in an associative manner. In parametric CAD software, the user specifies a select set of (non-)geometric parameters that determine the shape of the output geometry. In mechanical engineering, feature-based CAD has become an important and widely used tool.
+		Conventional CAD systems are modelers that allow their user to create free-form curves and surfaces using interactive control points that can be moved to any location on a three-dimensional canvas. This gives the user an unlimited amount of strategies for creating a CAD model fit for their use. However, the amount of possible modelling strategies impedes the adaptability of most resulting models. An alternative to conventional CAD systems are feature-based parametric CAD systems, which rely on a parent-child structure of a model and its constituent parts (see \cite{Shah1995} and \cite{Camba2016}). In parametric CAD software, the user specifies a select set of (non-)geometric parameters that determine the shape of the output geometry. The number of input parameters determines the flexibility of the shape of an output model. A high number of parameters generally improves flexibility, although keeping this number as low as possible ensures simple user interaction. As Albert Einstein once famously said: "everything should be made as simple as possible, but not simpler". 
 
-		In parametric CAD, the number of input parameters determines the flexibility over the shape of a model. A high number generally improves flexibility. Although keeping this number as low as possible ensures simple user interaction. As Albert Einstein once famously said, \emph{everything should be made as simple as possible, but not simpler}. To adapt the geometry, the user simply has to change a few parameters instead of moving control points, which in itself bear no underlying semantic structure regarding their mechanical function.
- 		
-		Creating cooling geometries is laborious and requires expertise using conventional interactive CAD software. The approach of automating this process using a set of parameters certainly bears great potential in this regard. At the DLR, blade and vane contours are already successfully designed using parametric CAD in a tool called BladeGen. In the associative structure of parametric CAD, blades and vanes serve as the parent element of the cooling geometries we are concerned with in the development of CoolingGen.
+		Because of it's intrinsic adaptability, feature-based CAD has become an important and widely used tool among many mechanical engineering applications. To adapt the geometry of a mechanical model in parametric CAD, as opposed to conventional CAD, the user simply has to change a few parameters instead of moving control points, which in themselves bear no underlying semantic structure regarding their mechanical function.
+
+		Using conventional interactive CAD software, the creation of cooling geometries is labour-intensive and requires expertise. The approach of automating this process using a set of parameters certainly bears great potential in this regard. At the DLR, blade and vane contours are already successfully designed using a parametric CAD in a tool called BladeGen. In the associative structure of parametric CAD, blades and vanes serve as the parent element of the cooling geometries we are concerned with in the development of CoolingGen.
 
 	\section{Problem Statement}
-		CoolingGen is a parametric CAD software written in C that allows for the creation of three-dimensional turbine cooling geometries of blades and vanes. It was first developed by Timo Schumacher and Christian Voß in 2013 at the DLR. In 2022, it was in large part revised to support realistic cooling geometries. The 2013 release, while being a great proof of concept, lacked an underlying framework of established geometric methods and thus failed to fulfill real world requirements. It was tailored to fit only a few parameter configurations on a certain parent blade surface. The implementation of such established geometric methods was done during the course this thesis.
+		CoolingGen is a parametric CAD software written in the programming language C that allows for the creation of three-dimensional turbine cooling geometries of blades and vanes. It was first developed by Timo Schumacher and Christian Voß in 2013 at the DLR. The 2013 release, while being a great proof of concept, lacked an underlying framework of established geometric methods and thus failed to fulfill real world requirements. It was tailored to fit only a few parameter configurations on a certain parent blade surface. In 2022, CoolingGen was largely revised as part of this thesis to support realistic cooling geometries.
 
-		Currently, CoolingGen supports four distinct types of cooling geometries: internal cooling channels, film cooling, impingement cooling and ejection slots. Channels are hollow sections inside a turbine blade or vane which allow for a coolant to pass through. A film cooling hole is a hollow body that transfers the coolant from the inside of the channel to the outside of the blade or vane. An array of these holes provides a protective fluid layer that restrains net heat transfer to the blade or vane. Impingement inserts are thin sheets that reside within channels and have cylindrical holes in them. An ejection slot is a hollow body inside a turbine blade that transports the coolant from the inside of the trailing edge channel to the trailing edge or pressure side of the turbine blade or vane.
+		Currently, CoolingGen supports four distinct types of cooling geometries: internal cooling, film cooling, impingement cooling and ejection slots. The internal cooling is comprised of cooling channels, which are hollow sections inside a turbine blade or vane. They allow for a coolant to pass through. The film cooling consists of holes that transfer the coolant from the inside of a channel to the outside of the blade or vane. An array of these holes provides a protective fluid layer that restrains net heat transfer to the blade or vane. Impingement inserts are thin sheets that reside within channels and have cylindrical holes in them. The ejection slots are hollow bodies that transports the coolant from the inside of the trailing edge channel to the trailing edge or pressure side of the turbine blade or vane.
 
 		The parameters for each of these cooling geometries are provided in the Extensible Markup Language (XML). The geometries are modeled using Non-Uniform Rational B-spline (NURBS) surfaces. To create a complete set of cooling geometries for a single blade or vane, CoolingGen currently averages out at approximately 20 seconds on a modern home computer.
 
-		This thesis essentially highlights the geometric methods that are imperative to achieve these remarkable results in terms of realism and speed in Chapter 2. The fundamental methods of jet engine design required for channel creation are briefly presented in Chapter 3. Combining the methods from Chapter 2 and Chapter 3, we are able to create all aforementioned cooling geometries. Their exact construction plus examples are illustrated in Chapter 4.
-
-	\section{Turbine Design Process Chain}
-		Missing :-(
+		This thesis essentially highlights the geometric methods that are imperative to achieve CoolingGen's goals in terms of accuracy and speed in Chapter 2. The fundamental methods of jet engine design required for channel creation are presented in Chapter 3. Combining the methods from Chapter 2 and Chapter 3, we are able to create all aforementioned cooling geometries. Their exact construction is explained and illustrated using examples in Chapter 4.
 
 \chapter{Geometric Methods}\label{chap:methods}
 	As stated before, NURBS curves and surfaces are used to model geometries in CoolingGen. In this chapter we will first introduce Bézier curves. We will then generalize Bézier curves to obtain B-spline curves and surfaces. Applying an embedding map and a projection map to B-spline curves and surfaces, we acquire NURBS curves and surfaces, which are a generalization of B-spline curves and surfaces. Furthermore, CoolingGen uses special geometric algorithms such as point projection, ray marching, curve intersection, offset curve creation and fillet creation, which we will also present.
@@ -1705,7 +1717,7 @@ Göttingen, \today \hspace{2em}
 	
 	As described in Section \ref{sec:mrtheta}, we can use the inverse coordinate transformation from the $(m, r\theta)$ stream surface coordinate system to the Cartesian coordinate system and use surface skinning to create chamber surfaces. Figure \ref{fig:skinned_chambers} shows an exemplary result of this procedure.
 
-\section{Turns}
+\subsection{Turns}
 	As mentioned before, a turn lets coolant flow between two chambers. Notice that the presented method, unlike the construction of chambers, takes place in Cartesian coordinates.
 
 	\begin{figure}[H]
@@ -2048,10 +2060,13 @@ Göttingen, \today \hspace{2em}
 	% Current shortcomings
 	%	Everything as single surface instead of one merged body
 	%
+	% Process Chain
+	%
 	% Future Work
 	% 	Make full body
 	%	Make more geometries: Pin fin cooling, other film cooling delimiting curves
 	%	Embedding in GTLab
+	%
 
 % Bibliography, numbered and formatted like a chapter (for the TOC as well)
 \printbibliography[heading=bibnumbered, title=References]

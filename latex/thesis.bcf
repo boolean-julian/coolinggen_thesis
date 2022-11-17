@@ -2350,28 +2350,26 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1" intorder="1">Giampaolo2020</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">Giampaolo2020</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">Giampaolo2020</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">Shah1995</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">Camba2016</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">Bezier1968</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">Shah1995</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">Camba2016</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">Bezier1968</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">Farin2001</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">Piegl1997</bcf:citekey>
     <bcf:citekey order="7" intorder="1">Farin2001</bcf:citekey>
     <bcf:citekey order="8" intorder="1">Piegl1997</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">Farin2001</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">Piegl1997</bcf:citekey>
     <bcf:citekey order="10" intorder="1">Piegl1997</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">Piegl1997</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">Piegl1997</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">Hart1996</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">Elber1997</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">Sorby2016</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">Barnhill1990</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">Piegl1997</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">Coons1967</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">Hart1996</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">Elber1997</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">Sorby2016</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">Barnhill1990</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">Piegl1997</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">Coons1967</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">Wu1952</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">Wu1952</bcf:citekey>
     <bcf:citekey order="19" intorder="1">Wu1952</bcf:citekey>
     <bcf:citekey order="20" intorder="1">Wu1952</bcf:citekey>
-    <bcf:citekey order="21" intorder="1">Wu1952</bcf:citekey>
-    <bcf:citekey order="22" intorder="1">Wu1952</bcf:citekey>
-    <bcf:citekey order="23" intorder="1">Piegl1997</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">Piegl1997</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="anyt">
