@@ -1619,15 +1619,15 @@ Göttingen, \today \hspace{2em}
 	\begin{figure}[H]
 		\centering
 		\begin{subfigure}{.32\textwidth}
-			\includegraphics[width=\textwidth]{../tec/shrinking/11.png}
+			\includegraphics[width=\textwidth]{../tec/shrinking/61.png}
 			\caption{Offsetting.}
 		\end{subfigure}
 		\begin{subfigure}{.32\textwidth}
-			\includegraphics[width=\textwidth]{../tec/shrinking/12.png}
+			\includegraphics[width=\textwidth]{../tec/shrinking/62.png}
 			\caption{Trimming.}
 		\end{subfigure}
 		\begin{subfigure}{.32\textwidth}
-			\includegraphics[width=\textwidth]{../tec/shrinking/13.png}
+			\includegraphics[width=\textwidth]{../tec/shrinking/63.png}
 			\caption{Adding fillets.}
 		\end{subfigure}
 		\caption{Shrinking a profile in $(m, r\theta)$. The black curve represents $B^{(v_i)}_\textrm{stream}(u)$, whereas the red curve in (c) represents $S^{(v_i)}_\textrm{stream}(u)$.}
@@ -1640,14 +1640,13 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\begin{subfigure}{.5\textwidth}
-			\includesvg[width=\textwidth]{../tec/chambers/walls_labeled.svg}
+		\begin{subfigure}{.65\textwidth}
+			\includegraphics[width=\textwidth]{../tec/chambers/61.png}
 			\caption{Partitioning the profile.}
 		\end{subfigure}
-		\phantom{aaa}
-		\begin{subfigure}{.35\textwidth}
-			\includegraphics[width=\textwidth]{../tec/chambers/only_walls.png}
-			\vspace{1cm}
+		\begin{subfigure}{.33\textwidth}
+			\includegraphics[width=\textwidth]{../tec/chambers/62.png}
+			\vspace{2cm}
 			\caption{Resulting partition.}
 		\end{subfigure}
 		\caption{Profile partitioning along rays that emerge from the camber curve. The camber curve is represented by the dashed line. In this example, we create three chambers. The walls are represented by the line segments $\overline{p_1^+p_1^-}$ and $\overline{p_2^+p_2^-}$.}
@@ -1662,15 +1661,15 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\begin{subfigure}{.32\textwidth}
-			\includegraphics[width=\textwidth]{../tec/chambers/11.png}
+			\includegraphics[width=\textwidth]{../tec/chambers/81.png}
 			\caption{Offsetting.}
 		\end{subfigure}
 		\begin{subfigure}{.32\textwidth}
-			\includegraphics[width=\textwidth]{../tec/chambers/12.png}
+			\includegraphics[width=\textwidth]{../tec/chambers/82.png}
 			\caption{Trimming.}
 		\end{subfigure}
 		\begin{subfigure}{.32\textwidth}
-			\includegraphics[width=\textwidth]{../tec/chambers/13.png}
+			\includegraphics[width=\textwidth]{../tec/chambers/83.png}
 			\caption{Adding fillets.}
 		\end{subfigure}
 		\caption{Construction of a chamber profile.}
@@ -1702,23 +1701,22 @@ Göttingen, \today \hspace{2em}
 
 	The leading and trailing partition offsets are linearly interpolated between suction and pressure side offsets to guarantee continuity and differentiability of the chamber profile at the leading and trailing edge transitions. After offsetting, the chamber-delimiting curve end points do not necessarily intersect. Therefore, we connect the curve ends either by curve-curve intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve end points and $B$ represent the (positive at the end point of the curve or negative at the start point of the curve) gradient at the curve boundary points. These rays can be understood as the linear continuation of the chamber-delimiting curves (see Figure \ref{fig:linear_continuation_curve}).
 
-	After connecting and trimming the offset curves using the methods in Section \ref{sec:offsetcurves}, we are left with four trimmed offset curves that intersect at their end points. We apply the fillet curve method presented in Section \ref{sec:filletcurves} between neighboring chamber-delimiting curves. The offsetting, trimming and fillet creation steps can be seen in Figure \ref{fig:chamber_shrinking}.
-
 	\begin{figure}[H]
 		\centering
-		\begin{subfigure}{.65\textwidth}
-			\includegraphics[width=\textwidth]{../tec/lifting/lifted.png}
+		\begin{subfigure}{.54\textwidth}
+			\includegraphics[width=\textwidth]{../tec/chambers/114.png}
 			\caption{A single chamber.}
 		\end{subfigure}
-		\phantom{aa}
-		\begin{subfigure}{.3\textwidth}
-			\includegraphics[width=\textwidth]{../tec/lifting/complete.png}
-			\caption{Three chambers.}
+		\begin{subfigure}{.44\textwidth}
+			\includegraphics[width=\textwidth]{../tec/chambers/111.png}
+			\caption{Four chambers.}
 		\end{subfigure}
 		\caption{Skinned chamber surfaces.}
 		\label{fig:skinned_chambers}
 	\end{figure}
 	
+	After connecting and trimming the offset curves using the methods in Section \ref{sec:offsetcurves}, we are left with four trimmed offset curves that intersect at their end points. We apply the fillet curve method presented in Section \ref{sec:filletcurves} between neighboring chamber-delimiting curves. The offsetting, trimming and fillet creation steps can be seen in Figure \ref{fig:chamber_shrinking}.
+
 	As described in Section \ref{sec:mrtheta}, we can use the inverse coordinate transformation from the $(m, r\theta)$ stream surface coordinate system to the Cartesian coordinate system and use surface skinning to create chamber surfaces. Figure \ref{fig:skinned_chambers} shows an exemplary result of this procedure.
 
 \subsection{Turns}

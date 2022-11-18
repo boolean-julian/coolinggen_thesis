@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<TrailingEdgeCooling>
+	<General>
+		<NumSlots>9</NumSlots>
+	</General>
+	<Slot>
+		<Geometry>
+			<FilletRadius>0.00075</FilletRadius>
+			<AngleHub>10</AngleHub>
+			<AngleTip>-6</AngleTip>
+			<Inlet>
+				<PressureAngle>25</PressureAngle>
+				<SuctionAngle>25</SuctionAngle>
+			</Inlet>
+			<Outlet>
+				<PressureAngle>60</PressureAngle>
+				<SuctionAngle>5</SuctionAngle>
+			</Outlet>
+		</Geometry>
+
+		<Position>
+			<uChannelLo>0.945</uChannelLo>
+			<uChannelHi>0.975</uChannelHi>
+
+			<vChannelLo>0.08</vChannelLo>
+			<vChannelHi>0.13</vChannelHi> 
+
+			<uBladeLo>0.988</uBladeLo>
+			<uBladeHi>0.011</uBladeHi>
+		</Position>
+	</Slot>
+	<Slot>
+		<Geometry>
+			<FilletRadius>0.00075</FilletRadius>
+			<AngleHub>10</AngleHub>
+			<AngleTip>-6</AngleTip>
+			<Inlet>
+				<PressureAngle>25</PressureAngle>
+				<SuctionAngle>25</SuctionAngle>
+			</Inlet>
+			<Outlet>
+				<PressureAngle>60</PressureAngle>
+				<SuctionAngle>5</SuctionAngle>
+			</Outlet>
+		</Geometry>
+
+		<Position>
+			<uChannelLo>0.945</uChannelLo>
+			<uChannelHi>0.975</uChannelHi>
+
+			<vChannelLo>0.18</vChannelLo>
+			<vChannelHi>0.23</vChannelHi> 
+
+			<uBladeLo>0.988</uBladeLo>
+			<uBladeHi>0.011</uBladeHi>
+		</Position>
+	</Slot>
+	<Slot>
+		<Geometry>
+			<FilletRadius>0.00075</FilletRadius>
+			<AngleHub>10</AngleHub>
+			<AngleTip>-6</AngleTip>
+			<Inlet>
+				<PressureAngle>25</PressureAngle>
+				<SuctionAngle>25</SuctionAngle>
+			</Inlet>
+			<Outlet>
+				<PressureAngle>60</PressureAngle>
+				<SuctionAngle>5</SuctionAngle>
+			</Outlet>
+		</Geometry>
+
+		<Position>
+			<uChannelLo>0.945</uChannelLo>
+			<uChannelHi>0.975</uChannelHi>
+
+			<vChannelLo>0.28</vChannelLo>
+			<vChannelHi>0.33</vChannelHi> 
+
+			<uBladeLo>0.988</uBladeLo>
+			<uBladeHi>0.011</uBladeHi>
+		</Position>
+	</Slot>
+
+	<Slot>
+		<Geometry>
+			<FilletRadius>0.00075</FilletRadius>
+			<AngleHub>10</AngleHub>
+			<AngleTip>-6</AngleTip>
+			<Inlet>
+				<PressureAngle>25</PressureAngle>
+				<SuctionAngle>25</SuctionAngle>
+			</Inlet>
+			<Outlet>
+				<PressureAngle>60</PressureAngle>
+				<SuctionAngle>5</SuctionAngle>
+			</Outlet>
+		</Geometry>
+
+		<Position>
+			<uChannelLo>0.945</uChannelLo>
+			<uChannelHi>0.975</uChannelHi>
+
+			<vChannelLo>0.38</vChannelLo>
+			<vChannelHi>0.43</vChannelHi> 
+
+			<uBladeLo>0.988</uBladeLo>
+			<uBladeHi>0.011</uBladeHi>
+		</Position>
+	</Slot>
+	<Slot>
+		<Geometry>
+			<FilletRadius>0.00075</FilletRadius>
+			<AngleHub>10</AngleHub>
+			<AngleTip>-6</AngleTip>
+			<Inlet>
+				<PressureAngle>25</PressureAngle>
+				<SuctionAngle>25</SuctionAngle>
+			</Inlet>
+			<Outlet>
+				<PressureAngle>60</PressureAngle>
+				<SuctionAngle>5</SuctionAngle>
+			</Outlet>
+		</Geometry>
+
+		<Position>
+			<uChannelLo>0.945</uChannelLo>
+			<uChannelHi>0.975</uChannelHi>
+
+			<vChannelLo>0.48</vChannelLo>
+			<vChannelHi>0.53</vChannelHi> 
+
+			<uBladeLo>0.988</uBladeLo>
+			<uBladeHi>0.011</uBladeHi>
+		</Position>
+	</Slot>
+	<Slot>
+		<Geometry>
+			<FilletRadius>0.00075</FilletRadius>
+			<AngleHub>10</AngleHub>
+			<AngleTip>-6</AngleTip>
+			<Inlet>
+				<PressureAngle>25</PressureAngle>
+				<SuctionAngle>25</SuctionAngle>
+			</Inlet>
+			<Outlet>
+				<PressureAngle>60</PressureAngle>
+				<SuctionAngle>5</SuctionAngle>
+			</Outlet>
+		</Geometry>
+
+		<Position>
+			<uChannelLo>0.945</uChannelLo>
+			<uChannelHi>0.975</uChannelHi>
+
+			<vChannelLo>0.58</vChannelLo>
+			<vChannelHi>0.63</vChannelHi> 
+
+			<uBladeLo>0.988</uBladeLo>
+			<uBladeHi>0.011</uBladeHi>
+		</Position>
+	</Slot>
+	<Slot>
+		<Geometry>
+			<FilletRadius>0.00075</FilletRadius>
+			<AngleHub>10</AngleHub>
+			<AngleTip>-6</AngleTip>
+			<Inlet>
+				<PressureAngle>25</PressureAngle>
+				<SuctionAngle>25</SuctionAngle>
+			</Inlet>
+			<Outlet>
+				<PressureAngle>60</PressureAngle>
+				<SuctionAngle>5</SuctionAngle>
+			</Outlet>
+		</Geometry>
+
+		<Position>
+			<uChannelLo>0.945</uChannelLo>
+			<uChannelHi>0.975</uChannelHi>
+
+			<vChannelLo>0.68</vChannelLo>
+			<vChannelHi>0.73</vChannelHi> 
+
+			<uBladeLo>0.988</uBladeLo>
+			<uBladeHi>0.011</uBladeHi>
+		</Position>
+	</Slot>
+	<Slot>
+		<Geometry>
+			<FilletRadius>0.00075</FilletRadius>
+			<AngleHub>10</AngleHub>
+			<AngleTip>-6</AngleTip>
+			<Inlet>
+				<PressureAngle>25</PressureAngle>
+				<SuctionAngle>25</SuctionAngle>
+			</Inlet>
+			<Outlet>
+				<PressureAngle>60</PressureAngle>
+				<SuctionAngle>5</SuctionAngle>
+			</Outlet>
+		</Geometry>
+
+		<Position>
+			<uChannelLo>0.945</uChannelLo>
+			<uChannelHi>0.975</uChannelHi>
+
+			<vChannelLo>0.78</vChannelLo>
+			<vChannelHi>0.83</vChannelHi> 
+
+			<uBladeLo>0.988</uBladeLo>
+			<uBladeHi>0.011</uBladeHi>
+		</Position>
+	</Slot>
+	<Slot>
+		<Geometry>
+			<FilletRadius>0.00075</FilletRadius>
+			<AngleHub>10</AngleHub>
+			<AngleTip>-6</AngleTip>
+			<Inlet>
+				<PressureAngle>25</PressureAngle>
+				<SuctionAngle>25</SuctionAngle>
+			</Inlet>
+			<Outlet>
+				<PressureAngle>60</PressureAngle>
+				<SuctionAngle>5</SuctionAngle>
+			</Outlet>
+		</Geometry>
+
+		<Position>
+			<uChannelLo>0.945</uChannelLo>
+			<uChannelHi>0.975</uChannelHi>
+
+			<vChannelLo>0.88</vChannelLo>
+			<vChannelHi>0.93</vChannelHi> 
+
+			<uBladeLo>0.988</uBladeLo>
+			<uBladeHi>0.011</uBladeHi>
+		</Position>
+	</Slot>
+</TrailingEdgeCooling>

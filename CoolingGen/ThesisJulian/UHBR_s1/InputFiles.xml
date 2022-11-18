@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<InputFiles>
+	<Blade>
+		<Geometry>./UseCases/UHBR_s1/Blade3D_xyz.dat</Geometry>
+		<S2M>./UseCases/UHBR_s1/s2msl.dat</S2M>
+		<Progen>./UseCases/UHBR_s1/progen.input</Progen>
+	</Blade>
+
+	<Cooling>
+		<Internal>./ThesisJulian/UHBR_s1/Internal.xml</Internal>
+		<Slots>./ThesisJulian/UHBR_s1/Slots.xml</Slots>
+		<Film>./ThesisJulian/UHBR_s1/Film.xml</Film>
+		<Impingement>./ThesisJulian/UHBR_s1/Impingement.xml</Impingement>
+	</Cooling>
+
+</InputFiles>
