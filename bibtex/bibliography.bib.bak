@@ -160,13 +160,45 @@
   publisher = {Elsevier {BV}},
 }
 
+@Misc{Aainsqatsi2008,
+  author       = {K. Aainsqatsi},
+  howpublished = {\url{https://commons.wikimedia.org/wiki/File:Turbofan_operation_lbp.svg}},
+  title        = {Schematic diagram illustrating the operation of a 2-spool, low-bypass turbofan engine, with LP spool in green and HP spool in purple.},
+  year         = {2008},
+  groups       = {Master Thesis, Turbine},
+}
+
+@Book{Einstein2013,
+  author    = {Einstein, Albert},
+  publisher = {Princeton University Press},
+  title     = {The Ultimate Quotable Einstein},
+  year      = {2013},
+  isbn      = {9780691160146},
+  groups    = {Master Thesis},
+  pages     = {608},
+}
+
+@Misc{CENTAURSoft,
+  author       = {CENTAUR},
+  howpublished = {\url{https://www.centaursoft.com}},
+  year         = {2022},
+  groups       = {Master Thesis, CAD},
+}
+
+@Misc{TecplotSoft,
+  author       = {Tecplot},
+  howpublished = {\url{https://www.tecplot.com}},
+  year         = {2022},
+  groups       = {Master Thesis, CAD},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}
 
 @Comment{jabref-meta: grouping:
 0 AllEntriesGroup:;
 1 StaticGroup:Master Thesis\;0\;1\;0x000000ff\;\;\;;
 2 StaticGroup:Turbine\;0\;1\;0xffff4dff\;\;\;;
-2 StaticGroup:Geometry\;0\;0\;0xff6666ff\;\;\;;
 2 StaticGroup:CAD\;0\;0\;0x99cc99ff\;\;\;;
 2 StaticGroup:Cooling\;0\;0\;0x6680e6ff\;\;\;;
+2 StaticGroup:Geometry\;0\;0\;0xff6666ff\;\;\;;
 }

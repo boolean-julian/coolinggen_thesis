@@ -78,22 +78,12 @@
 \newtheorem*{remark}{Remark}
 
 %%% Abstract and Zusammenfassung
-\renewenvironment{abstract}[1]{%
+\renewenvironment{abstract}[2]{%
 	\begin{center}
-		\normalfont\textbf{Abstract}
+		\normalfont\textbf{#1}
 	\end{center}
 	\begin{minipage}{\textwidth}
-		#1
-	\end{minipage}
-	\vspace{1em}
-}
-
-\newenvironment{zusammenfassung}[1]{%
-	\begin{center}
-		\normalfont\textbf{Zusammenfassung}
-	\end{center}
-	\begin{minipage}{\textwidth}
-		#1
+		#2
 	\end{minipage}
 	\vspace{1em}
 }
@@ -214,12 +204,14 @@ Göttingen, \today \hspace{2em}
 \thispagestyle{plain}
 \pagenumbering{roman}
 \setcounter{page}{3}
-\abstract{
-	\lipsum[1]
+
+\abstract{Abstract}{
+	The generation of cooling geometries within turbine blades is an important aspect of jet engine design. Generating such geometries with conventional CAD tools is very time-consuming. CoolingGen is a parametric CAD tool for the creation of cooling geometries within turbine blades. Due to it's parametrization, there is a semantic interface between user input and mechanical function, which is not given in conventional CAD tools. In this thesis the theoretical and practical aspects of parametric geometry generation by CoolingGen are highlighted. It serves as a manual of important geometric methods and processes within CoolingGen.
 }
 \vspace{2cm}
-\zusammenfassung{
-	\lipsum[3]
+
+\abstract{Zusammenfassung}{
+	Die Generierung von Kühlungsgeometrien innerhalb von Turbinenschaufeln ist ein wichtiger Teilaspekt des Triebwerkdesigns. Mit konventionellen CAD Tools lassen sich solche Geometrien zwar erzeugen, allerdings nur unter großem Zeitaufwand. CoolingGen ist ein parametrisches CAD Tool zur Erstellung von Kühlungsgeometrien innerhalb von Turbinenschaufeln. Durch die Parametrisierung gibt es eine semantische Schnittstelle zwischen Eingabe und mechanischer Funktion, welche in konventionellen CAD Tools nicht gegeben ist. In dieser Thesis werden die theoretischen und praktischen Aspekte der parametrischen Geometrieerzeugung durch CoolingGen beleuchtet. Sie dient als Manual wichtiger geometrischer Methoden und Prozesse innerhalb von CoolingGen.
 }
 \pagebreak
 
@@ -242,13 +234,14 @@ Göttingen, \today \hspace{2em}
 		\begin{figure}[H]
 			\centering
 			\includesvg[width=.6\textwidth]{../assets/turbofan}
-			\caption{Schematic diagram illustrating the operation of a 2-spool, low-bypass turbofan jet engine, with low pressure spool in green and high pressure spool in purple. Credit: K. Aainsqatsi.}
+			\caption{Schematic diagram illustrating the operation of a 2-spool, low-bypass turbofan jet engine, with low pressure spool in green and high pressure spool in purple \cite{Aainsqatsi2008}.}
+			\label{fig:turbofan_schematic}
 		\end{figure}
 
-		In a jet engine, kinetic energy is supplied from high pressure gas combustion. To increase the jet engine's thermodynamic efficiency, the firing temperature of the combustion chamber must be increased. In modern jet engine turbines, the hot gas temperature after combustion exceeds the materials' thermal limits. To combat this extreme condition, 20\% to 30\% of the compressed air that precedes the combustion chamber is used as a coolant, which is passed through the blades and vanes of the high pressure turbine. Alongside material selection and treatment of the coolant, the design of cooling measures includes the creation of sensible cooling geometries that are located within each blade or vane (see \cite{Giampaolo2020}, Section 4.2.1).
+		In a jet engine, kinetic energy is supplied from high pressure gas combustion. To increase the jet engine's thermodynamic efficiency, the firing temperature of the combustion chamber must be increased. An example jet engine can be seen in Figure \ref{fig:turbofan_schematic}. In modern jet engine turbines, the hot gas temperature after combustion exceeds the materials' thermal limits. To combat this extreme condition, 20\% to 30\% of the compressed air that precedes the combustion chamber is used as a coolant, which is passed through the blades and vanes of the high pressure turbine. Alongside material selection and treatment of the coolant, the design of cooling measures includes the creation of sensible cooling geometries that are located within each blade or vane \cite{Giampaolo2020}.
 
 	\section{State of the Art}
-		Conventional CAD systems are modelers that allow their user to create free-form curves and surfaces using interactive control points that can be moved to any location on a three-dimensional canvas. This gives the user an unlimited amount of strategies for creating a CAD model fit for their use. However, the amount of possible modelling strategies impedes the adaptability of most resulting models. An alternative to conventional CAD systems are feature-based parametric CAD systems, which rely on a parent-child structure of a model and its constituent parts (see \cite{Shah1995} and \cite{Camba2016}). In parametric CAD software, the user specifies a select set of (non-)geometric parameters that determine the shape of the output geometry. The number of input parameters determines the flexibility of the shape of an output model. A high number of parameters generally improves flexibility, although keeping this number as low as possible ensures simple user interaction. As Albert Einstein once famously said: "everything should be made as simple as possible, but not simpler". 
+		Conventional CAD systems are modelers that allow their user to create free-form curves and surfaces using interactive control points that can be moved to any location on a three-dimensional canvas. This gives the user an unlimited amount of strategies for creating a CAD model fit for their use. However, the amount of possible modelling strategies impedes the adaptability of most resulting models \cite{Camba2016}. An alternative to conventional CAD systems are feature-based parametric CAD systems, which rely on a parent-child structure of a model and its constituent parts \cite{Shah1995}. In parametric CAD software, the user specifies a select set of (non-)geometric parameters that determine the shape of the output geometry. The number of input parameters determines the flexibility of the shape of an output model. A high number of parameters generally improves flexibility, although keeping this number as low as possible ensures simple user interaction. As Albert Einstein once famously said: "everything should be made as simple as possible, but not simpler" \cite{Einstein2013}. 
 
 		Because of it's intrinsic adaptability, feature-based CAD has become an important and widely used tool among many mechanical engineering applications. To adapt the geometry of a mechanical model in parametric CAD, as opposed to conventional CAD, the user simply has to change a few parameters instead of moving control points, which in themselves bear no underlying semantic structure regarding their mechanical function.
 
@@ -542,9 +535,10 @@ Göttingen, \today \hspace{2em}
 		\centering
 		\includegraphics[width=\textwidth]{../tec/nurbsCurve/nurbsCurve.png}
 		\caption{A set of control points and three NURBS curves of different degrees.}
+		\label{fig:nurbscurve}
 	\end{figure}
 
-	Now that we have defined B-spline curves and NURBS curves, we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points.
+	An example of a NURBS curve can be seen in Figure \ref{fig:nurbscurve}. Now that we have defined B-spline curves and NURBS curves we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points.
 
 	\begin{definition}
 		A \emph{B-spline surface} $S_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$ on the knot grid $(u_m), (v_m)$ is defined as
@@ -568,9 +562,10 @@ Göttingen, \today \hspace{2em}
 		\centering
 		\includegraphics[width=\textwidth]{../tec/nurbsSurface/nurbsSurface.png}
 		\caption{A set of control points and three NURBS surfaces of different degrees.}
+		\label{fig:nurbssurface}
 	\end{figure}
 
-	The notion of the knot sequence $(t_m)$ is commonly computationally simplified to that of a knot vector $\tau$, since $\tau$ only contains a finite number of elements. For our purposes, we let
+	An example of a NURBS surface can be seen in Figure \ref{fig:nurbssurface}. The notion of the knot sequence $(t_m)$ is commonly computationally simplified to that of a knot vector $\tau$, since $\tau$ only contains a finite number of elements. For our purposes, we let
 		$$\tau = (\underbrace {t_0, ..., t_{p-1}}_{= 0}, t_p, ..., t_n, \underbrace{t_{n+1}, ..., t_{n+p}}_{= 1}),$$
 	where $t_k = 0$ for $k \in \{0,...,p-1\}$ and $t_k = 1$ for $k \in \{n+1, ..., n+p\}$. We still require the monotonicity property $t_k \leq t_{k+1}$ for all $k \in \{0, ..., n+p\}$.
 
@@ -701,7 +696,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:debooralgo}
 	\end{figure}
 
-	To calculate one point on the B-spline curve $S_P$ of degree $p$, we require at most $\frac{p^2-p}{2}$ vector additions and $p^2-p$ scalar multiplications, which is quite similar to what we found for Bézier curves. However, we also need to calculate $\omega_{j,k}$ at every step, which in total sums up to $p^2-p$ real additions and $\frac{p^2-p}{2}$ real multiplications.
+	The algorithm is visually represented in \ref{fig:debooralgo}. To calculate one point on the B-spline curve $S_P$ of degree $p$, we require at most $\frac{p^2-p}{2}$ vector additions and $p^2-p$ scalar multiplications, which is quite similar to what we found for Bézier curves. However, we also need to calculate $\omega_{j,k}$ at every step, which in total sums up to $p^2-p$ real additions and $\frac{p^2-p}{2}$ real multiplications.
 
 	By writing the definition of the B-spline surface as
 		$$ S_P(u,v) = \sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) P_{k_u,k_v} = \sum_{k_u=0}^{n_u} N_{p,k_u}(u) \underbrace{\left( \sum_{k_v=0}^{n_v} N_{q,k_v}(v) P_{k_u,k_v} \right)}_{:= \, q_{k_u}(v)},$$
@@ -878,7 +873,7 @@ Göttingen, \today \hspace{2em}
 		\end{algorithmic}
 	\end{algorithm}
 
-	If the curve $\gamma(t)$ does not satisfy the aforementioned assumptions, then we might still be able to find $t^*$ by applying the start value search scheme iteratively on the domain of $\gamma(t)$ to find smaller intervals $[l,u]$ if $\gamma(t)$ is at least continuous. Continuity of curves can safely be assumed all throughout CoolingGen.
+	If the curve $\gamma(t)$ does not satisfy the aforementioned assumptions, then we might still be able to find $t^*$ by applying the start value search scheme iteratively on the domain of $\gamma(t)$ to find smaller intervals $[l,u]$ if $\gamma(t)$ is at least continuous. Continuity of curves can safely be assumed all throughout CoolingGen. An example of point projection can be seen in Figure \ref{fig:pointinversion}.
 
 	We now treat the special case that the minimum target distance is equal to zero, in which case $Q$ lies on the curve $\gamma(t)$.
 	\begin{theorem}
@@ -892,7 +887,7 @@ Göttingen, \today \hspace{2em}
 
 	If the target distance is zero and $\gamma$ is a NURBS curve, we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return the input parameter that fits the point $Q$. This justifies the name \emph{point inversion} for this special case.
 
-	Using these principles, we can also project (or invert) a point $Q \in \mathbb{R}^d$ on a parametric surface $\beta(u,v)$ with $u,v \in [0,1]$ by generalizing the presented methods. This procedure is also described in \cite{Piegl1997}.
+	Using these principles, we can also project (or invert) a point $Q \in \mathbb{R}^d$ onto a parametric surface $\beta(u,v)$ with $u,v \in [0,1]$ by generalizing the presented methods. This procedure is also described in \cite{Piegl1997}.
 	In this case, the distance function we want to minimize is 
 		$$ \phi(u,v) := D(\beta(u,v), Q)$$
 	We once again use the start value search. We let $u_i = \frac{i}{n_u}, v_j = \frac{j}{n_v}$ for $i \in \{0, ..., n_u\}$, $j \in \{0,..., n_v\}$ and $n_u, n_v \in \mathbb{N}$. Then we seek
@@ -1255,9 +1250,10 @@ Göttingen, \today \hspace{2em}
 			\caption{Trimmed offset curves on $\overline{[0,1] \setminus T(O^\gamma_d)}$.}
 		\end{subfigure}
 		\caption{Trimming offset curves at their self intersections.}
+		\label{fig:trimoffset}
 	\end{figure}
 
-	Now, the restriction $O^{\gamma}_d \domrestr_{T(O^\gamma_d)}$ of the curve $O^{\gamma}_d$ to the trim range $T(O^\gamma_d)$ is not necessarily defined for all $t \in [0,1]$. Similarly, the restriction $O^{\gamma}_d \domrestr_{\overline{[0,1] \setminus T(O^\gamma_d)}}$ of the curve $O^{\gamma}_d$ to the trim range complement $\overline{[0,1] \setminus T(O^\gamma_d)}$ is not necessarily defined for all $t \in [0,1]$. However, we can define a domain scaling map $\xi^M$, that maps a union $M \subset [0,1]$ of finite intervals onto $[0,1]$, where $M$ will be equal to the trim range or its complement. In other words, we want to define a map that allows us to write
+	Now, the restriction $O^{\gamma}_d \domrestr_{T(O^\gamma_d)}$ of the curve $O^{\gamma}_d$ to the trim range $T(O^\gamma_d)$ (as depicted in Figure \ref{fig:trimoffset}) is not necessarily defined for all $t \in [0,1]$. Similarly, the restriction $O^{\gamma}_d \domrestr_{\overline{[0,1] \setminus T(O^\gamma_d)}}$ of the curve $O^{\gamma}_d$ to the trim range complement $\overline{[0,1] \setminus T(O^\gamma_d)}$ is not necessarily defined for all $t \in [0,1]$. However, we can define a domain scaling map $\xi^M$, that maps a union $M \subset [0,1]$ of finite intervals onto $[0,1]$, where $M$ will be equal to the trim range or its complement. In other words, we want to define a map that allows us to write
 		$$O^{\gamma}_d(\xi^M([0,1])) = O^{\gamma}_d (M)$$
 	for any finite union $M$ of closed intervals.
 	We write the connected components of $M$ as $[s_i, t_i]$ for $i \in \{1,...,m\}$. By setting
@@ -1284,7 +1280,7 @@ Göttingen, \today \hspace{2em}
 	In fact, the creation of fillets also plays a role in the creation of offset curves, since the procedure presented leaves behind non-differentiable places on the trimmed offset curves, which are undesirable for CoolingGen's purposes.
 
 \subsection{The Creation of Fillets in 2D}\label{sec:filletcurves}
-	Given two curves $\gamma_1$ and $\gamma_2 \in \mathbb{R}^2$ defined on $t \in [0,1]$ we can sometimes construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle. Segments of these circles can replace non-differentiable segments of a curve. We call such segments fillets (see \cite{Sorby2016}). More formally, we can make the following definition.
+	Given two curves $\gamma_1$ and $\gamma_2 \in \mathbb{R}^2$ defined on $t \in [0,1]$ we can sometimes construct a circle of a given radius that shares one tangential intersection point with each curve. A circle like this is called a fillet circle. Segments of these circles can replace non-differentiable segments of a curve. We call such segments fillets \cite{Sorby2016}. More formally, we can make the following definition.
 
 	\begin{definition}\label{def:filletcircle}
 		Let $\gamma_1$ and $\gamma_2$ be two differentiable curves.
@@ -1506,7 +1502,7 @@ Göttingen, \today \hspace{2em}
 	\end{algorithmic}
 	\end{algorithm}
 
-	After successfully running Algorithm \ref{alg:surfplaneintersection}, we are left with $n$ points which lie on the intersection curve. We interpolate between these points using NURBS (see \cite{Piegl1997}). If necessary, the control points of the NURBS curve can then be projected onto the plane $P_{S,N}$ to ensure that the curve is planar. This scheme proves useful for CoolingGen, because a start parameter pair $(u^{(0)}, v^{(0)})$ is practically always known in this context. Otherwise, a start point can be found using the ray marching technique, which was discussed in Section \ref{subsec:raymarching}.
+	After successfully running Algorithm \ref{alg:surfplaneintersection}, we are left with $n$ points which lie on the intersection curve. We interpolate between these points using NURBS \cite{Piegl1997}. If necessary, the control points of the NURBS curve can then be projected onto the plane $P_{S,N}$ to ensure that the curve is planar. This scheme proves useful for CoolingGen, because a start parameter pair $(u^{(0)}, v^{(0)})$ is practically always known in this context. Otherwise, a start point can be found using the ray marching technique, which was discussed in Section \ref{subsec:raymarching}.
 
 	\begin{figure}[H]
 		\centering
@@ -1557,7 +1553,7 @@ Göttingen, \today \hspace{2em}
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=.5\textwidth]{../assets/renamed_wu_naca_s2.png}
-		\caption{Example $S_1$ and $S_2$ surfaces of a turbomachine from \cite{Wu1952}.}
+		\caption{Example $S_1$ and $S_2$ surfaces of a turbomachine \cite{Wu1952}.}
 	\end{figure}
 	
 	Each $S_2$ surface is a parametric surface and therefore a map
@@ -1570,7 +1566,7 @@ Göttingen, \today \hspace{2em}
 		$$ B^{(v)}_\textrm{stream}(u) = (m, r\theta),$$
 	where $m$ is the intersection arc length of $S_{2,m}(\cdot, v)$, $r$ is the intersection distance from the hub and $\theta$ is the intersection circumferential angle. This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a so called \emph{stream surface coordinate system}. Given $v$ and the stream surface, each point $(m, r\theta)$ can bijectively be mapped back onto the respective Cartesian coordinates $(x, y, z)$.
 
-	Since this coordinate transformation produces a set of planar curves for $v_i \in [0,1]$, where $i \in \{1, 2, ..., N\}$, we can use two-dimensional operations on such a set of stream surface curves instead of using three-dimensional operations directly on the Cartesian represented $B(u,v)$. This yields a significant performance boost. The resulting stream surface curves can then be transformed back to the Cartesian coordinate system. Using surface skinning we can interpolate between families of stream surface curves to find a surface (see \cite{Piegl1997}). This approach will be used in the construction of the internal geometries.
+	Since this coordinate transformation produces a set of planar curves for $v_i \in [0,1]$, where $i \in \{1, 2, ..., N\}$, we can use two-dimensional operations on such a set of stream surface curves instead of using three-dimensional operations directly on the Cartesian represented $B(u,v)$. This yields a significant performance boost. The resulting stream surface curves can then be transformed back to the Cartesian coordinate system. Using surface skinning, which is presented in \cite{Piegl1997}, we can interpolate between families of stream surface curves to find a surface. This approach will be used in the construction of the internal geometries.
 
 \chapter{Results}\label{chap:results}
 	In this chapter, we present the construction of different blade and vane cooling geometries using CoolingGen. For this purpose, we require the methods presented in Chapter \ref{chap:methods} and Chapter \ref{chap:jetenginespecifics}. As mentioned before, CoolingGen is capable of producing four distinct types of geometries: channels, film cooling holes, impingement inserts and trailing edge slots. These four types are supported on rotor blades as well as on stator vanes.
@@ -2054,10 +2050,10 @@ Göttingen, \today \hspace{2em}
 	The figures prior to Figure \ref{fig:slots_real} show relatively big angles $\omega_L$ and $\omega_H$ to better visualize the methods used for the construction. Although the presented angles produce valid slot surfaces, smaller angles are favorable in realistic scenarios. A more realistic setup can be seen in Figure \ref{fig:slots_real}.
 
 \section{Implementation}\label{sec:implementation}
-	The two blade setups that can be seen in Figure \ref{fig:results_complete} were generated within 40 seconds on a computer with 8 single-threaded cores, each of which have a clock rate of 4GHz. Alongside the mathematical procedures that were presented in Chapter \ref{chap:methods}, the performance of CoolingGen was achieved through OpenMP, which is a shared memory API that allows for parallel code execution. CoolingGen currently provides two different output formats: the Tecplot ASCII file format and the CENTAUR ASCII file format. Tecplot was used to create many of the blade/vane geometry surfaces and serves as a preview tool. To use CoolingGen's output surfaces in simulations, the CENTAUR output plays a large role.
+	The two blade setups that can be seen in Figure \ref{fig:results_complete} were generated within 40 seconds on a computer with 8 single-threaded cores, each of which have a clock rate of 4GHz. Alongside the mathematical procedures that were presented in Chapter \ref{chap:methods}, the performance of CoolingGen was achieved through OpenMP, which is a shared memory API that allows for parallel code execution. CoolingGen currently provides two different output formats: the Tecplot \cite{TecplotSoft} ASCII file format and the CENTAUR \cite{CENTAURSoft} ASCII file format. Tecplot was used to create many of the blade/vane geometry surfaces and, in the context of geometry creation, serves as a preview tool. CENTAUR is a mesh generator that is used before CFD (computational fluid dynamics) simulations.
 
 \chapter{Discussion}
-	CoolingGen proves to be a fast and accurate tool to model turbine blades and vanes. Using the CENTAUR file format, it is possible to combine the surfaces, put a FEM (finite element method) mesh onto the resulting surface and run a CFD (computational fluid dynamics) simulation on the FEM mesh.
+	CoolingGen proves to be a fast and accurate tool to model turbine blades and vanes. Using the CENTAUR file format, it is possible to combine the surfaces, put a FEM (finite element method) mesh onto the resulting surface and run a CFD  simulation on the FEM mesh.
 
 	\section{Cooling Design Process Chain}
 		\begin{figure}[H]
@@ -2097,7 +2093,7 @@ Göttingen, \today \hspace{2em}
 			\label{fig:processchain}
 		\end{figure}
 
-		In order to design sensible turbine geometries, a multitude of tools are used at the DLR. First, a two-dimensional profile of the blade or vane is designed. To do this, we use the program PrEDiCT to determine the turbine geometry, flow conditions and the cooling requirements. We can then calculate the blade and vane geometries based on these data using BladeGen. MISES is a computational fluid dynamics (CFD) simulator, which we use to simulate air flow on a two-dimensional section of the resulting blade/vane-cascades. Using PICCOOLO, we can design and evaluate two-dimensional cooling geometry based on the simulated flow data. We can iteratively apply those tools to redetermine the cooling requirements on the updated blade/vane section and redesign the two-dimensional cooling geometries.
+		In order to design sensible turbine geometries, a multitude of tools are used at the DLR. First, a two-dimensional profile of the blade or vane is designed. To do this, we use the program PrEDiCT to determine the turbine geometry, flow conditions and the cooling requirements. We can then calculate the blade and vane geometries based on these data using BladeGen. MISES is a CFD simulator, which we use to simulate air flow on a two-dimensional section of the resulting blade/vane-cascades. Using PICCOOLO, we can design and evaluate two-dimensional cooling geometry based on the simulated flow data. We can iteratively apply those tools to redetermine the cooling requirements on the updated blade/vane section and redesign the two-dimensional cooling geometries.
 
 		In the future, three-dimensional cooling structures can be designed with CoolingGen using the findings of the previous two-dimensional iteration process. The input XML files for PICCOOLO and CoolingGen are quite similar, although CoolingGen does require more inputs. The resulting three-dimensional geometry can then be evaluated using a three-dimensional CFD simulator called TRACE. If a blade/vane model performs well enough, it can be manufactured and experiments can be performed with it. This cooling design process chain can also be seen in Figure \ref{fig:processchain}.
 
