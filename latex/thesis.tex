@@ -282,7 +282,7 @@ Göttingen, \today \hspace{2em}
 
 \subsection{Definition}
 	\begin{definition}
-		The \emph{Bernstein basis polynomials} of degree $n$ on the interval $[t_0,t_1]$ are defined as
+		The Bernstein basis polynomials of degree $n$ on the interval $[t_0,t_1]$ are defined as
 		\begin{equation}\label{eq:bernsteinbasisdef}
 			b_{n,k,[t_0, t_1]}(t) := \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n},
 		\end{equation}
@@ -290,11 +290,11 @@ Göttingen, \today \hspace{2em}
 	\end{definition}
 
 	\begin{definition}
-		A \emph{Bézier curve} of degree $n$ is a parametric curve $B_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow \mathbb{R}^d$ that has a representation
+		A Bézier curve of degree $n$ is a parametric curve $B_{P,[t_0, t_1]}: [t_0, t_1] \rightarrow \mathbb{R}^d$ that has a representation
 		\begin{equation}\label{eq:bezierdef}
 			B_{P, [t_0, t_1]}(t) = \sum_{k=0}^n b_{n,k,[t_0, t_1]}(t) P_k = \sum_{k=0}^n \frac{\binom{n}{k} (t_1-t)^{n-k}(t-t_0)^k}{(t_1-t_0)^n} P_k.
 		\end{equation}
-		We call the elements of the set $P = \{P_0, P_1, \dots, P_n\} \subset \mathbb{R}^d$ the \emph{control points} of $B_P$.
+		We call the elements of the set $P = \{P_0, P_1, \dots, P_n\} \subset \mathbb{R}^d$ the control points of $B_P$.
 	\end{definition}
 
 	\begin{remark}
@@ -452,17 +452,17 @@ Göttingen, \today \hspace{2em}
 	Simple as their appearance may be, Bézier curves fall short of representing some of the most common geometric shapes. Given a finite number of control points, we can never make $B_P(t)$ a circular arc, although a circle has a very simple parametric form. One of their greatest perks, the ability to describe a shape with a low number of of control points, is simultaneously one of their greatest shortcoming. This is most likely the reason why Bézier curves are not the state of the art in technical engineering applications. However, Bézier curves certainly do provide an intuition for NURBS, which is their prevailing counterpart.
 
 \section{Non-Uniform Rational B-splines (NURBS)}
-	NURBS are another tool for curve and surface modelling. There is a somewhat common joke that describes the acronym NURBS as \emph{"Nobody Understands Rational B-Splines"}, which can be found at the back of \cite{Piegl1997}. In this section, we invalidate this punch line. First of all, we discuss B-splines and construct B-spline curves and surfaces according to \cite{Farin2001}, including the famous algorithm of de Boor. Then we apply simple transformations to the B-spline curves and surfaces to acquire NURBS curves and surfaces as described in \cite{Piegl1997}.
+	NURBS are another tool for curve and surface modelling. There is a somewhat common joke that describes the acronym NURBS as "Nobody Understands Rational B-Splines", which can be found at the back of \cite{Piegl1997}. In this section, we invalidate this punch line. First of all, we discuss B-splines and construct B-spline curves and surfaces according to \cite{Farin2001}, including the famous algorithm of de Boor. Then we apply simple transformations to the B-spline curves and surfaces to acquire NURBS curves and surfaces as described in \cite{Piegl1997}.
 
 \subsection{Definition}
 	Similarly to how Bézier curves are defined on the Bernstein polynomial basis, NURBS are defined on basis functions called basis splines or, more commonly, B-splines.
 
 	\begin{definition}
-		A \emph{knot sequence} $(t_m)_{m=-\infty}^{\infty} \subset \mathbb{R}$ is a sequence with $t_{m} \leq t_{m+1}$ for all $m \in \mathbb{Z}$.
+		A knot sequence $(t_m)_{m=-\infty}^{\infty} \subset \mathbb{R}$ is a sequence with $t_{m} \leq t_{m+1}$ for all $m \in \mathbb{Z}$.
 	\end{definition}
 
 	\begin{definition}
-		The \emph{B-splines of degree $0$} on a knot sequence $(t_m)$ are defined as
+		The B-splines of degree $0$ on a knot sequence $(t_m)$ are defined as
 		\begin{equation}
 			N^{(t_m)}_{1,k}(t) :=
 			\begin{cases}
@@ -470,7 +470,7 @@ Göttingen, \today \hspace{2em}
 				0 & \text{else.}
 			\end{cases}
 		\end{equation}
-		The \emph{B-splines of degree $p-1$} with $p > 1$ are given by the \emph{Cox-de-Boor recursion formula}
+		The B-splines of degree $p-1$ with $p > 1$ are given by the Cox-de-Boor recursion formula
 		\begin{equation}\label{eq:coxdeboorrec}
 			N_{p,k}^{(t_m)}(t) := \omega^{(t_m)}_{p-1, k}(t) \, N^{(t_m)}_{p-1, k}(t) + (1-\omega^{(t_m)}_{p-1, k+1}(t)) \, N^{(t_m)}_{p-1, k+1}(t),
 		\end{equation}
@@ -489,14 +489,14 @@ Göttingen, \today \hspace{2em}
 	\end{remark}
 
 	\begin{definition}
-		A \emph{B-spline curve} of degree $p-1$ over a set of control points
+		A B-spline curve of degree $p-1$ over a set of control points
 			$$P = \{P_0, P_1, ... P_n\} \subset \mathbb{R}^d$$
 		and a knot sequence $(t_m)$ is defined as
 			$$ S_P(t) = \sum_{k=0}^{n} N_{p,k}(t) P_k.$$
 	\end{definition}
 
 	\begin{definition}\label{def:nurbs}
-		A \emph{NURBS curve} $C_P(t)$ of degree $p-1$ with the control points 
+		A NURBS curve $C_P(t)$ of degree $p-1$ with the control points 
 			$$P = \{P_0, P_1, ..., P_n\} \subset \mathbb{R}^d,$$ 
 		the control weights $w = (w_0, w_1, ... w_n) \subset \mathbb{R}$ and a knot sequence $(t_m)$ is defined as
 		\begin{equation}
@@ -541,13 +541,13 @@ Göttingen, \today \hspace{2em}
 	An example of a NURBS curve can be seen in Figure \ref{fig:nurbscurve}. Now that we have defined B-spline curves and NURBS curves we can define B-spline surfaces and NURBS surfaces in a similar manner. To do this, we require a grid of knots represented by two knot sequences $(u_m)_{m=-\infty}^{\infty}$ and $(v_m)_{m=-\infty}^{\infty}$ which satisfy the same conditions as $(t_m)$ did before. Instead of a one-dimensional set of control points, the surface definition relies on a two-dimensional set of control points.
 
 	\begin{definition}
-		A \emph{B-spline surface} $S_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$ on the knot grid $(u_m), (v_m)$ is defined as
+		A B-spline surface $S_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$ on the knot grid $(u_m), (v_m)$ is defined as
 			$$ S_P(u,v) = \sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) P_{k_u,k_v},$$
 		where $N_{p,k_u}(u) := N_{p,k_u}^{(u_m)}(u)$ and $N_{q,k_v}(v) := N_{q,k_v}^{(v_m)}(v)$.
 	\end{definition}
 
 	\begin{definition}
-		A \emph{NURBS surface} $C_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$, the control weights $w = \{w_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}$ and the knot grid $(u_m), (v_m)$ is defined as
+		A NURBS surface $C_P(u,v)$ of degree $(p-1, q-1)$ over a set of control points $P = \{P_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}^d$, the control weights $w = \{w_{i,j} : (i,j) \in \{0,1,...,n_u\} \times \{0,1,...,n_v\}\} \subset \mathbb{R}$ and the knot grid $(u_m), (v_m)$ is defined as
 			$$ C_P(u,v) = \frac {\sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) w_{k_u, k_v} P_{k_u,k_v}}{\sum_{k_u=0}^{n_u} \sum_{k_v=0}^{n_v} N_{p,k_u}(u) N_{q,k_v}(v) w_{k_u, k_v}},$$
 		where $N_{p,k_u}(u) := N_{p,k_u}^{(u_m)}(u)$ and $N_{q,k_v}(v) := N_{q,k_v}^{(v_m)}(v)$.
 	\end{definition}
@@ -885,7 +885,7 @@ Göttingen, \today \hspace{2em}
 		If $\gamma$ has no self-intersections, then no two parameters of $\gamma$ will map onto the same point. Therefore, $\gamma$ is injective. We know $t^*$ exists such that $D(\gamma(t^*), Q) = 0$, which by the point-separating property of the Euclidean norm is equivalent to $Q = \gamma(t^*)$. By injectivity, this $t^*$ is unique.
 	\end{proof}
 
-	If the target distance is zero and $\gamma$ is a NURBS curve, we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return the input parameter that fits the point $Q$. This justifies the name \emph{point inversion} for this special case.
+	If the target distance is zero and $\gamma$ is a NURBS curve, we can observe that the devised scheme is the inversion of de Boor's algorithm (Algorithm \ref{alg:debooralgo}), that will return the input parameter that fits the point $Q$. This justifies the name point inversion for this special case.
 
 	Using these principles, we can also project (or invert) a point $Q \in \mathbb{R}^d$ onto a parametric surface $\beta(u,v)$ with $u,v \in [0,1]$ by generalizing the presented methods. This procedure is also described in \cite{Piegl1997}.
 	In this case, the distance function we want to minimize is 
@@ -933,7 +933,7 @@ Göttingen, \today \hspace{2em}
 	This section describes the intersection of a ray and a curve according to \cite{Hart1996}.
 
 	\begin{definition}
-		A \emph{ray} with support vector $A \in \mathbb{R}^d$ and direction vector $B \in \mathbb{R}^d$ is given by the set of points
+		A ray with support vector $A \in \mathbb{R}^d$ and direction vector $B \in \mathbb{R}^d$ is given by the set of points
 			\begin{equation*}
 				\hat R_{A,B} = \{A + tB \;:\; t \in \mathbb{R},\; t \geq 0\}.
 			\end{equation*}
@@ -954,7 +954,7 @@ Göttingen, \today \hspace{2em}
 	\begin{definition}\label{def:raycollisionparameter}
 		Let $R_{A,B}(s)$ a ray and $\gamma(t)$ a curve. If a solution to 
 			$$\underset{s\in[0,\infty)}{\min} \; s \quad \text{subject to} \quad D(\gamma, R_{A,B}(s)) = 0$$
-		exists, then it is called \emph{collision parameter} of $R_{A,B}$ w.r.t. $\gamma$.
+		exists, then it is called collision parameter of $R_{A,B}$ w.r.t. $\gamma$.
 	\end{definition}
 
 	We define the return value of our algorithm as the one element set given by
@@ -964,13 +964,13 @@ Göttingen, \today \hspace{2em}
 				\emptyset			&\text{otherwise,}	
 			\end{cases}
 		$$
-	where the absolute tolerance $\epsilon > 0$ is close to $0$ and $s^*$ is an approximation of the collision parameter of $R_{A,B}$ w.r.t. $\gamma$. If $I_{\min} \neq \emptyset$, then we refer to the element in $I_{\min}$ as \emph{collision point}.
+	where the absolute tolerance $\epsilon > 0$ is close to $0$ and $s^*$ is an approximation of the collision parameter of $R_{A,B}$ w.r.t. $\gamma$. If $I_{\min} \neq \emptyset$, then we refer to the element in $I_{\min}$ as collision point.
 
 	\begin{remark}
 		Why is the notion of the collision point of interest? To exemplify the prospect of our algorithm, imagine the following scenario: Let there be a reflective interface represented by a curve $\gamma$ and a beam of light represented by a ray $R_{A,B}$. Then our model suggests the equivalence of the physical point of reflection and the collision point of the ray with respect to the curve.
 	\end{remark}
 
-	We can find the approximation $s^*$ of the collision parameter by using a common CAD scheme called \emph{ray marching}, in which we traverse the ray $R_{A,B}$ by small distance increment s$s$ until we achieve collision with the curve $\gamma$. How do we choose the optimal value for $s$? The idea is the following: Using the point projection algorithm, we can calculate the \emph{safe distance} $s$ of the point $A$ on the ray to the curve $\gamma$. Then we can easily construct a point $P$ that fulfills $D(A,P) = s$ and lies on the ray $R_{A,B}$ by 
+	We can find the approximation $s^*$ of the collision parameter by using a common CAD scheme called ray marching, in which we traverse the ray $R_{A,B}$ by small distance increment s$s$ until we achieve collision with the curve $\gamma$. How do we choose the optimal value for $s$? The idea is the following: Using the point projection algorithm, we can calculate the safe distance $s$ of the point $A$ on the ray to the curve $\gamma$. Then we can easily construct a point $P$ that fulfills $D(A,P) = s$ and lies on the ray $R_{A,B}$ by 
 		$$ P := A+s\frac{B}{||B||}.$$
 	Now there are only two possibilities: Either $P$ lies within the $\epsilon$-ball of the collision point, or the line segment $\overline{AP} \subset R_{A,B}([0,\infty))$ has at least $\epsilon$ distance to $\gamma$. In the first case, we can return $\{P\}$. In the second case, we can repeat the procedure on the set 
 		$$ R_{A,B}([0,\infty)) \setminus \overline{AP} = R_{A,B}([s,\infty)) = R_{P,B}([0,\infty)).$$
@@ -1219,7 +1219,7 @@ Göttingen, \today \hspace{2em}
 	\end{equation}
 	Informally, if we imagine a ball of radius $d$ to roll along one side of the curve $\gamma$, then $O^\gamma_d(t)$ is injective as long as the ball only touches one point at a time.
 	\begin{remark}
-		Formally, we are able to define the \emph{curvature} $\kappa^\gamma(t)$ of a curve at any given point, which is equal to the reciprocal of the radius of the tangential sphere of the curve at that point. This notion allows us to make the following observation: If there exists some $t$ such that $\kappa^\gamma(t) > \frac{1}{d}$, then $O^\gamma_d(t)$ is not injective.
+		Formally, we are able to define the curvature $\kappa^\gamma(t)$ of a curve at any given point, which is equal to the reciprocal of the radius of the tangential sphere of the curve at that point. This notion allows us to make the following observation: If there exists some $t$ such that $\kappa^\gamma(t) > \frac{1}{d}$, then $O^\gamma_d(t)$ is not injective.
 	\end{remark}
 
 	If we force injectivity of $O^\gamma_d$ in a certain way, we will be able to guarantee the property in Equation (\ref{eq:offsetproperty}). To do this, we need to find the self-intersections of $O^\gamma_d$.
@@ -1548,7 +1548,7 @@ Göttingen, \today \hspace{2em}
 	A distinction is made between two kinds of surfaces: rotor blades and stator vanes. While the rotor blades rotate around the hub, the stator vanes have fixed positions. Furthermore, the blade or vane surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
 
 \section{The S2 Stream Surface \& Stream Surface Coordinates}\label{sec:mrtheta}
-	A stream line is a line that at every point is tangential to the velocity vector field of the flow of the fluid. Its generalization, the stream surface, describes a surface with the same property. The flow in a turbine can be described by a generalization of the stream surface. When designing turbine blades or vanes, it is common practice to describe the flow in two families of stream surfaces. These surfaces are called $S_1$ and $S_2$. The $S_1$ surfaces, also known as \emph{blade-to-blade} surfaces, describe the flow behavior between individual blade (or vane) sections, whereas their counterpart, the $S_2$ surfaces, which are also known as \emph{meridional} surfaces, describe the flow in the axial direction \cite{Wu1952}.
+	A stream line is a line that at every point is tangential to the velocity vector field of the flow of the fluid. Its generalization, the stream surface, describes a surface with the same property. The flow in a turbine can be described by a generalization of the stream surface. When designing turbine blades or vanes, it is common practice to describe the flow in two families of stream surfaces. These surfaces are called $S_1$ and $S_2$. The $S_1$ surfaces, also known as blade-to-blade surfaces, describe the flow behavior between individual blade (or vane) sections, whereas their counterpart, the $S_2$ surfaces, which are also known as meridional surfaces, describe the flow in the axial direction \cite{Wu1952}.
 
 	\begin{figure}[H]
 		\centering
@@ -1564,7 +1564,7 @@ Göttingen, \today \hspace{2em}
 
 	By intersecting the transformed $u$-isoparametric curves $Z(B(u,\cdot))$ of the blade (or vane) with each such stream line $S_{2,m}(\cdot, v)$ in their first two arguments $(x,r)$, we can construct a curve
 		$$ B^{(v)}_\textrm{stream}(u) = (m, r\theta),$$
-	where $m$ is the intersection arc length of $S_{2,m}(\cdot, v)$, $r$ is the intersection distance from the hub and $\theta$ is the intersection circumferential angle. This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a so called \emph{stream surface coordinate system}. Given $v$ and the stream surface, each point $(m, r\theta)$ can bijectively be mapped back onto the respective Cartesian coordinates $(x, y, z)$.
+	where $m$ is the intersection arc length of $S_{2,m}(\cdot, v)$, $r$ is the intersection distance from the hub and $\theta$ is the intersection circumferential angle. This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a so called stream surface coordinate system. Given $v$ and the stream surface, each point $(m, r\theta)$ can bijectively be mapped back onto the respective Cartesian coordinates $(x, y, z)$.
 
 	Since this coordinate transformation produces a set of planar curves for $v_i \in [0,1]$, where $i \in \{1, 2, ..., N\}$, we can use two-dimensional operations on such a set of stream surface curves instead of using three-dimensional operations directly on the Cartesian represented $B(u,v)$. This yields a significant performance boost. The resulting stream surface curves can then be transformed back to the Cartesian coordinate system. Using surface skinning, which is presented in \cite{Piegl1997}, we can interpolate between families of stream surface curves to find a surface. This approach will be used in the construction of the internal geometries.
 
