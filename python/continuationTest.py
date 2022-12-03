@@ -20,7 +20,7 @@ def curve1(t):
 	return np.array([t, 0.05*np.sin(2*np.pi*t)+0])
 
 def curve2(t):
-	return np.array([t+2,0.05*np.sin(2*np.pi*t)+1])
+	return np.array([t+0.5,0.05*np.sin(2*np.pi*t)+1])
 
 def continuation(curve1, curve2, t):
 	c1 = curve1(1)
@@ -29,10 +29,10 @@ def continuation(curve1, curve2, t):
 	dc1 = derivative(curve1, 1)
 	dc2 = derivative(curve2, 0)
 
-	d = c1
-	c = dc1
-	b = 3*c2 - 3*c1 - 2*dc1 - dc2
-	a = dc2 - 2*c2 + 2*c1 + dc1
+	d =    c1
+	c =                  dc1
+	b = -3*c1 + 3*c2 - 2*dc1 - dc2
+	a =  2*c1 - 2*c2 +   dc1 + dc2
 
 	return a*t**3 + b*t**2 + c*t + d
 
