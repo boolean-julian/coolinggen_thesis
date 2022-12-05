@@ -1275,6 +1275,28 @@ Göttingen, \today \hspace{2em}
 		$$ \overline{O}^\gamma_d (t) = O^\gamma_d \circ \xi^{T(O^\gamma_d)}(t)$$
 	respectively. This curve now satisfies Equation (\ref{eq:offsetproperty}).
 
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.3\textwidth}
+			\includesvg[width=0.98\textwidth]{../python/nonAlignedOffset}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\includesvg[width=0.98\textwidth]{../python/alignmentOffset}
+			\caption{}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\includesvg[width=0.98\textwidth]{../python/alignedOffset}
+			\caption{}
+		\end{subfigure}
+		\caption{In (a), the blue curve $\gamma_1$ and the blue curve $\gamma_2$ are offset by different amounts $d_1$ and $d_2$, respectively. Offsetting orange curve $\beta$ by a constant offset results in a curve that does not align with $\gamma_1$ and $\gamma_2$ simultaneously. However, if we offset $\beta$ by a function $f(t)$ instead, we can smoothly connect $\gamma_1$ and $\gamma_2$.}
+		\label{fig:cubicinterpolationoffset}
+	\end{figure}
+
+	When offsetting adjacent curves by different offsets, the resulting curves do not align. We therefore introduce offset curves $O^{\gamma}_{f(t)} (t)$, which are offset by a function $f(t)$ instead of a constant value, $t\in[0,1]$. We construct a specific $f(t)$ to ensure smooth connection of neighboring offset curves. To do this, we set $f'(0) = f'(1) = 0$, $f(0) = d_1$ and $f(1) = d_2$. Using a third-degree polynomial to solve for this system of equations, we derive the function
+	$$ f(t) = 2\,(d_1 - d_2)\,t^3 \;-\; 3\,(d_1 - d_2)\,t^2 \;+\; d_1.$$
+	We call the curve $O^{\gamma}_{f(t)}$ the cubic interpolation offset curve between $d_1$ and $d_2$. An example can be seen in Figure \ref{fig:cubicinterpolationoffset}.
+
 	As has been shown, the construction of meaningful offset curves is in no way trivial and requires a multitude of tools. The simple definition of an offset curve (Definition \ref{def:offseteasy}) is only seemingly adequate. Nonetheless, larger offsets, that would lead to self-intersection, are required by the industry. But since self-intersecting curves do no represent sensible objects, we sought for a far more convoluted process.
 
 	In fact, the creation of fillets also plays a role in the creation of offset curves, since the procedure presented leaves behind non-differentiable places on the trimmed offset curves, which are undesirable for CoolingGen's purposes.
@@ -1686,16 +1708,11 @@ Göttingen, \today \hspace{2em}
 			\includesvg[width=\textwidth]{../python/linearContinuationCurve2}
 			\caption{Intersection of (a).}
 		\end{subfigure}
-		\begin{subfigure}{0.42\textwidth}
-			\centering
-			\includesvg[width=\textwidth]{../python/linearInterpolationOffset}
-			\caption{Linear interpolation offset curve.}
-		\end{subfigure}
-		\caption{Ensuring curve connections. Figures (a) and (b) show the intersection of the linear continuation of two curves. Figure (c) shows a typical trailing edge arrangement of a pressure side profile $\gamma_1$ (blue) offset by $d_1$ and a suction side profile $\gamma_2$ (green) offset by $d_2$. The trailing edge curve is offset at every point by a different value. We can write the linear interpolation offset curve of the trailing edge $\gamma_T$ as $O_{d_1, d_2}^{\gamma_T}(t) = (1-t)\,O_{d_1}^{\gamma_1} + t\,O_{d_2}^{\gamma_2} = O^{\gamma_T}_{(1-t)d_1 + td_2}(t)$ for all $t \in [0,1]$.}
+		\caption{Intersection of the linear continuation of two curves.}
 		\label{fig:linear_continuation_curve}
 	\end{figure}
 
-	The leading and trailing partition offsets are linearly interpolated between suction and pressure side offsets to guarantee continuity and differentiability of the chamber profile at the leading and trailing edge transitions. After offsetting, the chamber-delimiting curve end points do not necessarily intersect. Therefore, we connect the curve ends either by curve-curve intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve end points and $B$ represent the (positive at the end point of the curve or negative at the start point of the curve) gradient at the curve boundary points. These rays can be understood as the linear continuation of the chamber-delimiting curves (see Figure \ref{fig:linear_continuation_curve}).
+	The leading and trailing partition offsets are cubic interpolation offset curves between suction and pressure side offsets to guarantee continuity and differentiability of the chamber profile at the leading and trailing edge transitions, see Figure \ref{fig:cubicinterpolationoffset}. After offsetting, the chamber-delimiting curve end points do not necessarily intersect. Therefore, we connect the curve ends either by curve-curve intersection, ray-curve intersection or ray-ray intersection, depending on which one is applicable. The rays are in this case defined by $R_{A,B}$, where $A$ represent the curve end points and $B$ represent the (positive at the end point of the curve or negative at the start point of the curve) gradient at the curve boundary points. These rays can be understood as the linear continuation of the chamber-delimiting curves (see Figure \ref{fig:linear_continuation_curve}).
 
 	\begin{figure}[H]
 		\centering
@@ -1738,7 +1755,7 @@ Göttingen, \today \hspace{2em}
 
 	Since all of these curves (including the straight lines, which are represented as curves within CoolingGen) are planar by construction, we can use two-dimensional operations to offset, trim and add fillets. Since CoolingGen performs two-dimensional operations on the $(x,y)$ plane, the curves have to be rotated.
 
-	To ensure a differentiable connection between the chambers, the axis-aligned curve is offset. The size of the offset is given by the linear interpolation in terms of the angle between the wall thickness on the leading and on the trailing side. Similar to the procedure in \ref{sec:chambers}, the pressure- and suction-sided curves are then trimmed accordingly and fillets are added between them.
+	To ensure a differentiable connection between the chambers, the axis-aligned curve is offset. The size of the offset is given by the cubic interpolation in terms of the angle between the wall thickness on the leading and on the trailing side, similarly to Figure \ref{fig:cubicinterpolationoffset}. Similar to the procedure in \ref{sec:chambers}, the pressure- and suction-sided curves are then trimmed accordingly and fillets are added between them.
 
 	\begin{figure}[H]
 		\centering

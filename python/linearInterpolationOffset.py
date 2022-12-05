@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-fig, ax = plt.subplots(figsize=(7,5))
+fig, ax = plt.subplots(figsize=(8, 6))
+
 ax.set_aspect("equal", "box")
 ax.axis("off")
 
@@ -15,7 +16,7 @@ def gamma2(t):
 	lo, hi = 0.85, 0.931
 	s = (hi-lo)*t+lo
 
-	return np.array([s, -0.2])
+	return np.array([s, -0.2000103805])
 
 def gamma3(t):
 	center = np.array([0.931,-0.17])
@@ -50,12 +51,44 @@ def offset(gamma, distance, t):
 
 	return p+distance*n
 
-def interpolation_offset(gamma, distanceStart, distanceEnd, t):
+def linear_interpolation(t, start, end):
+	return (1-t)*start + t*end
+
+def sigmoid(t, s):
+	return 1/(1 + np.exp(-s*t))
+
+def cubic_interpolation(t, start, end):
+	return 2*(start-end)*t**3 - 3*(start-end)*t**2 + start
+
+def sigmoid_interpolation(t, start, end, s):
+	return (end-start)*sigmoid(t-0.5, s)+start
+
+def linear_interpolation_offset(gamma, distanceStart, distanceEnd, t):
 	p = gamma(t)
 	n = normal(grad(gamma, t))
 	n = n/norm(n)
 
-	return p+((1-t)*distanceStart+t*distanceEnd)*n
+	currentDistance = linear_interpolation(t, distanceStart, distanceEnd)
+
+	return p+currentDistance*n
+
+def cubic_interpolation_offset(gamma, distanceStart, distanceEnd, t):
+	p = gamma(t)
+	n = normal(grad(gamma, t))
+	n = n/norm(n)
+
+	currentDistance = cubic_interpolation(t, distanceStart, distanceEnd)
+
+	return p+currentDistance*n
+
+def sigmoid_interpolation_offset(gamma, distanceStart, distanceEnd, t, s):
+	p = gamma(t)
+	n = normal(grad(gamma, t))
+	n = n/norm(n)
+
+	currentDistance = sigmoid_interpolation(t, distanceStart, distanceEnd, s)
+
+	return p+currentDistance*n
 
 def plot_points(points, color = "blue", f = True):
 	xs = [p[0] for p in points]
@@ -75,11 +108,17 @@ g3p = np.array([gamma3(t) for t in ts])
 
 
 o1 = 0.008
-o2 = 0.003
+o2 = 0.002
 
 o1p = np.array([offset(gamma1, -o1, t) for t in ts])
 o2p = np.array([offset(gamma2, +o2, t) for t in ts])
-o3p = np.array([interpolation_offset(gamma3, +o2, +o1, t) for t in ts])
+o3p = np.array([linear_interpolation_offset(gamma3, +o2, +o1, t) for t in ts])
+o4p = np.array([sigmoid_interpolation_offset(gamma3, +o2, +o1, t, 15) for t in ts])
+o5p = np.array([cubic_interpolation_offset(gamma3, +o2, +o1, t) for t in ts])
+
+o5p = np.array([offset(gamma3, +o1, t) for t in ts])
+o4p = np.array([offset(gamma3, +o2, t) for t in ts])
+
 
 plot_points(g1p, "tab:blue")
 plot_points(g2p, "tab:green")
@@ -87,9 +126,11 @@ plot_points(g3p, "tab:orange")
 
 plot_points(o1p, "tab:blue", False)
 plot_points(o2p, "tab:green", False)
-plot_points(o3p, "tab:orange", False)
+#plot_points(o3p, "tab:blue", False)
+plot_points(o4p, "tab:green", False)
+plot_points(o5p, "tab:blue", False)
 
 plt.tight_layout()
 
-plt.savefig("linearInterpolationOffset.svg")
+plt.savefig("nonAlignedOffset.svg")
 plt.show()
