@@ -17,7 +17,6 @@ d2 = 0
 plt.axhline(d1, color = 'tab:blue', linestyle="--")
 plt.axhline(d2, color = 'tab:green', linestyle="--")
 
-
 plt.text(-0.33, d1+0.05, r"$d_1$", color = "tab:blue", fontsize=25)
 plt.text(1.2, d2-0.15, r"$d_2$", color = "tab:green", fontsize=25)
 plt.text(0.55, 0.55, r"$f(t)$", color = "tab:orange", fontsize=25)

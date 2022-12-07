@@ -233,14 +233,30 @@ Göttingen, \today \hspace{2em}
 	\section{Cooling Design}
 		\begin{figure}[H]
 			\centering
-			\includesvg[width=.6\textwidth]{../assets/turbofan}
+			\includesvg[width=.55\textwidth]{../assets/turbofan}
 			\caption{Schematic diagram illustrating the operation of a 2-spool, low-bypass turbofan jet engine, with low pressure spool in green and high pressure spool in purple \cite{Aainsqatsi2008}.}
 			\label{fig:turbofan_schematic}
 		\end{figure}
 
 		In a jet engine, kinetic energy is supplied from high pressure gas combustion. To increase the jet engine's thermodynamic efficiency, the firing temperature of the combustion chamber must be increased. An example jet engine can be seen in Figure \ref{fig:turbofan_schematic}. In modern jet engine turbines, the hot gas temperature after combustion at up to $2000K$ exceeds the materials' thermal limits. To combat this extreme condition, 20\% to 30\% of the compressed air mass that precedes the combustion chamber is used as a coolant, which is passed through the blades and vanes of the high pressure turbine. On the other hand, the amount of compressed air used for cooling correlates negatively with the thermodynamic efficiency of the jet engine. Alongside material selection and treatment of the coolant, the filigree design of cooling measures includes the creation of sensible cooling geometries that are located within each turbine blade or vane \cite{Giampaolo2020}.
 
-		Turbine cooling geometries consist of but are not limited to the following parts: internal cooling, film cooling, impingement cooling, pin fin cooling and ejection slots. The internal cooling is comprised of cooling channels, which are hollow sections inside a turbine blade or vane. They allow for a coolant to pass through. A rib-like structure is added to the inside of these channels. These ribs are referred to as rib turbulators. The film cooling consists of holes that transfer the coolant from the inside of a channel to the outside of the blade or vane. An array of these holes provides a protective fluid layer that restrains net heat transfer to the blade or vane. Impingement inserts are thin sheets that reside within channels and have cylindrical holes in them. Another type of geometry which is also referred to as impingement cooling is comprised of holes that connect neighboring channels. Pin fins connect the suction and the pressure-side of the trailing edge channel. The ejection slots are hollow bodies that transport the coolant from the inside of the trailing edge channel to the trailing edge or pressure side of the turbine blade or vane.
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.49\textwidth}
+				\centering
+				\includegraphics[width=.8\textwidth]{../assets/rollsroyce/11.png}
+				\caption{Three-dimensional view \cite{Royce2015}.}
+			\end{subfigure}
+			\begin{subfigure}{.49\textwidth}
+				\centering
+				\includegraphics[width=.9\textwidth]{../assets/gth_rebuild/11.png}
+				\caption{Profile view \cite{Giampaolo2020}.}
+			\end{subfigure}
+			\caption{Two different turbine cooling blade setups showing the different geometries of the cooling structures.}
+			\label{fig:rollsroyce}
+		\end{figure}
+
+		Turbine cooling geometries consist of but are not limited to the following parts: internal cooling, film cooling, impingement cooling, pin fin cooling and ejection slots. The internal cooling is comprised of cooling channels, which are hollow sections inside a turbine blade or vane. They allow for a coolant to pass through. A rib-like structure is added to the inside of these channels. These ribs are referred to as rib turbulators. The film cooling consists of holes that transfer the coolant from the inside of a channel to the outside of the blade or vane. An array of these holes provides a protective fluid layer that restrains net heat transfer to the blade or vane. Impingement inserts are thin sheets that reside within channels and have cylindrical holes in them. Another type of geometry which is also referred to as impingement cooling is comprised of holes that connect neighboring channels. Pin fins connect the suction and the pressure-side of the trailing edge channel. The ejection slots are hollow bodies that transport the coolant from the inside of the trailing edge channel to the trailing edge or pressure side of the turbine blade or vane \cite{Giampaolo2020}. Most of these geometries can be seen in Figure \ref{fig:rollsroyce}.
 
 	\section{State of the Art}
 		Conventional CAD systems are modelers that allow their user to create free-form curves and surfaces using interactive control points that can be moved to any location on a three-dimensional canvas. In these systems, common geometric features can often also be generated using a set of input parameters. This gives the user an unlimited amount of strategies for creating a CAD model fit for their use. However, the amount of possible modelling strategies impedes the adaptability of most resulting models \cite{Camba2016}.
