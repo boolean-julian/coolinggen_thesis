@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <InternalCooling>
 	<General>
-		<NumChambers>3</NumChambers>
-		<NumTurns>0</NumTurns>
 		<ExtendChambers>true</ExtendChambers>
 		<FilletRadius>0.0004</FilletRadius>
 	</General>
@@ -64,20 +62,4 @@
 			<Thickness>0 0 0 0</Thickness>
 		</TrailingEdge>
 	</Chamber>
-	<Turn>
-		<Location>
-			<Chamber>1</Chamber>
-			<Position>Tip</Position>
-			<vLowerBound>0.7</vLowerBound>
-			<vUpperBound>0.9</vUpperBound>
-		</Location>
-		<OuterContour>
-			<Angle>10 30 60 80</Angle>
-			<Thickness>0.0001 0.0003 0.0003 0.0001</Thickness>
-		</OuterContour>
-		<InnerContour>
-			<Angle>10 30 60 80</Angle>
-			<Thickness>0.0001 0.0003 0.0003 0.0001</Thickness>
-		</InnerContour>
-	</Turn>
 </InternalCooling>

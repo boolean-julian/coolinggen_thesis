@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <InternalCooling>
 	<General>
-		<NumChambers>4</NumChambers>
-		<NumTurns>2</NumTurns>
 		<ExtendChambers>true</ExtendChambers>
 		<FilletRadius>0.0003</FilletRadius>
 	</General>

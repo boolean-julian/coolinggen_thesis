@@ -1,9 +1,5 @@
 <?xml version="1.0"?>
 <TrailingEdgeCooling>
-	<General>
-		<NumSlots>8</NumSlots>
-	</General>
-
 	<Slot>
 		<Geometry>
 			<FilletRadius>0.0005</FilletRadius>
@@ -192,8 +188,8 @@
 			<AngleHub>13</AngleHub>
 			<AngleTip>-8</AngleTip>
 			<Inlet>
-				<PressureAngle>0</PressureAngle>
-				<SuctionAngle>-8</SuctionAngle>
+				<PressureAngle>5</PressureAngle>
+				<SuctionAngle>5</SuctionAngle>
 			</Inlet>
 			<Outlet>
 				<PressureAngle>60</PressureAngle>

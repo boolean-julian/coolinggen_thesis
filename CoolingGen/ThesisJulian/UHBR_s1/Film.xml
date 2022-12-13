@@ -1,10 +1,5 @@
 <?xml version="1.0"?>
 <FilmCooling>
-	<General>
-		<NumRows>11</NumRows>
-		<Trim>true</Trim>
-	</General>
-
 	<!-- shower head 1 -->
 	<Row>
 		<NumHoles>9</NumHoles>

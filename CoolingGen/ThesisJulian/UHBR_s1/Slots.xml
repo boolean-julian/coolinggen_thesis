@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
 <TrailingEdgeCooling>
-	<General>
-		<NumSlots>9</NumSlots>
-	</General>
 	<Slot>
 		<Geometry>
 			<FilletRadius>0.00075</FilletRadius>
