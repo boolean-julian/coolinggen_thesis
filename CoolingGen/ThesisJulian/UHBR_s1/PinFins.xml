@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<PinFinCooling>
+    <Array>
+        <NumHolesCircumferential>8</NumHolesCircumferential>
+        <NumHolesRadial>6</NumHolesRadial>
+        <HoleGeometry>
+            <Diameter>0.0018</Diameter>
+            <InjectionAngle>0</InjectionAngle>
+            <CompoundAngle>0</CompoundAngle>
+        </HoleGeometry>
+        <Location>
+            <Position>PressureSide</Position>
+            <uLowerBound>0.15</uLowerBound>
+            <uUpperBound>0.85</uUpperBound>            
+            <vLowerBound>0.15</vLowerBound>
+            <vUpperBound>0.85</vUpperBound>
+        </Location>
+        <Distribution>
+            <Pattern>staggered</Pattern>
+        </Distribution>
+    </Array>
+</PinFinCooling>

@@ -10,7 +10,8 @@
 		<Internal>./ThesisJulian/UHBR_r1/InternalMultipass.xml</Internal>
 		<Slots>./ThesisJulian/UHBR_r1/Slots.xml</Slots>
 		<Film>./ThesisJulian/UHBR_r1/Film.xml</Film>
-		<Impingement>none</Impingement>
+		<Impingement>./ThesisJulian/UHBR_r1/Impingement.xml</Impingement>
+		<PinFins>./ThesisJulian/UHBR_r1/PinFins.xml</PinFins>
 	</Cooling>
 
 </InputFiles>

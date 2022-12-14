@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ImpingementCooling>
+    <Row>
+        <NumHoles>5</NumHoles>
+        <HoleGeometry>
+            <Diameter>0.0007</Diameter>
+            <Width>1.2</Width>
+            <InjectionAngle>15</InjectionAngle>
+        </HoleGeometry>
+        <Location>
+            <Channel>1</Channel>
+            <Position>LeadingEdge</Position>
+            <uBase>0.5</uBase>
+            <vLowerBound>0.3</vLowerBound>
+            <vUpperBound>0.7</vUpperBound>
+        </Location>
+    </Row>
+</ImpingementCooling>
+

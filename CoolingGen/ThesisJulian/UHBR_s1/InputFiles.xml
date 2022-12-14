@@ -11,6 +11,7 @@
 		<Slots>./ThesisJulian/UHBR_s1/Slots.xml</Slots>
 		<Film>./ThesisJulian/UHBR_s1/Film.xml</Film>
 		<Impingement>./ThesisJulian/UHBR_s1/Impingement.xml</Impingement>
+		<PinFins>./ThesisJulian/UHBR_s1/PinFins.xml</PinFins>
 	</Cooling>
 
 </InputFiles>
