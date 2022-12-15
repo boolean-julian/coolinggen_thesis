@@ -8,29 +8,29 @@ r = 1
 d = 1.25
 b = 1.5
 
+
 def get_fanshaped_point(t):
 	t = (t+1)%1
 
-	quarter = 0.25
 	if t == 0:
 		x = r
 		y = 0
-	elif t < 1*quarter:
+	elif t < 0.25:
 		x = r*np.cos(2*np.pi*t)
 		y = r*np.sin(2*np.pi*t) + 1*(b-r)
-	elif t == 1*quarter:
+	elif t == 0.25:
 		x = 0
 		y = b
-	elif t < 2*quarter:
+	elif t < 0.5:
 		x = r*np.cos(2*np.pi*t) - 2*(d-r)
 		y = r*np.sin(2*np.pi*t) + 1*(b-r)
-	elif t == 2*quarter:
+	elif t == 0.5:
 		x = r-2*d
 		y = 0
-	elif t < 3*quarter:
+	elif t < 0.75:
 		x = r*np.cos(2*np.pi*t) - 2*(d-r)
 		y = r*np.sin(2*np.pi*t) - 1*(b-r)
-	elif t == 3*quarter:
+	elif t == 0.75:
 		x = 0
 		y = -b
 	elif t < 1:
@@ -45,23 +45,67 @@ def get_circle_point(t):
 
 	return x, y
 
-def make_plottable(function):
+def make_plottable(function, lo, hi):
 	samples = 1000
-	ts = np.linspace(0, 1, samples)
+	ts = np.linspace(lo, hi, samples)
 	fs = [function(t) for t in ts]
 	xs = [f[0] for f in fs]
 	ys = [f[1] for f in fs]
 
 	return xs, ys
 
-xf, yf = make_plottable(get_fanshaped_point)
-xc, yc = make_plottable(get_circle_point)
+
+# fan shape
+dt = .0001
+xf1, yf1 = make_plottable(get_fanshaped_point, 0.00+dt, 0.25-dt)
+xf2, yf2 = make_plottable(get_fanshaped_point, 0.25+dt, 0.50-dt)
+xf3, yf3 = make_plottable(get_fanshaped_point, 0.50+dt, 0.75-dt)
+xf4, yf4 = make_plottable(get_fanshaped_point, 0.75+dt, 1.00-dt)
+
+xg1, yg1 = make_plottable(get_fanshaped_point, 0.00+0., 0.00+dt)
+xg2, yg2 = make_plottable(get_fanshaped_point, 0.25-dt, 0.25+dt)
+xg3, yg3 = make_plottable(get_fanshaped_point, 0.50-dt, 0.50+dt)
+xg4, yg4 = make_plottable(get_fanshaped_point, 0.75-dt, 0.75+dt)
+xg5, yg5 = make_plottable(get_fanshaped_point, 1.00-dt, 1.00+0.)
+
+
+
+# Circle
+xc, yc = make_plottable(get_circle_point, 0, 1)
+
+# Fanshaped curve corner circle
+xcc = [x + 2*r-2*d for x in xc]
+ycc = [y + b-r for y in yc]
+
 
 fig, ax = plt.subplots(figsize=(5,5))
 ax.set_aspect("equal", "box")
 
-plt.plot(xf, yf, "tab:blue", label = "Outer curve")
+
+
+plt.plot(xcc, ycc, "--", color = "tab:green")
+
+plt.plot(xf1, yf1, "tab:blue", label = "Outer curve")
+plt.plot(xf2, yf2, "tab:blue", label = "Outer curve")
+plt.plot(xf3, yf3, "tab:blue", label = "Outer curve")
+plt.plot(xf4, yf4, "tab:blue", label = "Outer curve")
+
+plt.plot(xg1, yg1, linestyle="dotted", color="tab:blue", label = "Outer curve")
+plt.plot(xg2, yg2, linestyle="dotted", color="tab:blue", label = "Outer curve")
+plt.plot(xg3, yg3, linestyle="dotted", color="tab:blue", label = "Outer curve")
+plt.plot(xg4, yg4, linestyle="dotted", color="tab:blue", label = "Outer curve")
+plt.plot(xg5, yg5, linestyle="dotted", color="tab:blue", label = "Outer curve")
+
+plt.plot(*get_fanshaped_point(0.00), 'o', color = "tab:blue")
+plt.plot(*get_fanshaped_point(0.25), 'o', color = "tab:blue")
+plt.plot(*get_fanshaped_point(0.50), 'o', color = "tab:blue")
+plt.plot(*get_fanshaped_point(0.75), 'o', color = "tab:blue")
+
 plt.plot(xc, yc, "tab:orange", label = "Inner curve")
+
+
+
+
 
 # Circle aligned grid
 """
@@ -142,10 +186,6 @@ make_arrow_one_sided(2*r-2*d, b-r, -r/np.sqrt(2), r/np.sqrt(2), r"$r$", offset, 
 make_arrow_two_sided(r-2*d-offset, -b, 0, 2*b, r"$2b$", offset, "tab:green")
 make_arrow_two_sided(r, -b-offset, -2*d, 0, r"$2d$", -1.3*offset, "tab:green")
 
-# Fanshaped curve corner circle
-xcc = [x + 2*r-2*d for x in xc]
-ycc = [y + b-r for y in yc]
-plt.plot(xcc, ycc, "--", color = "tab:blue")
 
 plt.axis("off")
 #plt.legend(loc = "upper right")
