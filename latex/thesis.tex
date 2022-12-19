@@ -14,7 +14,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[nopatch={footnote}]{microtype}
-\usepackage{hyphenat}
+\usepackage[none]{hyphenat}
 
 %% Syntax
 \usepackage{ifthen}
@@ -110,11 +110,6 @@
 \algblock{Output}{EndOutput}
 \algnotext{EndOutput}
 \newcommand{\Desc}[2]{\State \makebox[12em][l]{#1}#2}
-
-%% Hyphenation rules
-\hyphenation{
-	CoolingGen
-}
 
 \begin{document}
 
@@ -261,12 +256,12 @@ Göttingen, \today \hspace{2em}
 			\label{fig:rollsroyce}
 		\end{figure}
 
-		Turbine cooling geometries consist of but are not limited to the following parts: internal cooling, film cooling, impingement cooling, pin fin cooling and ejection slots. The internal cooling is composed of cooling channels, which are hollow sections inside a turbine blade or vane. They allow for a coolant to pass through and absorb heat. A rib-like structure is added to the inside of these channels to further increase heat transfer. These ribs are referred to as rib turbulators. Along the channel contour coolant is exhausted through small holes in the airfoil surface. An array of these so-called film cooling holes provides a protective fluid layer that lowers the temperature gradient between hot gas and blade or vane surface and thus restrains net heat transfer. Impingement inserts are thin, perforated metal sheets used exclusively in stationary vanes. Cylindrical holes redirect coolant jets onto the inside of the blade wall to increase the heat transfer. Another type of geometry which is also referred to as impingement cooling is composed of holes that connect neighboring channels. These are primarily used in the leading edge of rotor blades. Pin fins connect the suction and the pressure-side of the trailing edge channel. The trailing edge is cooled by ejection slots that discharge coolant from the inside of the trailing edge channel to the trailing edge or pressure side of the turbine blade or vane \cite{Giampaolo2020}. Most of these geometries can be seen in Figure \ref{fig:rollsroyce}.
+		Turbine cooling geometries consist of but are not limited to the following parts: internal cooling, film cooling, impingement cooling, pin fin cooling and ejection slots. The internal cooling is composed of cooling channels, which are hollow sections inside a turbine blade or vane. They allow for a coolant to pass through and absorb heat. A rib-like structure is added to the inside of these channels to further increase heat transfer. These ribs are referred to as rib turbulators. Along the channel contour, coolant is exhausted through small holes in the airfoil surface. An array of these so-called film cooling holes provides a protective fluid layer that lowers the temperature gradient between hot gas and blade or vane surface and thus restrains net heat transfer. Impingement inserts are thin, perforated metal sheets used exclusively in stationary vanes. Cylindrical holes redirect coolant jets onto the inside of the blade wall to increase the heat transfer. Another type of geometry which is also referred to as impingement cooling is composed of holes that connect neighboring channels. These are primarily used in the leading edge of rotor blades. Pin fins connect the suction and the pressure-side of the trailing edge channel. The trailing edge is cooled by ejection slots that discharge coolant from the inside of the trailing edge channel to the trailing edge or pressure side of the turbine blade or vane \cite{Giampaolo2020}. Most of these geometries can be seen in Figure \ref{fig:rollsroyce}.
 
 	\section{State of the Art}
-		Conventional CAD systems are modelers that allow their user to create free-form curves and surfaces using interactive control points that can be moved to any location on a three-dimensional canvas. Moreover, these systems usually also allow the generation of common geometries (for instance cylinders or cuboids) using a set of input parameters, which is an important feature in most mechanical engineering applications. Given these tools, such CAD systems give the user an unlimited amount of strategies for creating a three-dimensional model of a mechanical part fit for their use. However, the amount of possible modelling strategies impedes the adaptability of most resulting models \cite{Camba2016}.
+		Conventional CAD systems are modelers that allow their user to create free-form curves and surfaces using interactive control points that can be moved to any location on a three-dimensional canvas. Moreover, these systems usually also allow the generation of common geometries (for instance cylinders or cuboids) using a set of input parameters, which is an important feature in most mechanical engineering applications. Given these tools, such CAD systems give the user an unlimited amount of strategies for creating a three-dimensional model of a mechanical part fit for their use \cite{Camba2016}.
 
-		Because of their intrinsic adaptability, the parametric features of conventional CAD systems have become an important and widely used set of tools among many mechanical engineering applications. To adapt the geometry of a mechanical model using parametric CAD, the user simply has to change a few parameters instead of moving control points, which in themselves bear no underlying semantic structure regarding their mechanical function \cite{Shah1995}.
+		Because of their intrinsic adaptability, the parametric features of conventional CAD systems have become an important and widely used set of tools among many mechanical engineering applications. To adapt the geometry of a mechanical model using parametric CAD, the user simply has to change a few parameters instead of moving control points, which in themselves bear no underlying semantic structure regarding their mechanical function and therefore lack adaptability \cite{Shah1995}.
 
 		Nevertheless, using existing CAD software, the creation of the cooling geometries we desire is labour-intensive and requires expertise. This is because the construction of blade and vane geometries for the most part does not rely on common parametric geometries that are included within existing CAD software, but rather on more specific and convoluted geometries that are only used for turbine cooling.
 
@@ -313,7 +308,7 @@ Göttingen, \today \hspace{2em}
 			\label{fig:processchain}
 		\end{figure}
 
-		In order to design sensible turbine geometries, a multitude of tools are used at the DLR. First, a two-dimensional profile of the blade or vane is designed. To do this, we use the program PrEDiCT to determine the turbine geometry, flow conditions and cooling requirements. We can then calculate the blade and vane geometries based on these data using BladeGen. MISES is a computational fluid dynamics (CFD) simulator, which we use to simulate air flow on a two-dimensional section of the resulting blade or vane cascades. Using PICCOOLO, we can design and evaluate two-dimensional cooling geometry based on the simulated flow data. We can iteratively apply those tools to redetermine the cooling requirements on the updated blade or vane section and redesign the two-dimensional cooling geometries.
+		In order to design sensible turbine geometries, a multitude of tools are used at the DLR. First, a two-dimensional profile of the blade or vane is designed. For this purpose we use the program PrEDiCT to determine the turbine geometry, flow conditions and cooling requirements. We can then calculate the blade and vane geometries based on these data using BladeGen. MISES is a computational fluid dynamics (CFD) simulator, which we use to simulate air flow on a two-dimensional section of the resulting blade or vane cascades. Using PICCOOLO, we can design and evaluate two-dimensional cooling geometries based on the simulated flow data. We can iteratively apply those tools to redetermine the cooling requirements on the updated blade or vane section and redesign the two-dimensional cooling geometries.
 
 		In the future, three-dimensional cooling structures shall be designed with CoolingGen using the findings of the previous two-dimensional iteration process through PICCOOLO. The resulting three-dimensional geometry can then be evaluated using a three-dimensional CFD simulator called TRACE. If a blade or vane model performs well enough, it can be manufactured and experiments can be performed with it. This cooling design process chain can also be seen in Figure \ref{fig:processchain}.
 
