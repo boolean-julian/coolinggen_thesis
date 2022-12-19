@@ -1594,11 +1594,11 @@ Göttingen, \today \hspace{2em}
 	\end{figure}
 
 \subsection{Coons Patch}\label{subsec:coons}
-	Given four parametric boundary curves $c_0(t)$, $c_1(t)$, $d_0(t)$ and $d_1(t)$ for $t \in [0,1]$ with $c_0(0) = d_0(0)$, $c_0(1) = d_1(0)$, $c_1(0) = d_0(1)$ and $c_1(1) = d_1(1)$ we can construct an intermediate parametric surface $\mathfrak{C}$ by using linear interpolation on pairs $c_0, c_1$ and $d_0, d_1$ and bilinear interpolation the corner points $c_0(0), c_0(1), c_1(0), c_1(1)$ using bilinear blending, in other words
+	Given four parametric boundary curves $c_0(t)$, $c_1(t)$, $d_0(t)$ and $d_1(t)$ for $t \in [0,1]$ with $c_0(0) = d_0(0)$, $c_0(1) = d_1(0)$, $c_1(0) = d_0(1)$ and $c_1(1) = d_1(1)$ we can construct an intermediate parametric surface $\mathfrak{C}$ by using linear interpolation on the pairs $c_0, c_1$ and $d_0, d_1$ and bilinear interpolation on the corner points $c_0(0), c_0(1), c_1(0), c_1(1)$ using bilinear blending, in other words
 	\begin{align*}
 		\mathfrak{C}(u,v) 	&= (1-v)\,c_0(u) + v\,c_1(u) \\
 				&+ (1-u)\,d_0(v) + u\,d_1(v) \\
-				&- (1-u)(1-v)\,c_0(0) - u(1-v)\,c_0(1)(1) - (1-u)v\,c_1(0) - uv\,c_1(1),
+				&- (1-u)(1-v)\,c_0(0) - u(1-v)\,c_0(1)- (1-u)v\,c_1(0) - uv\,c_1(1),
 	\end{align*}
 	where $(u,v) \in [0,1]^2$. Such a surface is called a Coons patch \cite{Coons1967}. 
 
@@ -1609,7 +1609,7 @@ Göttingen, \today \hspace{2em}
 	\end{figure}
 
 \chapter{Jet Engine Specific Methods}\label{chap:jetenginespecifics}
-	CoolingGen creates geometries which lie inside a blade or vane surface $B(u,v)$ with $(u,v) \in [0,1]^2$, which is an output of BladeGen, a tool developed by the DLR specifically for the design of blade and vane surfaces. The parametric surface $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbines hub. Because of rotational symmetry of the turbine, it is convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates in this case is given by the map
+	CoolingGen creates geometries which lie inside a blade or vane surface $B(u,v)$ with $(u,v) \in [0,1]^2$, which is an output of BladeGen, a tool developed by the DLR specifically for the design of blade and vane surfaces. The parametric surface $B(u,v)$ is closed in $u$-direction. For a given $u$, increasing $v$ yields a further distance from the turbine hub. Because of rotational symmetry of the turbine, it is convenient to describe these geometries in cylindrical coordinates. The transformation from Cartesian coordinates to cylindrical coordinates is given by the map
 		\begin{equation}\label{eq:cylindrical_transformation} 
 			Z: (x,y,z) \mapsto (x, r, \theta),
 		\end{equation}
@@ -1619,17 +1619,17 @@ Göttingen, \today \hspace{2em}
 		\centering
 		\begin{subfigure}{.49\textwidth}
 			\includegraphics[width=\textwidth]{../tec/rotor_stator/11.png}
-			\caption{View on pressure side.}
+			\caption{View on pressure side (blue).}
 		\end{subfigure}
 		\begin{subfigure}{.49\textwidth}
 			\includegraphics[width=\textwidth]{../tec/rotor_stator/12.png}
-			\caption{View on suction side.	}
+			\caption{View on suction side (orange).}
 		\end{subfigure}
 		\caption{Example turbine blade and vane surfaces. In (a) and (b), the left is surface represents a stator vane and the right surface represents a rotor blade. The blade has a named partitioning into the leading edge (green), the pressure side (blue), the suction side (orange) and the trailing edge (purple).}
 		\label{fig:rotor_stator}
 	\end{figure}
 
-	A distinction is made between two kinds of surfaces: rotor blades and stator vanes. While the rotor blades rotate around the hub, the stator vanes have fixed positions. Furthermore, the blade or vane surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts. The leading edge, the suction side, the trailing edge and the pressure side.
+	A distinction is made between two kinds of surfaces: rotor blades and stator vanes. While the rotor blades rotate around the hub, the stator vanes have fixed positions. Furthermore, the blade or vane surface $B(u,v)$ has a named partitioning in $u$-direction into four distinct parts: the leading edge, the suction side, the trailing edge and the pressure side.
 
 \section{The S2 Stream Surface \& Stream Surface Coordinates}\label{sec:mrtheta}
 	A stream line is a line that at every point is tangential to the velocity vector field of the flow of the fluid. Its generalization, the stream surface, describes a surface with the same property. The flow in a turbine can be described by a generalization of the stream surface. When designing turbine blades or vanes, it is common practice to describe the flow in two families of stream surfaces. These surfaces are called $S_1$ and $S_2$. The $S_1$ surfaces, also known as blade-to-blade surfaces, describe the flow behavior between individual blade (or vane) sections, whereas their counterpart, the $S_2$ surfaces, which are also known as meridional surfaces, describe the flow in the axial direction \cite{Wu1952}.
@@ -1644,7 +1644,7 @@ Göttingen, \today \hspace{2em}
 		$$s(u,v) : [0,1]^2 \rightarrow \mathbb{R}^3, \quad (u,v) \mapsto (x, r, m),$$
 	where $x$ is the axial coordinate, $r = \sqrt{y^2+z^2}$ the distance from the turbine hub and 
 		$$m(u,v) = \int_0^u \sqrt{x(t,v)^2 + r(t,v)^2} \; \textrm{dt}$$
-	is the $v$-isoparametric arc length of the stream surface. To design the blades (and vanes) for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades \cite{Wu1952}. Each stream line described by $S_{2,m}$ can then be written as $v$-isoparametric curve $S_{2,m}(\cdot, v)$.
+	is the $v$-isoparametric arc length of the stream surface. To design the blades (and vanes) for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades (or vanes) \cite{Wu1952}. Each stream line described by $S_{2,m}$ can then be written as $v$-isoparametric curve $S_{2,m}(\cdot, v)$.
 
 	By intersecting the cylindrically transformed $u$-isoparametric curves $Z(B(u,\cdot))$ (see Equation \ref{eq:cylindrical_transformation}) of the blade or vane with each such stream line $S_{2,m}(\cdot, v)$ in their first two arguments $(x,r)$, we can construct a curve
 		$$ B^{(v)}_\textrm{stream}(u) = (m, r\theta),$$
@@ -1735,9 +1735,9 @@ Göttingen, \today \hspace{2em}
 
 	Each position-angle pair $(w_j, \alpha_j)$ represents two rays
 		$$ c(w_j) + sR_{\alpha_j} \nabla c(w_j) \quad\text{and}\quad c(w_j) - sR_{\alpha_j} \nabla c(w_j) $$
-	for $s \in [0, \infty)$, where $R_{\alpha_j}$ is a rotation matrix like presented in Equation \ref{eq:rotationmat}. Using Algorithm \ref{alg:raymarching}, we can find the respective intersection points $p_j^+$ and $p_j^-$ of the rays and the shrunk profile $S^{(v_i)}_\textrm{stream}$. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. This process is repeated for all $j \in \{1,\ldots,N_C-1\}$.
+	for $s \in [0, \infty)$, where $R_{\alpha_j}$ is a rotation matrix as presented in Equation \ref{eq:rotationmat}. Using Algorithm \ref{alg:raymarching}, we can find the respective intersection points $p_j^+$ and $p_j^-$ of the rays and the shrunk profile $S^{(v_i)}_\textrm{stream}$. The line segment $\overline{p_j^+p_j^-}$ now represents the $j$-th wall. This process is repeated for all $j \in \{1,\ldots,N_C-1\}$.
 
-	Next, the blade (or vane) is partitioned at the intersection points $p_j^+$ and $p_j^-$ for all $j \in \{1,\ldots,N_C-1\}$. For each such partitioning, we are left with four chamber-delimiting curves per chamber profile. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}. If there is only one chamber, the a priori partitioning scheme (leading edge, suction side, pressure side and trailing edge) is kept. In case of multiple chambers, the leading and trailing chambers have to be treated differently, because in this case each of them are delimited by only one wall. In this case, we use the leading edge partition or trailing edge partition in place of a wall.
+	Next, the blade (or vane) is partitioned at the intersection points $p_j^+$ and $p_j^-$ for all $j \in \{1,\ldots,N_C-1\}$. For each such partitioning, we are left with four chamber-delimiting curves per chamber profile. This procedure is exemplified in Figure \ref{fig:subdivision_chamber}. If there is only one chamber, the a priori partitioning scheme (leading edge, suction side, pressure side and trailing edge) is kept. In case of multiple chambers, the leading and trailing chambers have to be treated differently, because each of them are delimited by only one wall. In this case, we use the leading edge partition or trailing edge partition in place of a wall.
 
 	\begin{figure}[H]
 		\begin{subfigure}{.32\textwidth}
@@ -1792,10 +1792,10 @@ Göttingen, \today \hspace{2em}
 	
 	After connecting and trimming the offset curves using the methods in Section \ref{sec:offsetcurves}, we are left with four trimmed offset curves that intersect at their end points. We apply the fillet curve method presented in Section \ref{sec:filletcurves} between neighboring chamber-delimiting curves. The offsetting, trimming and fillet creation steps can be seen in Figure \ref{fig:chamber_shrinking}.
 
-	As described in Section \ref{sec:mrtheta}, we can use the inverse coordinate transformation from the $(m, r\theta)$ stream surface coordinate system to the Cartesian coordinate system and use surface skinning to create chamber surfaces. Figure \ref{fig:skinned_chambers} shows an exemplary result of this procedure.
+	As described in Section \ref{sec:mrtheta}, we can use the inverse coordinate transformation from the $(m, r\theta)$ stream surface coordinate system to the Cartesian coordinate system and use surface skinning to create chamber surfaces (as described in \cite{Piegl1997}). Figure \ref{fig:skinned_chambers} shows an exemplary result of this procedure.
 
 \subsection{Turns}
-	As mentioned before, a turn lets coolant flow between two chambers. Notice that the presented method, unlike the construction of chambers, takes place in Cartesian coordinates.
+	As mentioned before, a turn connects two chambers, letting coolant flow between them. Notice that the presented method, unlike the construction of chambers, takes place in Cartesian coordinates.
 
 	\begin{figure}[H]
 		\centering
@@ -1806,14 +1806,14 @@ Göttingen, \today \hspace{2em}
 			\includegraphics[width=\textwidth]{../tec/channel/12.png}
 			\vspace{1.2cm}
 		\end{subfigure}
-		\caption{Construction of a turn. The red dashed line represents the axis around which the turn is constructed. The black curves are the chamber profiles which were calculated in Section \ref{sec:chambers}. The blue surface is the combination of two neighboring chambers. The orange curves are intersections of planes that contain the turn axis and the combined chamber.}
+		\caption{Construction of a turn. The red dashed line represents the turn axis around which the turn is constructed. The black curves are the chamber profiles which were calculated in Section \ref{sec:chambers}. The blue surface is the combined surface of two neighboring chambers without the intermediate wall. The orange curves are intersections of planes that contain the turn axis and the combined chamber.}
 	\end{figure}
 
-	First, we construct the combined chamber, for which the two chambers that shall be connected by the turn are specified. The intermediate surface partitions are removed, and the suction and pressure sides of the two chambers are connected differentiably by inserting control points. For this purpose, the user specifies a lower bound $v_L$ and an upper bound $v_U$, between which the combined chamber (and therefore the turn) is constructed.
+	First, we construct the combined chamber, for which the two chambers that shall be connected by the turn are specified. The intermediate surface partitions are removed, and the suction and pressure sides of the two chambers are connected differentiably by inserting control points. For this purpose, the user specifies a lower bound $v_L$ and an upper bound $v_U$ between which the combined chamber (and therefore the turn) is constructed.
 
-	Next, the turn axis is constructed. The wall input of the intermediate wall (see Section \ref{sec:chambers}) has a Cartesian representation as a surface. The $v_L$-isoparametric curve end points of this wall surface are connected with a straight line. This yields the turn axis. Using the turn axis, we can construct a set of planes which intersect the turn axis. A set of angles (relative to the intermediate wall) are specified as an input. The combined chamber is partitioned into a suction and a pressure side.
+	Next, the turn axis is constructed. The wall input of the intermediate wall (see Section \ref{sec:chambers}) has a Cartesian representation as a surface. The $v_L$-isoparametric curve end points of this wall surface are connected with a straight line. This yields the turn axis. Using the turn axis, we can construct a set of planes which intersect the turn axis using a set of angles (relative to the intermediate wall), which are specified as an input. The combined chamber is partitioned into a suction and a pressure side.
 
-	We use Algorithm \ref{alg:surfplaneintersection} to find the intersection of these planes and the suction and pressure side of the combined chamber, yielding two curves for each plane. The intersection curves start at the turn axis and end at the suction or pressure side boundary, respectively. The start points of these curves do not intersect, but both start points lie on the turn axis. We connect these points using a straight line, which lies inside the turn axis. If the end points do not intersect, we also connect them using a straight line.
+	We use Algorithm \ref{alg:surfplaneintersection} to find the intersection of these planes and the suction and pressure side of the combined chamber, yielding two curves for each plane. The intersection curves start at the turn axis and end at the suction or pressure side boundary, respectively. The start points of these curves do not intersect, but both start points lie on the turn axis. We connect these points using a straight line which lies inside the turn axis. If the end points do not intersect, we also connect them using a straight line.
 
 	Since all of these curves (including the straight lines, which are represented as curves within CoolingGen) are planar by construction, we can use two-dimensional operations to offset, trim and add fillets. Since CoolingGen performs two-dimensional operations on the $(x,y)$ plane, the curves have to be rotated.
 
@@ -1967,7 +1967,7 @@ Göttingen, \today \hspace{2em}
 				\end{cases}
 		$$
 
-	The surface $F^{(v_\textrm{transition})}(u,v)$ is a basic representation of a film cooling hole. There are currently two supported types of hole surfaces in CoolingGen. The first type is the cylindrical hole, where $f_1 = f_2 = f_\textrm{circular}$. The second type of film cooling hole is called fan shaped hole, where $f_1 = f_\textrm{fan shaped}$ and $f_2 = f_\textrm{circular}$. The input radii $r$ are equal for each pair of curves. Both of these types can be seen in Figure \ref{fig:filmholes}. Note that for each $t \in [0,1]$, the curves $f_\textrm{fan shaped}$ and $f_\textrm{circular}$ line up in a special way. Both curves purposefully map the intervals $I_i = (\frac{i}{4},\frac{i+1}{4})$ for $i \in \{0, 1, 2, 3\}$ onto a quarter circle and the remaining points $\{0, \frac{1}{4}, \frac{1}{2}, \frac{3}{4}\} \subset [0,1]$ onto a special set of points. Using a continuous curve parametrization of a rounded rectangle instead of $f_\textrm{fan shaped}$, the resulting surface is not manufacturable and does not represent a classic fan shaped film cooling hole. 
+	The surface $F^{(v_\textrm{transition})}(u,v)$ is a basic representation of a film cooling hole. There are currently two supported types of hole surfaces in CoolingGen. The first type is the cylindrical hole, where $f_1 = f_2 = f_\textrm{circular}$. The second type of film cooling hole is called fan shaped hole, where $f_1 = f_\textrm{fan shaped}$ and $f_2 = f_\textrm{circular}$. The input radii $r$ are equal for each pair of curves. Both of these types can be seen in Figure \ref{fig:filmholes}. Note that for each $t \in [0,1]$, the curves $f_\textrm{fan shaped}$ and $f_\textrm{circular}$ line up in a special way. Both curves purposefully map the intervals $I_i = (\frac{i}{4},\frac{i+1}{4})$ for $i \in \{0, 1, 2, 3\}$ onto a quarter circle and the remaining points $\{0, \frac{1}{4}, \frac{1}{2}, \frac{3}{4}\} \subset [0,1]$ onto a special set of points. Note that if we used a continuous curve parametrization of a rounded rectangle instead of $f_\textrm{fan shaped}$, the resulting surface would not be manufacturable and would not represent a classic fan shaped film cooling hole.
 
 	As mentioned before, film cooling holes transport the fluid from the inside of a channel to the outside of the blade or vane. Therefore it is necessary to connect $F^{(v_\textrm{transition})}(u,v)$ with the blade or vane surface and the corresponding channel surface. Our aim is to align the $f_1$ side of $F^{(v_\textrm{transition})}$ to the blade or vane surface and the $f_2$ side of $F^{(v_\textrm{transition})}$ to one of the channel surfaces.
 
@@ -1995,7 +1995,7 @@ Göttingen, \today \hspace{2em}
 	Notice that using this process, the start and end points of $P_B$ and $P_C$ are now aligned to the corresponding surfaces $B(u,v)$ and $C(u,v)$, but the two surface boundaries $F^{(v_\textrm{transition})}(u,0)$ and $F^{(v_\textrm{transition})}(u,1)$ do not align with the surfaces $B(u,v)$ and $C(u,v)$, respectively. Notice also that the basic shape of the surface $F^{(v_\textrm{transition})}(u,v)$ has the following property regarding rays:
 		$$ F^{(v_\textrm{transition})}([0,1]^2) \subset \bigcup_{v_F \in \{0,1\}}\bigcup_{u_F\in[0,1]} R_{P,Q-P}([0, \infty)), $$
 	where $P := F^{(v_\textrm{transition})}(u_F,v_\textrm{transition})$ and $Q := F^{(v_\textrm{transition})}(u_F,v_F)$.
-	In other words, the film cooling hole is made up out of line segments or, equivalently, subsets of rays, the support and direction vectors of which we already know.
+	In other words, the film cooling hole is made of line segments or, equivalently, subsets of rays, the support and direction vectors of which we already know.
 
 	This observation gives rise to a solution to our boundary problem. We can use the ray marching algorithm from Section \ref{subsec:raymarching} to find ray intersections of all such $R_{P,Q-P}$ and $B(u,v)$ by setting $v_F = 0$. This yields a delimiting curve $B_d(u)$, which marks one boundary of the film cooling hole and lies completely within $B(u,v)$. By setting $v_F = 1$, we find the ray intersections of all such $R_{P, Q-P}$ and $C(u,v)$, yielding a delimiting curve $C_d(u)$ which marks the other boundary of the film cooling hole and lies completely within $C(u,v)$.
 
@@ -2015,10 +2015,10 @@ Göttingen, \today \hspace{2em}
 				\end{cases}
 		 $$
 
-	Using this procedure, we can efficiently create multiple film cooling holes. In CoolingGen, a distribution function is used to create a row of multiple film cooling holes at once that share the same direction $D$, radius $r$ and shape parameters $b, d$, but differ in position. This distribution function takes the number of holes $H \in \mathbb{N}$, a parameter $u_B \in [0,1]$ and an interval $[v_L, v_U] \subset [0,1]$ as an input and distributes $H$ film cooling holes on $B(u_B, [v_L, v_U])$. Multiple of these rows are usually specified.
+	Using this procedure, we can efficiently create multiple film cooling holes. In CoolingGen, a distribution function is used to create a row of multiple film cooling holes at once that share the same direction $D$, radius $r$ and shape parameters $b$ and $d$, but differ in position. This distribution function takes the number of holes $H \in \mathbb{N}$, a parameter $u_B \in [0,1]$ and an interval $[v_L, v_U] \subset [0,1]$ as an input and distributes $H$ film cooling holes on $B(u_B, [v_L, v_U])$. Usually, multiple of these rows are specified.
 
 \section{Impingement Inserts}
-	To construct an impingement insert, we use two surfaces to model the outer and the inner surface of the sheet that reside within the channel, respectively. The holes in this sheet are represented by cylindrical surfaces. Notice that the creation of impingement inserts is not compatible with the creation of channels with turns.
+	To construct an impingement insert, we use two surfaces to model the outer and the inner surface of the sheet that are located within the channel, respectively. The holes in this sheet are represented by cylindrical surfaces. Notice that the creation of impingement inserts is not compatible with the creation of channels with turns.
 
 	\begin{figure}[H]
 		\centering
