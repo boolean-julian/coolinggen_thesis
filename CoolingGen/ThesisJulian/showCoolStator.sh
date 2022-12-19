@@ -1,2 +1,0 @@
-#!/bin/bash
-/opt/tecplot_2021_r1/360ex_2021r1/bin/tec360 UseCases/UHBR_s1/Blade3D_xyz.dat ThesisJulian/CoolStator/Channel/*/surface.dat ThesisJulian/CoolStator/Insert/*/*Surface.dat ThesisJulian/CoolStator/Insert/tecplot/hole*.dat ThesisJulian/CoolStator/Film/tecplot/hole*.dat ThesisJulian/CoolStator/Slot/*/surface.dat
