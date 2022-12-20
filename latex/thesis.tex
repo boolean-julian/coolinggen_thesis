@@ -116,6 +116,10 @@
 
 \begin{document}
 
+% Remove line break before reference
+\let\realref=\ref
+\def\ref{\unskip~\realref}
+
 % Chapter format
 \titleformat{\chapter}[hang]{\normalfont\huge\bfseries}{\thechapter}{0.75em}{\huge\bfseries}
 \titlespacing*{\chapter}{0em}{-2em}{1em}
@@ -197,7 +201,7 @@ Institute of Computer Science\\
 
 % Done-it-myself page
 \noindent I hereby declare that this thesis has been written by myself and no other resources than those mentioned have been used.\\[0.7em]
-\phantom{H}\includegraphics[height=3em]{../assets/formal/sign.png}\\[0.5em]
+\phantom{H}{\includegraphics[height=3em]{../assets/formal/sign.png}}\\[0.5em]
 Göttingen, \today \hspace{2em}
 \pagebreak
 
@@ -1240,10 +1244,7 @@ Göttingen, \today \hspace{2em}
 			\EndProcedure
 
 			\Procedure{intersectCurves}{$\gamma_1, \gamma_2$}
-				\State $I \gets \emptyset$
-				\State $\text{intersectCurvesRecursion}(I, \gamma_1, 0, 1, \gamma_2, 0, 1, 0)$
-
-				\State \Return $I$
+				\State $I \gets \emptyset$, $I \gets \text{intersectCurvesRecursion}(I, \gamma_1, 0, 1, \gamma_2, 0, 1, 0)$ and \Return $I$
 			\EndProcedure
 		\end{algorithmic}
 	\end{algorithm}
@@ -1304,11 +1305,11 @@ Göttingen, \today \hspace{2em}
 
 	\begin{figure}[H]
 		\centering
-		\begin{subfigure}{0.49\textwidth}
+		\begin{subfigure}{0.45\textwidth}
 			\includesvg[width=0.98\textwidth]{../python/offsetCurveSelfIntersection0}
 			\caption{Non-injective offset curves.}
 		\end{subfigure}
-		\begin{subfigure}{0.49\textwidth}
+		\begin{subfigure}{0.45\textwidth}
 			\includesvg[width=0.98\textwidth]{../python/offsetCurveSelfIntersection1}
 			\caption{Trimmed offset curves on $\overline{[0,1] \setminus T(O^\gamma_d)}$.}
 		\end{subfigure}
@@ -1648,7 +1649,7 @@ Göttingen, \today \hspace{2em}
 		$$m(u,v) = \int_0^u \sqrt{x(t,v)^2 + r(t,v)^2} \; \textrm{dt}$$
 	is the $v$-isoparametric arc length of the stream surface. To design the blades (and vanes) for turbomachinery, BladeGen and CoolingGen make use of a certain $S_2$ surface, the so called $S_{2,m}$ surface. This surface lies midway between two blades (or vanes) \cite{Wu1952}. Each stream line described by $S_{2,m}$ can then be written as $v$-isoparametric curve $S_{2,m}(\cdot, v)$.
 
-	By intersecting the cylindrically transformed $u$-isoparametric curves $Z(B(u,\cdot))$ (see Equation \ref{eq:cylindrical_transformation}) of the blade or vane with each such stream line $S_{2,m}(\cdot, v)$ in their first two arguments $(x,r)$, we can construct a curve
+	By intersecting the cylindrically transformed $u$-isoparametric curves $Z(B(u,\cdot))$, see Equation \ref{eq:cylindrical_transformation}, of the blade or vane with each such stream line $S_{2,m}(\cdot, v)$ in their first two arguments $(x,r)$, we can construct a curve
 		$$ B^{(v)}_\textrm{stream}(u) = (m, r\theta),$$
 	where $m$ is the intersection arc length of $S_{2,m}(\cdot, v)$, $r$ is the intersection distance from the hub and $\theta$ is the intersection circumferential angle. This coordinate system with respect to arc length $m$ and radius-angle product $r\theta$ is a so called stream surface coordinate system. Given $v$ and the stream surface, each point $(m, r\theta)$ can bijectively be mapped back onto the respective Cartesian coordinates $(x, y, z)$.
 
@@ -2031,18 +2032,21 @@ Göttingen, \today \hspace{2em}
 		\begin{subfigure}{.37\textwidth}
 			\includegraphics[width=\textwidth]{../tec/impingement/02.png}
 			\caption{Suction-sided view.}
-		\end{subfigure}\\
-		\begin{subfigure}{.5\textwidth}
-			\includegraphics[width=\textwidth]{../tec/impingement/01.png}
-			\caption{Radial view.}
 		\end{subfigure}
 		\caption{An impingement insert with staggered holes on the suction side and aligned holes on the pressure side.}
 		\label{fig:impingementinsert}
 	\end{figure}
 
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=.5\textwidth]{../tec/impingement/01.png}
+		\caption{Radial view of the impingement insert in Figure \ref{fig:impingementinsert}.}
+		\label{fig:impingementinsert_radial}
+	\end{figure}
+
 	The creation of the inner and outer surfaces relies on the same principles as the creation of chambers, which was discussed in Section \ref{sec:chambers}. Since we already calculated the $(m, r\theta)$ profiles of the chambers, we only need to offset, trim, add fillets and use skinning to make these surfaces. For each impingement insert, an inner distance $i > 0$, outer distance $o > 0$ and a thickness $d > 0$ is specified.
 
-	The profile partitions that run parallel to the blade or vane are offset by $o$, whereas the profile partitions that lie between chambers are offset by $i$. The new profile partitions are trimmed and fillets are added. This yields the outer impingement insert profile. The outer impingement insert profiles are then offset by $d$ to calculate the inner impingement insert profiles. After using surface skinning, we are left with two surfaces that represent the impingement insert, an example of which can be seen in Figure \ref{fig:impingementinsert}.
+	The profile partitions that run parallel to the blade or vane are offset by $o$, whereas the profile partitions that lie between chambers are offset by $i$. The new profile partitions are trimmed and fillets are added. This yields the outer impingement insert profile. The outer impingement insert profiles are then offset by $d$ to calculate the inner impingement insert profiles. After using surface skinning, we are left with two surfaces that represent the impingement insert, an example of which can be seen in Figure \ref{fig:impingementinsert} and in Figure \ref{fig:impingementinsert_radial}.
 	
 	\begin{figure}[H]
 		\centering
