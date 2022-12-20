@@ -15,6 +15,7 @@
 \usepackage{lmodern}
 \usepackage[nopatch={footnote}]{microtype}
 \usepackage[none]{hyphenat}
+\usepackage[all]{nowidow}
 
 %% Syntax
 \usepackage{ifthen}
@@ -270,7 +271,7 @@ Göttingen, \today \hspace{2em}
 		At the DLR, blade and vane contours are already successfully designed using such a fully parametric CAD tool called BladeGen. We therefore know that the approach of automating the modelling process bears great potential. Thus, the development of a similar tool for the construction of blade and vane cooling, namely CoolingGen, is reasonable. In the associative structure of parametric CAD, blades and vanes serve as the parent elements of the cooling geometries we are concerned with in CoolingGen.
 
 	
-	\section{Cooling Design Process Chain}
+	\section{Cooling Design Process Chain}\label{sec:coolingdesignprocesschain}
 		\begin{figure}[H]
 			\centering
 			\begin{tikzpicture}[font=\small]
@@ -1839,7 +1840,7 @@ Göttingen, \today \hspace{2em}
 		$$ \Phi(s, \sigma, t): [0,1] \rightarrow [0,1] \quad t \mapsto (s+\sigma t+1) \textrm{ mod } 1, $$
 	to the input parameter $t$, where $s \in [0,1]$ is the parametric shift, $\sigma \in \{1, -1\}$ is the curve direction, and $\textrm{mod}$ is the modulus operator. Using this map and Algorithm \ref{alg:pointinversion}, we can align two curves at a point.
 
-	The reason why this is necessary may become apparent through Figure \ref{fig:threecoolingchannels}. The black curves on the orange channel surface represent the $v=0$ and $v=1$ isoparametric curves of the channel surface. The $u=0$ point of the $v=0$ isoparametric curve in the leading chamber of the orange channel is located in the pressure-sided trailing corner, whereas the $u=0$ point of the $v=1$ isoparametric curve in the trailing chamber of the orange channel is located in the pressure-sided leading corner. Moreover, in the view in \ref{fig:threecoolingchannels}, the $v=0$ curve runs clockwise whereas the $v=1$ curve runs anti-clockwise. However, when we created the chambers for this channel, both $u=0$ points were located on the trailing edge corner and both curves ran clockwise. Connecting these two chambers with a turn requires a re-parametrization of the profile curves in terms of local features, such that the $u=0$ isoparametric curve remains on the inside of the turn, rather than obeying a global feature parametrization in terms of leading and trailing edge and suction and pressure side.
+	The reason why this is necessary may become apparent through Figure \ref{fig:threecoolingchannels}. The black curves on the orange channel surface represent the $v=0$ and $v=1$ isoparametric curves of the channel surface. The $u=0$ point of the $v=0$ isoparametric curve in the leading chamber of the orange channel is located in the pressure-sided trailing corner, whereas the $u=0$ point of the $v=1$ isoparametric curve in the trailing chamber of the orange channel is located in the pressure-sided leading corner. Moreover, in the view in Figure \ref{fig:threecoolingchannels}, the $v=0$ curve runs clockwise whereas the $v=1$ curve runs anti-clockwise. However, when we created the chambers for this channel, both $u=0$ points were located on the trailing edge corner and both curves ran clockwise. Connecting these two chambers with a turn requires a re-parametrization of the profile curves in terms of local features, such that the $u=0$ isoparametric curve remains on the inside of the turn, rather than obeying a global feature parametrization in terms of leading and trailing edge and suction and pressure side.
 
 \section{Film Cooling Holes}\label{sec:filmcooling}
 	In this section, the construction of film cooling holes is presented.
@@ -2057,7 +2058,7 @@ Göttingen, \today \hspace{2em}
 		\label{fig:alignedstaggered}
 	\end{figure}
 
-	Using the methods from Section \ref{sec:filmcooling}, we can construct cylindrical holes between the outer and inner surface of the impingement insert. Instead of using a distribution function for positioning, we instead specify two intervals $[u_L, u_U]$ and $[v_L, v_U]$ on the outer impingement insert surface and the number of rows $N$ and columns $M$ of film cooling holes per array, to place (up to) $NM$ holes between the outer and inner impingement insert surface, inside the specified intervals. We also specify the type of hole distribution, which can be either aligned or staggered. These two types can be seen in Figure \ref{fig:alignedstaggered} and Figure \ref{fig:impingementinsert}.
+	Using the methods from Section \ref{sec:filmcooling}, we can construct cylindrical holes between the outer and inner surface of the impingement insert. Instead of using a distribution function for hole positioning like in Section \ref{sec:filmcooling}, we specify two intervals $[u_L, u_U]$ and $[v_L, v_U]$ on the outer impingement insert surface and the number of rows $N$ and columns $M$ of holes per array. Inside the specified intervals, $NM$ holes are then placed between the outer and inner impingement insert surface. We also specify the type of hole distribution, which can be either aligned or staggered. These two types can be seen in Figure \ref{fig:alignedstaggered} and Figure \ref{fig:impingementinsert}.
 
 \section{Ejection Slots}\label{sec:slots}
 	Ejection slots transport the coolant from the inside of the trailing edge channel to the pressure side of the blade or vane. A slot is partially defined by two delimiting surfaces, the inlet surface $I(u,v)$ and the outlet surface $O(u,v)$ for $u,v \in [0,1]$. The inlet surface $I(u,v)$ is a subsurface of the channel surface $C(u,v)$ that lies closest to the trailing edge. The outlet surface $O(u,v)$ is a subsurface of the blade or vane surface $B(u,v)$.
@@ -2075,7 +2076,7 @@ Göttingen, \today \hspace{2em}
 	\end{figure}
 
 	Given the input lower bounds $u_B^L$ and $u_C^L$ and the input upper bounds $u_B^H$ and $u_C^H$ of $B(u,v)$ and $C(u,v)$, respectively, we can find the subsurfaces
-		$$ B\domrestr_{u \in [u_B^L, u_B^H]}(u,v) \quad\text{and}\quad C\domrestr_{u \in [u_C^L, u_C^H]}(u,v),$$
+		$$ B\domrestr_{u \in [u_B^L, u_B^H]}(u,v) \quad\text{and}\quad C\domrestr_{u \in [u_C^L, u_C^H]}(u,v)$$
 	of $B(u,v)$ and $C(u,v)$, which are represented by the blue surfaces in Figure \ref{fig:slot_plane_intersection}.
 	Furthermore, the input for the inlet surface $I(u,v)$ requires a lower bound $v_C^L$ and an upper bound $v_C^H$ of $C(u,v)$. Additionally, two angles $\omega_L$ and $\omega_H$ are specified in relation to the trailing edge of $C(u,v)$. Given this data, we can construct the planes
 		$$ P_{C(u_C^L,v_C^L), D_L} \quad\text{and}\quad P_{C(u_C^L, v_C^H), D_H},$$
@@ -2086,11 +2087,11 @@ Göttingen, \today \hspace{2em}
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.4\textwidth]{../tec/slots/16.png}
-		\caption{Connecting $I(u,v)$ and $O(u,v)$ (orange) using surface patches (blue).}
+		\caption{Connecting $I(u,v)$ and $O(u,v)$ (orange) using surface patches (blue) defined by a set of four angles.}
 		\label{fig:slot_connection}
 	\end{figure}
 
-	In the next step, we connect the boundary curves of $I(u,v)$ and $O(u,v)$. The suction-sided boundaries ($u = 0$) and the pressure-sided boundaries ($u = 1$) are connected by two NURBS surfaces. Given a value $v \in [0,1]$, we can construct two more equidistant intermediate control points for each $u \in \{0,1\}$. For this purpose, we define four input angles. The suction-sided inlet angle $\alpha_\textrm{suction}$, the pressure-sided inlet angle $\alpha_\textrm{pressure}$, the suction-sided outlet angle $\beta_\textrm{suction}$ and the pressure-sided outlet angle $\beta_\textrm{pressure}$. Figure \ref{fig:slot_connection} shows an example of this procedure, in which the connecting surfaces are blue.
+	In the next step, we connect the boundary curves of $I(u,v)$ and $O(u,v)$. The suction-sided boundaries ($u = 0$) and the pressure-sided boundaries ($u = 1$) are connected by two NURBS surfaces. Given a value $v \in [0,1]$, we can construct two more equidistant intermediate control points for each $u \in \{0,1\}$. For this purpose, we define four input angles: the suction-sided inlet angle $\alpha_\textrm{suction}$, the pressure-sided inlet angle $\alpha_\textrm{pressure}$, the suction-sided outlet angle $\beta_\textrm{suction}$ and the pressure-sided outlet angle $\beta_\textrm{pressure}$. Figure \ref{fig:slot_connection} shows an exemplary result of this procedure.
 
 	\begin{figure}[H]
 		\centering
@@ -2107,7 +2108,7 @@ Göttingen, \today \hspace{2em}
 			\vspace{1cm}
 			\caption{Fillet creation.}
 		\end{subfigure}
-		\caption{Adding fillets to the slot surface.}
+		\caption{Adding fillets to the ejection slot surface.}
 		\label{fig:slot_coon}
 	\end{figure}
 
@@ -2123,14 +2124,14 @@ Göttingen, \today \hspace{2em}
 		\begin{subfigure}{.35\textwidth}
 			\includegraphics[width=\textwidth]{../tec/slots/11.png}
 		\end{subfigure}
-		\caption{An array of slots constructed with realistic angles $\omega_L$ and $\omega_H$.}
+		\caption{An array of ejection slots constructed with realistic angles $\omega_L$ and $\omega_H$.}
 		\label{fig:slots_real}
 	\end{figure}
 
 	The figures prior to Figure \ref{fig:slots_real} show relatively big angles $\omega_L$ and $\omega_H$ to better visualize the methods used for the construction. Although the presented angles produce valid slot surfaces, smaller angles are favorable in realistic scenarios. A more realistic setup can be seen in Figure \ref{fig:slots_real}.
 
 \section{Implementation}\label{sec:implementation}
-	The two blade setups that can be seen in Figure \ref{fig:results_complete} were generated within 140 seconds on a computer with 8 single-threaded cores, each of which have a clock rate of 4GHz. Alongside the mathematical procedures that were presented in Chapter \ref{chap:methods}, the performance of CoolingGen was achieved through OpenMP, which is a shared memory API that allows for parallel code execution. CoolingGen currently provides two different output formats: the Tecplot \cite{TecplotSoft} ASCII file format and the CENTAUR \cite{CENTAURSoft} ASCII file format. Tecplot was used to create many of the blade or vane geometry surfaces and, in the context of geometry creation, serves as a preview tool. CENTAUR is a mesh generator that is used before CFD simulations.
+	The two blade setups that can be seen in Figure \ref{fig:results_complete} were generated within 140 seconds on a computer with 8 single-threaded cores, each of which have a clock rate of 4GHz. Alongside the mathematical procedures that were presented in Chapter \ref{chap:methods}, the performance of CoolingGen was achieved through OpenMP, which is a shared memory API that allows for parallel code execution. CoolingGen currently provides two different output formats: the Tecplot \cite{TecplotSoft} ASCII file format and the CENTAUR \cite{CENTAURSoft} ASCII file format. Tecplot was used to create many of the blade or vane geometry surfaces and, in the context of geometry creation, serves as a preview tool. CENTAUR is used for CFD mesh generation as part of the cooling design process chain, see Section \ref{sec:coolingdesignprocesschain}.
 
 \chapter{Discussion}
 	CoolingGen was succesfully revised to support realistic cooling geometries. Channel creation has been fixed. State of the art film cooling, impingement sheets and ejection slots are now supported. The input parameters are since specified in the Extensible Markup Language (XML) and the input specification is quite similar to that of PICCOOLO, the two-dimensional blade profile geometry creation tool. To create a complete set of cooling geometries for a single blade or vane, CoolingGen currently averages out at approximately 70 seconds on a modern home computer.
