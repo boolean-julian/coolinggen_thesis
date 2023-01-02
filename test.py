@@ -6,6 +6,10 @@ from matplotlib import rc
 rc('text', usetex=True)
 
 ## General settings
+alpha = 0.4
+markersize = 20
+linewidth = 0.5
+
 fig, ax1 = plt.subplots(figsize=(5,5))
 ax2 = ax1.twinx()
 
@@ -30,11 +34,11 @@ x2 = np.array([0, 0.1, 0.3, 0.8])
 y2 = np.array([0.8, 0.3, 0.1, 0])
 
 ## Plot data as scatter and line
-s1 = ax1.scatter(x1, y1, marker = "D", color = color1)
-ax1.plot(x1, y1, '--', marker = "*", color = color1)
+s1 = ax1.scatter(x1, y1, marker = "D", color = color1, s = markersize, alpha = alpha)
+ax1.plot(x1, y1, '--', color = color1, alpha = 1, linewidth = linewidth)
 
-s2 = ax2.scatter(x2, y2, color = color2)
-ax2.plot(x2, y2, '--', color = color2)
+s2 = ax2.scatter(x2, y2, marker = "*", color = color2, s = markersize, alpha = alpha)
+ax2.plot(x2, y2, '--', color = color2, alpha = 1, linewidth = linewidth)
 
 ## Legend
 ax1.legend([s1, s2], [r"$y_1$", r"$y_2$"], loc = 'upper center')

@@ -10,7 +10,9 @@
 \usepackage{float}
 \usepackage{svg}
 \usepackage{subcaption}
+\usepackage{pifont}
 \renewcommand{\familydefault}{\sfdefault}
+
 
 % set theme color to DLR logo color
 \definecolor{mypres}{RGB}{97,107,104}
@@ -80,7 +82,13 @@
 \begin{frame}
 	\frametitle{Problemstellung / Kühlung}
 	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{0.6\textwidth}
+	\centering
+	\begin{minipage}[t]{0.8\textwidth}
+		\centering
+		\hspace{0.36\textwidth}
+		\includegraphics[width=0.625\textwidth]{images/Brayton_cycle.svg.png}
+	\end{minipage}
+	\begin{minipage}[t]{\textwidth}
 		\begin{itemize}
 			\item Effizienz der Turbine kann theoretisch durch großen Temperaturgradienten erhöht werden
 			\item[] 	\textrightarrow{} Praktisch strebt man darum hohe Temperaturen in der Brennkammer an
@@ -113,16 +121,32 @@
 			\item Rippen ("rib turbulators"),
 			\item \textbf{Filmkühlung} ("film cooling"),
 			\item \textbf{Pin-fins},
-			\item und \textbf{Ausblasungsschlitze} ("{}ejection slots").
+			\item und \textbf{Ausblasungsschlitze} ("trailing edge slots").
 		\end{itemize}
+	\end{minipage}
+	\begin{minipage}[t]{0.48\textwidth}
+			\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.49\textwidth}
+				\centering
+				\includegraphics[width=.8\textwidth]{../../assets/rollsroyce/11.png}
+				\caption{Rotor.}
+			\end{subfigure}
+			\begin{subfigure}{.49\textwidth}
+				\centering
+				\includegraphics[width=.9\textwidth]{../../assets/gth_rebuild/11.png}
+				\caption{Stator im Profil.}
+			\end{subfigure}
+		\end{figure}
 	\end{minipage}
 	\vfill
 \end{frame}
 
 \begin{frame}
 	\frametitle{Problemstellung / Geometrieerzeugung}
-	\vspace{-1cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{\textwidth}
+	\vspace{-0.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.65\textwidth}
+		\vspace{0.2cm}
 		Mit CAD-Software lassen sich solche Strukturen erstellen. Leider ist der Prozess zeitaufwendig und schwierig.
 		\begin{itemize}
 			\item Parametrische Werkzeuge innerhalb herkömmlicher CAD Software bieten meistens nur eine semantische Schnittstelle für einfache Strukturen (z.B. Zylinder, Quader, Kegel), die sich allerdings beliebig miteinander kombinieren lassen (z.B. Verschneiden, Vereinen).
@@ -132,15 +156,39 @@
 		\vspace{1em}
 		\textbf{Unser Lösungsansatz:} Wir erstellen uns eine eigene CAD-Software, die für uns die speziellen Kühlstrukturen mithilfe von bedeutungsträchtigen Parametern erstellt. Damit geht die Erstellung und Modifikation von Kühlungsgeometrien einfacher und schneller.
 	\end{minipage}
+	\begin{minipage}[t]{0.35\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{0.8\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{images/filmxml.png}
+			\end{subfigure}\\
+			$\Downarrow$\\
+			\begin{subfigure}{0.8\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/holes/22edit.png}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
 	\vfill
 \end{frame}
 
 \begin{frame}
-	\frametitle{}
-	\begin{minipage}[t]{\textwidth}
-		\centering
-		\Large Fragen/Anmerkungen?
+	\frametitle{Problemstellung / To-Do-Liste}
+	\vspace{-0.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{.8\textwidth}
+		Notwendige geometrische Operationen:
+		\begin{itemize}
+			\item[\ding{108}] 	Implementation von NURBS-Kurven und -Flächen
+			\item[\ding{108}]	Projektion von Punkten auf NURBS-Objekte
+			\item[\ding{109}]	Offset-Kurven
+			\item[\ding{109}]	Schnitt Halbgerade/Kurve in 2D (Ray-Marching)
+			\item[\ding{108}]	Schnitt Halbgerade/NURBS-Fläche in 3D
+			\item[\ding{108}]	Schnitt Kurve/Kurve
+			\item[\ding{108}]	Schnitt Ebene/NURBS-Fläche in 3D
+			\item[\ding{109}]	Fillets in 2D
+		\end{itemize}
 	\end{minipage}
+	\vfill
 \end{frame}
 
 \end{document}
