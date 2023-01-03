@@ -97,7 +97,7 @@
 			\item 		\textbf{Aber:} Die Kühlung wiederum nutzt Luftstrom, der nicht für den Antrieb benutzt werden kann
 			\item[] 	\textrightarrow{} Negativer Einfluss auf Wirkungsgrad
 			\item[] 	{}
-			\item[\textrightarrow] Wir folgern: \textbf{Kühlungsdesign ist Filigranarbeit!}
+			\item[\textrightarrow] \textbf{Kühlungsdesign ist Filigranarbeit!}
 		\end{itemize}
 	\end{minipage}
 	\vfill
@@ -173,20 +173,404 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Problemstellung / To-Do-Liste}
-	\vspace{-0.5cm}\hspace{-0.5cm}
-	\begin{minipage}[t]{.8\textwidth}
-		Notwendige geometrische Operationen:
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
 		\begin{itemize}
-			\item[\ding{108}] 	Implementation von NURBS-Kurven und -Flächen
-			\item[\ding{108}]	Projektion von Punkten auf NURBS-Objekte
-			\item[\ding{109}]	Offset-Kurven
-			\item[\ding{109}]	Schnitt Halbgerade/Kurve in 2D (Ray-Marching)
-			\item[\ding{108}]	Schnitt Halbgerade/NURBS-Fläche in 3D
-			\item[\ding{108}]	Schnitt Kurve/Kurve
-			\item[\ding{108}]	Schnitt Ebene/NURBS-Fläche in 3D
-			\item[\ding{109}]	Fillets in 2D
+			\item[\ding{109}] Kühlkanäle
+			\item[\ding{109}] Filmkühlung
+			\item[\ding{109}] Prallkühlung
+			\item[\ding{109}] Ausblasungsschlitze
+			\item[\ding{109}] Pin-fins
 		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{40}] Kühlkanäle
+			\item[\ding{109}] Filmkühlung
+			\item[\ding{109}] Prallkühlung
+			\item[\ding{109}] Ausblasungsschlitze
+			\item[\ding{109}] Pin-fins
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Kanäle}
+	\vspace{-0.25cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{\textwidth}
+		Bei der Erstellung von \textbf{Kühlkanälen} unterscheiden wir in CoolingGen zwischen zwei Teilstrukturen:\\[-.8em]
+
+		\textbf{1. Kammern}\\
+		Kammern ermöglichen dem Fluid, die Schaufel in radialer Richtung zu durchqueren.\\[-.8em]
+		
+		\textbf{2. Umkehrungen}\\
+		Umkehrungen ermöglichen den Transport des Fluids von einer Kammer in die nächste.\\[-.8em]
+	\end{minipage}
+	\centering
+	\begin{minipage}[t]{.8\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.49\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/complete/020.png}
+			\end{subfigure}
+			\begin{subfigure}{.49\textwidth}
+				\centering
+				\includegraphics[width=.5\textwidth]{../../tec/complete/021.png}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Kanäle / Kammern}
+	\vspace{-0.25cm}\hspace{-0.5cm}
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		Zum Erstellen der Kammern begeben wir uns vom Standardkoordinatensystem $(x,y,z)$ in das $(m, r\theta)$ \textbf{Stromlinien-Koordinatensystem}. Hier sind die isoradialen Profilkurven der Schaufeln auf kanonische Weise 2D, was viele Operationen vereinfacht.
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.32\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/shrinking/61.png}
+				\caption{Profil und \textbf{Offset-Kurve}}
+			\end{subfigure}
+			\begin{subfigure}{.32\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/shrinking/62.png}
+				\caption{\textbf{Getrimmte} Offset-Kurve}
+			\end{subfigure}
+			\begin{subfigure}{.32\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/shrinking/63.png}
+				\caption{... mit \textbf{Fillets}!}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Kanäle / Kammern}
+	\vspace{-0.7cm}\hspace{-0.5cm}
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[t]{.5\textwidth}
+				\includegraphics[width=.8\textwidth]{../../tec/chambers/61.png}
+				\caption{Partitionierung des Profils.}
+			\end{subfigure}
+			\begin{subfigure}{.39\textwidth}
+				Entlang der \textbf{Skelettlinie} kann man nun Wand-positionen und -winkel festlegen, um mehrere Kammern zu erhalten.\\
+
+				\centering
+				\includegraphics[width=.85\textwidth]{../../tec/chambers/62.png}
+				\caption{Eine resultierende Partition.}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Kanäle / Kammern}
+	\vspace{-0.25cm}\hspace{-0.5cm}
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		Wie vorhin:
+		\begin{figure}[H]
+			\begin{subfigure}{.32\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/chambers/81.png}
+				\caption{\textbf{Offset-Kurven} bilden,}
+			\end{subfigure}
+			\begin{subfigure}{.32\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/chambers/82.png}
+				\caption{an Schnittpunkten \textbf{trimmen},}
+			\end{subfigure}
+			\begin{subfigure}{.32\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/chambers/83.png}
+				\caption{und \textbf{Fillets} hinzufügen.}
+			\end{subfigure}
+			\label{fig:chamber_shrinking}
+		\end{figure}
+		So erhalten wir ein \textbf{Kammerprofil}.
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Kanäle / Kammern}
+	\vspace{-0.25cm}\hspace{-0.5cm}
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		Dann transformieren wir die $(m, r\theta)$ \textbf{Kammerprofile} ins $(x,y,z)$ System und verbinden sie:
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.46\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/chambers/114.png}
+				\caption{Eine Kammer.}
+			\end{subfigure}
+			\begin{subfigure}{.36\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/chambers/111.png}
+				\caption{Vier Kammern in der Schaufel.}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Kanäle / Umkehrungen}
+	\vspace{-0.25cm}\hspace{-0.5cm}
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		\textbf{Umkehrungen} werden aus den Kammern erstellt:
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.55\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/channel/11.png}
+			\end{subfigure}
+			\begin{subfigure}{.32\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/channel/12.png}
+				\vspace{1.2cm}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Kanäle / Umkehrungen}
+	\vspace{-0.5cm}\hspace{-0.5cm}
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.49\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/channel/13.png}
+			\end{subfigure}
+			\begin{subfigure}{.49\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/channel/14.png}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Kanäle}
+	\vspace{-0.25cm}\hspace{-0.5cm}
+	Kammern und Umkehrungen \textrightarrow{} \textbf{Kanäle}
+	\centering
+	\begin{minipage}[t]{.8\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.49\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/complete/020.png}
+			\end{subfigure}
+			\begin{subfigure}{.49\textwidth}
+				\centering
+				\includegraphics[width=.5\textwidth]{../../tec/complete/021.png}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{108}] Kühlkanäle
+			\item[\ding{109}] Filmkühlung
+			\item[\ding{109}] Prallkühlung
+			\item[\ding{109}] Ausblasungsschlitze
+			\item[\ding{109}] Pin-fins
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{108}] Kühlkanäle
+			\item[\ding{40}] Filmkühlung
+			\item[\ding{109}] Prallkühlung
+			\item[\ding{109}] Ausblasungsschlitze
+			\item[\ding{109}] Pin-fins
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Filmkühlung}
+	\vspace{-0.5cm}
+
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.75\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/holes/22edit.png}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Filmkühlung}
+	\vspace{-1.5cm}
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.15\textwidth}
+				\includegraphics[width=0.6\textwidth]{../../tec/holes/16.png}
+				\vspace{1cm}				
+				\caption{Zylindrisch}
+			\end{subfigure}
+			\begin{subfigure}{.3\textwidth}
+				\centering
+				\includegraphics[width=.5\textwidth]{../../tec/holes/15.png}
+				\vspace{1cm}
+				\caption{Laid back fan-shaped}
+			\end{subfigure}
+			\begin{subfigure}{.5\textwidth}
+				\includesvg[width=\textwidth]{../../python/fanshapedCurveDefinition}
+				\caption{Begrenzende Kurven}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Filmkühlung}
+	\vspace{0cm}
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.25\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/holes/00edit.png}
+			\end{subfigure}
+			\begin{subfigure}{.25\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/holes/01edit.png}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Filmkühlung}
+	\vspace{0cm}
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.45\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/holes/20edit.png}
+			\end{subfigure}
+			\phantom{aaa}
+			\begin{subfigure}{.45\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/holes/21edit.png}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Filmkühlung}
+	\vspace{-0.5cm}
+
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.75\textwidth}
+				\includegraphics[width=\textwidth]{../../tec/holes/22edit.png}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{108}] Kühlkanäle
+			\item[\ding{108}] Filmkühlung
+			\item[\ding{109}] Prallkühlung
+			\item[\ding{109}] Ausblasungsschlitze
+			\item[\ding{109}] Pin-fins
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{108}] Kühlkanäle
+			\item[\ding{108}] Filmkühlung
+			\item[\ding{40}] Prallkühlung
+			\item[\ding{109}] Ausblasungsschlitze
+			\item[\ding{109}] Pin-fins
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
 	\end{minipage}
 	\vfill
 \end{frame}
