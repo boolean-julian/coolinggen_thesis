@@ -11,15 +11,18 @@
 \usepackage{svg}
 \usepackage{subcaption}
 \usepackage{pifont}
+\usepackage{graphicx}
 \renewcommand{\familydefault}{\sfdefault}
 
+% math macros
+\newcommand{\derivative}[2]{\frac{\textrm{d}{#1}}{\textrm{d}{#2}}}
 
 % set theme color to DLR logo color
 \definecolor{mypres}{RGB}{97,107,104}
 
 % set presentation date
-\day30\relax
-\month01\relax
+\day22\relax
+\month03\relax
 \year2023\relax
 
 % set big cdot for header
@@ -47,7 +50,7 @@
 % definition of the footline template arial
 \defbeamertemplate*{footline}{mytheme}{%
 	\begin{tikzpicture}[remember picture, overlay]
-		\node[inner sep=0, anchor = south east] at (current page.south east) (banner) {\includegraphics[page=1, width=\paperwidth]{footer.pdf}};
+		\node[inner sep=-1pt, anchor = south] at (current page.south) (banner) {\includegraphics[page=1, width=\paperwidth]{footer.pdf}};
 	\end{tikzpicture}
 	\vskip0pt
 }
@@ -57,7 +60,7 @@
 	\begin{tikzpicture}[remember picture, overlay]
 		\node[text=mypres,anchor=west,font=\sffamily\tiny,text width=0.8\paperwidth] at ([xshift=6pt,yshift=0.5\textheight]current page.west) (header0) {DLR.de{ }$\bigcdot${ }Folie \insertframenumber};
 		\node[text=mypres,anchor=west,font=\sffamily\tiny,text width=0.8\paperwidth] at ([xshift=54pt,yshift=0.5\textheight]current page.west) (header1) {$\bigcdot${ }\insertshorttitle{ }$\bigcdot${ }\insertauthor{ }$\bigcdot${ }\insertdate};
-		\node[inner sep=0, anchor = south east] at (current page.south east) (banner) {\includegraphics[page=1, width=\paperwidth]{header.pdf}};
+		\node[inner sep=-1pt, anchor = south] at (current page.south) (banner) {\includegraphics[page=1, width=\paperwidth]{header.pdf}};
 		\node[text=mypres,anchor=south west,font=\sffamily\LARGE,text width=0.8\paperwidth] at ([xshift=7pt,yshift=1.50cm]current page.west) (title) {\raggedleft\insertshorttitle};
 		\node[text=mypres,anchor=south west,font=\sffamily\large,text width=0.8\paperwidth] at ([xshift=7pt,yshift=1.00cm]current page.west) (subtitle) {\raggedleft\inserttitle};
 		\node[text=mypres,anchor=south west,font=\sffamily,text width=.55\paperwidth] at ([xshift=7pt,yshift=-1cm]current page.west) (author) {\raggedright\insertauthor};
@@ -221,10 +224,10 @@
 		Bei der Erstellung von \textbf{Kühlkanälen} unterscheiden wir in CoolingGen zwischen zwei Teilstrukturen:\\[-.8em]
 
 		\textbf{1. Kammern}\\
-		Kammern ermöglichen dem Fluid, die Schaufel in radialer Richtung zu durchqueren.\\[-.8em]
+		Kammern ermöglichen dem Fluid, die Schaufel in radialer Richtung zu durchqueren (orange)\\[-.8em]
 		
 		\textbf{2. Umkehrungen}\\
-		Umkehrungen ermöglichen den Transport des Fluids von einer Kammer in die nächste.\\[-.8em]
+		Umkehrungen ermöglichen den Transport des Fluids von einer Kammer in die nächste (blau)\\[-.8em]
 	\end{minipage}
 	\centering
 	\begin{minipage}[t]{.8\textwidth}
@@ -317,11 +320,48 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Geometrien / Kanäle / Kammern / Fillets}
+	\vspace{-0.25cm}\hspace{-0.5cm}
+	\centering
+	\begin{minipage}[t]{\textwidth}
+		Wie kriegt man \textbf{Fillets} mit Radius $r$? Wir finden den Schnittpunkt der \textbf{$r$-Offset-Kurven}:
+		\begin{figure}[H]
+			\includesvg[width=\textwidth]{../../python/filletConstruction1}
+		\end{figure}
+		\begin{figure}[H]
+			\includesvg[width=\textwidth]{../../python/filletConstruction2}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Kanäle / Kammern / Offset-Kurven}
+	\vspace{-0.25cm}\hspace{-0.5cm}
+	\centering
+	\begin{minipage}[c]{.6\textwidth}
+		Dabei ist die \textbf{$r$-Offset-Kurve} von der Kurve $\gamma$ definiert als
+			$$O^\gamma_r(t) := \gamma(t) + rN^\gamma(t),$$
+		wobei
+			$$N^\gamma(t) := \frac{\nabla\gamma(t)^\perp}{||\nabla\gamma(t)||}$$
+		der Normalenvektor und
+			$$\nabla\gamma(t)^\perp = \left(\derivative{x}{t}(t), \derivative{y}{t}(t)\right)^\perp := \left(-\derivative{y}{t}(t), \derivative{x}{t}(t)\right)$$
+		die linksseitige Orthogonale von $\gamma$ an der Stelle $t$ ist.
+	\end{minipage}
+	\begin{minipage}[c]{.39\textwidth}
+		\begin{figure}[H]
+			\includesvg[width=.7\textwidth]{../../python/offsetCurveExampleBeamer}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
 	\frametitle{Geometrien / Kanäle / Kammern}
 	\vspace{-0.25cm}\hspace{-0.5cm}
 	\centering
 	\begin{minipage}[t]{\textwidth}
-		Dann transformieren wir die $(m, r\theta)$ \textbf{Kammerprofile} ins $(x,y,z)$ System und verbinden sie:
+		Dann transformieren wir die $(m, r\theta)$ \textbf{Kammerprofile} ins $(x,y,z)$ System und verbinden sie miteinander.
 		\begin{figure}[H]
 			\centering
 			\begin{subfigure}{.46\textwidth}
@@ -484,34 +524,48 @@
 	\frametitle{Geometrien / Filmkühlung}
 	\vspace{0cm}
 	\centering
-	\begin{minipage}[t]{\textwidth}
+	\begin{minipage}[t]{.5\textwidth}
 		\begin{figure}[H]
 			\centering
-			\begin{subfigure}{.25\textwidth}
+			\begin{subfigure}{.49\textwidth}
 				\includegraphics[width=\textwidth]{../../tec/holes/00edit.png}
 			\end{subfigure}
-			\begin{subfigure}{.25\textwidth}
+			\begin{subfigure}{.49\textwidth}
 				\includegraphics[width=\textwidth]{../../tec/holes/01edit.png}
 			\end{subfigure}
 		\end{figure}
+	\end{minipage}
+	\begin{minipage}[t]{.49\textwidth}
+		\vspace{1cm}
+		Links: Einbettung der 2D Kurven im 3D Raum entlang einer Strecke zwischen Schaufel $B$ und Kanal $C$.\\[1em]
+		Rechts: Linearkombination der resultierenden Körper. $v_{\textrm{transition}}$ ist ein Eingabeparameter.
 	\end{minipage}
 	\vfill
 \end{frame}
 
 \begin{frame}
 	\frametitle{Geometrien / Filmkühlung}
-	\vspace{0cm}
+	\vspace{-0.5cm}
 	\centering
-	\begin{minipage}[t]{\textwidth}
+	\begin{minipage}[t]{.4\textwidth}
 		\begin{figure}[H]
 			\centering
-			\begin{subfigure}{.45\textwidth}
+			\begin{subfigure}{\textwidth}
 				\includegraphics[width=\textwidth]{../../tec/holes/20edit.png}
-			\end{subfigure}
-			\phantom{aaa}
-			\begin{subfigure}{.45\textwidth}
+			\end{subfigure}\\
+			$\Downarrow$\\
+			\begin{subfigure}{\textwidth}
 				\includegraphics[width=\textwidth]{../../tec/holes/21edit.png}
 			\end{subfigure}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}[t]{.55\textwidth}
+		\begin{figure}[H]
+			\vspace{1cm}
+			\centering
+			Filmkühlungsbohrungen sind per Konstruktion Teilmengen von Halbgeraden (engl. \textbf{rays}).
+			Wir nutzen \textbf{ray marching}, um die einzelnen Rays mit den umgebenden Flächen zu schneiden.
+			\includesvg[width=\textwidth]{../../python/rayMarching}
 		\end{figure}
 	\end{minipage}
 	\vfill
@@ -619,5 +673,158 @@
 	\end{figure}
 	\vfill
 \end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{108}] Kühlkanäle
+			\item[\ding{108}] Filmkühlung
+			\item[\ding{108}] Prallkühlung
+			\item[\ding{109}] Ausblasungsschlitze
+			\item[\ding{109}] Pin-fins
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{108}] Kühlkanäle
+			\item[\ding{108}] Filmkühlung
+			\item[\ding{108}] Prallkühlung
+			\item[\ding{40}] Ausblasungsschlitze
+			\item[\ding{109}] Pin-fins
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Slots}
+	\vspace{0cm}\hspace{-0.5cm}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.45\textwidth}
+			\includegraphics[width=\textwidth]{../../tec/slots/11.png}
+		\end{subfigure}
+		\phantom{aaa}
+		\begin{subfigure}{.45\textwidth}
+			\includegraphics[width=\textwidth]{../../tec/slots/12.png}
+		\end{subfigure}
+	\end{figure}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Slots}
+	\vspace{0cm}\hspace{-0.5cm}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.45\textwidth}
+			\includegraphics[width=\textwidth]{../../tec/slots/15.png}
+		\end{subfigure}
+		\phantom{aaa}
+		\begin{subfigure}{.45\textwidth}
+			\includegraphics[width=\textwidth]{../../tec/slots/14.png}
+		\end{subfigure}
+	\end{figure}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Slots}
+	\vspace{-1cm}\hspace{-0.5cm}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.3\textwidth}
+			\includegraphics[width=\textwidth]{../../tec/slots/16.png}
+		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\includegraphics[width=\textwidth]{../../tec/slots/17.png}
+		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\includegraphics[width=\textwidth]{../../tec/slots/18.png}
+		\end{subfigure}
+	\end{figure}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{108}] Kühlkanäle
+			\item[\ding{108}] Filmkühlung
+			\item[\ding{108}] Prallkühlung
+			\item[\ding{108}] Ausblasungsschlitze
+			\item[\ding{109}] Pin-fins
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{108}] Kühlkanäle
+			\item[\ding{108}] Filmkühlung
+			\item[\ding{108}] Prallkühlung
+			\item[\ding{108}] Ausblasungsschlitze
+			\item[\ding{40}] Pin-fins
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Geometrien / Pin-fins}
+	\vspace{-1cm}\hspace{-0.5cm}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.3\textwidth}
+			\includegraphics[width=\textwidth]{../../tec/pinfin/10.png}
+		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\includegraphics[width=\textwidth]{../../tec/pinfin/11.png}
+		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\includegraphics[width=\textwidth]{../../tec/pinfin/12.png}
+		\end{subfigure}
+	\end{figure}
+	\vfill
+\end{frame}
+
 
 \end{document}
