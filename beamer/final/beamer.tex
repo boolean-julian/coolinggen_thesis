@@ -14,6 +14,8 @@
 \usepackage{graphicx}
 \renewcommand{\familydefault}{\sfdefault}
 
+\usetikzlibrary{shapes,positioning,fit}
+
 % math macros
 \newcommand{\derivative}[2]{\frac{\textrm{d}{#1}}{\textrm{d}{#2}}}
 
@@ -826,5 +828,166 @@
 	\vfill
 \end{frame}
 
+\begin{frame}
+	\frametitle{Geometrien / Überblick}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{108}] Kühlkanäle
+			\item[\ding{108}] Filmkühlung
+			\item[\ding{108}] Prallkühlung
+			\item[\ding{108}] Ausblasungsschlitze
+			\item[\ding{108}] Pin-fins
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Nutzung}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\begin{itemize}
+			\item[\ding{109}] Prozesskette
+			\item[\ding{109}] Vollkörpererzeugung
+			\item[\ding{109}] Mesh-Erzeugung für CFD
+			\item[\ding{109}] CFD mit TRACE
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			andere Grafik
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Prozesskette}
+	\vspace{-1cm}\hspace{-0.5cm}
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[font=\small]
+			\node[draw, rounded rectangle, minimum width=2cm, minimum height=1cm] (GTlab) 							{Input performance data};
+			\node[draw, rectangle, minimum width=2.5cm, minimum height=1cm, left=of GTlab] (PrEDiCT) 				{\textbf{PrEDiCT}};
+			\node[draw, rectangle, minimum width=2cm, minimum height=1cm, left=of PrEDiCT] (BladeGen)				{\textbf{BladeGen}};
+			\node[minimum width=2.5cm, minimum height=1cm, below=of BladeGen] (spacer)								{};
+			\node[draw, rectangle, minimum width=2cm, minimum height=1cm, below=of spacer] (MISES)					{\textbf{MISES}};
+			\node[draw, rectangle, minimum width=2cm, minimum height=1cm, right=of MISES] (PICCOOLO)				{\textbf{PICCOOLO}};
+			\node[draw, rounded rectangle, minimum width=2cm, minimum height=1cm, above=of PICCOOLO] (2DGeom)		{2D geometry};
+			\node[draw, rectangle, minimum width=2cm, minimum height=1cm, right=of PICCOOLO] (CoolingGen)			{\textbf{CoolingGen}};
+			\node[draw, rectangle, minimum width=2cm, minimum height=1cm, right=of CoolingGen] (TRACE)				{\textbf{TRACE}};
+			\node[draw, rounded rectangle, minimum width=2cm, minimum height=1cm, above=of CoolingGen] (Geometry)	{3D geometry};
+			\node[text width = 2cm, minimum height = 0.1cm, inner sep=0,outer sep=0, below=of MISES] (pad2D) 		{\textbf{2D}};
+			\node[text width = 2cm, minimum height = 0.1cm, inner sep=0,outer sep=0, below=of CoolingGen] (pad3D) 	{\textbf{3D}};
+			\node[draw, rectangle, minimum width=2cm, minimum height=1cm, right=of TRACE] (Experiment)				{\textit{Experiment}};
+
+			\draw[-latex]
+				(GTlab) edge (PrEDiCT)
+				(PrEDiCT) edge (BladeGen)
+				(BladeGen) edge (MISES)
+				(MISES) edge (PICCOOLO)
+				(PICCOOLO) edge (CoolingGen)
+				(Geometry) edge (TRACE)
+				(CoolingGen) edge (Geometry)
+				(PICCOOLO) edge[dotted] (2DGeom)
+				(TRACE) edge[dotted] (Experiment)
+				(2DGeom) edge[dotted] (PrEDiCT);
+			
+			\node[draw,dotted,fit=(PrEDiCT) (BladeGen) (MISES) (PICCOOLO) (pad2D)] {};
+			\node[draw,dotted,fit=(CoolingGen) (TRACE) (Geometry) (pad3D)] {};
+
+		\end{tikzpicture}
+	\end{figure}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Vollkörper aus Flächen}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{0.38\textwidth}
+		\vspace{-2cm}
+		Bisher erzeugte Geometrien liegen nur als \textbf{Flächen} vor. Diese Flächen repräsentieren jedoch \textbf{Vollkörper}, die wir mithilfe von \textbf{OpenCASCADE Technology SDK} aus unseren Flächen erzeugen.
+	\end{minipage}
+	\begin{minipage}{0.6\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\textwidth]{../../tec/complete/60.png}
+		\end{figure}
+	\end{minipage}
+	\vfill
+\end{frame}
+
+\begin{frame}
+	\frametitle{Vollkörper aus Flächen}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{figure}
+		\begin{subfigure}{.3\textwidth}
+			\centering
+			<Flaechen>
+		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\centering
+			<Solid>
+		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\centering
+			<Fluid>
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{CENTAUR Mesh für CFD}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{figure}
+		\centering
+		Bildchen
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{CFD mit TRACE}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{figure}
+		\begin{subfigure}{.3\textwidth}
+			\centering
+			<Flaechen>
+		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\centering
+			<Solid>
+		\end{subfigure}
+		\begin{subfigure}{.3\textwidth}
+			\centering
+			<Fluid>
+		\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fragen/Anmerkungen}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{\textwidth}
+		\centering\Huge
+		Fragen? Anmerkungen?
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ende}
+	\vspace{-1.5cm}\hspace{-0.5cm}
+	\begin{minipage}[t]{\textwidth}
+		\centering\Huge
+		Danke!
+	\end{minipage}
+\end{frame}
 
 \end{document}
