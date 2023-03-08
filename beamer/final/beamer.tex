@@ -856,7 +856,6 @@
 		\begin{itemize}
 			\item[\ding{109}] Prozesskette
 			\item[\ding{109}] Vollkörpererzeugung
-			\item[\ding{109}] Mesh-Erzeugung für CFD
 			\item[\ding{109}] CFD mit TRACE
 		\end{itemize}
 	\end{minipage}
@@ -928,46 +927,38 @@
 \begin{frame}
 	\frametitle{Vollkörper aus Flächen}
 	\vspace{-1.5cm}\hspace{-0.5cm}
-	\begin{figure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			<Flaechen>
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			<Solid>
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			<Fluid>
-		\end{subfigure}
-	\end{figure}
-\end{frame}
-
-\begin{frame}
-	\frametitle{CENTAUR Mesh für CFD}
-	\vspace{-1.5cm}\hspace{-0.5cm}
-	\begin{figure}
-		\centering
-		Bildchen
-	\end{figure}
+	\begin{minipage}{\textwidth}
+		\begin{figure}
+			\begin{subfigure}{.3\textwidth}
+				\centering
+				\includegraphics[width=\textwidth, trim={5px 5px 5px 5px}, clip]{../../assets/solid/surfaces2.png}
+				\caption{Oberflächen}
+			\end{subfigure}
+			\begin{subfigure}{.3\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../../assets/solid/solid.png}
+				\caption{Festvolumen}
+			\end{subfigure}
+			\begin{subfigure}{.3\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../../assets/solid/fluid.png}
+				\caption{Fluidvolumen}
+			\end{subfigure}
+		\end{figure}
+	\end{minipage}
 \end{frame}
 
 \begin{frame}
 	\frametitle{CFD mit TRACE}
 	\vspace{-1.5cm}\hspace{-0.5cm}
 	\begin{figure}
-		\begin{subfigure}{.3\textwidth}
+		\begin{subfigure}{.49\textwidth}
 			\centering
-			<Flaechen>
+			\includegraphics[width=\textwidth, trim={50px 50px 50px 50px}, clip]{../../assets/ninacfd/pressureSide.png}
 		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
+		\begin{subfigure}{.49\textwidth}
 			\centering
-			<Solid>
-		\end{subfigure}
-		\begin{subfigure}{.3\textwidth}
-			\centering
-			<Fluid>
+			\includegraphics[width=\textwidth, trim={50px 50px 50px 50px}, clip]{../../assets/ninacfd/suctionSide.png}
 		\end{subfigure}
 	\end{figure}
 \end{frame}
