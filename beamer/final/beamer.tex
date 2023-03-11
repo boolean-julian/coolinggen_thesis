@@ -14,6 +14,11 @@
 \usepackage{graphicx}
 \renewcommand{\familydefault}{\sfdefault}
 
+%% AMS packages
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
 \usetikzlibrary{shapes,positioning,fit}
 
 % math macros
@@ -562,11 +567,13 @@
 		\end{figure}
 	\end{minipage}
 	\begin{minipage}[t]{.55\textwidth}
+		\vspace{-0.5cm}
+		\centering
+		$$ F([0,1]^2) \subset \bigcup_{v_F \in \{0,1\}}\bigcup_{u_F\in[0,1]} R_{P,Q-P}([0, \infty)) $$
+		Filmkühlungsbohrungen sind per Konstruktion Teilmengen von Halbgeraden (engl. \textbf{rays}).
+		Wir nutzen \textbf{ray marching}, um die einzelnen Rays mit den umgebenden Flächen zu schneiden.
 		\begin{figure}[H]
-			\vspace{1cm}
 			\centering
-			Filmkühlungsbohrungen sind per Konstruktion Teilmengen von Halbgeraden (engl. \textbf{rays}).
-			Wir nutzen \textbf{ray marching}, um die einzelnen Rays mit den umgebenden Flächen zu schneiden.
 			\includesvg[width=\textwidth]{../../python/rayMarching}
 		\end{figure}
 	\end{minipage}
